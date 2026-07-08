@@ -11,6 +11,11 @@
 
 <meta name="description" content="Official website of Prince Cali, Los Angeles born producer and audio engineer based in Portland. Cinematic beats, polished production, music, licensing, and creative projects.">
 <meta name="theme-color" content="#f3efe6">
+<meta property="og:title" content="Prince Cali | Official Website">
+<meta property="og:description" content="Cinematic beats, polished production, music, licensing, and creative projects by Prince Cali.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/watermark.v2.png">
+<meta name="twitter:card" content="summary_large_image">
 
 <style>
 *{
@@ -619,6 +624,14 @@ footer{
   50%{transform:translateY(-18px)}
 }
 
+@media(prefers-reduced-motion:reduce){
+  *{
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important;
+  }
+}
+
 @media(max-width:1100px){
   .grid{
     grid-template-columns:repeat(3,1fr);
@@ -984,6 +997,13 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 </footer>
 
 <script>
+/*
+  PLUG-AND-PLAY BEAT SETUP:
+  1. Upload cover: assets/BeatName.png
+  2. Upload snippet video from CapCut: assets/BeatName.canvas.mp4
+  3. Add one beat object below using:
+     {title:"BeatName",img:"assets/BeatName.png",video:"assets/BeatName.canvas.mp4",tags:["street"],vibe:"Short description.",audio:"",featured:false},
+*/
 const beats=[
 {title:"589",img:"assets/589.png",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
 {title:"Velvet",img:"assets/Velvet.png",tags:["melodic","luxury"],vibe:"Smooth, colorful, polished production with premium motion.",audio:"",featured:true},
@@ -1013,6 +1033,7 @@ const beats=[
 {title:"Grime",img:"assets/Grime.png",tags:["dark","street"],vibe:"Dirty drums and pressure.",audio:""},
 {title:"Ledger",img:"assets/Ledger.png",tags:["dark"],vibe:"Calculated, cold, and sharp.",audio:""},
 {title:"Pressed",img:"assets/Pressed.png",tags:["street","dark"],vibe:"Pressure, tension, and bounce.",audio:""},
+{title:"Presto",img:"assets/Presto.png",video:"assets/Presto.canvas.mp4",tags:["street"],vibe:"Sharp, clean production with motion and bounce.",audio:""},
 {title:"PunchLime",img:"assets/PunchLime.png",tags:["street"],vibe:"Sharp, witty, direct energy.",audio:""},
 {title:"UNDESIRABLE",img:"assets/UNDESIRABLE.png",tags:["dark"],vibe:"Cold, raw, unwanted atmosphere.",audio:""},
 {title:"XX",img:"assets/XX.png",tags:["dark"],vibe:"Minimal, dark, focused production.",audio:""}
@@ -1047,7 +1068,7 @@ function renderFeatured(){
   featuredGrid.innerHTML=`
     <div class="featured-carousel">
       <div class="carousel-stage">
-        <div class="carousel-cover">
+        <div class="carousel-cover preview-cover ${b.video?"has-video":""}" data-video="${b.video || ""}" data-img="${b.img}" data-title="${b.title}">
           <img src="${b.img}" alt="${b.title}" onerror="fallbackImage(this,'${b.title}')">
           <div class="fallback">${b.title}</div>
         </div>
@@ -1056,7 +1077,7 @@ function renderFeatured(){
           <h3>${b.title}</h3>
           <p>${b.vibe}</p>
           <div class="mini">
-            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:`<span>Preview Coming Soon</span>`}
+            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(b.video?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
             <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
             <a href="#catalog">Full Catalog</a>
           </div>
@@ -1081,6 +1102,7 @@ function renderFeatured(){
 }
 
 function changeSlide(direction){
+  stopActivePreviews();
   slideIndex=(slideIndex+direction+featured.length)%featured.length;
   renderFeatured();
 }
@@ -1111,7 +1133,7 @@ function renderCatalog(){
     card.className=`card reveal show ${b.featured?"featured":""}`;
     card.innerHTML=`
       ${b.featured?`<div class="badge">Featured</div>`:""}
-      <div class="cover">
+      <div class="cover preview-cover ${b.video?"has-video":""}" data-video="${b.video || ""}" data-img="${b.img}" data-title="${b.title}">
         <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
         <div class="fallback">${b.title}</div>
       </div>
@@ -1119,7 +1141,7 @@ function renderCatalog(){
         <h3>${b.title}</h3>
         <p>${b.vibe}</p>
         <div class="mini">
-          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:`<span>Preview Coming Soon</span>`}
+          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(b.video?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
           <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
         </div>
       </div>
@@ -1128,6 +1150,45 @@ function renderCatalog(){
     grid.appendChild(card);
   });
 }
+
+
+function stopActivePreviews(exceptCover=null){
+  document.querySelectorAll(".preview-cover.playing").forEach(cover=>{
+    if(cover===exceptCover)return;
+    const img=cover.dataset.img;
+    const title=cover.dataset.title || "Beat preview";
+    cover.classList.remove("playing");
+    cover.innerHTML=`
+      <img src="${img}" alt="${title} cover" loading="lazy" onerror="fallbackImage(this,'${title}')">
+      <div class="fallback">${title}</div>
+    `;
+  });
+}
+
+function playSnippet(cover){
+  const videoSrc=cover.dataset.video;
+  if(!videoSrc)return;
+
+  stopActivePreviews(cover);
+  cover.classList.add("playing");
+  cover.innerHTML=`
+    <video class="preview-video" controls autoplay playsinline preload="metadata">
+      <source src="${videoSrc}" type="video/mp4">
+    </video>
+  `;
+
+  const video=cover.querySelector("video");
+  if(video){
+    video.play().catch(()=>{});
+  }
+}
+
+document.addEventListener("click",e=>{
+  if(e.target.closest("video"))return;
+  const cover=e.target.closest(".preview-cover");
+  if(!cover)return;
+  playSnippet(cover);
+});
 
 document.querySelectorAll(".filter").forEach(btn=>{
   btn.addEventListener("click",()=>{
