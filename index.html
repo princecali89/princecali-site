@@ -27,8 +27,8 @@
 
 .contact-shell{
   display:grid;
-  grid-template-columns:1fr .8fr;
-  gap:46px;
+  grid-template-columns:1.15fr .65fr;
+  gap:24px;
   align-items:center;
 .contact-photo-wrap{
   display:flex;
@@ -1161,7 +1161,67 @@ setInterval(()=>changeSlide(1),10500);
 
 renderFeatured();
 renderCatalog();
+  /* ===== FINAL POLISH ADD-ON ===== */
+
+// Always open at the top after refresh
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+
+window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+});
+
+// Smooth reveal animation
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+},{
+    threshold:.12
+});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+// Premium hover feel
+document.querySelectorAll(".beat-card").forEach(card=>{
+
+    card.addEventListener("mouseenter",()=>{
+        card.style.transform="translateY(-8px) scale(1.015)";
+    });
+
+    card.addEventListener("mouseleave",()=>{
+        card.style.transform="";
+    });
+
+});
+
+// Future AI placeholder
+window.PrinceCaliAI={
+    recommend(tags=[]){
+
+        return beats
+            .filter(b=>b.tags.some(t=>tags.includes(t)))
+            .slice(0,4);
+
+    }
+};
+
+console.log("Prince Cali AI Ready");
 </script>
 
 </body>
 </html>
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
+
+window.addEventListener("load", () => {
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant"
+    });
+});
