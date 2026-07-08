@@ -1,166 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Prince Cali | Producer & Audio Engineer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prince Cali | Official Website</title>
+
+<link rel="icon" type="image/png" href="assets/watermark.v2.png">
+<link rel="apple-touch-icon" href="assets/watermark.v2.png">
 
 <style>
+:root{
+  --cream:#f3efe6;
+  --ink:#0b0b0d;
+  --soft:#625b55;
+  --red:#8b1018;
+  --purple:#3b1b68;
+  --line:rgba(11,11,13,.13);
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;
+  background:var(--cream);
+  color:var(--ink);
   font-family:Arial,Helvetica,sans-serif;
-  background:#f3efe6;
-  color:#090909;
+  overflow-x:hidden;
 }
 a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
 nav{
-  position:fixed;top:0;left:0;width:100%;
-  padding:22px 7%;
-  display:flex;justify-content:space-between;align-items:center;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:100;
+  padding:18px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   background:rgba(243,239,230,.82);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(0,0,0,.08);
-  z-index:50;
+  border-bottom:1px solid var(--line);
 }
-.logo{font-weight:800;letter-spacing:.16em;font-size:13px}
-nav a{margin-left:24px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.nav-logo{height:34px;object-fit:contain}
+.nav-links a{
+  margin-left:28px;
+  font-size:12px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
 
 section{padding:120px 7%}
+
 .hero{
   min-height:100vh;
   display:grid;
-  place-items:center;
-  text-align:center;
+  grid-template-columns:1.1fr .9fr;
+  gap:50px;
+  align-items:center;
   position:relative;
-  overflow:hidden;
 }
 .hero:before{
-  content:"☘";
+  content:"";
   position:absolute;
-  font-size:420px;
-  opacity:.045;
-  color:#0c7a3b;
-  transform:rotate(-15deg);
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 26%,rgba(139,16,24,.12),transparent 32%),
+    radial-gradient(circle at 78% 34%,rgba(59,27,104,.13),transparent 34%);
+  z-index:-1;
 }
-.crown{font-size:58px;margin-bottom:22px}
-h1{
-  font-size:clamp(64px,13vw,170px);
-  line-height:.85;
-  margin:0;
-  letter-spacing:-.075em;
-}
-.tag{
-  max-width:780px;
-  margin:34px auto 0;
-  font-size:clamp(18px,2.2vw,30px);
-  line-height:1.35;
-  color:#333;
-}
-.buttons{margin-top:42px}
-.btn{
-  display:inline-block;
-  padding:16px 28px;
-  margin:8px;
-  border:1px solid #111;
-  border-radius:999px;
+.kicker{
   font-size:12px;
-  letter-spacing:.12em;
+  letter-spacing:.28em;
   text-transform:uppercase;
+  color:var(--soft);
 }
-.btn.dark{background:#111;color:#f3efe6}
+h1{
+  font-size:clamp(58px,10vw,150px);
+  line-height:.88;
+  letter-spacing:-.075em;
+  margin:24px 0;
+}
+.lead{
+  max-width:680px;
+  font-size:clamp(18px,2vw,28px);
+  line-height:1.35;
+  color:#2b2825;
+}
+.hero-logo{
+  width:180px;
+  margin-bottom:26px;
+}
+.hero-photo{
+  filter:contrast(1.08) saturate(.92) drop-shadow(0 38px 70px rgba(0,0,0,.22));
+  animation:float 7s ease-in-out infinite;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px 25px;
+  border-radius:999px;
+  border:1px solid var(--ink);
+  font-size:12px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  margin:8px 10px 0 0;
+  transition:.25s ease;
+}
+.btn.dark{background:var(--ink);color:var(--cream)}
+.btn:hover{transform:translateY(-3px)}
 
 .title{
   font-size:clamp(42px,7vw,96px);
-  margin:0 0 22px;
   letter-spacing:-.06em;
+  line-height:.9;
+  margin:0 0 22px;
 }
 .copy{
   max-width:760px;
   font-size:18px;
   line-height:1.75;
-  color:#444;
+  color:#514b45;
 }
-.black{
-  background:#080808;
-  color:#f3efe6;
+
+.filters{margin:38px 0 28px}
+.filter{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.28);
+  padding:12px 18px;
+  border-radius:999px;
+  margin:0 8px 10px 0;
+  cursor:pointer;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-size:11px;
 }
-.black .copy{color:#c9c0b3}
+.filter.active{background:var(--ink);color:var(--cream)}
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-  margin-top:52px;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
 }
 .card{
-  min-height:340px;
-  border:1px solid rgba(0,0,0,.13);
-  border-radius:34px;
-  padding:30px;
-  background:linear-gradient(145deg,#fffaf0,#e7ded0);
+  background:rgba(255,255,255,.35);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:14px;
+  box-shadow:0 24px 70px rgba(0,0,0,.08);
+  transition:.35s ease;
+  overflow:hidden;
+}
+.card:hover{
+  transform:translateY(-10px) scale(1.015);
+  box-shadow:0 34px 90px rgba(0,0,0,.16);
+}
+.cover{
+  border-radius:22px;
+  overflow:hidden;
+  aspect-ratio:1/1;
+  background:#ddd;
+}
+.cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.meta{padding:18px 4px 6px}
+.meta h3{margin:0;font-size:22px;letter-spacing:-.04em}
+.meta p{margin:8px 0 16px;color:var(--soft);font-size:14px}
+.mini{
   display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
 }
-.card.dark{
-  background:#101010;
-  color:#f3efe6;
-}
-.card h3{font-size:30px;margin:0;letter-spacing:-.04em}
-.card p{line-height:1.65;color:inherit;opacity:.72}
-
-.beat{
-  display:grid;
-  grid-template-columns:1fr auto auto;
-  gap:22px;
-  align-items:center;
-  padding:30px 0;
-  border-top:1px solid rgba(255,255,255,.18);
-}
-.beat:last-child{border-bottom:1px solid rgba(255,255,255,.18)}
-.beat-name{font-size:30px;letter-spacing:-.04em}
-.price{opacity:.65}
-
-.bio{
-  display:grid;
-  grid-template-columns:.9fr 1.1fr;
-  gap:64px;
-  align-items:center;
-}
-.photo{
-  min-height:560px;
-  border-radius:44px;
-  background:
-    radial-gradient(circle at 40% 20%,rgba(12,122,59,.24),transparent 35%),
-    linear-gradient(135deg,#111,#2b261c);
-  display:grid;
-  place-items:center;
-  color:#f3efe6;
-  text-align:center;
-  letter-spacing:.14em;
+.mini span,.mini a{
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:11px;
+  letter-spacing:.08em;
   text-transform:uppercase;
-  padding:28px;
 }
-.clover{
-  color:#0c7a3b;
-  font-size:24px;
-  margin-bottom:16px;
+
+.about{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:70px;
+  align-items:center;
 }
+.panel{
+  background:rgba(255,255,255,.34);
+  border:1px solid var(--line);
+  border-radius:36px;
+  padding:36px;
+  box-shadow:0 30px 90px rgba(0,0,0,.08);
+}
+.logo-big{max-width:360px;margin-bottom:28px}
+
 footer{
-  padding:54px 7%;
+  padding:50px 7%;
+  border-top:1px solid var(--line);
   display:flex;
   justify-content:space-between;
-  border-top:1px solid rgba(0,0,0,.12);
+  color:var(--soft);
   font-size:13px;
-  color:#555;
 }
-@media(max-width:850px){
-  nav div:last-child{display:none}
+
+.reveal{
+  opacity:0;
+  transform:translateY(34px);
+  transition:.7s ease;
+}
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+@keyframes float{
+  50%{transform:translateY(-18px)}
+}
+
+@media(max-width:950px){
+  .nav-links{display:none}
+  .hero,.about{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
   section{padding:90px 5%}
-  .grid,.bio{grid-template-columns:1fr}
-  .beat{grid-template-columns:1fr}
-  footer{flex-direction:column;gap:16px}
+  .grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -168,8 +238,8 @@ footer{
 <body>
 
 <nav>
-  <div class="logo">PRINCE CALI</div>
-  <div>
+  <img class="nav-logo" src="assets/watermark.v2.png" alt="Prince Cali logo">
+  <div class="nav-links">
     <a href="#music">Music</a>
     <a href="#beats">Beats</a>
     <a href="#about">About</a>
@@ -178,95 +248,118 @@ footer{
 </nav>
 
 <section class="hero">
-  <div>
-    <div class="crown">♛</div>
+  <div class="reveal">
+    <img class="hero-logo" src="assets/producer.Prince.Cali.png" alt="Prince Cali">
+    <div class="kicker">Los Angeles born • PDX based • Producing since 2012</div>
     <h1>Prince Cali</h1>
-    <p class="tag">Atmospheric beats, hard-hitting drums, and cinematic soundscapes crafted for artists who need records with presence.</p>
-    <div class="buttons">
-      <a class="btn dark" href="#beats">Lease Beats</a>
+    <p class="lead">Atmospheric beats. Cinematic sound. Hard-hitting records built for artists who need something people can actually vibe to.</p>
+    <div>
+      <a class="btn dark" href="#beats">Explore Beats</a>
       <a class="btn" href="#music">Stream Music</a>
     </div>
   </div>
+
+  <img class="hero-photo reveal" src="assets/IMG_6100-removebg-preview.png" alt="Prince Cali" onerror="this.style.display='none'">
 </section>
 
-<section id="music">
-  <div class="clover">☘</div>
-  <h2 class="title">Sound first.</h2>
-  <p class="copy">Prince Cali creates polished instrumental records with emotion, bounce, and cinematic space. Every release is shaped with producer instinct and audio-engineering detail.</p>
+<section id="music" class="reveal">
+  <div class="kicker">Official Catalog</div>
+  <h2 class="title">Featured sounds.</h2>
+  <p class="copy">A growing collection of cinematic, melodic, dark, luxury, and street-ready production. Preview support is already built in — snippets can be added later without redesigning the site.</p>
 
-  <div class="grid">
-    <div class="card dark">
-      <h3>Spotify</h3>
-      <p>Stream official Prince Cali releases and featured instrumentals.</p>
-      <a class="btn" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank">Listen</a>
-    </div>
-    <div class="card">
-      <h3>Apple Music</h3>
-      <p>Official releases available on Apple Music.</p>
-      <a class="btn" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank">Open</a>
-    </div>
-    <div class="card">
-      <h3>YouTube</h3>
-      <p>Beat previews, snippets, visuals, and future releases.</p>
-      <a class="btn" href="#" target="_blank">Watch</a>
-    </div>
+  <div class="filters">
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="cinematic">Cinematic</button>
+    <button class="filter" data-filter="dark">Dark</button>
+    <button class="filter" data-filter="luxury">Luxury</button>
+    <button class="filter" data-filter="melodic">Melodic</button>
   </div>
+
+  <div class="grid" id="beatGrid"></div>
 </section>
 
-<section id="beats" class="black">
-  <div class="clover">☘</div>
-  <h2 class="title">Beat Store.</h2>
-  <p class="copy">Lease beats without giving up ownership. Exclusive licensing is handled directly.</p>
+<section id="about" class="about">
+  <div class="panel reveal">
+    <img class="logo-big" src="assets/producer.Prince.Cali.png" alt="Prince Cali logo">
+    <p class="copy">Prince Cali is an audio engineer and producer originally from Los Angeles, now based in Portland, Oregon. Producing since 2012, he creates beats designed to move with atmosphere, bounce, emotion, and polish.</p>
+  </div>
 
-  <div class="beat">
-    <div class="beat-name">Velvet</div>
-    <div class="price">Lease from $49</div>
-    <a class="btn" href="#contact">Inquire</a>
-  </div>
-  <div class="beat">
-    <div class="beat-name">Sensational</div>
-    <div class="price">Lease from $49</div>
-    <a class="btn" href="#contact">Inquire</a>
-  </div>
-  <div class="beat">
-    <div class="beat-name">The Void</div>
-    <div class="price">Lease from $49</div>
-    <a class="btn" href="#contact">Inquire</a>
+  <div class="reveal">
+    <div class="kicker">The Brand</div>
+    <h2 class="title">Built for everything next.</h2>
+    <p class="copy">This is the official home for the Prince Cali brand — music, beats, future visuals, behind-the-scenes work, creative projects, and everything that grows from the sound. The site is built to expand over time without starting over.</p>
   </div>
 </section>
 
-<section id="about">
-  <div class="bio">
-    <div class="photo">Prince Cali<br>Photo Area</div>
-    <div>
-      <div class="clover">☘</div>
-      <h2 class="title">Built from instinct.</h2>
-      <p class="copy">
-        Prince Cali is an independent music producer and audio engineer creating atmospheric hip-hop instrumentals, cinematic textures, and hard-hitting drum-driven records.
-        <br><br>
-        A California native with a producer’s ear and an engineer’s attention to detail, Cali focuses on building music that feels polished, emotional, and ready for artists to turn into full records.
-        <br><br>
-        His sound blends smooth melodic movement, heavy drums, dark pockets, luxury textures, and clean arrangements made to leave room for vocals while still carrying a strong identity on their own.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="black">
-  <div class="clover">☘</div>
+<section id="contact" class="reveal">
+  <div class="kicker">Connect</div>
   <h2 class="title">Work with Prince Cali.</h2>
-  <p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaboration inquiries, reach out directly.</p>
-  <div class="buttons">
-    <a class="btn dark" href="mailto:princecali6989@gmail.com">Email</a>
-    <a class="btn" href="https://x.com/princecali89" target="_blank">X</a>
-    <a class="btn" href="#" target="_blank">Instagram</a>
-  </div>
+  <p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p>
+  <a class="btn dark" href="mailto:princecali6989@gmail.com">Email</a>
+  <a class="btn" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank">Spotify</a>
+  <a class="btn" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank">Apple</a>
+  <a class="btn" href="https://www.youtube.com/@princecali89/videos" target="_blank">YouTube</a>
+  <a class="btn" href="https://x.com/princecali89" target="_blank">X</a>
+  <a class="btn" href="https://www.tiktok.com/@therealprincecali" target="_blank">TikTok</a>
 </section>
 
 <footer>
   <div>© 2026 Prince Cali</div>
-  <div>Atmospheric Beats • Audio Engineering • Licensing</div>
+  <div>Official Prince Cali Website</div>
 </footer>
+
+<script>
+const beats = [
+  {title:"589", img:"assets/589.png", tags:["cinematic","dark"], vibe:"Street cinematic • Legacy energy", audio:""},
+  {title:"Velvet", img:"assets/Velvet.png", tags:["melodic","luxury"], vibe:"Smooth • colorful • premium", audio:""},
+  {title:"Blackjack", img:"assets/Blackjack.png", tags:["luxury","dark"], vibe:"Casino luxury • dark bounce", audio:""},
+  {title:"Cherry Blossom", img:"assets/Cherry.Blossom.png", tags:["melodic","cinematic"], vibe:"Moonlit • emotional • smooth", audio:""},
+  {title:"Benedict Arnold", img:"assets/BenedictArnold.png", tags:["cinematic","dark"], vibe:"War film energy • dramatic", audio:""},
+  {title:"The Void", img:"assets/The.Void.png", tags:["dark","cinematic"], vibe:"Atmospheric • deep • moody", audio:""},
+  {title:"No Time", img:"assets/No.Time.png", tags:["melodic"], vibe:"Bounce • motion • clean", audio:""},
+  {title:"Goodah", img:"assets/GOODAH.png", tags:["dark"], vibe:"Hard drums • street bounce", audio:""}
+];
+
+const grid = document.getElementById("beatGrid");
+
+function render(filter="all"){
+  grid.innerHTML = "";
+  beats.filter(b => filter==="all" || b.tags.includes(filter)).forEach(b=>{
+    const card = document.createElement("article");
+    card.className = "card reveal show";
+    card.innerHTML = `
+      <div class="cover"><img src="${b.img}" alt="${b.title} cover"></div>
+      <div class="meta">
+        <h3>${b.title}</h3>
+        <p>${b.vibe}</p>
+        <div class="mini">
+          ${b.audio ? `<audio controls preload="none" src="${b.audio}"></audio>` : `<span>Preview Coming Soon</span>`}
+          <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${b.title}">Lease</a>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+render();
+
+document.querySelectorAll(".filter").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    render(btn.dataset.filter);
+  };
+});
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add("show");
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+</script>
 
 </body>
 </html>
