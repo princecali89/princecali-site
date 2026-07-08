@@ -1,10 +1,272 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Prince Cali</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prince Cali | Producer & Audio Engineer</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3efe6;
+  color:#090909;
+}
+a{text-decoration:none;color:inherit}
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  padding:22px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(243,239,230,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.08);
+  z-index:50;
+}
+.logo{font-weight:800;letter-spacing:.16em;font-size:13px}
+nav a{margin-left:24px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+
+section{padding:120px 7%}
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"☘";
+  position:absolute;
+  font-size:420px;
+  opacity:.045;
+  color:#0c7a3b;
+  transform:rotate(-15deg);
+}
+.crown{font-size:58px;margin-bottom:22px}
+h1{
+  font-size:clamp(64px,13vw,170px);
+  line-height:.85;
+  margin:0;
+  letter-spacing:-.075em;
+}
+.tag{
+  max-width:780px;
+  margin:34px auto 0;
+  font-size:clamp(18px,2.2vw,30px);
+  line-height:1.35;
+  color:#333;
+}
+.buttons{margin-top:42px}
+.btn{
+  display:inline-block;
+  padding:16px 28px;
+  margin:8px;
+  border:1px solid #111;
+  border-radius:999px;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.btn.dark{background:#111;color:#f3efe6}
+
+.title{
+  font-size:clamp(42px,7vw,96px);
+  margin:0 0 22px;
+  letter-spacing:-.06em;
+}
+.copy{
+  max-width:760px;
+  font-size:18px;
+  line-height:1.75;
+  color:#444;
+}
+.black{
+  background:#080808;
+  color:#f3efe6;
+}
+.black .copy{color:#c9c0b3}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  margin-top:52px;
+}
+.card{
+  min-height:340px;
+  border:1px solid rgba(0,0,0,.13);
+  border-radius:34px;
+  padding:30px;
+  background:linear-gradient(145deg,#fffaf0,#e7ded0);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.card.dark{
+  background:#101010;
+  color:#f3efe6;
+}
+.card h3{font-size:30px;margin:0;letter-spacing:-.04em}
+.card p{line-height:1.65;color:inherit;opacity:.72}
+
+.beat{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:22px;
+  align-items:center;
+  padding:30px 0;
+  border-top:1px solid rgba(255,255,255,.18);
+}
+.beat:last-child{border-bottom:1px solid rgba(255,255,255,.18)}
+.beat-name{font-size:30px;letter-spacing:-.04em}
+.price{opacity:.65}
+
+.bio{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:64px;
+  align-items:center;
+}
+.photo{
+  min-height:560px;
+  border-radius:44px;
+  background:
+    radial-gradient(circle at 40% 20%,rgba(12,122,59,.24),transparent 35%),
+    linear-gradient(135deg,#111,#2b261c);
+  display:grid;
+  place-items:center;
+  color:#f3efe6;
+  text-align:center;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:28px;
+}
+.clover{
+  color:#0c7a3b;
+  font-size:24px;
+  margin-bottom:16px;
+}
+footer{
+  padding:54px 7%;
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid rgba(0,0,0,.12);
+  font-size:13px;
+  color:#555;
+}
+@media(max-width:850px){
+  nav div:last-child{display:none}
+  section{padding:90px 5%}
+  .grid,.bio{grid-template-columns:1fr}
+  .beat{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:16px}
+}
+</style>
 </head>
+
 <body>
-  <h1>Prince Cali</h1>
-  <p>Official Prince Cali Website</p>
+
+<nav>
+  <div class="logo">PRINCE CALI</div>
+  <div>
+    <a href="#music">Music</a>
+    <a href="#beats">Beats</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="crown">♛</div>
+    <h1>Prince Cali</h1>
+    <p class="tag">Atmospheric beats, hard-hitting drums, and cinematic soundscapes crafted for artists who need records with presence.</p>
+    <div class="buttons">
+      <a class="btn dark" href="#beats">Lease Beats</a>
+      <a class="btn" href="#music">Stream Music</a>
+    </div>
+  </div>
+</section>
+
+<section id="music">
+  <div class="clover">☘</div>
+  <h2 class="title">Sound first.</h2>
+  <p class="copy">Prince Cali creates polished instrumental records with emotion, bounce, and cinematic space. Every release is shaped with producer instinct and audio-engineering detail.</p>
+
+  <div class="grid">
+    <div class="card dark">
+      <h3>Spotify</h3>
+      <p>Stream official Prince Cali releases and featured instrumentals.</p>
+      <a class="btn" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank">Listen</a>
+    </div>
+    <div class="card">
+      <h3>Apple Music</h3>
+      <p>Official releases available on Apple Music.</p>
+      <a class="btn" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank">Open</a>
+    </div>
+    <div class="card">
+      <h3>YouTube</h3>
+      <p>Beat previews, snippets, visuals, and future releases.</p>
+      <a class="btn" href="#" target="_blank">Watch</a>
+    </div>
+  </div>
+</section>
+
+<section id="beats" class="black">
+  <div class="clover">☘</div>
+  <h2 class="title">Beat Store.</h2>
+  <p class="copy">Lease beats without giving up ownership. Exclusive licensing is handled directly.</p>
+
+  <div class="beat">
+    <div class="beat-name">Velvet</div>
+    <div class="price">Lease from $49</div>
+    <a class="btn" href="#contact">Inquire</a>
+  </div>
+  <div class="beat">
+    <div class="beat-name">Sensational</div>
+    <div class="price">Lease from $49</div>
+    <a class="btn" href="#contact">Inquire</a>
+  </div>
+  <div class="beat">
+    <div class="beat-name">The Void</div>
+    <div class="price">Lease from $49</div>
+    <a class="btn" href="#contact">Inquire</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="bio">
+    <div class="photo">Prince Cali<br>Photo Area</div>
+    <div>
+      <div class="clover">☘</div>
+      <h2 class="title">Built from instinct.</h2>
+      <p class="copy">
+        Prince Cali is an independent music producer and audio engineer creating atmospheric hip-hop instrumentals, cinematic textures, and hard-hitting drum-driven records.
+        <br><br>
+        A California native with a producer’s ear and an engineer’s attention to detail, Cali focuses on building music that feels polished, emotional, and ready for artists to turn into full records.
+        <br><br>
+        His sound blends smooth melodic movement, heavy drums, dark pockets, luxury textures, and clean arrangements made to leave room for vocals while still carrying a strong identity on their own.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="black">
+  <div class="clover">☘</div>
+  <h2 class="title">Work with Prince Cali.</h2>
+  <p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaboration inquiries, reach out directly.</p>
+  <div class="buttons">
+    <a class="btn dark" href="mailto:princecali6989@gmail.com">Email</a>
+    <a class="btn" href="https://x.com/princecali89" target="_blank">X</a>
+    <a class="btn" href="#" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Prince Cali</div>
+  <div>Atmospheric Beats • Audio Engineering • Licensing</div>
+</footer>
+
 </body>
 </html>
