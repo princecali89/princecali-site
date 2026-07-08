@@ -30,9 +30,12 @@
   grid-template-columns:1fr .8fr;
   gap:46px;
   align-items:center;
-}
-
 .contact-photo-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  max-width:340px;
+  margin:auto;
   border-radius:38px;
   overflow:hidden;
   background:linear-gradient(135deg,rgba(139,16,24,.10),rgba(55,20,95,.10));
@@ -42,7 +45,8 @@
 
 .contact-photo{
   width:100%;
-  max-height:620px;
+  max-width:280px;
+  max-height:420px;
   object-fit:contain;
   filter:grayscale(.08) sepia(.08) contrast(1.12) saturate(.82) brightness(.96);
   mix-blend-mode:multiply;
@@ -854,11 +858,6 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 <a class="platform" href="https://x.com/princecali89" target="_blank">
 <h3>X</h3>
 <p>Announcements, thoughts, releases, and community updates.</p>
-</a>
-
-<a class="platform" href="mailto:princecali6989@gmail.com">
-<h3>Email</h3>
-<p>Business inquiries, collaborations, licensing, and custom work.</p>
 </a>
 
 </div>
