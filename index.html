@@ -16,7 +16,43 @@
 *{
   box-sizing:border-box;
 }
+@keyframes carouselFade{
+  from{opacity:.25;transform:translateX(18px)}
+  to{opacity:1;transform:translateX(0)}
+}
 
+.featured-carousel{
+  animation:carouselFade .85s ease both;
+}
+
+.contact-shell{
+  display:grid;
+  grid-template-columns:1fr .8fr;
+  gap:46px;
+  align-items:center;
+}
+
+.contact-photo-wrap{
+  border-radius:38px;
+  overflow:hidden;
+  background:linear-gradient(135deg,rgba(139,16,24,.10),rgba(55,20,95,.10));
+  border:1px solid rgba(8,8,8,.12);
+  box-shadow:0 30px 90px rgba(0,0,0,.10);
+}
+
+.contact-photo{
+  width:100%;
+  max-height:620px;
+  object-fit:contain;
+  filter:grayscale(.08) sepia(.08) contrast(1.12) saturate(.82) brightness(.96);
+  mix-blend-mode:multiply;
+}
+
+@media(max-width:900px){
+  .contact-shell{
+    grid-template-columns:1fr;
+  }
+}
 html{
   scroll-behavior:smooth;
 }
@@ -921,17 +957,25 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 </style>
 
 <section id="contact" class="reveal">
-  <div class="kicker">Connect</div>
-  <h2 class="title">Work with Prince Cali.</h2>
-  <p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p>
+  <div class="contact-shell">
+    <div>
+      <div class="kicker">Connect</div>
+      <h2 class="title">Work with Prince Cali.</h2>
+      <p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p>
 
-  <div class="contact-grid">
-    <a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a>
-    <a class="contact-card" href="https://www.tiktok.com/@therealprincecali" target="_blank"><h3>TikTok</h3><p>Snippets, visuals, beat drops, and works in progress.</p></a>
-    <a class="contact-card" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank"><h3>Spotify</h3><p>Stream official Prince Cali releases.</p></a>
-    <a class="contact-card" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank"><h3>Apple Music</h3><p>Official catalog on Apple Music.</p></a>
-    <a class="contact-card" href="https://www.youtube.com/@princecali89/videos" target="_blank"><h3>YouTube</h3><p>Music, videos, and behind-the-scenes content.</p></a>
-    <a class="contact-card" href="https://x.com/princecali89" target="_blank"><h3>X</h3><p>Updates, releases, and brand moves.</p></a>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a>
+        <a class="contact-card" href="https://www.tiktok.com/@therealprincecali" target="_blank"><h3>TikTok</h3><p>Snippets, visuals, beat drops, and works in progress.</p></a>
+        <a class="contact-card" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank"><h3>Spotify</h3><p>Stream official Prince Cali releases.</p></a>
+        <a class="contact-card" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank"><h3>Apple Music</h3><p>Official catalog on Apple Music.</p></a>
+        <a class="contact-card" href="https://www.youtube.com/@princecali89/videos" target="_blank"><h3>YouTube</h3><p>Music, videos, and behind-the-scenes content.</p></a>
+        <a class="contact-card" href="https://x.com/princecali89" target="_blank"><h3>X</h3><p>Updates, releases, and brand moves.</p></a>
+      </div>
+    </div>
+
+    <div class="contact-photo-wrap">
+      <img class="contact-photo" src="assets/IMG_6100-removebg-preview.png" alt="Prince Cali" onerror="this.parentElement.style.display='none'">
+    </div>
   </div>
 </section>
 
@@ -1117,7 +1161,7 @@ window.addEventListener("keydown",e=>{
   if(e.key==="ArrowRight")changeSlide(1);
 });
 
-setInterval(()=>changeSlide(1),6500);
+setInterval(()=>changeSlide(1),10500);
 
 renderFeatured();
 renderCatalog();
