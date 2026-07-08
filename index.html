@@ -30,6 +30,8 @@
   grid-template-columns:1.15fr .65fr;
   gap:24px;
   align-items:center;
+}
+
 .contact-photo-wrap{
   display:flex;
   justify-content:center;
@@ -42,8 +44,6 @@
   border:1px solid rgba(8,8,8,.12);
   box-shadow:0 30px 90px rgba(0,0,0,.10);
 }
-
-  }
 
 .contact-photo{
   width:100%;
@@ -1172,32 +1172,6 @@ window.addEventListener("load", () => {
     window.scrollTo(0, 0);
 });
 
-// Smooth reveal animation
-const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add("show");
-        }
-    });
-},{
-    threshold:.12
-});
-
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-
-// Premium hover feel
-document.querySelectorAll(".beat-card").forEach(card=>{
-
-    card.addEventListener("mouseenter",()=>{
-        card.style.transform="translateY(-8px) scale(1.015)";
-    });
-
-    card.addEventListener("mouseleave",()=>{
-        card.style.transform="";
-    });
-
-});
-
 // Future AI placeholder
 window.PrinceCaliAI={
     recommend(tags=[]){
@@ -1214,14 +1188,3 @@ console.log("Prince Cali AI Ready");
 
 </body>
 </html>
-window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-};
-
-window.addEventListener("load", () => {
-    window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant"
-    });
-});
