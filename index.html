@@ -11,11 +11,11 @@
 <style>
 :root{
   --cream:#f3efe6;
-  --ink:#0b0b0d;
+  --ink:#090909;
   --soft:#625b55;
   --red:#8b1018;
   --purple:#3b1b68;
-  --line:rgba(11,11,13,.13);
+  --line:rgba(9,9,9,.13);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -39,11 +39,15 @@ nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:rgba(243,239,230,.82);
+  background:rgba(243,239,230,.84);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--line);
 }
-.nav-logo{height:34px;object-fit:contain}
+.nav-logo{
+  height:34px;
+  object-fit:contain;
+  filter:invert(1);
+}
 .nav-links a{
   margin-left:28px;
   font-size:12px;
@@ -89,8 +93,9 @@ h1{
   color:#2b2825;
 }
 .hero-logo{
-  width:180px;
+  width:210px;
   margin-bottom:26px;
+  filter:invert(1);
 }
 .hero-photo{
   filter:contrast(1.08) saturate(.92) drop-shadow(0 38px 70px rgba(0,0,0,.22));
@@ -126,13 +131,25 @@ h1{
   color:#514b45;
 }
 
-.filters{margin:38px 0 28px}
+.tools{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:38px 0 28px;
+}
+.search{
+  min-width:260px;
+  padding:13px 18px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.36);
+  outline:none;
+}
 .filter{
   border:1px solid var(--line);
   background:rgba(255,255,255,.28);
   padding:12px 18px;
   border-radius:999px;
-  margin:0 8px 10px 0;
   cursor:pointer;
   letter-spacing:.1em;
   text-transform:uppercase;
@@ -172,11 +189,7 @@ h1{
 .meta{padding:18px 4px 6px}
 .meta h3{margin:0;font-size:22px;letter-spacing:-.04em}
 .meta p{margin:8px 0 16px;color:var(--soft);font-size:14px}
-.mini{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
+.mini{display:flex;gap:10px;flex-wrap:wrap}
 .mini span,.mini a{
   padding:9px 12px;
   border:1px solid var(--line);
@@ -199,7 +212,11 @@ h1{
   padding:36px;
   box-shadow:0 30px 90px rgba(0,0,0,.08);
 }
-.logo-big{max-width:360px;margin-bottom:28px}
+.logo-big{
+  max-width:360px;
+  margin-bottom:28px;
+  filter:invert(1);
+}
 
 footer{
   padding:50px 7%;
@@ -210,18 +227,10 @@ footer{
   font-size:13px;
 }
 
-.reveal{
-  opacity:0;
-  transform:translateY(34px);
-  transition:.7s ease;
-}
-.reveal.show{
-  opacity:1;
-  transform:none;
-}
-@keyframes float{
-  50%{transform:translateY(-18px)}
-}
+.reveal{opacity:0;transform:translateY(34px);transition:.7s ease}
+.reveal.show{opacity:1;transform:none}
+
+@keyframes float{50%{transform:translateY(-18px)}}
 
 @media(max-width:950px){
   .nav-links{display:none}
@@ -238,7 +247,7 @@ footer{
 <body>
 
 <nav>
-  <img class="nav-logo" src="assets/watermark.v2.png" alt="Prince Cali logo">
+  <img class="nav-logo" src="assets/Logo.png" alt="Prince Cali">
   <div class="nav-links">
     <a href="#music">Music</a>
     <a href="#beats">Beats</a>
@@ -249,7 +258,7 @@ footer{
 
 <section class="hero">
   <div class="reveal">
-    <img class="hero-logo" src="assets/producer.Prince.Cali.png" alt="Prince Cali">
+    <img class="hero-logo" src="assets/Logo.png" alt="Prince Cali">
     <div class="kicker">Los Angeles born • PDX based • Producing since 2012</div>
     <h1>Prince Cali</h1>
     <p class="lead">Atmospheric beats. Cinematic sound. Hard-hitting records built for artists who need something people can actually vibe to.</p>
@@ -267,7 +276,8 @@ footer{
   <h2 class="title">Featured sounds.</h2>
   <p class="copy">A growing collection of cinematic, melodic, dark, luxury, and street-ready production. Preview support is already built in — snippets can be added later without redesigning the site.</p>
 
-  <div class="filters">
+  <div class="tools">
+    <input class="search" id="searchBox" placeholder="Search beats...">
     <button class="filter active" data-filter="all">All</button>
     <button class="filter" data-filter="cinematic">Cinematic</button>
     <button class="filter" data-filter="dark">Dark</button>
@@ -280,7 +290,7 @@ footer{
 
 <section id="about" class="about">
   <div class="panel reveal">
-    <img class="logo-big" src="assets/producer.Prince.Cali.png" alt="Prince Cali logo">
+    <img class="logo-big" src="assets/Logo.png" alt="Prince Cali">
     <p class="copy">Prince Cali is an audio engineer and producer originally from Los Angeles, now based in Portland, Oregon. Producing since 2012, he creates beats designed to move with atmosphere, bounce, emotion, and polish.</p>
   </div>
 
@@ -314,43 +324,69 @@ const beats = [
   {title:"Velvet", img:"assets/Velvet.png", tags:["melodic","luxury"], vibe:"Smooth • colorful • premium", audio:""},
   {title:"Blackjack", img:"assets/Blackjack.png", tags:["luxury","dark"], vibe:"Casino luxury • dark bounce", audio:""},
   {title:"Cherry Blossom", img:"assets/Cherry.Blossom.png", tags:["melodic","cinematic"], vibe:"Moonlit • emotional • smooth", audio:""},
-  {title:"Benedict Arnold", img:"assets/BenedictArnold.png", tags:["cinematic","dark"], vibe:"War film energy • dramatic", audio:""},
+  {title:"Benedict Arnold", img:"assets/Benedict.Arnold.png", tags:["cinematic","dark"], vibe:"War film energy • dramatic", audio:""},
   {title:"The Void", img:"assets/The.Void.png", tags:["dark","cinematic"], vibe:"Atmospheric • deep • moody", audio:""},
   {title:"No Time", img:"assets/No.Time.png", tags:["melodic"], vibe:"Bounce • motion • clean", audio:""},
-  {title:"Goodah", img:"assets/GOODAH.png", tags:["dark"], vibe:"Hard drums • street bounce", audio:""}
+  {title:"GOODAH", img:"assets/GOODAH.png", tags:["dark"], vibe:"Hard drums • street bounce", audio:""},
+  {title:"Night Opera", img:"assets/Night.Opera.png", tags:["cinematic","dark"], vibe:"Opera • dramatic • luxury", audio:""},
+  {title:"Magia", img:"assets/Magia.png", tags:["melodic","luxury"], vibe:"Mystic • smooth • cinematic", audio:""},
+  {title:"SubLandia", img:"assets/SubLandia.png", tags:["dark","cinematic"], vibe:"Deep bass • low-end world", audio:""},
+  {title:"Lights Out", img:"assets/Lights.Out.png", tags:["dark"], vibe:"Late night • clean • moody", audio:""},
+  {title:"Revival", img:"assets/Revival.png", tags:["cinematic"], vibe:"Comeback energy • emotional", audio:""},
+  {title:"ZOM", img:"assets/ZOM.png", tags:["dark"], vibe:"Dark bounce • horror texture", audio:""},
+  {title:"The Mack", img:"assets/The.Mack.png", tags:["luxury"], vibe:"Smooth player energy", audio:""},
+  {title:"The Boonies", img:"assets/The.Boonies.png", tags:["dark"], vibe:"Raw • gritty • outside", audio:""},
+  {title:"Lucille", img:"assets/Lucille.png", tags:["melodic"], vibe:"Soulful • reflective • smooth", audio:""},
+  {title:"Maestro", img:"assets/Maestro.png", tags:["cinematic","luxury"], vibe:"Composer energy • polished", audio:""},
+  {title:"Smile", img:"assets/Smile.png", tags:["melodic"], vibe:"Bright • melodic • clean", audio:""},
+  {title:"Tranquillo", img:"assets/Tranquillo.png", tags:["melodic","luxury"], vibe:"Calm • smooth • patient", audio:""},
+  {title:"SENSATIONAL", img:"assets/SENSATIONAL.png", tags:["cinematic","melodic"], vibe:"Emotional • timeless • clean", audio:""},
+  {title:"Circus Freak", img:"assets/Circus.Freak.png", tags:["dark"], vibe:"Twisted • bounce • strange", audio:""},
+  {title:"Rush Hour", img:"assets/Rush.Hour.png", tags:["dark"], vibe:"Fast motion • pressure", audio:""},
+  {title:"The Getaway", img:"assets/the.Getaway.png", tags:["cinematic","dark"], vibe:"Escape energy • cinematic", audio:""}
 ];
 
 const grid = document.getElementById("beatGrid");
+const searchBox = document.getElementById("searchBox");
+let activeFilter = "all";
 
-function render(filter="all"){
+function render(){
+  const query = searchBox.value.toLowerCase();
+
   grid.innerHTML = "";
-  beats.filter(b => filter==="all" || b.tags.includes(filter)).forEach(b=>{
-    const card = document.createElement("article");
-    card.className = "card reveal show";
-    card.innerHTML = `
-      <div class="cover"><img src="${b.img}" alt="${b.title} cover"></div>
-      <div class="meta">
-        <h3>${b.title}</h3>
-        <p>${b.vibe}</p>
-        <div class="mini">
-          ${b.audio ? `<audio controls preload="none" src="${b.audio}"></audio>` : `<span>Preview Coming Soon</span>`}
-          <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${b.title}">Lease</a>
-        </div>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
 
-render();
+  beats
+    .filter(b => activeFilter === "all" || b.tags.includes(activeFilter))
+    .filter(b => b.title.toLowerCase().includes(query) || b.vibe.toLowerCase().includes(query) || b.tags.join(" ").includes(query))
+    .forEach(b=>{
+      const card = document.createElement("article");
+      card.className = "card reveal show";
+      card.innerHTML = `
+        <div class="cover"><img src="${b.img}" alt="${b.title} cover"></div>
+        <div class="meta">
+          <h3>${b.title}</h3>
+          <p>${b.vibe}</p>
+          <div class="mini">
+            ${b.audio ? `<audio controls preload="none" src="${b.audio}"></audio>` : `<span>Preview Coming Soon</span>`}
+            <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+}
 
 document.querySelectorAll(".filter").forEach(btn=>{
   btn.onclick=()=>{
     document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
-    render(btn.dataset.filter);
+    activeFilter = btn.dataset.filter;
+    render();
   };
 });
+
+searchBox.addEventListener("input", render);
+render();
 
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
