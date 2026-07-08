@@ -680,6 +680,206 @@ footer{
     grid-template-columns:1fr;
   }
 }
+
+.preview-cover{
+  border:none;
+  padding:0;
+  cursor:pointer;
+  display:block;
+  width:100%;
+  color:inherit;
+  font:inherit;
+}
+
+.preview-cover.has-video:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center,rgba(0,0,0,.0),rgba(0,0,0,.18));
+  opacity:0;
+  transition:.25s ease;
+}
+
+.preview-cover.has-video:hover:after{
+  opacity:1;
+}
+
+.play-badge{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  z-index:5;
+  background:rgba(8,8,8,.78);
+  color:#f3efe6;
+  border-radius:999px;
+  padding:9px 13px;
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.preview-modal{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(8,8,8,.64);
+  backdrop-filter:blur(16px);
+}
+
+.preview-modal.show{
+  display:flex;
+}
+
+.preview-modal-card{
+  width:min(980px,94vw);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:36px;
+  padding:22px;
+  background:#f3efe6;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 44px 120px rgba(0,0,0,.32);
+  position:relative;
+}
+
+.preview-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+  z-index:5;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid rgba(8,8,8,.14);
+  background:rgba(243,239,230,.78);
+  font-size:26px;
+  cursor:pointer;
+}
+
+.preview-video{
+  width:100%;
+  max-height:68vh;
+  object-fit:contain;
+  background:#080808;
+  border-radius:24px;
+  display:block;
+}
+
+.preview-copy{
+  padding:22px 6px 4px;
+}
+
+.preview-copy h3{
+  margin:8px 0 10px;
+  font-size:clamp(34px,5vw,68px);
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+
+.preview-copy p{
+  margin:0 0 16px;
+  color:#5a524b;
+  font-size:18px;
+  line-height:1.55;
+}
+
+
+/* Featured carousel styling */
+
+.featured-carousel{
+  position:relative;
+  overflow:hidden;
+  border-radius:42px;
+  border:1px solid rgba(8,8,8,.12);
+  background:rgba(255,255,255,.32);
+  box-shadow:0 34px 100px rgba(0,0,0,.12);
+  padding:22px;
+}
+
+.carousel-stage{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:28px;
+  align-items:center;
+}
+
+.carousel-cover{
+  border-radius:32px;
+  overflow:hidden;
+  aspect-ratio:1/1;
+  background:rgba(0,0,0,.08);
+  box-shadow:0 28px 70px rgba(0,0,0,.16);
+}
+
+.carousel-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.carousel-info{
+  padding:30px;
+}
+
+.carousel-info h3{
+  font-size:clamp(42px,6vw,88px);
+  line-height:.9;
+  letter-spacing:-.06em;
+  margin:0 0 20px;
+}
+
+.carousel-info p{
+  color:#5a524b;
+  font-size:18px;
+  line-height:1.65;
+  max-width:620px;
+}
+
+.carousel-controls{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:26px;
+}
+
+.arrow{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:1px solid rgba(8,8,8,.16);
+  background:rgba(255,255,255,.45);
+  cursor:pointer;
+  font-size:20px;
+}
+
+.dots{
+  display:flex;
+  gap:10px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  border:none;
+  background:rgba(8,8,8,.22);
+  cursor:pointer;
+}
+
+.dot.active{
+  background:#080808;
+}
+
+@media(max-width:800px){
+  .carousel-stage{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 
@@ -881,97 +1081,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 </div>
 
 </section>
-<style>
-.featured-carousel{
-  position:relative;
-  overflow:hidden;
-  border-radius:42px;
-  border:1px solid rgba(8,8,8,.12);
-  background:rgba(255,255,255,.32);
-  box-shadow:0 34px 100px rgba(0,0,0,.12);
-  padding:22px;
-}
 
-.carousel-stage{
-  display:grid;
-  grid-template-columns:.9fr 1.1fr;
-  gap:28px;
-  align-items:center;
-}
-
-.carousel-cover{
-  border-radius:32px;
-  overflow:hidden;
-  aspect-ratio:1/1;
-  background:rgba(0,0,0,.08);
-  box-shadow:0 28px 70px rgba(0,0,0,.16);
-}
-
-.carousel-cover img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.carousel-info{
-  padding:30px;
-}
-
-.carousel-info h3{
-  font-size:clamp(42px,6vw,88px);
-  line-height:.9;
-  letter-spacing:-.06em;
-  margin:0 0 20px;
-}
-
-.carousel-info p{
-  color:#5a524b;
-  font-size:18px;
-  line-height:1.65;
-  max-width:620px;
-}
-
-.carousel-controls{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:26px;
-}
-
-.arrow{
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  border:1px solid rgba(8,8,8,.16);
-  background:rgba(255,255,255,.45);
-  cursor:pointer;
-  font-size:20px;
-}
-
-.dots{
-  display:flex;
-  gap:10px;
-}
-
-.dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  border:none;
-  background:rgba(8,8,8,.22);
-  cursor:pointer;
-}
-
-.dot.active{
-  background:#080808;
-}
-
-@media(max-width:800px){
-  .carousel-stage{
-    grid-template-columns:1fr;
-  }
-}
-</style>
 
 <section id="contact" class="reveal">
   <div class="contact-shell">
@@ -991,6 +1101,20 @@ Follow Prince Cali across every platform to stay current with new releases, beat
   </div>
 </section>
 
+
+<div class="preview-modal" id="previewModal" aria-hidden="true">
+  <div class="preview-modal-card" role="dialog" aria-modal="true" aria-label="Beat preview">
+    <button class="preview-close" id="previewClose" aria-label="Close preview">×</button>
+    <video class="preview-video" id="previewVideo" controls playsinline preload="metadata"></video>
+    <div class="preview-copy">
+      <div class="kicker">Now Previewing</div>
+      <h3 id="previewTitle">Beat Preview</h3>
+      <p id="previewVibe"></p>
+      <a class="btn dark" id="previewLease" href="mailto:princecali6989@gmail.com">Lease This Beat</a>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div>© 2026 Prince Cali</div>
   <div>Official Prince Cali Website</div>
@@ -1001,7 +1125,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
   PLUG-AND-PLAY BEAT SETUP:
   1. Upload cover: assets/BeatName.png
   2. Upload snippet video from CapCut: assets/BeatName.canvas.mp4
-  3. Add one beat object below using:
+  3. Add one beat object below using this format:
      {title:"BeatName",img:"assets/BeatName.png",video:"assets/BeatName.canvas.mp4",tags:["street"],vibe:"Short description.",audio:"",featured:false},
 */
 const beats=[
@@ -1044,13 +1168,20 @@ const grid=document.getElementById("beatGrid");
 const searchBox=document.getElementById("searchBox");
 const smartNote=document.getElementById("smartNote");
 const cursorGlow=document.getElementById("cursorGlow");
+const previewModal=document.getElementById("previewModal");
+const previewVideo=document.getElementById("previewVideo");
+const previewTitle=document.getElementById("previewTitle");
+const previewVibe=document.getElementById("previewVibe");
+const previewLease=document.getElementById("previewLease");
+const previewClose=document.getElementById("previewClose");
 
 let activeFilter="all";
 let slideIndex=0;
+let carouselTimer=null;
 const featured=beats.filter(b=>b.featured).slice(0,6);
 
 function cleanText(value){
-  return value.toLowerCase().trim().replace(/\s+/g," ");
+  return String(value || "").toLowerCase().trim().replace(/\s+/g," ");
 }
 
 function fallbackImage(img,title){
@@ -1062,16 +1193,33 @@ function fallbackImage(img,title){
   }
 }
 
+function startCarousel(){
+  stopCarousel();
+  carouselTimer=setInterval(()=>changeSlide(1),10500);
+}
+
+function stopCarousel(){
+  if(carouselTimer){
+    clearInterval(carouselTimer);
+    carouselTimer=null;
+  }
+}
+
+function beatByTitle(title){
+  return beats.find(b=>b.title===title);
+}
+
 function renderFeatured(){
   const b=featured[slideIndex];
 
   featuredGrid.innerHTML=`
     <div class="featured-carousel">
       <div class="carousel-stage">
-        <div class="carousel-cover preview-cover ${b.video?"has-video":""}" data-video="${b.video || ""}" data-img="${b.img}" data-title="${b.title}">
+        <button class="carousel-cover preview-cover ${b.video?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
           <img src="${b.img}" alt="${b.title}" onerror="fallbackImage(this,'${b.title}')">
           <div class="fallback">${b.title}</div>
-        </div>
+          ${b.video?`<span class="play-badge">Play Preview</span>`:""}
+        </button>
         <div class="carousel-info">
           <div class="kicker">Featured Beat</div>
           <h3>${b.title}</h3>
@@ -1082,9 +1230,9 @@ function renderFeatured(){
             <a href="#catalog">Full Catalog</a>
           </div>
           <div class="carousel-controls">
-            <button class="arrow" id="prevSlide">‹</button>
-            <div class="dots">${featured.map((_,i)=>`<button class="dot ${i===slideIndex?"active":""}" data-slide="${i}"></button>`).join("")}</div>
-            <button class="arrow" id="nextSlide">›</button>
+            <button class="arrow" id="prevSlide" aria-label="Previous featured beat">‹</button>
+            <div class="dots">${featured.map((_,i)=>`<button class="dot ${i===slideIndex?"active":""}" data-slide="${i}" aria-label="Go to featured beat ${i+1}"></button>`).join("")}</div>
+            <button class="arrow" id="nextSlide" aria-label="Next featured beat">›</button>
           </div>
         </div>
       </div>
@@ -1102,7 +1250,6 @@ function renderFeatured(){
 }
 
 function changeSlide(direction){
-  stopActivePreviews();
   slideIndex=(slideIndex+direction+featured.length)%featured.length;
   renderFeatured();
 }
@@ -1133,10 +1280,11 @@ function renderCatalog(){
     card.className=`card reveal show ${b.featured?"featured":""}`;
     card.innerHTML=`
       ${b.featured?`<div class="badge">Featured</div>`:""}
-      <div class="cover preview-cover ${b.video?"has-video":""}" data-video="${b.video || ""}" data-img="${b.img}" data-title="${b.title}">
+      <button class="cover preview-cover ${b.video?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
         <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
         <div class="fallback">${b.title}</div>
-      </div>
+        ${b.video?`<span class="play-badge">Play Preview</span>`:""}
+      </button>
       <div class="meta">
         <h3>${b.title}</h3>
         <p>${b.vibe}</p>
@@ -1151,43 +1299,56 @@ function renderCatalog(){
   });
 }
 
+function openPreview(beat){
+  if(!beat || !beat.video)return;
 
-function stopActivePreviews(exceptCover=null){
-  document.querySelectorAll(".preview-cover.playing").forEach(cover=>{
-    if(cover===exceptCover)return;
-    const img=cover.dataset.img;
-    const title=cover.dataset.title || "Beat preview";
-    cover.classList.remove("playing");
-    cover.innerHTML=`
-      <img src="${img}" alt="${title} cover" loading="lazy" onerror="fallbackImage(this,'${title}')">
-      <div class="fallback">${title}</div>
-    `;
-  });
+  stopCarousel();
+
+  previewTitle.textContent=beat.title;
+  previewVibe.textContent=beat.vibe;
+  previewLease.href=`mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(beat.title)}`;
+  previewVideo.poster=beat.img;
+  previewVideo.innerHTML=`<source src="${beat.video}" type="video/mp4">`;
+  previewVideo.load();
+
+  previewModal.classList.add("show");
+  previewModal.setAttribute("aria-hidden","false");
+
+  previewVideo.play().catch(()=>{});
 }
 
-function playSnippet(cover){
-  const videoSrc=cover.dataset.video;
-  if(!videoSrc)return;
-
-  stopActivePreviews(cover);
-  cover.classList.add("playing");
-  cover.innerHTML=`
-    <video class="preview-video" controls autoplay playsinline preload="metadata">
-      <source src="${videoSrc}" type="video/mp4">
-    </video>
-  `;
-
-  const video=cover.querySelector("video");
-  if(video){
-    video.play().catch(()=>{});
-  }
+function closePreview(){
+  previewModal.classList.remove("show");
+  previewModal.setAttribute("aria-hidden","true");
+  previewVideo.pause();
+  previewVideo.removeAttribute("src");
+  previewVideo.innerHTML="";
+  previewVideo.load();
+  startCarousel();
 }
 
 document.addEventListener("click",e=>{
-  if(e.target.closest("video"))return;
   const cover=e.target.closest(".preview-cover");
   if(!cover)return;
-  playSnippet(cover);
+
+  const beat=beatByTitle(cover.dataset.title);
+  if(beat && beat.video){
+    e.preventDefault();
+    openPreview(beat);
+  }
+});
+
+previewClose.addEventListener("click",closePreview);
+previewModal.addEventListener("click",e=>{
+  if(e.target===previewModal)closePreview();
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape" && previewModal.classList.contains("show"))closePreview();
+  if(!previewModal.classList.contains("show")){
+    if(e.key==="ArrowLeft")changeSlide(-1);
+    if(e.key==="ArrowRight")changeSlide(1);
+  }
 });
 
 document.querySelectorAll(".filter").forEach(btn=>{
@@ -1216,38 +1377,33 @@ window.addEventListener("mousemove",e=>{
   }
 });
 
-window.addEventListener("keydown",e=>{
-  if(e.key==="ArrowLeft")changeSlide(-1);
-  if(e.key==="ArrowRight")changeSlide(1);
+if("scrollRestoration" in history){
+  history.scrollRestoration="manual";
+}
+
+window.addEventListener("load",()=>{
+  window.scrollTo(0,0);
 });
 
-setInterval(()=>changeSlide(1),10500);
+window.PrinceCaliAI={
+  recommend(tags=[]){
+    return beats
+      .filter(b=>b.tags.some(t=>tags.includes(t)))
+      .slice(0,4);
+  },
+  newest(count=6){
+    return beats.slice(-count).reverse();
+  },
+  random(){
+    return beats[Math.floor(Math.random()*beats.length)];
+  }
+};
 
 renderFeatured();
 renderCatalog();
-  /* ===== FINAL POLISH ADD-ON ===== */
+startCarousel();
 
-// Always open at the top after refresh
-if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-}
-
-window.addEventListener("load", () => {
-    window.scrollTo(0, 0);
-});
-
-// Future AI placeholder
-window.PrinceCaliAI={
-    recommend(tags=[]){
-
-        return beats
-            .filter(b=>b.tags.some(t=>tags.includes(t)))
-            .slice(0,4);
-
-    }
-};
-
-console.log("Prince Cali AI Ready");
+console.log("Prince Cali site ready");
 </script>
 
 </body>
