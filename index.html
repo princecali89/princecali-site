@@ -6,6 +6,7 @@
 <title>Prince Cali | Official Website</title>
 
 <link rel="icon" type="image/png" href="assets/watermark.v2.png">
+<link rel="shortcut icon" type="image/png" href="assets/watermark.v2.png">
 <link rel="apple-touch-icon" href="assets/watermark.v2.png">
 
 <style>
@@ -20,13 +21,8 @@
   --line:rgba(7,7,7,.12);
   --card:rgba(255,255,255,.36);
 }
-
 *{box-sizing:border-box}
-
-html{
-  scroll-behavior:smooth;
-}
-
+html{scroll-behavior:smooth}
 body{
   margin:0;
   background:
@@ -37,22 +33,12 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-img{
-  display:block;
-  max-width:100%;
-}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
 
 nav{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
+  top:0;left:0;width:100%;
   z-index:1000;
   padding:18px 7%;
   display:flex;
@@ -62,28 +48,15 @@ nav{
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--line);
 }
-
-.nav-logo{
-  height:34px;
-  object-fit:contain;
-}
-
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:28px;
-}
-
+.nav-logo{height:34px;object-fit:contain}
+.nav-links{display:flex;align-items:center;gap:28px}
 .nav-links a{
   font-size:12px;
   letter-spacing:.16em;
   text-transform:uppercase;
   color:#181613;
 }
-
-section{
-  padding:120px 7%;
-}
+section{padding:120px 7%}
 
 .hero{
   min-height:100vh;
@@ -93,49 +66,36 @@ section{
   gap:56px;
   position:relative;
 }
-
 .hero::after{
   content:"";
   position:absolute;
   inset:auto 7% 60px auto;
-  width:220px;
-  height:220px;
+  width:220px;height:220px;
   border-radius:999px;
   background:radial-gradient(circle,rgba(139,16,24,.12),transparent 65%);
   filter:blur(8px);
   pointer-events:none;
 }
-
-.hero-mark{
-  width:84px;
-  margin-bottom:26px;
-}
-
+.hero-mark{width:84px;margin-bottom:26px}
 .kicker{
   font-size:12px;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--muted);
 }
-
 h1{
   margin:22px 0;
   font-size:clamp(62px,10vw,150px);
   line-height:.88;
   letter-spacing:-.078em;
 }
-
 .lead{
   max-width:700px;
   font-size:clamp(18px,2vw,28px);
   line-height:1.35;
   color:#292522;
 }
-
-.hero-actions{
-  margin-top:28px;
-}
-
+.hero-actions{margin-top:28px}
 .btn{
   display:inline-flex;
   align-items:center;
@@ -150,22 +110,9 @@ h1{
   transition:.25s ease;
   cursor:pointer;
 }
-
-.btn.dark{
-  background:var(--ink);
-  color:var(--cream);
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 18px 40px rgba(0,0,0,.12);
-}
-
-.hero-photo-wrap{
-  position:relative;
-  justify-self:center;
-}
-
+.btn.dark{background:var(--ink);color:var(--cream)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.12)}
+.hero-photo-wrap{position:relative;justify-self:center}
 .hero-photo-wrap::before{
   content:"";
   position:absolute;
@@ -175,35 +122,25 @@ h1{
   filter:blur(22px);
   z-index:-1;
 }
-
 .hero-photo{
   max-height:620px;
   object-fit:contain;
   filter:contrast(1.06) saturate(.9) drop-shadow(0 38px 70px rgba(0,0,0,.24));
   animation:float 7s ease-in-out infinite;
 }
-
 .title{
   margin:0 0 22px;
   font-size:clamp(44px,7vw,94px);
   letter-spacing:-.065em;
   line-height:.92;
 }
-
 .copy{
   max-width:820px;
   font-size:18px;
   line-height:1.7;
   color:#4f4942;
 }
-
-.tools{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin:38px 0 32px;
-}
-
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin:38px 0 32px}
 .search{
   min-width:280px;
   padding:13px 18px;
@@ -213,7 +150,6 @@ h1{
   outline:none;
   color:var(--ink);
 }
-
 .filter{
   border:1px solid var(--line);
   background:rgba(255,255,255,.30);
@@ -225,25 +161,9 @@ h1{
   font-size:11px;
   color:#24201d;
 }
-
-.filter.active{
-  background:var(--ink);
-  color:var(--cream);
-}
-
-.smart-note{
-  margin-top:-12px;
-  margin-bottom:28px;
-  font-size:13px;
-  color:var(--muted);
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:24px;
-}
-
+.filter.active{background:var(--ink);color:var(--cream)}
+.smart-note{margin-top:-12px;margin-bottom:28px;font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
 .card{
   background:var(--card);
   border:1px solid var(--line);
@@ -254,20 +174,11 @@ h1{
   overflow:hidden;
   position:relative;
 }
-
-.card:hover{
-  transform:translateY(-10px) scale(1.015);
-  box-shadow:0 34px 90px rgba(0,0,0,.16);
-}
-
-.card.featured{
-  outline:1px solid rgba(176,138,69,.42);
-}
-
+.card:hover{transform:translateY(-10px) scale(1.015);box-shadow:0 34px 90px rgba(0,0,0,.16)}
+.card.featured{outline:1px solid rgba(176,138,69,.42)}
 .badge{
   position:absolute;
-  top:24px;
-  left:24px;
+  top:24px;left:24px;
   z-index:4;
   background:rgba(7,7,7,.78);
   color:var(--cream);
@@ -277,7 +188,6 @@ h1{
   letter-spacing:.12em;
   text-transform:uppercase;
 }
-
 .cover{
   border-radius:22px;
   overflow:hidden;
@@ -285,21 +195,10 @@ h1{
   background:rgba(0,0,0,.08);
   position:relative;
 }
-
-.cover img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:.45s ease;
-}
-
-.card:hover .cover img{
-  transform:scale(1.04);
-}
-
+.cover img{width:100%;height:100%;object-fit:cover;transition:.45s ease}
+.card:hover .cover img{transform:scale(1.04)}
 .fallback{
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   display:none;
   align-items:center;
   justify-content:center;
@@ -310,32 +209,11 @@ h1{
   text-transform:uppercase;
   color:#433d37;
 }
-
-.meta{
-  padding:18px 4px 6px;
-}
-
-.meta h3{
-  margin:0;
-  font-size:22px;
-  letter-spacing:-.04em;
-}
-
-.meta p{
-  margin:8px 0 16px;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.mini{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-
-.mini span,
-.mini a{
+.meta{padding:18px 4px 6px}
+.meta h3{margin:0;font-size:22px;letter-spacing:-.04em}
+.meta p{margin:8px 0 16px;color:var(--muted);font-size:14px}
+.mini{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.mini span,.mini a{
   padding:9px 12px;
   border:1px solid var(--line);
   border-radius:999px;
@@ -344,19 +222,9 @@ h1{
   text-transform:uppercase;
   background:rgba(255,255,255,.22);
 }
+audio{width:100%;margin-top:4px}
 
-audio{
-  width:100%;
-  margin-top:4px;
-}
-
-.about{
-  display:grid;
-  grid-template-columns:.85fr 1.15fr;
-  gap:70px;
-  align-items:center;
-}
-
+.about{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:center}
 .panel{
   background:rgba(255,255,255,.34);
   border:1px solid var(--line);
@@ -364,39 +232,16 @@ audio{
   padding:36px;
   box-shadow:0 30px 90px rgba(0,0,0,.08);
 }
-
-.logo-big{
-  width:94px;
-  margin-bottom:28px;
-}
-
-.stat-row{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-top:28px;
-}
-
+.logo-big{width:94px;margin-bottom:28px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
 .stat{
   border:1px solid var(--line);
   background:rgba(255,255,255,.30);
   border-radius:24px;
   padding:20px;
 }
-
-.stat strong{
-  display:block;
-  font-size:28px;
-  letter-spacing:-.04em;
-}
-
-.stat span{
-  color:var(--muted);
-  font-size:12px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-
+.stat strong{display:block;font-size:28px;letter-spacing:-.04em}
+.stat span{color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 .contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -404,7 +249,6 @@ audio{
   margin-top:30px;
   max-width:850px;
 }
-
 .contact-card{
   padding:26px;
   border-radius:28px;
@@ -412,22 +256,9 @@ audio{
   border:1px solid var(--line);
   transition:.25s ease;
 }
-
-.contact-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 24px 60px rgba(0,0,0,.10);
-}
-
-.contact-card h3{
-  margin:0 0 8px;
-  font-size:24px;
-}
-
-.contact-card p{
-  margin:0;
-  color:var(--muted);
-}
-
+.contact-card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.10)}
+.contact-card h3{margin:0 0 8px;font-size:24px}
+.contact-card p{margin:0;color:var(--muted)}
 footer{
   padding:50px 7%;
   border-top:1px solid var(--line);
@@ -436,33 +267,16 @@ footer{
   color:var(--muted);
   font-size:13px;
 }
-
-.reveal{
-  opacity:0;
-  transform:translateY(34px);
-  transition:.7s ease;
-}
-
-.reveal.show{
-  opacity:1;
-  transform:none;
-}
-
-@keyframes float{
-  50%{transform:translateY(-18px)}
-}
-
-@media(max-width:1100px){
-  .grid{grid-template-columns:repeat(3,1fr)}
-}
-
+.reveal{opacity:0;transform:translateY(34px);transition:.7s ease}
+.reveal.show{opacity:1;transform:none}
+@keyframes float{50%{transform:translateY(-18px)}}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){
   .nav-links{display:none}
   .hero,.about{grid-template-columns:1fr}
   .grid{grid-template-columns:repeat(2,1fr)}
   h1{font-size:clamp(58px,18vw,110px)}
 }
-
 @media(max-width:600px){
   nav{padding:16px 5%}
   section{padding:90px 5%}
@@ -488,9 +302,9 @@ footer{
 <section class="hero">
   <div class="reveal">
     <img class="hero-mark" src="assets/watermark.v2.png" alt="Prince Cali">
-    <div class="kicker">Los Angeles born • PDX based • Producing since 2012</div>
+    <div class="kicker">Los Angeles born • PDX based • producing since 2012</div>
     <h1>Prince Cali</h1>
-    <p class="lead">Atmospheric beats. Cinematic sound. Hard-hitting records built for artists who need something people can actually vibe to.</p>
+    <p class="lead">Cinematic production, polished drums, and atmospheric sound built for artists who want records with presence.</p>
     <div class="hero-actions">
       <a class="btn dark" href="#beats">Explore Beats</a>
       <a class="btn" href="#music">Stream Music</a>
@@ -505,7 +319,7 @@ footer{
 <section id="music" class="reveal">
   <div class="kicker">Official Catalog</div>
   <h2 class="title">Featured sounds.</h2>
-  <p class="copy">A curated collection of cinematic, melodic, dark, luxury, and street-ready production from Prince Cali.</p>
+  <p class="copy">A polished catalog of cinematic, melodic, dark, luxury, and street-driven production from Prince Cali.</p>
 
   <div class="tools">
     <input class="search" id="searchBox" placeholder="Search beats, moods, styles...">
@@ -517,15 +331,14 @@ footer{
     <button class="filter" data-filter="street">Street</button>
   </div>
 
-  <div class="smart-note" id="smartNote">Smart catalog active — search by title, mood, or sound.</div>
-
+  <div class="smart-note" id="smartNote">Search by title, mood, or sound.</div>
   <div class="grid" id="beatGrid"></div>
 </section>
 
 <section id="about" class="about">
   <div class="panel reveal">
     <img class="logo-big" src="assets/watermark.v2.png" alt="Prince Cali">
-    <p class="copy">Prince Cali is an audio engineer and producer originally from Los Angeles, now based in Portland, Oregon. Producing since 2012, he creates beats designed to move with atmosphere, bounce, emotion, and polish.</p>
+    <p class="copy">Prince Cali is an audio engineer and producer originally from Los Angeles, now based in Portland, Oregon. Producing since 2012, he creates records with atmosphere, bounce, emotion, and polish.</p>
 
     <div class="stat-row">
       <div class="stat"><strong>2012</strong><span>Producing Since</span></div>
@@ -537,7 +350,7 @@ footer{
   <div class="reveal">
     <div class="kicker">The Brand</div>
     <h2 class="title">Built for the vision.</h2>
-    <p class="copy">The official home of Prince Cali — music, beats, visuals, behind-the-scenes work, and creative projects built with purpose, polish, and longevity.</p>
+    <p class="copy">Prince Cali is built around sound, identity, and execution — from beats and records to future visuals, behind-the-scenes work, and creative projects with long-term impact.</p>
   </div>
 </section>
 
@@ -547,30 +360,12 @@ footer{
   <p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p>
 
   <div class="contact-grid">
-    <a class="contact-card" href="mailto:princecali6989@gmail.com">
-      <h3>Email</h3>
-      <p>Business, licensing, and collaboration inquiries.</p>
-    </a>
-    <a class="contact-card" href="https://www.tiktok.com/@therealprincecali" target="_blank">
-      <h3>TikTok</h3>
-      <p>New snippets, visuals, and beat drops.</p>
-    </a>
-    <a class="contact-card" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank">
-      <h3>Spotify</h3>
-      <p>Stream Prince Cali releases.</p>
-    </a>
-    <a class="contact-card" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank">
-      <h3>Apple Music</h3>
-      <p>Official Apple Music catalog.</p>
-    </a>
-    <a class="contact-card" href="https://www.youtube.com/@princecali89/videos" target="_blank">
-      <h3>YouTube</h3>
-      <p>Videos, music, and future behind-the-scenes work.</p>
-    </a>
-    <a class="contact-card" href="https://x.com/princecali89" target="_blank">
-      <h3>X</h3>
-      <p>Updates, thoughts, drops, and brand moves.</p>
-    </a>
+    <a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a>
+    <a class="contact-card" href="https://www.tiktok.com/@therealprincecali" target="_blank"><h3>TikTok</h3><p>New snippets, visuals, and beat drops.</p></a>
+    <a class="contact-card" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank"><h3>Spotify</h3><p>Stream Prince Cali releases.</p></a>
+    <a class="contact-card" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank"><h3>Apple Music</h3><p>Official Apple Music catalog.</p></a>
+    <a class="contact-card" href="https://www.youtube.com/@princecali89/videos" target="_blank"><h3>YouTube</h3><p>Music, videos, and future behind-the-scenes work.</p></a>
+    <a class="contact-card" href="https://x.com/princecali89" target="_blank"><h3>X</h3><p>Updates, drops, and brand moves.</p></a>
   </div>
 </section>
 
@@ -578,6 +373,7 @@ footer{
   <div>© 2026 Prince Cali</div>
   <div>Official Prince Cali Website</div>
 </footer>
+
 <script>
 const beats = [
   {title:"589", img:"assets/589.png", tags:["cinematic","dark","street"], vibe:"Street cinematic • Legacy energy", audio:"", featured:true},
@@ -608,61 +404,51 @@ const beats = [
   {title:"Grime", img:"assets/Grime.png", tags:["dark","street"], vibe:"Dirty drums • pressure", audio:""},
   {title:"Ledger", img:"assets/Ledger.png", tags:["dark"], vibe:"Calculated • cold • sharp", audio:""},
   {title:"Pressed", img:"assets/Pressed.png", tags:["street","dark"], vibe:"Pressure • tension • bounce", audio:""},
-  {title:"PunchLine", img:"assets/PunchLine.png", tags:["street"], vibe:"Sharp • witty • direct", audio:""},
+  {title:"PunchLime", img:"assets/PunchLime.png", tags:["street"], vibe:"Sharp • witty • direct", audio:""},
   {title:"UNDESIRABLE", img:"assets/UNDESIRABLE.png", tags:["dark"], vibe:"Cold • unwanted • raw", audio:""},
   {title:"XX", img:"assets/XX.png", tags:["dark"], vibe:"Minimal • dark • focused", audio:""}
 ];
 
-const grid = document.getElementById("beatGrid");
-const searchBox = document.getElementById("searchBox");
-const smartNote = document.getElementById("smartNote");
+const grid=document.getElementById("beatGrid");
+const searchBox=document.getElementById("searchBox");
+const smartNote=document.getElementById("smartNote");
+let activeFilter="all";
 
-let activeFilter = "all";
+function fallbackImage(img,title){
+  img.style.display="none";
+  const fallback=img.parentElement.querySelector(".fallback");
+  if(fallback){fallback.style.display="flex";fallback.textContent=title;}
+}
 
-function fallbackImage(img, title){
-  img.style.display = "none";
-  const fallback = img.parentElement.querySelector(".fallback");
-  if(fallback){
-    fallback.style.display = "flex";
-    fallback.textContent = title;
-  }
+function cleanText(value){
+  return value.toLowerCase().trim().replace(/\s+/g," ");
 }
 
 function render(){
-  const query = searchBox.value.trim().toLowerCase();
-
-  let visible = beats
-    .filter(b => activeFilter === "all" || b.tags.includes(activeFilter))
-    .filter(b => {
-      const haystack = `${b.title} ${b.vibe} ${b.tags.join(" ")}`.toLowerCase();
+  const query=cleanText(searchBox.value);
+  let visible=beats
+    .filter(b=>activeFilter==="all"||b.tags.includes(activeFilter))
+    .filter(b=>{
+      if(!query)return true;
+      const haystack=cleanText(`${b.title} ${b.vibe} ${b.tags.join(" ")}`);
       return haystack.includes(query);
     });
 
-  grid.innerHTML = "";
+  grid.innerHTML="";
 
-  if(visible.length === 0){
-    grid.innerHTML = `
-      <article class="card reveal show">
-        <div class="meta">
-          <h3>No matches found</h3>
-          <p>Try searching a mood like cinematic, dark, melodic, luxury, street, or a beat title.</p>
-        </div>
-      </article>
-    `;
-    smartNote.textContent = "Smart catalog active — no match yet. Try another mood or title.";
+  if(visible.length===0){
+    grid.innerHTML=`<article class="card reveal show"><div class="meta"><h3>No matches found</h3><p>Try a title or mood like cinematic, dark, melodic, luxury, or street.</p></div></article>`;
+    smartNote.textContent="No match yet. Try another title or mood.";
     return;
   }
 
-  smartNote.textContent = query
-    ? `Smart catalog active — showing ${visible.length} match${visible.length === 1 ? "" : "es"} for "${query}".`
-    : "Smart catalog active — search by title, mood, or sound.";
+  smartNote.textContent=query?`Showing ${visible.length} result${visible.length===1?"":"s"} for "${query}".`:"Search by title, mood, or sound.";
 
-  visible.forEach((b, index)=>{
-    const card = document.createElement("article");
-    card.className = `card reveal show ${b.featured ? "featured" : ""}`;
-
-    card.innerHTML = `
-      ${b.featured ? `<div class="badge">Featured</div>` : ""}
+  visible.forEach((b,index)=>{
+    const card=document.createElement("article");
+    card.className=`card reveal show ${b.featured?"featured":""}`;
+    card.innerHTML=`
+      ${b.featured?`<div class="badge">Featured</div>`:""}
       <div class="cover">
         <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
         <div class="fallback">${b.title}</div>
@@ -671,13 +457,11 @@ function render(){
         <h3>${b.title}</h3>
         <p>${b.vibe}</p>
         <div class="mini">
-          ${b.audio ? `<audio controls preload="none" src="${b.audio}"></audio>` : `<span>Preview Coming Soon</span>`}
+          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:`<span>Preview Coming Soon</span>`}
           <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
         </div>
-      </div>
-    `;
-
-    card.style.transitionDelay = `${Math.min(index * 35, 280)}ms`;
+      </div>`;
+    card.style.transitionDelay=`${Math.min(index*35,280)}ms`;
     grid.appendChild(card);
   });
 }
@@ -686,23 +470,17 @@ document.querySelectorAll(".filter").forEach(btn=>{
   btn.addEventListener("click",()=>{
     document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
-    activeFilter = btn.dataset.filter;
+    activeFilter=btn.dataset.filter;
     render();
   });
 });
+searchBox.addEventListener("input",render);
 
-searchBox.addEventListener("input", render);
-
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("show");
-    }
-  });
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show");});
 },{threshold:.12});
 
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-
 render();
 </script>
 
