@@ -984,6 +984,44 @@ footer{
   letter-spacing:-.04em;
 }
 
+
+.beat-select-wrap{
+  display:grid;
+  gap:8px;
+  margin:18px 0 6px;
+}
+
+.beat-select-wrap label{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#6b625a;
+}
+
+.beat-select{
+  width:100%;
+  padding:14px 16px;
+  border-radius:18px;
+  border:1px solid rgba(8,8,8,.14);
+  background:rgba(255,255,255,.46);
+  color:#080808;
+  font-size:15px;
+  outline:none;
+}
+
+.selected-beat-chip{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin:10px 0 4px;
+  padding:9px 13px;
+  border-radius:999px;
+  background:rgba(8,8,8,.08);
+  border:1px solid rgba(8,8,8,.10);
+  color:#4f4942;
+  font-size:13px;
+}
+
 .basket-list{
   display:grid;
   gap:10px;
@@ -1353,7 +1391,14 @@ Follow Prince Cali across every platform to stay current with new releases, beat
     <div class="basket-panel">
       <div class="kicker">License Request Basket</div>
       <h3>Your request</h3>
-      <p class="copy">Preview a beat, choose a lease term, then submit the request. Prince Cali will review it personally and handle the final agreement directly.</p>
+      <p class="copy">Preview a beat or choose one from the live catalog below, pick a lease term, then submit the request. Prince Cali will review it personally and handle the final agreement directly.</p>
+      <div class="beat-select-wrap">
+        <label for="beatSelect">Choose from the current catalog</label>
+        <select id="beatSelect" class="beat-select">
+          <option value="">Loading catalog...</option>
+        </select>
+        <div class="selected-beat-chip" id="selectedBeatChip">No beat selected yet</div>
+      </div>
       <div class="basket-list" id="basketList"></div>
       <div class="basket-actions">
         <a id="submitLicenseRequest" href="mailto:princecali6989@gmail.com">Submit License Request</a>
@@ -1413,9 +1458,8 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 /*
   PLUG-AND-PLAY BEAT SETUP:
   1. Upload cover: assets/BeatName.png
-  2. Upload snippet video from CapCut: assets/BeatName.canvas.mp4
-  3. Add one beat object below using this format:
-     {title:"BeatName",img:"assets/BeatName.png",video:"assets/BeatName.canvas.mp4",tags:["street"],vibe:"Short description.",audio:"",featured:false},
+  2. Optional preview: assets/BeatName.canvas.mp4
+  3. Add one beat object below. The license dropdown, catalog, search, preview modal, and basket update from this list.
 */
 const beats=[
 {title:"589",img:"assets/589.png",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
@@ -1448,6 +1492,12 @@ const beats=[
 {title:"Pressed",img:"assets/Pressed.png",tags:["street","dark"],vibe:"Pressure, tension, and bounce.",audio:""},
 {title:"Presto",img:"assets/Presto.png",video:"assets/Presto.canvas.mp4",tags:["street"],vibe:"Sharp, clean production with motion and bounce.",audio:""},
 {title:"PunchLime",img:"assets/PunchLime.png",tags:["street"],vibe:"Sharp, witty, direct energy.",audio:""},
+{title:"Sleezer",img:"assets/Sleezer.png",tags:["street","dark"],vibe:"Cold bounce with street pressure and attitude.",audio:""},
+{title:"Iced Cheese",img:"assets/Iced.Cheese.png",tags:["street","luxury"],vibe:"Flashy, frozen, and slick with polished movement.",audio:""},
+{title:"Dutch",img:"assets/Dutch.png",tags:["street","dark"],vibe:"Smoky street energy with a focused pocket.",audio:""},
+{title:"PPGF",img:"assets/PPGF.png",tags:["street"],vibe:"Direct, confident production built for performance.",audio:""},
+{title:"Spiked Love",img:"assets/Spiked.Love.png",tags:["melodic","dark"],vibe:"Melodic tension with an edge and emotional bite.",audio:""},
+{title:"Gross Lunch",img:"assets/Gross.Lunch.png",tags:["dark","street"],vibe:"Raw, strange, gritty energy with character.",audio:""},
 {title:"UNDESIRABLE",img:"assets/UNDESIRABLE.png",tags:["dark"],vibe:"Cold, raw, unwanted atmosphere.",audio:""},
 {title:"XX",img:"assets/XX.png",tags:["dark"],vibe:"Minimal, dark, focused production.",audio:""}
 ];
@@ -1463,6 +1513,8 @@ const previewTitle=document.getElementById("previewTitle");
 const previewVibe=document.getElementById("previewVibe");
 const previewLease=document.getElementById("previewLease");
 const previewClose=document.getElementById("previewClose");
+const beatSelect=document.getElementById("beatSelect");
+const selectedBeatChip=document.getElementById("selectedBeatChip");
 
 let activeFilter="all";
 let slideIndex=0;
@@ -1486,7 +1538,7 @@ function fallbackImage(img,title){
 
 function startCarousel(){
   stopCarousel();
-  carouselTimer=setInterval(()=>changeSlide(1),10500);
+  carouselTimer=setInterval(()=>changeSlide(1,false),10500);
 }
 
 function stopCarousel(){
@@ -1496,8 +1548,16 @@ function stopCarousel(){
   }
 }
 
+function resetCarousel(){
+  startCarousel();
+}
+
 function beatByTitle(title){
   return beats.find(b=>b.title===title);
+}
+
+function leaseSubject(title){
+  return `Beat Inquiry: ${encodeURIComponent(title)}`;
 }
 
 function renderFeatured(){
@@ -1530,23 +1590,21 @@ function renderFeatured(){
     </div>
   `;
 
-  document.getElementById("prevSlide").onclick=()=>changeSlide(-1);
-  document.getElementById("nextSlide").onclick=()=>changeSlide(1);
+  document.getElementById("prevSlide").onclick=()=>changeSlide(-1,true);
+  document.getElementById("nextSlide").onclick=()=>changeSlide(1,true);
   document.querySelectorAll(".dot").forEach(dot=>{
     dot.onclick=()=>{
-      stopCarousel();
       slideIndex=Number(dot.dataset.slide);
       renderFeatured();
-      startCarousel();
+      resetCarousel();
     };
   });
 }
 
-function changeSlide(direction){
-  stopCarousel();
+function changeSlide(direction,manual=true){
   slideIndex=(slideIndex+direction+featured.length)%featured.length;
   renderFeatured();
-  startCarousel();
+  if(manual)resetCarousel();
 }
 
 function renderCatalog(){
@@ -1556,7 +1614,7 @@ function renderCatalog(){
     .filter(b=>activeFilter==="all"||b.tags.includes(activeFilter))
     .filter(b=>{
       if(!query)return true;
-      const expanded=`${b.title} ${b.vibe} ${b.tags.join(" ")} hard aggressive smooth emotional sad piano club bounce west coast luxury trap cinematic dark melodic street`;
+      const expanded=`${b.title} ${b.vibe} ${b.tags.join(" ")} hard aggressive smooth emotional sad piano club bounce west coast luxury trap cinematic dark melodic street clean soulful bright raw gritty weird strange`;
       return cleanText(expanded).includes(query);
     });
 
@@ -1594,6 +1652,20 @@ function renderCatalog(){
   });
 }
 
+function renderBeatSelect(){
+  if(!beatSelect)return;
+  const current=selectedBeatTitle;
+  beatSelect.innerHTML=`<option value="">Choose a beat from the catalog</option>` + beats
+    .map(b=>`<option value="${b.title}" ${b.title===current?"selected":""}>${b.title}</option>`)
+    .join("");
+  updateSelectedBeatChip();
+}
+
+function updateSelectedBeatChip(){
+  if(!selectedBeatChip)return;
+  selectedBeatChip.textContent=selectedBeatTitle ? `Selected beat: ${selectedBeatTitle}` : "No beat selected yet";
+}
+
 function openPreview(beat){
   if(!beat || !beat.video)return;
 
@@ -1602,6 +1674,9 @@ function openPreview(beat){
   previewTitle.textContent=beat.title;
   previewVibe.textContent=beat.vibe;
   selectedBeatTitle=beat.title;
+  if(beatSelect)beatSelect.value=beat.title;
+  updateSelectedBeatChip();
+
   previewLease.href="#licenses";
   previewVideo.poster=beat.img;
   previewVideo.innerHTML=`<source src="${beat.video}" type="video/mp4">`;
@@ -1623,7 +1698,6 @@ function closePreview(){
   startCarousel();
 }
 
-
 function showToast(message){
   let toast=document.getElementById("siteToast");
   if(!toast){
@@ -1644,7 +1718,7 @@ function updateBasket(){
   if(!basketList || !submit)return;
 
   if(licenseBasket.length===0){
-    basketList.innerHTML=`<div class="basket-item"><div><strong>No license selected yet</strong><span>Open a preview or click License Beat, then choose a lease term.</span></div></div>`;
+    basketList.innerHTML=`<div class="basket-item"><div><strong>No license selected yet</strong><span>Choose a beat from the dropdown or preview a beat, then pick a lease term.</span></div></div>`;
     submit.href="mailto:princecali6989@gmail.com?subject=License Request&body=Artist Name:%0D%0AProject Name:%0D%0ABeat:%0D%0ALicense Term:%0D%0ANotes:";
     return;
   }
@@ -1662,17 +1736,32 @@ function updateBasket(){
 }
 
 function addLicenseToBasket(term){
-  const title=selectedBeatTitle || (beats[0] && beats[0].title) || "Selected Beat";
-  const existing=licenseBasket.find(item=>item.title===title && item.term===term);
-  if(!existing){
+  const title=(beatSelect && beatSelect.value) || selectedBeatTitle;
+  if(!title){
+    showToast("Choose a beat first");
+    const licenses=document.getElementById("licenses");
+    if(licenses)licenses.scrollIntoView({behavior:"smooth",block:"start"});
+    return;
+  }
+
+  const existingIndex=licenseBasket.findIndex(item=>item.title===title);
+  if(existingIndex>=0){
+    licenseBasket[existingIndex].term=term;
+  }else{
     licenseBasket.push({title,term});
   }
+
+  selectedBeatTitle=title;
+  if(beatSelect)beatSelect.value=title;
+  updateSelectedBeatChip();
   updateBasket();
-  showToast(`${title} added with ${term}`);
+  showToast(`${title} set to ${term}`);
 }
 
 function selectBeatForLicense(title){
   selectedBeatTitle=title;
+  if(beatSelect)beatSelect.value=title;
+  updateSelectedBeatChip();
   const licenses=document.getElementById("licenses");
   if(licenses){
     licenses.scrollIntoView({behavior:"smooth",block:"start"});
@@ -1725,6 +1814,13 @@ document.addEventListener("click",e=>{
   }
 });
 
+if(beatSelect){
+  beatSelect.addEventListener("change",()=>{
+    selectedBeatTitle=beatSelect.value;
+    updateSelectedBeatChip();
+  });
+}
+
 const clearBasket=document.getElementById("clearBasket");
 if(clearBasket){
   clearBasket.addEventListener("click",()=>{
@@ -1733,12 +1829,11 @@ if(clearBasket){
   });
 }
 
-
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape" && previewModal.classList.contains("show"))closePreview();
   if(!previewModal.classList.contains("show")){
-    if(e.key==="ArrowLeft")changeSlide(-1);
-    if(e.key==="ArrowRight")changeSlide(1);
+    if(e.key==="ArrowLeft")changeSlide(-1,true);
+    if(e.key==="ArrowRight")changeSlide(1,true);
   }
 });
 
@@ -1787,11 +1882,15 @@ window.PrinceCaliAI={
   },
   random(){
     return beats[Math.floor(Math.random()*beats.length)];
+  },
+  catalog(){
+    return beats.map(b=>({title:b.title,tags:b.tags,vibe:b.vibe,hasPreview:Boolean(b.video||b.audio)}));
   }
 };
 
 renderFeatured();
 renderCatalog();
+renderBeatSelect();
 updateBasket();
 startCarousel();
 
