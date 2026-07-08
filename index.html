@@ -5,40 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prince Cali | Official Website</title>
 
-<link rel="icon" type="image/png" href="assets/watermark.v2.png">
-<link rel="shortcut icon" type="image/png" href="assets/watermark.v2.png">
-<link rel="apple-touch-icon" href="assets/watermark.v2.png">
+<link rel="icon" type="image/png" href="assets/watermark.v2.png?v=10">
+<link rel="shortcut icon" type="image/png" href="assets/watermark.v2.png?v=10">
+<link rel="apple-touch-icon" href="assets/watermark.v2.png?v=10">
+
+<meta name="description" content="Official website of Prince Cali, Los Angeles born producer and audio engineer based in Portland. Cinematic beats, polished production, music, licensing, and creative projects.">
+<meta name="theme-color" content="#f3efe6">
 
 <style>
-:root{
-  --cream:#f3efe6;
-  --cream2:#ebe4d8;
-  --ink:#070707;
-  --muted:#6b625a;
-  --red:#8b1018;
-  --purple:#37145f;
-  --gold:#b08a45;
-  --line:rgba(7,7,7,.12);
-  --card:rgba(255,255,255,.36);
+*{
+  box-sizing:border-box;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
+  color:#080808;
   background:
-    radial-gradient(circle at 20% 10%,rgba(139,16,24,.08),transparent 30%),
-    radial-gradient(circle at 80% 20%,rgba(55,20,95,.08),transparent 35%),
-    linear-gradient(180deg,var(--cream),var(--cream2));
-  color:var(--ink);
+    radial-gradient(circle at 18% 12%,rgba(139,16,24,.09),transparent 32%),
+    radial-gradient(circle at 82% 18%,rgba(55,20,95,.09),transparent 36%),
+    linear-gradient(180deg,#f3efe6,#ebe4d8);
   font-family:Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+.cursor-glow{
+  position:fixed;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(139,16,24,.10),rgba(55,20,95,.07),transparent 68%);
+  pointer-events:none;
+  z-index:0;
+  transform:translate(-50%,-50%);
+  filter:blur(12px);
+}
 
 nav{
   position:fixed;
-  top:0;left:0;width:100%;
+  top:0;
+  left:0;
+  width:100%;
   z-index:1000;
   padding:18px 7%;
   display:flex;
@@ -46,63 +66,78 @@ nav{
   align-items:center;
   background:rgba(243,239,230,.86);
   backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(8,8,8,.12);
 }
-.nav-logo{height:34px;object-fit:contain}
-.nav-links{display:flex;align-items:center;gap:28px}
+
+.nav-logo{
+  height:36px;
+  object-fit:contain;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
 .nav-links a{
   font-size:12px;
-  letter-spacing:.16em;
+  letter-spacing:.15em;
   text-transform:uppercase;
   color:#181613;
 }
-section{padding:120px 7%}
+
+section{
+  position:relative;
+  z-index:2;
+  padding:120px 7%;
+}
 
 .hero{
   min-height:100vh;
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+  grid-template-columns:1.08fr .92fr;
   align-items:center;
   gap:56px;
-  position:relative;
 }
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:auto 7% 60px auto;
-  width:220px;height:220px;
-  border-radius:999px;
-  background:radial-gradient(circle,rgba(139,16,24,.12),transparent 65%);
-  filter:blur(8px);
-  pointer-events:none;
+
+.hero-mark{
+  width:92px;
+  margin-bottom:28px;
 }
-.hero-mark{width:84px;margin-bottom:26px}
+
 .kicker{
   font-size:12px;
   letter-spacing:.28em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#6b625a;
 }
+
 h1{
   margin:22px 0;
   font-size:clamp(62px,10vw,150px);
   line-height:.88;
   letter-spacing:-.078em;
 }
+
 .lead{
-  max-width:700px;
+  max-width:720px;
   font-size:clamp(18px,2vw,28px);
   line-height:1.35;
   color:#292522;
 }
-.hero-actions{margin-top:28px}
+
+.hero-actions{
+  margin-top:30px;
+}
+
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   padding:15px 25px;
   border-radius:999px;
-  border:1px solid var(--ink);
+  border:1px solid #080808;
   font-size:12px;
   letter-spacing:.13em;
   text-transform:uppercase;
@@ -110,48 +145,113 @@ h1{
   transition:.25s ease;
   cursor:pointer;
 }
-.btn.dark{background:var(--ink);color:var(--cream)}
-.btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.12)}
-.hero-photo-wrap{position:relative;justify-self:center}
-.hero-photo-wrap::before{
+
+.btn.dark{
+  background:#080808;
+  color:#f3efe6;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(0,0,0,.12);
+}
+
+.hero-photo-wrap{
+  position:relative;
+  justify-self:center;
+}
+
+.hero-photo-wrap:before{
   content:"";
   position:absolute;
-  inset:12% 10% 0 10%;
+  inset:12% 8% 0 8%;
   background:linear-gradient(135deg,rgba(139,16,24,.18),rgba(55,20,95,.18));
-  border-radius:45% 45% 10% 10%;
-  filter:blur(22px);
+  border-radius:45% 45% 12% 12%;
+  filter:blur(24px);
   z-index:-1;
 }
+
 .hero-photo{
   max-height:620px;
   object-fit:contain;
-  filter:contrast(1.06) saturate(.9) drop-shadow(0 38px 70px rgba(0,0,0,.24));
+  filter:
+    grayscale(.08)
+    sepia(.08)
+    contrast(1.12)
+    saturate(.82)
+    brightness(.96)
+    drop-shadow(0 38px 70px rgba(0,0,0,.24));
+  mix-blend-mode:multiply;
   animation:float 7s ease-in-out infinite;
 }
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  align-items:end;
+  margin-bottom:46px;
+}
+
 .title{
   margin:0 0 22px;
   font-size:clamp(44px,7vw,94px);
-  letter-spacing:-.065em;
   line-height:.92;
+  letter-spacing:-.065em;
 }
+
 .copy{
   max-width:820px;
   font-size:18px;
   line-height:1.7;
   color:#4f4942;
 }
-.tools{display:flex;gap:12px;flex-wrap:wrap;margin:38px 0 32px}
+
+.featured-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:24px;
+}
+
+.feature-main{
+  min-height:560px;
+  border-radius:40px;
+  padding:18px;
+  background:rgba(255,255,255,.36);
+  border:1px solid rgba(8,8,8,.12);
+  box-shadow:0 30px 90px rgba(0,0,0,.10);
+  overflow:hidden;
+}
+
+.feature-main .cover{
+  height:100%;
+}
+
+.feature-side{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+}
+
+.tools{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:24px 0 30px;
+}
+
 .search{
   min-width:280px;
   padding:13px 18px;
   border-radius:999px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.44);
+  border:1px solid rgba(8,8,8,.12);
+  background:rgba(255,255,255,.46);
   outline:none;
-  color:var(--ink);
+  color:#080808;
 }
+
 .filter{
-  border:1px solid var(--line);
+  border:1px solid rgba(8,8,8,.12);
   background:rgba(255,255,255,.30);
   padding:12px 18px;
   border-radius:999px;
@@ -161,12 +261,28 @@ h1{
   font-size:11px;
   color:#24201d;
 }
-.filter.active{background:var(--ink);color:var(--cream)}
-.smart-note{margin-top:-12px;margin-bottom:28px;font-size:13px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+
+.filter.active{
+  background:#080808;
+  color:#f3efe6;
+}
+
+.smart-note{
+  margin-top:-8px;
+  margin-bottom:28px;
+  font-size:13px;
+  color:#6b625a;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
 .card{
-  background:var(--card);
-  border:1px solid var(--line);
+  background:rgba(255,255,255,.36);
+  border:1px solid rgba(8,8,8,.12);
   border-radius:30px;
   padding:14px;
   box-shadow:0 24px 70px rgba(0,0,0,.08);
@@ -174,20 +290,30 @@ h1{
   overflow:hidden;
   position:relative;
 }
-.card:hover{transform:translateY(-10px) scale(1.015);box-shadow:0 34px 90px rgba(0,0,0,.16)}
-.card.featured{outline:1px solid rgba(176,138,69,.42)}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.015);
+  box-shadow:0 34px 90px rgba(0,0,0,.16);
+}
+
+.card.featured{
+  outline:1px solid rgba(176,138,69,.45);
+}
+
 .badge{
   position:absolute;
-  top:24px;left:24px;
+  top:24px;
+  left:24px;
   z-index:4;
-  background:rgba(7,7,7,.78);
-  color:var(--cream);
+  background:rgba(8,8,8,.78);
+  color:#f3efe6;
   padding:8px 12px;
   border-radius:999px;
   font-size:10px;
   letter-spacing:.12em;
   text-transform:uppercase;
 }
+
 .cover{
   border-radius:22px;
   overflow:hidden;
@@ -195,10 +321,22 @@ h1{
   background:rgba(0,0,0,.08);
   position:relative;
 }
-.cover img{width:100%;height:100%;object-fit:cover;transition:.45s ease}
-.card:hover .cover img{transform:scale(1.04)}
+
+.cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.45s ease;
+}
+
+.card:hover .cover img,
+.feature-main:hover .cover img{
+  transform:scale(1.04);
+}
+
 .fallback{
-  width:100%;height:100%;
+  width:100%;
+  height:100%;
   display:none;
   align-items:center;
   justify-content:center;
@@ -209,105 +347,308 @@ h1{
   text-transform:uppercase;
   color:#433d37;
 }
-.meta{padding:18px 4px 6px}
-.meta h3{margin:0;font-size:22px;letter-spacing:-.04em}
-.meta p{margin:8px 0 16px;color:var(--muted);font-size:14px}
-.mini{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.mini span,.mini a{
+
+.meta{
+  padding:18px 4px 6px;
+}
+
+.meta h3{
+  margin:0;
+  font-size:22px;
+  letter-spacing:-.04em;
+}
+
+.meta p{
+  margin:8px 0 16px;
+  color:#6b625a;
+  font-size:14px;
+}
+
+.mini{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.mini span,
+.mini a,
+.mini button{
   padding:9px 12px;
-  border:1px solid var(--line);
+  border:1px solid rgba(8,8,8,.12);
   border-radius:999px;
   font-size:11px;
   letter-spacing:.08em;
   text-transform:uppercase;
   background:rgba(255,255,255,.22);
+  color:#080808;
 }
-audio{width:100%;margin-top:4px}
 
-.about{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:center}
+.mini button{
+  cursor:pointer;
+}
+
+audio{
+  width:100%;
+  margin-top:6px;
+}
+  .about{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:70px;
+  align-items:center;
+}
+
 .panel{
   background:rgba(255,255,255,.34);
-  border:1px solid var(--line);
+  border:1px solid rgba(8,8,8,.12);
   border-radius:36px;
   padding:36px;
   box-shadow:0 30px 90px rgba(0,0,0,.08);
 }
-.logo-big{width:94px;margin-bottom:28px}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+
+.logo-big{
+  width:94px;
+  margin-bottom:28px;
+}
+
+.about-photo-wrap{
+  margin-top:28px;
+  border-radius:34px;
+  overflow:hidden;
+  background:linear-gradient(135deg,rgba(139,16,24,.10),rgba(55,20,95,.10));
+  border:1px solid rgba(8,8,8,.12);
+}
+
+.about-photo{
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+  filter:
+    grayscale(.08)
+    sepia(.08)
+    contrast(1.12)
+    saturate(.82)
+    brightness(.96);
+  mix-blend-mode:multiply;
+}
+
+.stat-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:28px;
+}
+
 .stat{
-  border:1px solid var(--line);
+  border:1px solid rgba(8,8,8,.12);
   background:rgba(255,255,255,.30);
   border-radius:24px;
   padding:20px;
 }
-.stat strong{display:block;font-size:28px;letter-spacing:-.04em}
-.stat span{color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+
+.stat strong{
+  display:block;
+  font-size:28px;
+  letter-spacing:-.04em;
+}
+
+.stat span{
+  color:#6b625a;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.services{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:34px;
+}
+
+.service{
+  border:1px solid rgba(8,8,8,.12);
+  background:rgba(255,255,255,.30);
+  border-radius:28px;
+  padding:24px;
+}
+
+.service h3{
+  margin:0 0 10px;
+  font-size:24px;
+  letter-spacing:-.03em;
+}
+
+.service p{
+  margin:0;
+  color:#6b625a;
+  line-height:1.6;
+}
+
+.platform-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  margin-top:32px;
+}
+
+.platform{
+  padding:28px;
+  border-radius:30px;
+  background:rgba(255,255,255,.36);
+  border:1px solid rgba(8,8,8,.12);
+  transition:.25s ease;
+}
+
+.platform:hover{
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,.10);
+}
+
+.platform h3{
+  margin:0 0 8px;
+  font-size:26px;
+  letter-spacing:-.04em;
+}
+
+.platform p{
+  margin:0;
+  color:#6b625a;
+  line-height:1.55;
+}
+
 .contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:22px;
   margin-top:30px;
-  max-width:850px;
+  max-width:900px;
 }
+
 .contact-card{
   padding:26px;
   border-radius:28px;
   background:rgba(255,255,255,.35);
-  border:1px solid var(--line);
+  border:1px solid rgba(8,8,8,.12);
   transition:.25s ease;
 }
-.contact-card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.10)}
-.contact-card h3{margin:0 0 8px;font-size:24px}
-.contact-card p{margin:0;color:var(--muted)}
+
+.contact-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 24px 60px rgba(0,0,0,.10);
+}
+
+.contact-card h3{
+  margin:0 0 8px;
+  font-size:24px;
+}
+
+.contact-card p{
+  margin:0;
+  color:#6b625a;
+  line-height:1.55;
+}
+
 footer{
   padding:50px 7%;
-  border-top:1px solid var(--line);
+  border-top:1px solid rgba(8,8,8,.12);
   display:flex;
   justify-content:space-between;
-  color:var(--muted);
+  color:#6b625a;
   font-size:13px;
 }
-.reveal{opacity:0;transform:translateY(34px);transition:.7s ease}
-.reveal.show{opacity:1;transform:none}
-@keyframes float{50%{transform:translateY(-18px)}}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){
-  .nav-links{display:none}
-  .hero,.about{grid-template-columns:1fr}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  h1{font-size:clamp(58px,18vw,110px)}
+
+.reveal{
+  opacity:0;
+  transform:translateY(34px);
+  transition:.7s ease;
 }
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+@keyframes float{
+  50%{transform:translateY(-18px)}
+}
+
+@media(max-width:1100px){
+  .grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .platform-grid,
+  .services{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:900px){
+  .nav-links{
+    display:none;
+  }
+
+  .hero,
+  .about,
+  .featured-grid{
+    grid-template-columns:1fr;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  h1{
+    font-size:clamp(58px,18vw,110px);
+  }
+}
+
 @media(max-width:600px){
-  nav{padding:16px 5%}
-  section{padding:90px 5%}
-  .grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:1fr}
-  .stat-row{grid-template-columns:1fr}
+  nav{
+    padding:16px 5%;
+  }
+
+  section{
+    padding:90px 5%;
+  }
+
+  .grid,
+  .contact-grid,
+  .platform-grid,
+  .services,
+  .stat-row{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<div class="cursor-glow" id="cursorGlow"></div>
+
 <nav>
-  <img class="nav-logo" src="assets/watermark.v2.png" alt="Prince Cali">
+  <img class="nav-logo" src="assets/watermark.v2.png" alt="">
   <div class="nav-links">
-    <a href="#music">Music</a>
-    <a href="#beats">Beats</a>
+    <a href="#featured">Featured</a>
+    <a href="#catalog">Catalog</a>
     <a href="#about">About</a>
+    <a href="#services">Services</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <section class="hero">
   <div class="reveal">
-    <img class="hero-mark" src="assets/watermark.v2.png" alt="Prince Cali">
+    <img class="hero-mark" src="assets/watermark.v2.png" alt="">
     <div class="kicker">Los Angeles born • PDX based • producing since 2012</div>
     <h1>Prince Cali</h1>
     <p class="lead">Cinematic production, polished drums, and atmospheric sound built for artists who want records with presence.</p>
     <div class="hero-actions">
-      <a class="btn dark" href="#beats">Explore Beats</a>
-      <a class="btn" href="#music">Stream Music</a>
+      <a class="btn dark" href="#featured">Featured Beats</a>
+      <a class="btn" href="#catalog">Full Catalog</a>
     </div>
   </div>
 
@@ -316,10 +657,22 @@ footer{
   </div>
 </section>
 
-<section id="music" class="reveal">
+<section id="featured" class="reveal">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Selected Work</div>
+      <h2 class="title">Featured beats.</h2>
+    </div>
+    <p class="copy">A focused selection of records that introduce the sound, range, and atmosphere of Prince Cali production.</p>
+  </div>
+
+  <div class="featured-grid" id="featuredGrid"></div>
+</section>
+
+<section id="catalog" class="reveal">
   <div class="kicker">Official Catalog</div>
-  <h2 class="title">Featured sounds.</h2>
-  <p class="copy">A polished catalog of cinematic, melodic, dark, luxury, and street-driven production from Prince Cali.</p>
+  <h2 class="title">Full catalog.</h2>
+  <p class="copy">Search by title, mood, or style. The catalog is structured so previews, leases, and future beat pages can be added without rebuilding the site.</p>
 
   <div class="tools">
     <input class="search" id="searchBox" placeholder="Search beats, moods, styles...">
@@ -334,25 +687,238 @@ footer{
   <div class="smart-note" id="smartNote">Search by title, mood, or sound.</div>
   <div class="grid" id="beatGrid"></div>
 </section>
-
 <section id="about" class="about">
-  <div class="panel reveal">
-    <img class="logo-big" src="assets/watermark.v2.png" alt="Prince Cali">
-    <p class="copy">Prince Cali is an audio engineer and producer originally from Los Angeles, now based in Portland, Oregon. Producing since 2012, he creates records with atmosphere, bounce, emotion, and polish.</p>
 
-    <div class="stat-row">
-      <div class="stat"><strong>2012</strong><span>Producing Since</span></div>
-      <div class="stat"><strong>LA</strong><span>Origin</span></div>
-      <div class="stat"><strong>PDX</strong><span>Current Base</span></div>
-    </div>
-  </div>
+<div class="panel reveal">
 
-  <div class="reveal">
-    <div class="kicker">The Brand</div>
-    <h2 class="title">Built for the vision.</h2>
-    <p class="copy">Prince Cali is built around sound, identity, and execution — from beats and records to future visuals, behind-the-scenes work, and creative projects with long-term impact.</p>
-  </div>
+<img class="logo-big" src="assets/watermark.v2.png" alt="Prince Cali">
+
+<p class="copy">
+Prince Cali is an audio engineer and producer originally from Los Angeles, now based in Portland, Oregon. Producing since 2012, his work blends cinematic atmosphere, hard drums, melody, and emotion into records built to inspire artists rather than follow trends. Every beat is approached with long-term replay value in mind, focusing on sound that feels timeless instead of temporary.
+</p>
+
+<div class="stat-row">
+
+<div class="stat">
+<strong>2012</strong>
+<span>Producing Since</span>
+</div>
+
+<div class="stat">
+<strong>Los Angeles</strong>
+<span>Where It Started</span>
+</div>
+
+<div class="stat">
+<strong>Portland</strong>
+<span>Current Studio</span>
+</div>
+
+</div>
+
+<div class="about-photo-wrap">
+
+<img
+class="about-photo"
+src="assets/IMG_6100-removebg-preview.png"
+alt="Prince Cali"
+onerror="this.parentElement.style.display='none'">
+
+</div>
+
+</div>
+
+<div class="reveal">
+
+<div class="kicker">
+Beyond Beats
+</div>
+
+<h2 class="title">
+Building something that lasts.
+</h2>
+
+<p class="copy">
+Prince Cali is more than a producer. The vision is to build a creative brand that grows beyond music into visual storytelling, behind-the-scenes content, films, games, sound design, and future creative ventures. Every release contributes to a catalog designed to remain relevant for years instead of chasing short-lived trends.
+</p>
+
+<div class="services" id="services">
+
+<div class="service">
+<h3>Beat Licensing</h3>
+<p>
+Professional instrumentals available for artists looking for premium production with room to grow.
+</p>
+</div>
+
+<div class="service">
+<h3>Exclusive Production</h3>
+<p>
+Select records can be licensed exclusively for artists seeking a unique sound and long-term ownership.
+</p>
+</div>
+
+<div class="service">
+<h3>Mixing & Engineering</h3>
+<p>
+Audio engineering focused on clarity, impact, depth, and musical balance across every project.
+</p>
+</div>
+
+</div>
+
+</div>
+
 </section>
+
+<section class="reveal">
+
+<div class="section-head">
+
+<div>
+
+<div class="kicker">
+Official Platforms
+</div>
+
+<h2 class="title">
+Listen everywhere.
+</h2>
+
+</div>
+
+<p class="copy">
+Follow Prince Cali across every platform to stay current with new releases, beat previews, and future projects.
+</p>
+
+</div>
+
+<div class="platform-grid">
+
+<a class="platform" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank">
+<h3>Spotify</h3>
+<p>Official releases and future catalog updates.</p>
+</a>
+
+<a class="platform" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank">
+<h3>Apple Music</h3>
+<p>Stream the Prince Cali catalog worldwide.</p>
+</a>
+
+<a class="platform" href="https://www.youtube.com/@princecali89/videos" target="_blank">
+<h3>YouTube</h3>
+<p>Music videos, beat previews, and behind-the-scenes content.</p>
+</a>
+
+<a class="platform" href="https://www.tiktok.com/@therealprincecali" target="_blank">
+<h3>TikTok</h3>
+<p>Daily snippets, works in progress, and producer content.</p>
+</a>
+
+<a class="platform" href="https://x.com/princecali89" target="_blank">
+<h3>X</h3>
+<p>Announcements, thoughts, releases, and community updates.</p>
+</a>
+
+<a class="platform" href="mailto:princecali6989@gmail.com">
+<h3>Email</h3>
+<p>Business inquiries, collaborations, licensing, and custom work.</p>
+</a>
+
+</div>
+
+</section>
+<style>
+.featured-carousel{
+  position:relative;
+  overflow:hidden;
+  border-radius:42px;
+  border:1px solid rgba(8,8,8,.12);
+  background:rgba(255,255,255,.32);
+  box-shadow:0 34px 100px rgba(0,0,0,.12);
+  padding:22px;
+}
+
+.carousel-stage{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:28px;
+  align-items:center;
+}
+
+.carousel-cover{
+  border-radius:32px;
+  overflow:hidden;
+  aspect-ratio:1/1;
+  background:rgba(0,0,0,.08);
+  box-shadow:0 28px 70px rgba(0,0,0,.16);
+}
+
+.carousel-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.carousel-info{
+  padding:30px;
+}
+
+.carousel-info h3{
+  font-size:clamp(42px,6vw,88px);
+  line-height:.9;
+  letter-spacing:-.06em;
+  margin:0 0 20px;
+}
+
+.carousel-info p{
+  color:#5a524b;
+  font-size:18px;
+  line-height:1.65;
+  max-width:620px;
+}
+
+.carousel-controls{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:26px;
+}
+
+.arrow{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:1px solid rgba(8,8,8,.16);
+  background:rgba(255,255,255,.45);
+  cursor:pointer;
+  font-size:20px;
+}
+
+.dots{
+  display:flex;
+  gap:10px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  border:none;
+  background:rgba(8,8,8,.22);
+  cursor:pointer;
+}
+
+.dot.active{
+  background:#080808;
+}
+
+@media(max-width:800px){
+  .carousel-stage{
+    grid-template-columns:1fr;
+  }
+}
+</style>
 
 <section id="contact" class="reveal">
   <div class="kicker">Connect</div>
@@ -361,11 +927,11 @@ footer{
 
   <div class="contact-grid">
     <a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a>
-    <a class="contact-card" href="https://www.tiktok.com/@therealprincecali" target="_blank"><h3>TikTok</h3><p>New snippets, visuals, and beat drops.</p></a>
-    <a class="contact-card" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank"><h3>Spotify</h3><p>Stream Prince Cali releases.</p></a>
-    <a class="contact-card" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank"><h3>Apple Music</h3><p>Official Apple Music catalog.</p></a>
-    <a class="contact-card" href="https://www.youtube.com/@princecali89/videos" target="_blank"><h3>YouTube</h3><p>Music, videos, and future behind-the-scenes work.</p></a>
-    <a class="contact-card" href="https://x.com/princecali89" target="_blank"><h3>X</h3><p>Updates, drops, and brand moves.</p></a>
+    <a class="contact-card" href="https://www.tiktok.com/@therealprincecali" target="_blank"><h3>TikTok</h3><p>Snippets, visuals, beat drops, and works in progress.</p></a>
+    <a class="contact-card" href="https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra" target="_blank"><h3>Spotify</h3><p>Stream official Prince Cali releases.</p></a>
+    <a class="contact-card" href="https://music.apple.com/us/artist/prince-cali/1500703255" target="_blank"><h3>Apple Music</h3><p>Official catalog on Apple Music.</p></a>
+    <a class="contact-card" href="https://www.youtube.com/@princecali89/videos" target="_blank"><h3>YouTube</h3><p>Music, videos, and behind-the-scenes content.</p></a>
+    <a class="contact-card" href="https://x.com/princecali89" target="_blank"><h3>X</h3><p>Updates, releases, and brand moves.</p></a>
   </div>
 </section>
 
@@ -375,69 +941,122 @@ footer{
 </footer>
 
 <script>
-const beats = [
-  {title:"589", img:"assets/589.png", tags:["cinematic","dark","street"], vibe:"Street cinematic • Legacy energy", audio:"", featured:true},
-  {title:"Velvet", img:"assets/Velvet.png", tags:["melodic","luxury"], vibe:"Smooth • colorful • premium", audio:"", featured:true},
-  {title:"Blackjack", img:"assets/Blackjack.png", tags:["luxury","dark"], vibe:"Casino luxury • dark bounce", audio:"", featured:true},
-  {title:"Cherry Blossom", img:"assets/Cherry.Blossom.png", tags:["melodic","cinematic"], vibe:"Moonlit • emotional • smooth", audio:""},
-  {title:"Benedict Arnold", img:"assets/Benedict.Arnold.png", tags:["cinematic","dark"], vibe:"War film energy • dramatic", audio:""},
-  {title:"The Void", img:"assets/The.Void.png", tags:["dark","cinematic"], vibe:"Atmospheric • deep • moody", audio:""},
-  {title:"No Time", img:"assets/No.Time.png", tags:["melodic","street"], vibe:"Bounce • motion • clean", audio:""},
-  {title:"GOODAH", img:"assets/GOODAH.png", tags:["dark","street"], vibe:"Hard drums • street bounce", audio:""},
-  {title:"Night Opera", img:"assets/Night.Opera.png", tags:["cinematic","dark","luxury"], vibe:"Opera • dramatic • luxury", audio:""},
-  {title:"Magia", img:"assets/Magia.png", tags:["melodic","luxury"], vibe:"Mystic • smooth • cinematic", audio:""},
-  {title:"SubLandia", img:"assets/SubLandia.png", tags:["dark","cinematic"], vibe:"Deep bass • low-end world", audio:""},
-  {title:"Lights Out", img:"assets/Lights.Out.png", tags:["dark"], vibe:"Late night • clean • moody", audio:""},
-  {title:"Revival", img:"assets/Revival.png", tags:["cinematic","melodic"], vibe:"Comeback energy • emotional", audio:""},
-  {title:"ZOM", img:"assets/ZOM.png", tags:["dark"], vibe:"Dark bounce • horror texture", audio:""},
-  {title:"The Mack", img:"assets/The.Mack.png", tags:["luxury","street"], vibe:"Smooth player energy", audio:""},
-  {title:"The Boonies", img:"assets/The.Boonies.png", tags:["dark","street"], vibe:"Raw • gritty • outside", audio:""},
-  {title:"Lucille", img:"assets/Lucille.png", tags:["melodic"], vibe:"Soulful • reflective • smooth", audio:""},
-  {title:"Maestro", img:"assets/Maestro.png", tags:["cinematic","luxury"], vibe:"Composer energy • polished", audio:""},
-  {title:"Smile", img:"assets/Smile.png", tags:["melodic"], vibe:"Bright • melodic • clean", audio:""},
-  {title:"Tranquillo", img:"assets/Tranquillo.png", tags:["melodic","luxury"], vibe:"Calm • smooth • patient", audio:""},
-  {title:"SENSATIONAL", img:"assets/SENSATIONAL.png", tags:["cinematic","melodic"], vibe:"Emotional • timeless • clean", audio:""},
-  {title:"Circus Freak", img:"assets/Circus.Freak.png", tags:["dark"], vibe:"Twisted • bounce • strange", audio:""},
-  {title:"Rush Hour", img:"assets/Rush.Hour.png", tags:["dark","street"], vibe:"Fast motion • pressure", audio:""},
-  {title:"The Getaway", img:"assets/the.Getaway.png", tags:["cinematic","dark"], vibe:"Escape energy • cinematic", audio:""},
-  {title:"Familia", img:"assets/Familia.png", tags:["cinematic","street"], vibe:"Family • loyalty • legacy", audio:""},
-  {title:"Grime", img:"assets/Grime.png", tags:["dark","street"], vibe:"Dirty drums • pressure", audio:""},
-  {title:"Ledger", img:"assets/Ledger.png", tags:["dark"], vibe:"Calculated • cold • sharp", audio:""},
-  {title:"Pressed", img:"assets/Pressed.png", tags:["street","dark"], vibe:"Pressure • tension • bounce", audio:""},
-  {title:"PunchLime", img:"assets/PunchLime.png", tags:["street"], vibe:"Sharp • witty • direct", audio:""},
-  {title:"UNDESIRABLE", img:"assets/UNDESIRABLE.png", tags:["dark"], vibe:"Cold • unwanted • raw", audio:""},
-  {title:"XX", img:"assets/XX.png", tags:["dark"], vibe:"Minimal • dark • focused", audio:""}
+const beats=[
+{title:"589",img:"assets/589.png",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
+{title:"Velvet",img:"assets/Velvet.png",tags:["melodic","luxury"],vibe:"Smooth, colorful, polished production with premium motion.",audio:"",featured:true},
+{title:"Blackjack",img:"assets/Blackjack.png",tags:["luxury","dark"],vibe:"Dark casino luxury with bounce and pressure.",audio:"",featured:true},
+{title:"Cherry Blossom",img:"assets/Cherry.Blossom.png",tags:["melodic","cinematic"],vibe:"Moonlit, emotional, and smooth with room for vocals.",audio:"",featured:true},
+{title:"Benedict Arnold",img:"assets/Benedict.Arnold.png",tags:["cinematic","dark"],vibe:"Dramatic war-film energy with betrayal in the atmosphere.",audio:"",featured:true},
+{title:"The Void",img:"assets/The.Void.png",tags:["dark","cinematic"],vibe:"Deep, moody, atmospheric production built for presence.",audio:"",featured:true},
+{title:"No Time",img:"assets/No.Time.png",tags:["melodic","street"],vibe:"Clean motion, bounce, and focus.",audio:""},
+{title:"GOODAH",img:"assets/GOODAH.png",tags:["dark","street"],vibe:"Hard drums and street bounce.",audio:""},
+{title:"Night Opera",img:"assets/Night.Opera.png",tags:["cinematic","dark","luxury"],vibe:"Opera-house drama with luxury tension.",audio:""},
+{title:"Magia",img:"assets/Magia.png",tags:["melodic","luxury"],vibe:"Mystic, smooth, cinematic texture.",audio:""},
+{title:"SubLandia",img:"assets/SubLandia.png",tags:["dark","cinematic"],vibe:"Deep bass world with low-end pressure.",audio:""},
+{title:"Lights Out",img:"assets/Lights.Out.png",tags:["dark"],vibe:"Late-night, clean, moody production.",audio:""},
+{title:"Revival",img:"assets/Revival.png",tags:["cinematic","melodic"],vibe:"Comeback energy with emotion and lift.",audio:""},
+{title:"ZOM",img:"assets/ZOM.png",tags:["dark"],vibe:"Dark bounce with horror texture.",audio:""},
+{title:"The Mack",img:"assets/The.Mack.png",tags:["luxury","street"],vibe:"Smooth player energy with polish.",audio:""},
+{title:"The Boonies",img:"assets/The.Boonies.png",tags:["dark","street"],vibe:"Raw, gritty, outside energy.",audio:""},
+{title:"Lucille",img:"assets/Lucille.png",tags:["melodic"],vibe:"Soulful, reflective, smooth production.",audio:""},
+{title:"Maestro",img:"assets/Maestro.png",tags:["cinematic","luxury"],vibe:"Composer energy with polished arrangement.",audio:""},
+{title:"Smile",img:"assets/Smile.png",tags:["melodic"],vibe:"Bright, melodic, clean atmosphere.",audio:""},
+{title:"Tranquillo",img:"assets/Tranquillo.png",tags:["melodic","luxury"],vibe:"Calm, smooth, patient production.",audio:""},
+{title:"SENSATIONAL",img:"assets/SENSATIONAL.png",tags:["cinematic","melodic"],vibe:"Emotional, timeless, clean sound.",audio:""},
+{title:"Circus Freak",img:"assets/Circus.Freak.png",tags:["dark"],vibe:"Twisted bounce with strange character.",audio:""},
+{title:"Rush Hour",img:"assets/Rush.Hour.png",tags:["dark","street"],vibe:"Fast motion and pressure.",audio:""},
+{title:"The Getaway",img:"assets/the.Getaway.png",tags:["cinematic","dark"],vibe:"Escape energy with cinematic movement.",audio:""},
+{title:"Familia",img:"assets/Familia.png",tags:["cinematic","street"],vibe:"Family, loyalty, and legacy.",audio:""},
+{title:"Grime",img:"assets/Grime.png",tags:["dark","street"],vibe:"Dirty drums and pressure.",audio:""},
+{title:"Ledger",img:"assets/Ledger.png",tags:["dark"],vibe:"Calculated, cold, and sharp.",audio:""},
+{title:"Pressed",img:"assets/Pressed.png",tags:["street","dark"],vibe:"Pressure, tension, and bounce.",audio:""},
+{title:"PunchLime",img:"assets/PunchLime.png",tags:["street"],vibe:"Sharp, witty, direct energy.",audio:""},
+{title:"UNDESIRABLE",img:"assets/UNDESIRABLE.png",tags:["dark"],vibe:"Cold, raw, unwanted atmosphere.",audio:""},
+{title:"XX",img:"assets/XX.png",tags:["dark"],vibe:"Minimal, dark, focused production.",audio:""}
 ];
 
+const featuredGrid=document.getElementById("featuredGrid");
 const grid=document.getElementById("beatGrid");
 const searchBox=document.getElementById("searchBox");
 const smartNote=document.getElementById("smartNote");
-let activeFilter="all";
+const cursorGlow=document.getElementById("cursorGlow");
 
-function fallbackImage(img,title){
-  img.style.display="none";
-  const fallback=img.parentElement.querySelector(".fallback");
-  if(fallback){fallback.style.display="flex";fallback.textContent=title;}
-}
+let activeFilter="all";
+let slideIndex=0;
+const featured=beats.filter(b=>b.featured).slice(0,6);
 
 function cleanText(value){
   return value.toLowerCase().trim().replace(/\s+/g," ");
 }
 
-function render(){
+function fallbackImage(img,title){
+  img.style.display="none";
+  const fallback=img.parentElement.querySelector(".fallback");
+  if(fallback){
+    fallback.style.display="flex";
+    fallback.textContent=title;
+  }
+}
+
+function renderFeatured(){
+  const b=featured[slideIndex];
+
+  featuredGrid.innerHTML=`
+    <div class="featured-carousel">
+      <div class="carousel-stage">
+        <div class="carousel-cover">
+          <img src="${b.img}" alt="${b.title}" onerror="fallbackImage(this,'${b.title}')">
+          <div class="fallback">${b.title}</div>
+        </div>
+        <div class="carousel-info">
+          <div class="kicker">Featured Beat</div>
+          <h3>${b.title}</h3>
+          <p>${b.vibe}</p>
+          <div class="mini">
+            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:`<span>Preview Coming Soon</span>`}
+            <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
+            <a href="#catalog">Full Catalog</a>
+          </div>
+          <div class="carousel-controls">
+            <button class="arrow" id="prevSlide">‹</button>
+            <div class="dots">${featured.map((_,i)=>`<button class="dot ${i===slideIndex?"active":""}" data-slide="${i}"></button>`).join("")}</div>
+            <button class="arrow" id="nextSlide">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("prevSlide").onclick=()=>changeSlide(-1);
+  document.getElementById("nextSlide").onclick=()=>changeSlide(1);
+  document.querySelectorAll(".dot").forEach(dot=>{
+    dot.onclick=()=>{
+      slideIndex=Number(dot.dataset.slide);
+      renderFeatured();
+    };
+  });
+}
+
+function changeSlide(direction){
+  slideIndex=(slideIndex+direction+featured.length)%featured.length;
+  renderFeatured();
+}
+
+function renderCatalog(){
   const query=cleanText(searchBox.value);
+
   let visible=beats
     .filter(b=>activeFilter==="all"||b.tags.includes(activeFilter))
     .filter(b=>{
       if(!query)return true;
-      const haystack=cleanText(`${b.title} ${b.vibe} ${b.tags.join(" ")}`);
-      return haystack.includes(query);
+      const expanded=`${b.title} ${b.vibe} ${b.tags.join(" ")} hard aggressive smooth emotional sad piano club bounce west coast luxury trap cinematic dark melodic street`;
+      return cleanText(expanded).includes(query);
     });
 
   grid.innerHTML="";
 
   if(visible.length===0){
-    grid.innerHTML=`<article class="card reveal show"><div class="meta"><h3>No matches found</h3><p>Try a title or mood like cinematic, dark, melodic, luxury, or street.</p></div></article>`;
+    grid.innerHTML=`<article class="card reveal show"><div class="meta"><h3>No matches found</h3><p>Try a title or mood like cinematic, dark, melodic, luxury, street, smooth, hard, or emotional.</p></div></article>`;
     smartNote.textContent="No match yet. Try another title or mood.";
     return;
   }
@@ -460,8 +1079,9 @@ function render(){
           ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:`<span>Preview Coming Soon</span>`}
           <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
         </div>
-      </div>`;
-    card.style.transitionDelay=`${Math.min(index*35,280)}ms`;
+      </div>
+    `;
+    card.style.transitionDelay=`${Math.min(index*30,240)}ms`;
     grid.appendChild(card);
   });
 }
@@ -471,17 +1091,36 @@ document.querySelectorAll(".filter").forEach(btn=>{
     document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
     activeFilter=btn.dataset.filter;
-    render();
+    renderCatalog();
   });
 });
-searchBox.addEventListener("input",render);
+
+searchBox.addEventListener("input",renderCatalog);
 
 const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show");});
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add("show");
+  });
 },{threshold:.12});
 
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-render();
+
+window.addEventListener("mousemove",e=>{
+  if(cursorGlow){
+    cursorGlow.style.left=e.clientX+"px";
+    cursorGlow.style.top=e.clientY+"px";
+  }
+});
+
+window.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft")changeSlide(-1);
+  if(e.key==="ArrowRight")changeSlide(1);
+});
+
+setInterval(()=>changeSlide(1),6500);
+
+renderFeatured();
+renderCatalog();
 </script>
 
 </body>
