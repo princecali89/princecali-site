@@ -880,6 +880,204 @@ footer{
   }
 }
 
+
+/* Licensing system */
+.license-section{
+  padding-top:90px;
+}
+
+.license-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  margin-top:34px;
+}
+
+.license-card{
+  background:rgba(255,255,255,.38);
+  border:1px solid rgba(8,8,8,.12);
+  border-radius:32px;
+  padding:28px;
+  box-shadow:0 24px 70px rgba(0,0,0,.08);
+  transition:.28s ease;
+}
+
+.license-card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 34px 90px rgba(0,0,0,.13);
+}
+
+.license-card.featured-license{
+  outline:1px solid rgba(176,138,69,.5);
+}
+
+.license-card h3{
+  margin:0 0 10px;
+  font-size:30px;
+  letter-spacing:-.04em;
+}
+
+.license-card .price{
+  margin:0 0 18px;
+  font-size:18px;
+  color:#6b625a;
+}
+
+.license-card ul,
+.license-card .no-list{
+  padding-left:18px;
+  color:#4f4942;
+  line-height:1.65;
+}
+
+.license-card .no-list{
+  margin-top:18px;
+}
+
+.license-card button,
+.basket-actions a,
+.basket-actions button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:18px;
+  padding:13px 18px;
+  border-radius:999px;
+  border:1px solid #080808;
+  background:#080808;
+  color:#f3efe6;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.license-note{
+  margin-top:24px;
+  color:#5a524b;
+  font-size:15px;
+  line-height:1.6;
+  max-width:900px;
+}
+
+.license-basket{
+  margin-top:36px;
+  display:grid;
+  grid-template-columns:1fr .8fr;
+  gap:24px;
+}
+
+.basket-panel,
+.license-faq{
+  background:rgba(255,255,255,.34);
+  border:1px solid rgba(8,8,8,.12);
+  border-radius:32px;
+  padding:28px;
+  box-shadow:0 24px 70px rgba(0,0,0,.08);
+}
+
+.basket-panel h3,
+.license-faq h3{
+  margin:0 0 14px;
+  font-size:28px;
+  letter-spacing:-.04em;
+}
+
+.basket-list{
+  display:grid;
+  gap:10px;
+  margin:16px 0;
+}
+
+.basket-item{
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(8,8,8,.10);
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+
+.basket-item strong{
+  display:block;
+}
+
+.basket-item span{
+  color:#6b625a;
+  font-size:13px;
+}
+
+.basket-remove{
+  border:none;
+  background:transparent;
+  color:#8b1018;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.basket-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.basket-actions button{
+  background:transparent;
+  color:#080808;
+}
+
+.faq-item{
+  border-top:1px solid rgba(8,8,8,.10);
+  padding:15px 0;
+}
+
+.faq-item:first-of-type{
+  border-top:none;
+}
+
+.faq-item strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.faq-item p{
+  margin:0;
+  color:#6b625a;
+  line-height:1.55;
+}
+
+.site-toast{
+  position:fixed;
+  left:50%;
+  bottom:26px;
+  transform:translateX(-50%) translateY(20px);
+  background:#080808;
+  color:#f3efe6;
+  padding:13px 18px;
+  border-radius:999px;
+  z-index:4000;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s ease;
+  font-size:13px;
+  letter-spacing:.04em;
+}
+
+.site-toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+@media(max-width:900px){
+  .license-grid,
+  .license-basket{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 
@@ -892,6 +1090,7 @@ footer{
   <div class="nav-links">
     <a href="#featured">Featured</a>
     <a href="#catalog">Catalog</a>
+    <a href="#licenses">Licenses</a>
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#contact">Contact</a>
@@ -1083,6 +1282,96 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 </section>
 
 
+<section id="licenses" class="license-section reveal">
+  <div class="section-head">
+    <div>
+      <div class="kicker">Beat Licensing</div>
+      <h2 class="title">Choose your lease.</h2>
+    </div>
+    <p class="copy">Artists can record, release, and promote music using Prince Cali production during the selected license term. Ownership stays with Prince Cali unless a separate written agreement is made directly.</p>
+  </div>
+
+  <div class="license-grid">
+    <article class="license-card">
+      <div class="kicker">Starter</div>
+      <h3>3 Month Lease</h3>
+      <p class="price">For testing a song, promo drops, or a short release window.</p>
+      <ul>
+        <li>Record vocals over the beat</li>
+        <li>Release on streaming platforms</li>
+        <li>Use for music videos and social promotion</li>
+        <li>Commercial use during the license term</li>
+      </ul>
+      <ul class="no-list">
+        <li>No ownership transfer</li>
+        <li>No resale or redistribution of the beat</li>
+        <li>No Content ID registration without written approval</li>
+      </ul>
+      <button class="license-choice" data-term="3 Month Lease">Add 3 Month Lease</button>
+    </article>
+
+    <article class="license-card featured-license">
+      <div class="kicker">Most Flexible</div>
+      <h3>6 Month Lease</h3>
+      <p class="price">For artists building a serious single campaign with more time to push.</p>
+      <ul>
+        <li>Everything in the 3 Month Lease</li>
+        <li>Longer promotional runway</li>
+        <li>Better for music videos and rollout planning</li>
+        <li>Commercial use during the license term</li>
+      </ul>
+      <ul class="no-list">
+        <li>No ownership transfer</li>
+        <li>No exclusive rights unless negotiated directly</li>
+        <li>No claiming production ownership</li>
+      </ul>
+      <button class="license-choice" data-term="6 Month Lease">Add 6 Month Lease</button>
+    </article>
+
+    <article class="license-card">
+      <div class="kicker">Best Value</div>
+      <h3>1 Year Lease</h3>
+      <p class="price">For artists who want maximum time to release, promote, and build around the record.</p>
+      <ul>
+        <li>Everything in the 6 Month Lease</li>
+        <li>Full-year campaign window</li>
+        <li>Best option for serious independent releases</li>
+        <li>Commercial use during the license term</li>
+      </ul>
+      <ul class="no-list">
+        <li>No ownership transfer</li>
+        <li>No resale, sublicensing, or beat redistribution</li>
+        <li>Exclusive licensing handled directly</li>
+      </ul>
+      <button class="license-choice" data-term="1 Year Lease">Add 1 Year Lease</button>
+    </article>
+  </div>
+
+  <p class="license-note"><strong>Important:</strong> A lease gives permission to use the beat for the selected term. It does not sell the beat, transfer ownership, or give the artist exclusive rights. Exclusive licensing, custom production, special terms, and renewals are handled directly with Prince Cali.</p>
+
+  <div class="license-basket">
+    <div class="basket-panel">
+      <div class="kicker">License Request Basket</div>
+      <h3>Your request</h3>
+      <p class="copy">Preview a beat, choose a lease term, then submit the request. Prince Cali will review it personally and handle the final agreement directly.</p>
+      <div class="basket-list" id="basketList"></div>
+      <div class="basket-actions">
+        <a id="submitLicenseRequest" href="mailto:princecali6989@gmail.com">Submit License Request</a>
+        <button id="clearBasket" type="button">Clear Request</button>
+      </div>
+    </div>
+
+    <div class="license-faq">
+      <h3>License FAQ</h3>
+      <div class="faq-item"><strong>Can I release on Spotify and Apple Music?</strong><p>Yes, during the active license term.</p></div>
+      <div class="faq-item"><strong>Can I make a music video?</strong><p>Yes, promotional music videos are included during the license term.</p></div>
+      <div class="faq-item"><strong>Do I own the beat?</strong><p>No. Ownership remains with Prince Cali unless a separate written agreement says otherwise.</p></div>
+      <div class="faq-item"><strong>Can I renew?</strong><p>Yes. Renewals are handled directly before or after the term expires.</p></div>
+      <div class="faq-item"><strong>Can I get an exclusive?</strong><p>Possibly. Exclusive licensing is not automatic and must be discussed directly.</p></div>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="reveal">
   <div class="contact-shell">
     <div>
@@ -1110,7 +1399,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
       <div class="kicker">Now Previewing</div>
       <h3 id="previewTitle">Beat Preview</h3>
       <p id="previewVibe"></p>
-      <a class="btn dark" id="previewLease" href="mailto:princecali6989@gmail.com">Lease This Beat</a>
+      <a class="btn dark" id="previewLease" href="#licenses">License This Beat</a>
     </div>
   </div>
 </div>
@@ -1178,6 +1467,8 @@ const previewClose=document.getElementById("previewClose");
 let activeFilter="all";
 let slideIndex=0;
 let carouselTimer=null;
+let selectedBeatTitle="";
+let licenseBasket=[];
 const featured=beats.filter(b=>b.featured).slice(0,6);
 
 function cleanText(value){
@@ -1226,7 +1517,7 @@ function renderFeatured(){
           <p>${b.vibe}</p>
           <div class="mini">
             ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(b.video?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
-            <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
+            <button class="lease-select" data-title="${b.title}" type="button">License Beat</button>
             <a href="#catalog">Full Catalog</a>
           </div>
           <div class="carousel-controls">
@@ -1243,15 +1534,19 @@ function renderFeatured(){
   document.getElementById("nextSlide").onclick=()=>changeSlide(1);
   document.querySelectorAll(".dot").forEach(dot=>{
     dot.onclick=()=>{
+      stopCarousel();
       slideIndex=Number(dot.dataset.slide);
       renderFeatured();
+      startCarousel();
     };
   });
 }
 
 function changeSlide(direction){
+  stopCarousel();
   slideIndex=(slideIndex+direction+featured.length)%featured.length;
   renderFeatured();
+  startCarousel();
 }
 
 function renderCatalog(){
@@ -1290,7 +1585,7 @@ function renderCatalog(){
         <p>${b.vibe}</p>
         <div class="mini">
           ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(b.video?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
-          <a href="mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(b.title)}">Lease</a>
+          <button class="lease-select" data-title="${b.title}" type="button">License Beat</button>
         </div>
       </div>
     `;
@@ -1306,7 +1601,8 @@ function openPreview(beat){
 
   previewTitle.textContent=beat.title;
   previewVibe.textContent=beat.vibe;
-  previewLease.href=`mailto:princecali6989@gmail.com?subject=Beat Inquiry: ${encodeURIComponent(beat.title)}`;
+  selectedBeatTitle=beat.title;
+  previewLease.href="#licenses";
   previewVideo.poster=beat.img;
   previewVideo.innerHTML=`<source src="${beat.video}" type="video/mp4">`;
   previewVideo.load();
@@ -1327,6 +1623,63 @@ function closePreview(){
   startCarousel();
 }
 
+
+function showToast(message){
+  let toast=document.getElementById("siteToast");
+  if(!toast){
+    toast=document.createElement("div");
+    toast.id="siteToast";
+    toast.className="site-toast";
+    document.body.appendChild(toast);
+  }
+  toast.textContent=message;
+  toast.classList.add("show");
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>toast.classList.remove("show"),2200);
+}
+
+function updateBasket(){
+  const basketList=document.getElementById("basketList");
+  const submit=document.getElementById("submitLicenseRequest");
+  if(!basketList || !submit)return;
+
+  if(licenseBasket.length===0){
+    basketList.innerHTML=`<div class="basket-item"><div><strong>No license selected yet</strong><span>Open a preview or click License Beat, then choose a lease term.</span></div></div>`;
+    submit.href="mailto:princecali6989@gmail.com?subject=License Request&body=Artist Name:%0D%0AProject Name:%0D%0ABeat:%0D%0ALicense Term:%0D%0ANotes:";
+    return;
+  }
+
+  basketList.innerHTML=licenseBasket.map((item,index)=>`
+    <div class="basket-item">
+      <div><strong>${item.title}</strong><span>${item.term}</span></div>
+      <button class="basket-remove" data-index="${index}" type="button">Remove</button>
+    </div>
+  `).join("");
+
+  const lines=licenseBasket.map((item,i)=>`${i+1}. Beat: ${item.title}\n   License: ${item.term}`).join("\n\n");
+  const body=`Artist Name:\nProject Name:\n\nLicense Request:\n${lines}\n\nNotes:\n\nI understand this is a lease request only and does not transfer ownership of the beat.`;
+  submit.href=`mailto:princecali6989@gmail.com?subject=${encodeURIComponent("Prince Cali License Request")}&body=${encodeURIComponent(body)}`;
+}
+
+function addLicenseToBasket(term){
+  const title=selectedBeatTitle || (beats[0] && beats[0].title) || "Selected Beat";
+  const existing=licenseBasket.find(item=>item.title===title && item.term===term);
+  if(!existing){
+    licenseBasket.push({title,term});
+  }
+  updateBasket();
+  showToast(`${title} added with ${term}`);
+}
+
+function selectBeatForLicense(title){
+  selectedBeatTitle=title;
+  const licenses=document.getElementById("licenses");
+  if(licenses){
+    licenses.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  showToast(`${title} selected for licensing`);
+}
+
 document.addEventListener("click",e=>{
   const cover=e.target.closest(".preview-cover");
   if(!cover)return;
@@ -1342,6 +1695,44 @@ previewClose.addEventListener("click",closePreview);
 previewModal.addEventListener("click",e=>{
   if(e.target===previewModal)closePreview();
 });
+
+previewLease.addEventListener("click",e=>{
+  e.preventDefault();
+  closePreview();
+  if(selectedBeatTitle){
+    selectBeatForLicense(selectedBeatTitle);
+  }
+});
+
+document.addEventListener("click",e=>{
+  const leaseButton=e.target.closest(".lease-select");
+  if(leaseButton){
+    selectBeatForLicense(leaseButton.dataset.title);
+    return;
+  }
+
+  const licenseButton=e.target.closest(".license-choice");
+  if(licenseButton){
+    addLicenseToBasket(licenseButton.dataset.term);
+    return;
+  }
+
+  const removeButton=e.target.closest(".basket-remove");
+  if(removeButton){
+    licenseBasket.splice(Number(removeButton.dataset.index),1);
+    updateBasket();
+    return;
+  }
+});
+
+const clearBasket=document.getElementById("clearBasket");
+if(clearBasket){
+  clearBasket.addEventListener("click",()=>{
+    licenseBasket=[];
+    updateBasket();
+  });
+}
+
 
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape" && previewModal.classList.contains("show"))closePreview();
@@ -1401,6 +1792,7 @@ window.PrinceCaliAI={
 
 renderFeatured();
 renderCatalog();
+updateBasket();
 startCarousel();
 
 console.log("Prince Cali site ready");
