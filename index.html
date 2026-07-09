@@ -1755,6 +1755,78 @@ footer{
   }
 }
 
+
+
+/* Clean fixed mobile artwork layer */
+.cover.preview-cover,
+.carousel-cover.preview-cover,
+.smart-card.preview-cover{
+  position:relative!important;
+  display:block!important;
+  overflow:hidden!important;
+  background-color:rgba(0,0,0,.08)!important;
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+
+.cover.preview-cover::before,
+.carousel-cover.preview-cover::before,
+.smart-card.preview-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:var(--cover-bg,none);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  z-index:1;
+}
+
+.cover.preview-cover img,
+.carousel-cover.preview-cover img,
+.smart-card.preview-cover img{
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  object-fit:cover!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+}
+
+.cover.preview-cover img.broken-cover-img,
+.carousel-cover.preview-cover img.broken-cover-img,
+.smart-card.preview-cover img.broken-cover-img{
+  opacity:0!important;
+  visibility:hidden!important;
+}
+
+.cover.preview-cover .fallback,
+.carousel-cover.preview-cover .fallback{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+.play-badge,
+.badge{
+  z-index:5!important;
+}
+
+@media(max-width:700px){
+  .cover.preview-cover,
+  .carousel-cover.preview-cover{
+    aspect-ratio:1/1!important;
+    min-height:280px!important;
+    height:auto!important;
+  }
+}
+
 </style>
 </head>
 
@@ -2085,7 +2157,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
     </div>
 
     <div class="contact-photo-wrap">
-      <img class="contact-photo" src="assets/producer.Prince.Cali.png" alt="Prince Cali">
+      <img class="contact-photo" src="assets/producer.Prince.Cali.png?v=20260709" alt="Prince Cali" onerror="this.onerror=null;this.src='assets/producer.Prince.Cali.PNG?v=20260709';">
     </div>
   </div>
 </section>
@@ -3156,6 +3228,140 @@ function closePreview(){
   hardStopPreviewMedia();
   currentPreviewTitle="";
   startCarousel();
+}
+
+
+/* Clean fixed artwork resolver: prevents mobile blank covers by testing real image paths first, then falling back to YouTube thumbs. */
+const COVER_CACHE_BUSTER="v=20260709";
+
+function withCacheBuster(src){
+  if(!src || /^https?:\/\//i.test(src) || src.startsWith("data:"))return src;
+  return src + (src.includes("?") ? "&" : "?") + COVER_CACHE_BUSTER;
+}
+
+function uniqueList(list){
+  return [...new Set(list.filter(Boolean).map(String))];
+}
+
+function filenameParts(path){
+  const clean=String(path || "").split("?")[0];
+  const slash=clean.lastIndexOf("/");
+  const dir=slash>=0 ? clean.slice(0,slash+1) : "";
+  const file=slash>=0 ? clean.slice(slash+1) : clean;
+  const dot=file.lastIndexOf(".");
+  return {dir,base:dot>=0?file.slice(0,dot):file,ext:dot>=0?file.slice(dot+1):"png"};
+}
+
+function titleCaseFile(name){
+  return String(name || "").replace(/(^|[ ._-])([a-z])/g,(m,p,c)=>p+c.toUpperCase());
+}
+
+function coverCandidates(beat,extra=""){
+  const title=beat && beat.title ? beat.title : "";
+  const img=beat && beat.img ? beat.img : "";
+  const parts=filenameParts(img || `assets/${title}.png`);
+  const rawNames=[
+    parts.base,
+    title,
+    title.replace(/\s+/g,"."),
+    title.replace(/\s+/g,""),
+    title.replace(/\s+/g,"-"),
+    title.replace(/\./g," "),
+    title.replace(/\./g,""),
+    title.replace(/&/g,"and")
+  ];
+  const names=[];
+  rawNames.filter(Boolean).forEach(name=>{
+    names.push(name);
+    names.push(name.toLowerCase());
+    names.push(name.toUpperCase());
+    names.push(titleCaseFile(name));
+  });
+  const exts=[parts.ext,"png","PNG","jpg","JPG","jpeg","JPEG","webp","WEBP"];
+  const local=[];
+  if(img)local.push(img);
+  if(extra)local.push(extra);
+  uniqueList(names).forEach(name=>{
+    uniqueList(exts).forEach(ext=>local.push(`${parts.dir || "assets/"}${name}.${ext}`));
+  });
+  if(beat && beat.youtube){
+    const thumb=youtubeThumb(beat.youtube) || youtubeThumbnail(beat.youtube);
+    if(thumb)local.push(thumb);
+  }
+  return uniqueList(local);
+}
+
+function testImage(src){
+  return new Promise(resolve=>{
+    if(!src)return resolve("");
+    const image=new Image();
+    image.onload=()=>resolve(src);
+    image.onerror=()=>resolve("");
+    image.src=withCacheBuster(src);
+  });
+}
+
+async function resolveCover(holder,img,beat,extra=""){
+  if(!holder || !beat)return;
+  const candidates=coverCandidates(beat,extra);
+
+  holder.dataset.title=beat.title;
+  holder.style.backgroundSize="cover";
+  holder.style.backgroundPosition="center";
+  holder.style.backgroundRepeat="no-repeat";
+  if(candidates[0]){
+    const first=withCacheBuster(candidates[0]);
+    holder.style.backgroundImage=`url("${first}")`;
+    holder.style.setProperty("--cover-bg",`url("${first}")`);
+  }
+
+  for(const candidate of candidates){
+    const good=await testImage(candidate);
+    if(good){
+      const src=withCacheBuster(good);
+      holder.classList.remove("img-failed");
+      holder.style.backgroundImage=`url("${src}")`;
+      holder.style.setProperty("--cover-bg",`url("${src}")`);
+      if(img){
+        img.classList.remove("broken-cover-img");
+        if(img.getAttribute("src")!==src)img.src=src;
+        img.style.display="block";
+        img.style.opacity="1";
+        img.style.visibility="visible";
+      }
+      return;
+    }
+  }
+
+  holder.classList.add("img-failed");
+  if(img)img.classList.add("broken-cover-img");
+}
+
+function fallbackImage(img,title,backupSrc=""){
+  if(!img)return;
+  const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
+  const beat=beatByTitle(holder ? holder.dataset.title : "") || beatByTitle(title) || looseBeatFromText(title) || looseBeatFromText(img.getAttribute("alt"));
+  if(holder && beat){
+    holder.classList.add("img-failed");
+    resolveCover(holder,img,beat,backupSrc);
+  }else{
+    img.classList.add("broken-cover-img");
+  }
+}
+
+function hydrateCoverImages(root=document){
+  root.querySelectorAll(".cover.preview-cover,.carousel-cover.preview-cover,.smart-card.preview-cover").forEach(holder=>{
+    const img=holder.querySelector("img");
+    const beat=beatByTitle(holder.dataset.title || "") || looseBeatFromText(img ? img.getAttribute("alt") : "");
+    if(!beat)return;
+    const backup=img ? (img.dataset.backup || "") : "";
+    if(img){
+      img.loading="eager";
+      img.decoding="async";
+      img.onerror=()=>fallbackImage(img,beat.title,backup);
+    }
+    resolveCover(holder,img,beat,backup);
+  });
 }
 
 renderFeatured();
