@@ -1960,6 +1960,39 @@ button.preview-cover,
   }
 }
 
+
+
+/* OG hero portrait position fix: lowers the person inside the box without changing the image */
+.hero-photo-wrap-secondary{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  padding-top:54px!important;
+  padding-left:18px!important;
+  padding-right:18px!important;
+  padding-bottom:0!important;
+}
+
+.hero-photo-secondary{
+  object-position:center bottom!important;
+  transform:translateY(28px)!important;
+}
+
+@media(max-width:700px){
+  .hero-photo-wrap-secondary{
+    align-items:flex-end!important;
+    padding-top:38px!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+    padding-bottom:0!important;
+  }
+
+  .hero-photo-secondary{
+    object-position:center bottom!important;
+    transform:translateY(20px)!important;
+  }
+}
+
 </style>
 </head>
 
