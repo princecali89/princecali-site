@@ -1735,6 +1735,26 @@ footer{
   }
 }
 
+
+/* Mobile reveal/render fix: beat covers only, keeps artist photos untouched */
+@media(max-width:700px){
+  .card.reveal,
+  .card.reveal.show,
+  .featured-carousel,
+  .featured-grid,
+  #beatGrid,
+  #beatGrid .card,
+  #beatGrid .cover,
+  #beatGrid .preview-cover,
+  #beatGrid img,
+  .carousel-cover,
+  .carousel-cover img{
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+  }
+}
+
 </style>
 </head>
 
