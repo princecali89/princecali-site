@@ -1130,6 +1130,113 @@ footer{
   }
 }
 
+
+
+/* Smart catalog upgrades */
+.smart-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:-12px 0 28px;
+}
+
+.smart-action{
+  border:1px solid rgba(8,8,8,.12);
+  background:rgba(255,255,255,.34);
+  padding:11px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-size:11px;
+  color:#24201d;
+  transition:.22s ease;
+}
+
+.smart-action:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(0,0,0,.10);
+}
+
+.smart-rail{
+  display:none;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin:0 0 34px;
+}
+
+.smart-rail.show{
+  display:grid;
+}
+
+.smart-card{
+  border:1px solid rgba(8,8,8,.12);
+  background:rgba(255,255,255,.34);
+  border-radius:24px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.smart-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,.12);
+}
+
+.smart-card img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+
+.smart-card div{
+  padding:14px;
+}
+
+.smart-card strong{
+  display:block;
+  font-size:16px;
+  letter-spacing:-.02em;
+}
+
+.smart-card span{
+  display:block;
+  margin-top:4px;
+  color:#6b625a;
+  font-size:12px;
+  line-height:1.35;
+}
+
+.preview-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.preview-actions .btn{
+  margin-top:0;
+}
+
+@media(max-width:900px){
+  .smart-rail{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .smart-actions{
+    margin-top:0;
+  }
+
+  .smart-action{
+    flex:1 1 auto;
+  }
+
+  .smart-rail{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 
@@ -1194,6 +1301,14 @@ footer{
   </div>
 
   <div class="smart-note" id="smartNote">Search by title, mood, or sound.</div>
+  <div class="smart-actions" aria-label="Smart catalog shortcuts">
+    <button class="smart-action" id="surpriseBeat" type="button">Surprise Me</button>
+    <button class="smart-action" id="newestBeats" type="button">Newest</button>
+    <button class="smart-action" id="trendingBeats" type="button">Most Previewed</button>
+    <button class="smart-action" id="recentBeats" type="button">Recently Viewed</button>
+    <button class="smart-action" id="clearSearch" type="button">Clear</button>
+  </div>
+  <div class="smart-rail" id="smartRail"></div>
   <div class="grid" id="beatGrid"></div>
 </section>
 <section id="about" class="about">
@@ -1467,7 +1582,10 @@ Follow Prince Cali across every platform to stay current with new releases, beat
       <div class="kicker">Now Previewing</div>
       <h3 id="previewTitle">Beat Preview</h3>
       <p id="previewVibe"></p>
-      <a class="btn dark" id="previewLease" href="#licenses">License This Beat</a>
+      <div class="preview-actions">
+        <a class="btn dark" id="previewLease" href="#licenses">License This Beat</a>
+        <button class="btn" id="previewShare" type="button">Share Beat</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1541,6 +1659,13 @@ const previewLease=document.getElementById("previewLease");
 const previewClose=document.getElementById("previewClose");
 const beatSelect=document.getElementById("beatSelect");
 const selectedBeatChip=document.getElementById("selectedBeatChip");
+const smartRail=document.getElementById("smartRail");
+const surpriseBeat=document.getElementById("surpriseBeat");
+const newestBeats=document.getElementById("newestBeats");
+const trendingBeats=document.getElementById("trendingBeats");
+const recentBeats=document.getElementById("recentBeats");
+const clearSearch=document.getElementById("clearSearch");
+const previewShare=document.getElementById("previewShare");
 
 let activeFilter="all";
 let slideIndex=0;
@@ -1601,6 +1726,45 @@ function youtubeEmbed(url){
   else if(watch)id=watch[1];
   else if(shortLink)id=shortLink[1];
   return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1` : text;
+}
+
+function slugify(value){
+  return cleanText(value).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+}
+
+function beatBySlug(slug){
+  return beats.find(b=>slugify(b.title)===slug);
+}
+
+function beatLink(title){
+  return `${location.origin}${location.pathname}#beat/${slugify(title)}`;
+}
+
+function getPreviewCounts(){
+  try{return JSON.parse(localStorage.getItem("pc_preview_counts") || "{}");}
+  catch(e){return {};}
+}
+
+function getRecentPreviewTitles(){
+  try{return JSON.parse(localStorage.getItem("pc_recent_previews") || "[]");}
+  catch(e){return [];}
+}
+
+function renderSmartRail(list,title="Smart Picks"){
+  if(!smartRail)return;
+  if(!list || list.length===0){
+    smartRail.classList.remove("show");
+    smartRail.innerHTML="";
+    return;
+  }
+
+  smartRail.classList.add("show");
+  smartRail.innerHTML=list.slice(0,4).map(b=>`
+    <button class="smart-card preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" type="button" aria-label="Preview ${b.title}">
+      <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
+      <div><strong>${b.title}</strong><span>${title}</span></div>
+    </button>
+  `).join("");
 }
 
 function storePreview(title){
@@ -1725,6 +1889,9 @@ function openPreview(beat){
 
   stopCarousel();
   storePreview(beat.title);
+  if(location.hash!==`#beat/${slugify(beat.title)}`){
+    history.replaceState(null,"",`#beat/${slugify(beat.title)}`);
+  }
 
   previewTitle.textContent=beat.title;
   previewVibe.textContent=beat.vibe;
@@ -1873,6 +2040,20 @@ previewLease.addEventListener("click",e=>{
     selectBeatForLicense(selectedBeatTitle);
   }
 });
+if(previewShare){
+  previewShare.addEventListener("click",()=>{
+    if(!selectedBeatTitle)return;
+    const url=beatLink(selectedBeatTitle);
+    if(navigator.share){
+      navigator.share({title:`Prince Cali - ${selectedBeatTitle}`,url}).catch(()=>{});
+    }else if(navigator.clipboard){
+      navigator.clipboard.writeText(url).then(()=>showToast("Beat link copied"));
+    }else{
+      showToast(url);
+    }
+  });
+}
+
 
 document.addEventListener("click",e=>{
   const leaseButton=e.target.closest(".lease-select");
@@ -1917,6 +2098,37 @@ document.addEventListener("keydown",e=>{
     if(e.key==="ArrowRight")changeSlide(1,true);
   }
 });
+if(surpriseBeat){
+  surpriseBeat.addEventListener("click",()=>{
+    const beat=window.PrinceCaliAI.random();
+    if(beat)openPreview(beat);
+  });
+}
+
+if(newestBeats){
+  newestBeats.addEventListener("click",()=>renderSmartRail(window.PrinceCaliAI.newest(4),"Newest in catalog"));
+}
+
+if(trendingBeats){
+  trendingBeats.addEventListener("click",()=>renderSmartRail(window.PrinceCaliAI.trending(4),"Most previewed here"));
+}
+
+if(recentBeats){
+  recentBeats.addEventListener("click",()=>renderSmartRail(window.PrinceCaliAI.recent(4),"Recently viewed"));
+}
+
+if(clearSearch){
+  clearSearch.addEventListener("click",()=>{
+    searchBox.value="";
+    activeFilter="all";
+    document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+    const allButton=document.querySelector('.filter[data-filter="all"]');
+    if(allButton)allButton.classList.add("active");
+    renderSmartRail([]);
+    renderCatalog();
+  });
+}
+
 
 document.querySelectorAll(".filter").forEach(btn=>{
   btn.addEventListener("click",()=>{
@@ -1949,7 +2161,21 @@ if("scrollRestoration" in history){
 }
 
 window.addEventListener("load",()=>{
+  if(location.hash.startsWith("#beat/")){
+    const beat=beatBySlug(location.hash.replace("#beat/",""));
+    if(beat){
+      setTimeout(()=>openPreview(beat),250);
+      return;
+    }
+  }
   window.scrollTo(0,0);
+});
+
+window.addEventListener("hashchange",()=>{
+  if(location.hash.startsWith("#beat/")){
+    const beat=beatBySlug(location.hash.replace("#beat/",""));
+    if(beat)openPreview(beat);
+  }
 });
 
 window.PrinceCaliAI={
@@ -1962,10 +2188,34 @@ window.PrinceCaliAI={
     return beats.slice(-count).reverse();
   },
   random(){
-    return beats[Math.floor(Math.random()*beats.length)];
+    const previewed=beats.filter(hasPreview);
+    const pool=previewed.length?previewed:beats;
+    return pool[Math.floor(Math.random()*pool.length)];
+  },
+  trending(count=6){
+    const counts=getPreviewCounts();
+    return [...beats]
+      .sort((a,b)=>(counts[b.title]||0)-(counts[a.title]||0))
+      .filter(b=>(counts[b.title]||0)>0)
+      .slice(0,count);
+  },
+  recent(count=6){
+    const names=getRecentPreviewTitles();
+    return names.map(name=>beatByTitle(name)).filter(Boolean).slice(0,count);
+  },
+  similar(title,count=4){
+    const beat=beatByTitle(title);
+    if(!beat)return [];
+    return beats
+      .filter(b=>b.title!==title)
+      .map(b=>({beat:b,score:b.tags.filter(t=>beat.tags.includes(t)).length}))
+      .filter(item=>item.score>0)
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,count)
+      .map(item=>item.beat);
   },
   catalog(){
-    return beats.map(b=>({title:b.title,tags:b.tags,vibe:b.vibe,hasPreview:Boolean(b.youtube||b.video||b.audio)}));
+    return beats.map(b=>({title:b.title,tags:b.tags,vibe:b.vibe,hasPreview:hasPreview(b),link:beatLink(b.title)}));
   }
 };
 
