@@ -1775,7 +1775,12 @@ function youtubeEmbed(url){
   if(shorts)id=shorts[1];
   else if(watch)id=watch[1];
   else if(shortLink)id=shortLink[1];
-  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
+
+  /*
+    No autoplay here. This prevents YouTube Shorts from starting on refresh,
+    back/forward restore, or deep-link load. Visitors press play inside the preview.
+  */
+  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=0&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
 }
 
 function slugify(value){
@@ -1978,22 +1983,32 @@ function openPreview(beat){
   previewModal.classList.add("show");
   previewModal.setAttribute("aria-hidden","false");
 
-  if(!beat.youtube){
-    previewVideo.play().catch(()=>{});
+  /* Do not auto-play previews. User must press play. */
+}
+
+function hardStopPreviewMedia(){
+  if(previewVideo){
+    previewVideo.pause();
+    previewVideo.removeAttribute("src");
+    previewVideo.innerHTML="";
+    previewVideo.style.display="none";
+    try{previewVideo.load();}catch(e){}
+  }
+  if(previewFrame){
+    previewFrame.src="about:blank";
+    previewFrame.removeAttribute("src");
+    previewFrame.style.display="none";
+  }
+  if(previewModal){
+    previewModal.classList.remove("show");
+    previewModal.setAttribute("aria-hidden","true");
+    const card=previewModal.querySelector(".preview-modal-card");
+    if(card)card.classList.remove("youtube-mode");
   }
 }
 
 function closePreview(){
-  previewModal.classList.remove("show");
-  previewModal.setAttribute("aria-hidden","true");
-  previewVideo.pause();
-  previewVideo.removeAttribute("src");
-  previewVideo.innerHTML="";
-  previewVideo.style.display="none";
-  previewFrame.removeAttribute("src");
-  previewFrame.style.display="none";
-  previewModal.querySelector(".preview-modal-card").classList.remove("youtube-mode");
-  previewVideo.load();
+  hardStopPreviewMedia();
   currentPreviewTitle="";
   startCarousel();
 }
@@ -2095,10 +2110,13 @@ function movePreview(direction){
 
 function shareBeatToPlatform(platform){
   if(!selectedBeatTitle)return;
-  const url=beatLink(selectedBeatTitle);
+  const beat=beatByTitle(selectedBeatTitle);
+  const url=(beat && beat.youtube) ? beat.youtube : beatLink(selectedBeatTitle);
   const title=`Prince Cali - ${selectedBeatTitle}`;
+  const text=`Preview ${selectedBeatTitle} by Prince Cali`;
+
   if(navigator.share){
-    navigator.share({title,url,text:`Preview ${selectedBeatTitle} by Prince Cali`}).catch(()=>{});
+    navigator.share({title,url,text}).catch(()=>{});
   }else if(navigator.clipboard){
     navigator.clipboard.writeText(url).then(()=>showToast(`${platform} share link copied`));
   }else{
@@ -2169,6 +2187,11 @@ if(clearBasket){
 }
 
 document.addEventListener("keydown",e=>{
+  if((e.ctrlKey || e.metaKey) && ["s","u"].includes(String(e.key).toLowerCase())){
+    e.preventDefault();
+    showToast("Preview materials are protected");
+    return;
+  }
   const previewOpen=previewModal.classList.contains("show");
   if(e.key==="Escape" && previewOpen){
     closePreview();
@@ -2245,6 +2268,7 @@ if("scrollRestoration" in history){
 }
 
 window.addEventListener("load",()=>{
+  hardStopPreviewMedia();
   window.scrollTo(0,0);
   if(location.hash.startsWith("#beat/")){
     const beat=beatBySlug(location.hash.replace("#beat/",""));
@@ -2256,6 +2280,14 @@ window.addEventListener("load",()=>{
     }
   }
   applyPreviewProtection();
+});
+
+window.addEventListener("pageshow",()=>{
+  hardStopPreviewMedia();
+});
+
+window.addEventListener("beforeunload",()=>{
+  hardStopPreviewMedia();
 });
 
 window.addEventListener("hashchange",()=>{
