@@ -16,6 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/watermark.v2.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="format-detection" content="telephone=no">
 
 <style>
 *{
@@ -1447,6 +1448,42 @@ footer{
   .preview-nav.next{right:58px!important}
 }
 
+/* Final mobile/media safety layer */
+@media(max-width:700px){
+  .preview-modal{
+    align-items:flex-start!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  .preview-modal.show{
+    display:flex!important;
+  }
+
+  .preview-modal-card,
+  .preview-modal-card.youtube-mode{
+    margin:10px auto!important;
+  }
+
+  .preview-frame{
+    display:none;
+  }
+
+  .preview-frame[style*="block"]{
+    display:block!important;
+  }
+
+  .contact-photo-wrap{
+    transform:none!important;
+  }
+
+  .contact-photo,
+  .hero-photo,
+  .about-photo{
+    mix-blend-mode:multiply;
+  }
+}
+
 </style>
 </head>
 
@@ -1950,7 +1987,7 @@ function youtubeEmbed(url){
     No autoplay here. This prevents YouTube Shorts from starting on refresh,
     back/forward restore, or deep-link load. Visitors press play inside the preview.
   */
-  return id ? `https://www.youtube.com/embed/${id}?autoplay=0&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
+  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=0&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
 }
 
 function slugify(value){
@@ -2488,6 +2525,13 @@ document.addEventListener("dragstart",e=>{
 document.addEventListener("selectstart",e=>{
   if(e.target.closest(".preview-modal, .preview-cover, .cover, .carousel-cover")){
     e.preventDefault();
+  }
+});
+
+/* Final defensive stop: no preview media can start on page load, refresh, or mobile back-forward restore. */
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){
+    hardStopPreviewMedia();
   }
 });
 
