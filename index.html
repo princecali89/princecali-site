@@ -1694,73 +1694,6 @@ footer{
   }
 }
 
-
-/* Final clean mobile + preview fixes */
-.hero-photo-wrap,
-.about-photo-wrap,
-.contact-photo-wrap{
-  min-height:220px;
-}
-
-.hero-photo,
-.about-photo,
-.contact-photo{
-  display:block!important;
-  opacity:1!important;
-  visibility:visible!important;
-}
-
-.preview-cover.img-failed{
-  background-size:cover!important;
-  background-position:center!important;
-  background-repeat:no-repeat!important;
-}
-
-.preview-cover.img-failed img.broken-cover-img{
-  display:none!important;
-}
-
-@media(max-width:700px){
-  .hero{
-    min-height:auto!important;
-    padding-top:130px!important;
-  }
-
-  .hero-photo-wrap{
-    margin-top:22px!important;
-  }
-
-  .hero-photo{
-    width:100%!important;
-    max-width:300px!important;
-    max-height:430px!important;
-    object-fit:contain!important;
-  }
-
-  .about-photo,
-  .contact-photo{
-    width:100%!important;
-    object-fit:contain!important;
-  }
-
-  .cover.preview-cover,
-  .carousel-cover.preview-cover,
-  .smart-card.preview-cover{
-    background-size:cover!important;
-    background-position:center!important;
-    background-repeat:no-repeat!important;
-  }
-
-  .cover.preview-cover img,
-  .carousel-cover.preview-cover img,
-  .smart-card.preview-cover img{
-    display:block!important;
-    width:100%!important;
-    height:100%!important;
-    object-fit:cover!important;
-  }
-}
-
 </style>
 </head>
 
@@ -1793,7 +1726,7 @@ footer{
   </div>
 
   <div class="hero-photo-wrap reveal">
-    <img class="hero-photo" src="assets/producer.Prince.Cali.png" alt="Prince Cali" onerror="this.parentElement.style.display='none'">
+    <img class="hero-photo" src="assets/IMG_6100-removebg-preview.png" alt="Prince Cali" onerror="this.parentElement.style.display='none'">
   </div>
 </section>
 
@@ -1868,7 +1801,7 @@ Prince Cali is an audio engineer and producer originally from Los Angeles, now b
 
 <img
 class="about-photo"
-src="assets/producer.Prince.Cali.png"
+src="assets/IMG_6100-removebg-preview.png"
 alt="Prince Cali"
 onerror="this.parentElement.style.display='none'">
 
@@ -2103,7 +2036,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
     <button class="preview-nav prev" id="previewPrev" type="button" aria-label="Previous beat">‹</button>
     <button class="preview-nav next" id="previewNext" type="button" aria-label="Next beat">›</button>
     <video class="preview-video" id="previewVideo" controls playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture></video>
-    <iframe class="preview-frame" id="previewFrame" title="Beat preview" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="preview-frame" id="previewFrame" title="Beat preview" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     <div class="preview-copy">
       <div class="kicker">Now Previewing</div>
       <h3 id="previewTitle">Beat Preview</h3>
@@ -2235,13 +2168,16 @@ function imageCandidates(title,currentSrc=""){
   return [...new Set(paths)];
 }
 
-function fallbackImage(img,title){
+function fallbackImage(img,title,backupSrc=""){
   if(!img)return;
 
   const current=img.getAttribute("src") || "";
   const tried=(img.dataset.tried || "").split("|").filter(Boolean);
   const candidates=imageCandidates(title,current);
-  const next=candidates.find(path=>path && path!==current && !tried.includes(path));
+  if(backupSrc)candidates.push(backupSrc);
+  const next=[...new Set(candidates)].find(path=>path && path!==current && !tried.includes(path));
+
+  const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
 
   if(next){
     tried.push(current);
@@ -2249,22 +2185,24 @@ function fallbackImage(img,title){
     img.style.display="block";
     img.style.opacity="1";
     img.style.visibility="visible";
-    img.src=next;
-    const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
+    img.classList.remove("broken-cover");
     if(holder){
+      holder.classList.remove("img-failed");
       holder.style.backgroundImage=`url('${next}')`;
       holder.style.backgroundSize="cover";
       holder.style.backgroundPosition="center";
       holder.style.backgroundRepeat="no-repeat";
     }
+    img.src=next;
     return;
   }
 
   img.style.display="none";
+  img.classList.add("broken-cover");
+  if(holder)holder.classList.add("img-failed");
   const fallback=img.parentElement ? img.parentElement.querySelector(".fallback") : null;
   if(fallback){
-    fallback.style.display="flex";
-    fallback.textContent=title;
+    fallback.style.display="none";
   }
 }
 
@@ -2277,8 +2215,14 @@ function hydrateCoverImages(root=document){
     img.style.visibility="visible";
 
     const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
-    if(holder && img.getAttribute("src")){
-      holder.style.backgroundImage=`url('${img.getAttribute("src")}')`;
+    const backup=img.dataset.backup || "";
+    const src=img.getAttribute("src") || "";
+
+    if(holder){
+      const layers=[];
+      if(src)layers.push(`url('${src}')`);
+      if(backup)layers.push(`url('${backup}')`);
+      if(layers.length)holder.style.backgroundImage=layers.join(",");
       holder.style.backgroundSize="cover";
       holder.style.backgroundPosition="center";
       holder.style.backgroundRepeat="no-repeat";
@@ -2288,13 +2232,19 @@ function hydrateCoverImages(root=document){
       img.style.display="block";
       img.style.opacity="1";
       img.style.visibility="visible";
+      img.classList.remove("broken-cover");
       if(holder){
-        holder.style.backgroundImage=`url('${img.getAttribute("src")}')`;
+        holder.classList.remove("img-failed");
+        holder.style.backgroundImage=`url('${img.getAttribute("src")}')${backup?`,url('${backup}')`:""}`;
       }
     },{once:true});
 
+    img.addEventListener("error",()=>{
+      fallbackImage(img,img.getAttribute("alt") || "Beat cover",backup);
+    });
+
     if(img.complete && img.naturalWidth===0){
-      fallbackImage(img,img.getAttribute("alt") || "Beat cover");
+      fallbackImage(img,img.getAttribute("alt") || "Beat cover",backup);
     }
   });
 }
@@ -2327,22 +2277,36 @@ function hasPreview(beat){
   return Boolean(beat && (beat.youtube || beat.video || beat.audio));
 }
 
-function youtubeEmbed(url){
+function youtubeId(url){
   if(!url)return "";
   const text=String(url);
-  let id="";
   const shorts=text.match(/shorts\/([^?&/]+)/);
   const watch=text.match(/[?&]v=([^?&/]+)/);
   const shortLink=text.match(/youtu\.be\/([^?&/]+)/);
-  if(shorts)id=shorts[1];
-  else if(watch)id=watch[1];
-  else if(shortLink)id=shortLink[1];
+  if(shorts)return shorts[1];
+  if(watch)return watch[1];
+  if(shortLink)return shortLink[1];
+  return "";
+}
 
-  /*
-    No autoplay here. This prevents YouTube Shorts from starting on refresh,
-    back/forward restore, or deep-link load. Visitors press play inside the preview.
-  */
-  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=0&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
+function youtubeThumbnail(url){
+  const id=youtubeId(url);
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "";
+}
+
+function coverBackground(beat){
+  const sources=[];
+  if(beat && beat.img)sources.push(`url('${beat.img}')`);
+  if(beat && beat.youtube){
+    const thumb=youtubeThumbnail(beat.youtube);
+    if(thumb)sources.push(`url('${thumb}')`);
+  }
+  return sources.length ? `background-image:${sources.join(",")}` : "";
+}
+
+function youtubeEmbed(url){
+  const id=youtubeId(url);
+  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1` : String(url || "");
 }
 
 function slugify(value){
@@ -2377,8 +2341,8 @@ function renderSmartRail(list,title="Smart Picks"){
 
   smartRail.classList.add("show");
   smartRail.innerHTML=list.slice(0,4).map(b=>`
-    <button class="smart-card preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" type="button" aria-label="Preview ${b.title}" style="background-image:url('${b.img}')">
-      <img src="${b.img}" alt="${b.title} cover" loading="eager" data-backup="${youtubeThumb(b.youtube)}" onerror="fallbackImage(this,'${b.title}')">
+    <button class="smart-card preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" type="button" aria-label="Preview ${b.title}" style="${coverBackground(b)}">
+      <img src="${b.img}" alt="${b.title} cover" loading="eager" data-backup="${youtubeThumbnail(b.youtube)}" onerror="fallbackImage(this,'${b.title}',this.dataset.backup)">
       <div><strong>${b.title}</strong><span>${title}</span></div>
     </button>
   `).join("");
@@ -2402,8 +2366,8 @@ function renderFeatured(){
   featuredGrid.innerHTML=`
     <div class="featured-carousel">
       <div class="carousel-stage">
-        <button class="carousel-cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}" style="background-image:url('${b.img}')">
-          <img src="${b.img}" alt="${b.title}" loading="eager" data-backup="${youtubeThumb(b.youtube)}" onerror="fallbackImage(this,'${b.title}')">
+        <button class="carousel-cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}" style="${coverBackground(b)}">
+          <img src="${b.img}" alt="${b.title}" loading="eager" data-backup="${youtubeThumbnail(b.youtube)}" onerror="fallbackImage(this,'${b.title}',this.dataset.backup)">
           <div class="fallback">${b.title}</div>
           ${hasPreview(b)?`<span class="play-badge">Play Preview</span>`:""}
         </button>
@@ -2470,8 +2434,8 @@ function renderCatalog(){
     card.className=`card reveal show ${b.featured?"featured":""}`;
     card.innerHTML=`
       ${b.featured?`<div class="badge">Featured</div>`:""}
-      <button class="cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}" style="background-image:url('${b.img}')">
-        <img src="${b.img}" alt="${b.title} cover" loading="eager" data-backup="${youtubeThumb(b.youtube)}" onerror="fallbackImage(this,'${b.title}')">
+      <button class="cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}" style="${coverBackground(b)}">
+        <img src="${b.img}" alt="${b.title} cover" loading="eager" data-backup="${youtubeThumbnail(b.youtube)}" onerror="fallbackImage(this,'${b.title}',this.dataset.backup)">
         <div class="fallback">${b.title}</div>
         ${hasPreview(b)?`<span class="play-badge">Play Preview</span>`:""}
       </button>
@@ -2530,7 +2494,7 @@ function openPreview(beat){
   previewModal.querySelector(".preview-modal-card").classList.remove("youtube-mode");
 
   if(beat.youtube){
-    previewFrame.src=youtubeEmbed(beat.youtube);
+    previewFrame.src="about:blank";
     previewFrame.style.display="block";
     previewFrame.setAttribute("allowfullscreen","");
     previewModal.querySelector(".preview-modal-card").classList.add("youtube-mode");
@@ -2959,7 +2923,7 @@ function youtubeThumb(url){
 
 function youtubeEmbed(url){
   const id=youtubeId(url);
-  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}` : String(url || "");
+  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1` : String(url || "");
 }
 
 function looseBeatFromText(value){
@@ -2989,7 +2953,6 @@ function fallbackImage(img,title){
   const candidates=imageCandidates(beat ? beat.title : title,current);
 
   if(beat && beat.img)candidates.unshift(beat.img);
-  if(img.dataset.backup)candidates.push(img.dataset.backup);
 
   const yt=beat && beat.youtube ? youtubeThumb(beat.youtube) : "";
   if(yt)candidates.push(yt);
@@ -3014,7 +2977,6 @@ function fallbackImage(img,title){
   if(holder){
     holder.classList.add("img-failed");
     if(yt)applyCoverBackup(holder,yt);
-    else if(img.dataset.backup)applyCoverBackup(holder,img.dataset.backup);
   }
 }
 
@@ -3098,7 +3060,11 @@ function openPreview(beat){
   previewModal.classList.add("show");
   previewModal.setAttribute("aria-hidden","false");
 
-  if(!beat.youtube){
+  if(beat.youtube){
+    requestAnimationFrame(()=>{
+      previewFrame.src=youtubeEmbed(beat.youtube);
+    });
+  }else{
     previewVideo.play().catch(()=>{});
   }
 }
