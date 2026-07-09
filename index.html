@@ -1235,7 +1235,7 @@ footer{
 }
 
 .preview-nav.prev{left:18px}
-.preview-nav.next{right:68px}
+.preview-nav.next{right:18px}
 
 .preview-protect-note{
   margin-top:10px;
@@ -1445,7 +1445,7 @@ footer{
   }
 
   .preview-nav.prev{left:12px!important}
-  .preview-nav.next{right:58px!important}
+  .preview-nav.next{right:12px!important}
 }
 
 /* Final mobile/media safety layer */
@@ -1555,6 +1555,76 @@ footer{
 
   .play-badge{
     z-index:6!important;
+  }
+}
+
+
+/* Emergency mobile cover fix: cover art is painted as both image and CSS background */
+.cover.preview-cover,
+.carousel-cover.preview-cover,
+.smart-card.preview-cover{
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+
+@media(max-width:700px){
+  .featured-grid,
+  .featured-carousel,
+  .carousel-stage,
+  #beatGrid,
+  .grid{
+    display:grid!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+
+  .card,
+  .card.reveal,
+  .card.reveal.show{
+    display:block!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+  }
+
+  .cover.preview-cover,
+  .carousel-cover.preview-cover{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:280px!important;
+    aspect-ratio:1/1!important;
+    opacity:1!important;
+    visibility:visible!important;
+    overflow:hidden!important;
+    background-color:rgba(0,0,0,.08)!important;
+    background-size:cover!important;
+    background-position:center!important;
+  }
+
+  .cover.preview-cover img,
+  .carousel-cover.preview-cover img,
+  .smart-card.preview-cover img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:280px!important;
+    object-fit:cover!important;
+    opacity:1!important;
+    visibility:visible!important;
+    position:relative!important;
+    z-index:2!important;
+  }
+
+  .preview-nav.prev{
+    left:12px!important;
+    right:auto!important;
+  }
+
+  .preview-nav.next{
+    right:12px!important;
+    left:auto!important;
   }
 }
 
@@ -2047,6 +2117,13 @@ function fallbackImage(img,title){
     img.style.opacity="1";
     img.style.visibility="visible";
     img.src=next;
+    const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
+    if(holder){
+      holder.style.backgroundImage=`url('${next}')`;
+      holder.style.backgroundSize="cover";
+      holder.style.backgroundPosition="center";
+      holder.style.backgroundRepeat="no-repeat";
+    }
     return;
   }
 
@@ -2065,6 +2142,23 @@ function hydrateCoverImages(root=document){
     img.style.display="block";
     img.style.opacity="1";
     img.style.visibility="visible";
+
+    const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
+    if(holder && img.getAttribute("src")){
+      holder.style.backgroundImage=`url('${img.getAttribute("src")}')`;
+      holder.style.backgroundSize="cover";
+      holder.style.backgroundPosition="center";
+      holder.style.backgroundRepeat="no-repeat";
+    }
+
+    img.addEventListener("load",()=>{
+      img.style.display="block";
+      img.style.opacity="1";
+      img.style.visibility="visible";
+      if(holder){
+        holder.style.backgroundImage=`url('${img.getAttribute("src")}')`;
+      }
+    },{once:true});
 
     if(img.complete && img.naturalWidth===0){
       fallbackImage(img,img.getAttribute("alt") || "Beat cover");
@@ -2150,8 +2244,8 @@ function renderSmartRail(list,title="Smart Picks"){
 
   smartRail.classList.add("show");
   smartRail.innerHTML=list.slice(0,4).map(b=>`
-    <button class="smart-card preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" type="button" aria-label="Preview ${b.title}">
-      <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
+    <button class="smart-card preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" type="button" aria-label="Preview ${b.title}" style="background-image:url('${b.img}')">
+      <img src="${b.img}" alt="${b.title} cover" loading="eager" onerror="fallbackImage(this,'${b.title}')">
       <div><strong>${b.title}</strong><span>${title}</span></div>
     </button>
   `).join("");
@@ -2175,8 +2269,8 @@ function renderFeatured(){
   featuredGrid.innerHTML=`
     <div class="featured-carousel">
       <div class="carousel-stage">
-        <button class="carousel-cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
-          <img src="${b.img}" alt="${b.title}" onerror="fallbackImage(this,'${b.title}')">
+        <button class="carousel-cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}" style="background-image:url('${b.img}')">
+          <img src="${b.img}" alt="${b.title}" loading="eager" onerror="fallbackImage(this,'${b.title}')">
           <div class="fallback">${b.title}</div>
           ${hasPreview(b)?`<span class="play-badge">Play Preview</span>`:""}
         </button>
@@ -2185,7 +2279,7 @@ function renderFeatured(){
           <h3>${b.title}</h3>
           <p>${b.vibe}</p>
           <div class="mini">
-            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(hasPreview(b)?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
+            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(hasPreview(b)?``:`<span>Preview Coming Soon</span>`)}
             <button class="lease-select" data-title="${b.title}" type="button">License Beat</button>
             <a href="#catalog">Full Catalog</a>
           </div>
@@ -2243,8 +2337,8 @@ function renderCatalog(){
     card.className=`card reveal show ${b.featured?"featured":""}`;
     card.innerHTML=`
       ${b.featured?`<div class="badge">Featured</div>`:""}
-      <button class="cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
-        <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
+      <button class="cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}" style="background-image:url('${b.img}')">
+        <img src="${b.img}" alt="${b.title} cover" loading="eager" onerror="fallbackImage(this,'${b.title}')">
         <div class="fallback">${b.title}</div>
         ${hasPreview(b)?`<span class="play-badge">Play Preview</span>`:""}
       </button>
@@ -2252,7 +2346,7 @@ function renderCatalog(){
         <h3>${b.title}</h3>
         <p>${b.vibe}</p>
         <div class="mini">
-          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(hasPreview(b)?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
+          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(hasPreview(b)?``:`<span>Preview Coming Soon</span>`)}
           <button class="lease-select" data-title="${b.title}" type="button">License Beat</button>
         </div>
       </div>
@@ -2615,7 +2709,6 @@ window.addEventListener("load",()=>{
       selectedBeatTitle=beat.title;
       if(beatSelect)beatSelect.value=beat.title;
       updateSelectedBeatChip();
-      showToast(`${beat.title} loaded. Tap the cover to preview.`);
     }
   }
   applyPreviewProtection();
