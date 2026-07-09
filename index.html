@@ -1484,6 +1484,80 @@ footer{
   }
 }
 
+/* Final mobile cover safety: forces dynamic catalog/featured artwork visible on phones */
+.cover,
+.carousel-cover,
+.smart-card,
+.preview-cover{
+  background:rgba(0,0,0,.08);
+}
+
+.cover img,
+.carousel-cover img,
+.smart-card img,
+.preview-cover img{
+  opacity:1;
+  visibility:visible;
+}
+
+@media(max-width:700px){
+  .featured-grid,
+  .featured-carousel,
+  .carousel-stage,
+  .grid,
+  .card,
+  .cover,
+  .carousel-cover,
+  .smart-card,
+  .preview-cover{
+    overflow:visible;
+  }
+
+  .card{
+    min-height:auto!important;
+  }
+
+  .cover,
+  .carousel-cover,
+  .preview-cover{
+    display:block!important;
+    position:relative!important;
+    width:100%!important;
+    aspect-ratio:1/1!important;
+    min-height:260px!important;
+    overflow:hidden!important;
+    border-radius:22px!important;
+  }
+
+  .carousel-cover{
+    border-radius:28px!important;
+  }
+
+  .cover img,
+  .carousel-cover img,
+  .preview-cover img,
+  .smart-card img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:260px!important;
+    object-fit:cover!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none;
+  }
+
+  .fallback{
+    position:absolute!important;
+    inset:0!important;
+    z-index:1!important;
+  }
+
+  .play-badge{
+    z-index:6!important;
+  }
+}
+
 </style>
 </head>
 
@@ -1935,13 +2009,67 @@ function cleanText(value){
   return String(value || "").toLowerCase().trim().replace(/\s+/g," ");
 }
 
+function imageCandidates(title,currentSrc=""){
+  const cleanTitle=String(title || "").trim();
+  const baseNames=[
+    cleanTitle,
+    cleanTitle.replace(/\s+/g,"."),
+    cleanTitle.replace(/\s+/g,""),
+    cleanTitle.replace(/\./g," "),
+    cleanTitle.replace(/\./g,""),
+    cleanTitle.replace(/&/g,"and")
+  ].filter(Boolean);
+
+  const uniqueNames=[...new Set(baseNames)];
+  const extensions=["png","PNG","jpg","JPG","jpeg","JPEG","webp","WEBP"];
+  const paths=[];
+
+  uniqueNames.forEach(name=>{
+    extensions.forEach(ext=>paths.push(`assets/${name}.${ext}`));
+  });
+
+  if(currentSrc)paths.push(currentSrc);
+  return [...new Set(paths)];
+}
+
 function fallbackImage(img,title){
+  if(!img)return;
+
+  const current=img.getAttribute("src") || "";
+  const tried=(img.dataset.tried || "").split("|").filter(Boolean);
+  const candidates=imageCandidates(title,current);
+  const next=candidates.find(path=>path && path!==current && !tried.includes(path));
+
+  if(next){
+    tried.push(current);
+    img.dataset.tried=tried.join("|");
+    img.style.display="block";
+    img.style.opacity="1";
+    img.style.visibility="visible";
+    img.src=next;
+    return;
+  }
+
   img.style.display="none";
-  const fallback=img.parentElement.querySelector(".fallback");
+  const fallback=img.parentElement ? img.parentElement.querySelector(".fallback") : null;
   if(fallback){
     fallback.style.display="flex";
     fallback.textContent=title;
   }
+}
+
+function hydrateCoverImages(root=document){
+  root.querySelectorAll(".cover img,.carousel-cover img,.smart-card img,.preview-cover img").forEach(img=>{
+    img.loading="eager";
+    img.decoding="async";
+    img.style.display="block";
+    img.style.opacity="1";
+    img.style.visibility="visible";
+
+    if(img.complete && img.naturalWidth===0){
+      fallbackImage(img,img.getAttribute("alt") || "Beat cover");
+    }
+  });
 }
 
 function startCarousel(){
@@ -2027,6 +2155,7 @@ function renderSmartRail(list,title="Smart Picks"){
       <div><strong>${b.title}</strong><span>${title}</span></div>
     </button>
   `).join("");
+  hydrateCoverImages(smartRail);
 }
 
 function storePreview(title){
@@ -2079,6 +2208,7 @@ function renderFeatured(){
       resetCarousel();
     };
   });
+  hydrateCoverImages(featuredGrid);
 }
 
 function changeSlide(direction,manual=true){
@@ -2130,6 +2260,7 @@ function renderCatalog(){
     card.style.transitionDelay=`${Math.min(index*30,240)}ms`;
     grid.appendChild(card);
   });
+  hydrateCoverImages(grid);
 }
 
 function renderBeatSelect(){
@@ -2488,6 +2619,11 @@ window.addEventListener("load",()=>{
     }
   }
   applyPreviewProtection();
+  hydrateCoverImages(document);
+});
+
+window.addEventListener("pageshow",()=>{
+  hydrateCoverImages(document);
 });
 
 window.addEventListener("pageshow",()=>{
