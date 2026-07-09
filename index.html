@@ -1277,6 +1277,176 @@ footer{
   }
 }
 
+
+/* Mobile hardening: keeps catalog covers, previews, and artist photos visible */
+.preview-cover{
+  position:relative;
+  overflow:hidden;
+}
+
+.preview-cover img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+@media(max-width:900px){
+  .contact-shell{
+    grid-template-columns:1fr!important;
+    gap:32px!important;
+  }
+
+  .contact-photo-wrap{
+    margin:30px auto 0!important;
+    justify-self:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    max-width:340px!important;
+  }
+
+  .contact-photo{
+    max-width:280px!important;
+    width:100%!important;
+  }
+}
+
+@media(max-width:600px){
+  body{
+    overflow-x:hidden;
+  }
+
+  .tools{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:10px!important;
+  }
+
+  .search{
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  .filter{
+    flex:1 1 auto!important;
+    text-align:center!important;
+  }
+
+  .grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:22px!important;
+  }
+
+  .card,
+  .cover,
+  .preview-cover{
+    width:100%!important;
+  }
+
+  .cover,
+  .carousel-cover{
+    aspect-ratio:1/1!important;
+    min-height:260px!important;
+  }
+
+  .carousel-stage{
+    grid-template-columns:1fr!important;
+    gap:18px!important;
+  }
+
+  .carousel-info{
+    padding:18px 6px 6px!important;
+  }
+
+  .hero-photo-wrap,
+  .about-photo-wrap{
+    display:flex!important;
+    justify-content:center!important;
+  }
+
+  .hero-photo,
+  .about-photo{
+    width:100%!important;
+    max-width:280px!important;
+    max-height:420px!important;
+  }
+
+  .contact-shell{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+  }
+
+  .contact-photo-wrap{
+    display:flex!important;
+    justify-content:center!important;
+    align-items:center!important;
+    width:100%!important;
+    max-width:320px!important;
+    margin:28px auto 0!important;
+    justify-self:center!important;
+  }
+
+  .contact-photo{
+    width:100%!important;
+    max-width:250px!important;
+    max-height:380px!important;
+  }
+
+  .preview-modal{
+    padding:10px!important;
+    align-items:center!important;
+  }
+
+  .preview-modal-card,
+  .preview-modal-card.youtube-mode{
+    width:96vw!important;
+    max-width:430px!important;
+    max-height:94vh!important;
+    padding:14px!important;
+    border-radius:26px!important;
+  }
+
+  .preview-frame{
+    width:100%!important;
+    aspect-ratio:9/16!important;
+    min-height:58vh!important;
+    max-height:70vh!important;
+    border-radius:18px!important;
+    background:#080808!important;
+  }
+
+  .preview-video{
+    width:100%!important;
+    max-height:68vh!important;
+    border-radius:18px!important;
+  }
+
+  .preview-copy{
+    padding:16px 4px 4px!important;
+  }
+
+  .preview-actions{
+    gap:8px!important;
+  }
+
+  .preview-actions .btn{
+    width:100%!important;
+    margin-right:0!important;
+  }
+
+  .preview-nav{
+    width:42px!important;
+    height:42px!important;
+    font-size:24px!important;
+    top:46%!important;
+  }
+
+  .preview-nav.prev{left:12px!important}
+  .preview-nav.next{right:58px!important}
+}
+
 </style>
 </head>
 
@@ -1619,7 +1789,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
     <button class="preview-nav prev" id="previewPrev" type="button" aria-label="Previous beat">‹</button>
     <button class="preview-nav next" id="previewNext" type="button" aria-label="Next beat">›</button>
     <video class="preview-video" id="previewVideo" controls playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture></video>
-    <iframe class="preview-frame" id="previewFrame" title="Beat preview" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="preview-frame" id="previewFrame" title="Beat preview" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
     <div class="preview-copy">
       <div class="kicker">Now Previewing</div>
       <h3 id="previewTitle">Beat Preview</h3>
@@ -1780,7 +1950,7 @@ function youtubeEmbed(url){
     No autoplay here. This prevents YouTube Shorts from starting on refresh,
     back/forward restore, or deep-link load. Visitors press play inside the preview.
   */
-  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=0&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
+  return id ? `https://www.youtube.com/embed/${id}?autoplay=0&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
 }
 
 function slugify(value){
@@ -1967,6 +2137,7 @@ function openPreview(beat){
   if(beat.youtube){
     previewFrame.src=youtubeEmbed(beat.youtube);
     previewFrame.style.display="block";
+    previewFrame.setAttribute("allowfullscreen","");
     previewModal.querySelector(".preview-modal-card").classList.add("youtube-mode");
   }else if(beat.video){
     previewVideo.poster=beat.img;
