@@ -500,6 +500,88 @@ body.dark-mode .hero .lead{color:#e6d9cb!important}
 /* hide implementation-facing copy from customers */
 .news-note{display:none!important}
 
+
+
+/* v14 owner/admin, X-inspired profile polish, clean client-facing copy */
+#timeline,.expansion-roadmap,.roadmap-card{display:none!important;}
+.news-note,.backend-copy,.owner-only-copy{display:none!important;}
+nav .admin-nav-link{display:none;}
+body.owner-admin nav .admin-nav-link{display:inline-flex;}
+
+/* remove customer-facing internal/future wording by hiding timeline and keeping platform clean */
+.activity-section .section-head .copy{max-width:720px;}
+
+/* X-inspired profile without copying brand assets */
+.profile-cover-card{padding:0!important;overflow:hidden!important;border-radius:34px!important;background:rgba(255,255,255,.34)!important;}
+.profile-cover-bg{height:220px!important;min-height:220px!important;border-radius:34px 34px 0 0!important;background-color:#161412;background-size:cover!important;background-position:center!important;position:relative!important;}
+.profile-cover-bg:after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.25));pointer-events:none;}
+.profile-cover-card>.kicker,.profile-cover-card>h3,.profile-cover-card>p,.profile-cover-card>.unlock-panel{margin-left:28px;margin-right:28px;}
+.profile-cover-card>.kicker{margin-top:18px!important;}
+.profile-hero{margin:0 28px 22px!important;border-radius:0!important;border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;display:grid!important;grid-template-columns:132px 1fr!important;align-items:end!important;gap:18px!important;position:relative;top:-62px;margin-bottom:-36px!important;}
+.avatar-wrap{width:132px!important;height:132px!important;border-radius:50%!important;border:5px solid var(--paper)!important;background:#111!important;box-shadow:0 12px 44px rgba(0,0,0,.22)!important;}
+.profile-hero>div:nth-child(2){padding-top:64px!important;}
+#profileNameDisplay{display:inline-flex;align-items:center;font-size:28px!important;font-weight:900!important;letter-spacing:-.04em!important;}
+.profile-status{font-size:14px!important;color:var(--muted)!important;max-width:760px;line-height:1.45;}
+.profile-social-stats{margin-top:10px!important;}
+.stat-link{background:transparent!important;border:0!important;padding:4px 10px 4px 0!important;font-size:14px!important;color:var(--muted)!important;}
+.stat-link b{color:var(--ink)!important;}
+.profile-form{margin:0 28px 22px!important;}
+.crate-actions,.save-code-box,.profile-achievements,#profilePostList,.post-composer{margin-left:28px!important;margin-right:28px!important;}
+.profile-edit-row{position:absolute!important;right:0!important;top:66px!important;display:flex!important;gap:6px!important;}
+.mini-edit{width:34px!important;height:34px!important;min-width:34px!important;padding:0!important;border-radius:50%!important;font-size:0!important;display:grid!important;place-items:center!important;background:rgba(255,255,255,.58)!important;border:1px solid rgba(8,8,8,.12)!important;box-shadow:0 12px 30px rgba(0,0,0,.10)!important;}
+.mini-edit:before{font-size:14px!important;line-height:1;}
+#editAvatarBtn:before{content:'◉';}#editCoverBtn:before{content:'▧';}#themeToggle:before{content:'◐';}
+.owner-pill{display:none!important;}
+.media-editor-inline{display:none!important;}
+
+/* premium verified icon; only rendered for official owner identity */
+.verified-badge{display:inline-flex!important;align-items:center!important;gap:4px!important;margin-left:8px!important;padding:3px 7px!important;border-radius:999px!important;background:linear-gradient(135deg,#1d9bf0,#7cd6ff)!important;color:white!important;border:1px solid rgba(255,255,255,.55)!important;font-size:10px!important;font-weight:900!important;letter-spacing:.04em!important;text-transform:uppercase!important;box-shadow:0 8px 22px rgba(29,155,240,.28)!important;vertical-align:middle!important;}
+.verified-badge:before{content:'◆';font-size:9px;}
+#requestVerify{display:none!important;}
+body.owner-admin #requestVerify{display:inline-flex!important;}
+
+/* feed / comments media support */
+.feed-media img,.feed-media video{width:100%;max-height:420px;object-fit:cover;border-radius:20px;display:block;}
+.comment-item{position:relative;}
+.comment-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.comment-head .mini-avatar{flex:0 0 auto;}
+.feed-author{align-items:flex-start!important;}
+.feed-post{border-radius:24px!important;}
+.feed-post.official-post{border-color:rgba(181,138,64,.34)!important;background:linear-gradient(135deg,rgba(181,138,64,.10),rgba(255,255,255,.26))!important;}
+
+/* owner admin panel */
+#admin{display:none;}
+body.owner-admin #admin{display:block;}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.admin-card{border:1px solid rgba(8,8,8,.10);background:rgba(255,255,255,.34);border-radius:30px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.07);}
+.admin-card h3{margin:8px 0 10px;font-size:clamp(28px,3vw,46px);letter-spacing:-.05em;}
+.admin-list{display:grid;gap:10px;margin-top:14px;max-height:360px;overflow:auto;}
+.admin-row{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid rgba(8,8,8,.08);background:rgba(255,255,255,.30);border-radius:16px;padding:12px;}
+.admin-row small{display:block;color:var(--muted);margin-top:4px;}
+body.dark-mode .admin-card,body.dark-mode .admin-row{background:rgba(255,255,255,.075)!important;border-color:rgba(255,255,255,.13)!important;color:var(--paper)!important;}
+
+/* move contact image closer to headline on desktop */
+@media(min-width:1000px){.contact-photo-wrap{transform:translateX(-160px)!important;}}
+@media(max-width:999px){.contact-photo-wrap{transform:none!important;}}
+
+/* client-facing polish */
+.news-grid{align-items:stretch;}
+.news-card p{color:var(--muted);}
+body.dark-mode .copy,body.dark-mode .smart-note,body.dark-mode .news-card p,body.dark-mode .profile-status,body.dark-mode .stat-link{color:rgba(244,239,230,.72)!important;}
+body.dark-mode .stat-link b{color:var(--paper)!important;}
+body.dark-mode .avatar-wrap{border-color:#15110f!important;}
+
+@media(max-width:700px){
+  .profile-cover-bg{height:170px!important;min-height:170px!important;}
+  .profile-hero{grid-template-columns:94px 1fr!important;top:-46px!important;margin-left:18px!important;margin-right:18px!important;}
+  .avatar-wrap{width:94px!important;height:94px!important;border-width:4px!important;}
+  .profile-hero>div:nth-child(2){padding-top:50px!important;}
+  #profileNameDisplay{font-size:22px!important;}
+  .profile-edit-row{top:50px!important;right:0!important;}
+  .profile-form,.crate-actions,.save-code-box,.profile-achievements,#profilePostList,.post-composer{margin-left:18px!important;margin-right:18px!important;}
+  .admin-grid{grid-template-columns:1fr;}
+}
+
 </style>
 </head>
 <body>
@@ -527,6 +609,9 @@ body.dark-mode .hero .lead{color:#e6d9cb!important}
   </div>
   <div class="scroll-cue"><span></span> Explore the catalog</div>
 </section>
+<section id="featured" class="reveal">
+  <div class="section-head"><div><div class="kicker">Selected Work</div><h2 class="title">Beats as art.</h2></div><p class="copy">A curated front room for the catalog. Start here if you want the fastest read on the sound, the polish, and the direction.</p></div>
+  <div class="featured-stage-wrap"><div class="featured-strip featured-showcase" id="featuredStrip"></div><div class="featured-stage-copy" id="featuredStageCopy" aria-hidden="true"></div></div><div class="featured-week-note" id="featuredWeekNote" aria-hidden="true"></div>
 </section>
 <section id="activity" class="activity-section reveal">
   <div class="section-head"><div><div class="kicker">Studio Activity</div><h2 class="title">Alive while they browse.</h2></div><p class="copy">A quiet activity layer that makes the site feel active without turning the catalog into noise.</p></div>
@@ -597,7 +682,7 @@ body.dark-mode .hero .lead{color:#e6d9cb!important}
       <div class="profile-posts member-only">
         <h3>Post to the Feed</h3><p>Share clean music thoughts, hooks, concepts, or producer notes to the Feed page and your profile. Keep it respectful.</p>
         <textarea id="profilePostText" placeholder="Write a music post, beat note, hook idea, or project thought..."></textarea>
-        <div class="post-attach-row"><label class="avatar-label" for="postMediaUpload">Add image/GIF</label><input class="avatar-input" id="postMediaUpload" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><span class="smart-note">Images/GIFs only, 3MB max. No audio/video uploads. Unsafe posts can suspend this local profile.</span></div>
+        <div class="post-attach-row"><label class="avatar-label" for="postMediaUpload">Add media</label><input class="avatar-input" id="postMediaUpload" type="file" accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm"><span class="smart-note">Images, GIFs, and short videos. No beat/audio uploads. Unsafe posts can suspend this local profile.</span></div>
         <div class="crate-actions"><button class="btn dark" id="addProfilePost" type="button">Post to Feed</button><a class="btn" href="#feed">Open Feed</a></div>
         <div class="post-list" id="profilePostList"></div>
       </div>
@@ -619,7 +704,7 @@ body.dark-mode .hero .lead{color:#e6d9cb!important}
       <div class="kicker">Create a post</div><h3>Share from your profile.</h3>
       <p>Posts require a profile and are filtered for hate, threats, harassment, and explicit abuse.</p>
       <textarea id="feedPostText" placeholder="What are you working on, listening to, or looking for?"></textarea>
-      <div class="post-attach-row"><label class="avatar-label" for="feedMediaUpload">Add image/GIF</label><input class="avatar-input" id="feedMediaUpload" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><span class="smart-note">Images/GIFs only, 3MB max. No audio/video uploads.</span></div>
+      <div class="post-attach-row"><label class="avatar-label" for="feedMediaUpload">Add media</label><input class="avatar-input" id="feedMediaUpload" type="file" accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm"><span class="smart-note">Images, GIFs, and short videos. No beat/audio uploads.</span></div>
       <div class="crate-actions"><button class="btn dark" id="addFeedPost" type="button">Post</button><a class="btn" href="#profile">Profile</a></div>
     </div>
     <div class="feed-list-wrap crate-card">
@@ -653,6 +738,17 @@ body.dark-mode .hero .lead{color:#e6d9cb!important}
   </div>
   <div class="basket-panel"><div><div class="kicker">License Request Basket</div><h3>Your request</h3><select id="beatSelect" class="beat-select"><option value="">Loading catalog...</option></select><div class="basket-list" id="basketList"></div></div><div><a class="btn dark" id="submitLicenseRequest" href="mailto:princecali6989@gmail.com">Submit Request</a><button class="btn" id="clearBasket" type="button">Clear</button></div></div>
 </section>
+
+<section id="admin" class="reveal owner-admin-panel">
+  <div class="section-head"><div><div class="kicker">Owner Console</div><h2 class="title">Control room.</h2></div><p class="copy">Private local admin tools for Prince Cali. Real cross-device deletes, bans, public comments, and user accounts need a backend/database when you are ready.</p></div>
+  <div class="admin-grid">
+    <div class="admin-card"><div class="kicker">Profiles</div><h3>Local profiles.</h3><p class="smart-note">This static version can manage the profiles/posts stored in this browser. Backend sync comes later.</p><div class="admin-list" id="adminProfiles"></div></div>
+    <div class="admin-card"><div class="kicker">Comments + Feed</div><h3>Moderation.</h3><p class="smart-note">Delete local feed posts, local comments, and flagged items from this device.</p><div class="admin-list" id="adminModeration"></div></div>
+    <div class="admin-card"><div class="kicker">Safety</div><h3>Signals.</h3><p class="smart-note">Tracks local suspensions, blocked uploads, and violation attempts.</p><div class="admin-list" id="adminSafety"></div></div>
+    <div class="admin-card"><div class="kicker">Data</div><h3>Export / reset.</h3><button class="btn dark" id="adminExport" type="button">Copy local export</button> <button class="btn danger" id="adminReset" type="button">Reset local community</button><textarea class="save-code-box" id="adminExportBox" readonly placeholder="Owner export appears here."></textarea></div>
+  </div>
+</section>
+
 <section id="contact" class="reveal">
   <div class="contact-shell"><div><div class="kicker">Connect</div><h2 class="title">Work with Prince Cali.</h2><p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p><a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a></div><div class="contact-photo-wrap"><img class="contact-photo" src="assets/producer.Prince.Cali.png?v=25" alt="Prince Cali" onerror="this.parentElement.style.display='none'"></div></div>
 </section>
@@ -1139,5 +1235,166 @@ function v10Boot(){
 document.addEventListener('DOMContentLoaded',v10Boot);
 </script>
 <!-- premium-redesign-v13-client-polish-dark-carousel -->
+
+<script>
+/* v14: owner-only console, official verification, social/profile/feed polish */
+(function(){
+  const OFFICIAL_EMAIL='princecali6989@gmail.com';
+  const OFFICIAL_NAMES=['prince cali','cali','princecali'];
+  const MAX_MEDIA_BYTES=5*1024*1024;
+  const bannedFileWords=/\b(beat|instrumental|type\s*beat|snippet|snip|loop|wav|mp3|stem|stems|flp|fl studio|ableton|logic|producer pack|drum kit)\b/i;
+  const badMediaWords=/\b(porn|nude|nudity|sex|xxx|kill|murder|shoot|racist|nazi|rape)\b/i;
+  const oldIsPrince=window.isPrinceCaliProfile;
+  window.isPrinceCaliProfile=function(person={}){
+    const n=cleanText(person.name||''), e=cleanText(person.email||'');
+    return e===OFFICIAL_EMAIL || OFFICIAL_NAMES.includes(n) || (isOwnerMode&&isOwnerMode() && e===OFFICIAL_EMAIL);
+  };
+  window.verifiedHTML=function(person={}){return window.isPrinceCaliProfile(person)?'<span class="verified-badge" title="Official Prince Cali account">Official</span>':'';};
+  function officialIdentity(){return {name:'Prince Cali',email:OFFICIAL_EMAIL,avatar:'assets/watermark.v2.png?v=25',bio:'Producer • Audio Engineer',verified:true};}
+  function currentProfile(){return normalizeState(state()).profile||{};}
+  function isAdminUnlocked(){const p=currentProfile();return (isOwnerMode&&isOwnerMode()) && window.isPrinceCaliProfile(p);}
+  function applyAdminState(){document.body.classList.toggle('owner-admin',!!isAdminUnlocked());let nav=document.querySelector('.nav-links');if(nav&&!document.querySelector('.admin-nav-link')){const a=document.createElement('a');a.href='#admin';a.className='admin-nav-link';a.textContent='Admin';nav.appendChild(a);}renderAdminConsole();}
+  window.applyAdminState=applyAdminState;
+
+  // Keep creator identity separated from customer profiles.
+  const oldProfileIdentity=window.profileIdentity;
+  window.profileIdentity=function(){const st=normalizeState(state());return {name:st.profile.name||'Listener',email:st.profile.email||'',avatar:st.profile.avatar||'',bio:st.profile.bio||st.profile.notes||'Music profile'};};
+
+  // profile render polish + official-only verification badge
+  const oldRenderCrate=window.renderCrate;
+  window.renderCrate=async function(){
+    if(oldRenderCrate) await oldRenderCrate();
+    const st=normalizeState(state()), p=st.profile||{};
+    const badge=document.getElementById('profileVerifiedBadge');
+    if(badge){badge.innerHTML='Official';badge.style.display=window.isPrinceCaliProfile(p)?'inline-flex':'none';}
+    const status=document.getElementById('profileStatus');
+    if(status){status.textContent=isProfileCreated()?((p.bio||p.notes)?safeText(p.bio||p.notes):'Profile active • Online now'):'Create a profile to unlock saves, comments, follows, voice takes, Feed, and deeper recommendations.';}
+    const request=document.getElementById('requestVerify'); if(request) request.style.display=window.isPrinceCaliProfile(p)?'inline-flex':'none';
+    applyAdminState();
+  };
+
+  // Less backend-explanation inside News; public-facing only.
+  window.articleForRelease=function(item){
+    if(item.text && !/backend|serverless|dynamic update|assets\/releases/i.test(item.text)) return item.text;
+    if(item.action==='trending') return '';
+    if(/spotify/i.test(item.type||item.title||'')) return 'Official Prince Cali releases and catalog highlights live here so listeners can move from discovery to the music without friction.';
+    return 'A clean studio update from the Prince Cali catalog: new sounds, active records, and moments worth revisiting.';
+  };
+  const oldRenderNews=window.renderNews;
+  window.renderNews=function(){
+    if(!newsGrid)return;
+    const st=normalizeState(state());
+    const trending=Object.entries(st.previewCounts||{}).filter(([t,c])=>Number(c)>0).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([t])=>t).join(', ')||'New signals will appear as listeners preview records';
+    newsGrid.innerHTML='';
+    (window.dynamicNewsItems||dynamicNewsItems||[]).forEach(item=>{
+      const card=document.createElement(item.link?'a':'article');
+      card.className='news-card';
+      if(item.link){card.href=item.link;card.target='_blank';card.rel='noopener';}
+      const text=item.action==='trending'?`Trending locally: ${trending}.`:articleForRelease(item);
+      card.innerHTML=`<span class="news-type">${safeText(item.type||'Update')}</span><h3>${safeText(item.title||'Prince Cali Update')}</h3><p>${safeText(text)}</p><div class="news-date">${safeText(item.date||'Latest')}</div>`;
+      newsGrid.appendChild(card);
+    });
+  };
+
+  // Hide timeline/expansion section client-side too.
+  const timeline=document.getElementById('timeline'); if(timeline) timeline.setAttribute('hidden','hidden');
+
+  // More permissive media for feed/profile, but blocks beats/audio/porn/hate/violent filenames/text quickly.
+  window.moderationCheck=function(text,file){
+    const body=String(text||'');
+    if(/\b(kill|shoot|murder|rape|nazi|racist slur|porn|nude|nudes|xxx)\b/i.test(body))return {ok:false,reason:'Unsafe post blocked'};
+    if(file){
+      const name=String(file.name||'');
+      const type=String(file.type||'');
+      if(file.size>MAX_MEDIA_BYTES)return {ok:false,reason:'Upload too large. Keep media under 5MB.'};
+      if(badMediaWords.test(name))return {ok:false,reason:'Unsafe file name blocked'};
+      if(bannedFileWords.test(name)||type.startsWith('audio/'))return {ok:false,reason:'Beat/audio uploads are not allowed here'};
+      if(!(type.startsWith('image/')||type==='video/mp4'||type==='video/webm'))return {ok:false,reason:'Use image, GIF, MP4, or WebM only'};
+    }
+    return {ok:true};
+  };
+  window.readSafeMedia=function(file,cb){
+    if(!file){cb('');return;}
+    const check=moderationCheck('',file);
+    if(!check.ok){toast(check.reason);cb('');return;}
+    const r=new FileReader();
+    r.onload=()=>cb(String(r.result||''));
+    r.onerror=()=>{toast('Upload failed');cb('');};
+    r.readAsDataURL(file);
+  };
+  function mediaHTML(src){
+    if(!src)return '';
+    if(/^data:video\//.test(src))return `<div class="feed-media"><video src="${src}" controls playsinline preload="metadata"></video></div>`;
+    return `<div class="feed-media"><img src="${src}" alt="Feed upload"></div>`;
+  }
+  window.avatarHTML=function(person={}){const src=person.avatar||'';const name=safeText(person.name||'Listener');return src?`<img class="mini-avatar" src="${src}" alt="${name}">`:`<span class="mini-avatar">${name.slice(0,1).toUpperCase()}</span>`;};
+
+  window.renderFeed=function(){
+    if(!feedList)return;
+    const st=normalizeState(state());
+    const created=isProfileCreated();
+    document.body.classList.toggle('feed-locked',location.hash==='#feed'&&!created);
+    if(!created){feedList.innerHTML=profileGateHTML(); if(profileList)profileList.innerHTML=''; return;}
+    const current=profileIdentity();
+    let posts=[...(st.feed||[])];
+    if(!posts.length){posts=[{id:'official-seed',text:'Welcome to the room. Save beats, follow profiles, post clean thoughts, and keep the music first.',media:'',author:officialIdentity(),likes:0,created:new Date().toISOString()}];}
+    feedList.innerHTML='';
+    posts.slice(0,60).forEach(post=>{
+      const author=post.author||{}; const isOfficial=window.isPrinceCaliProfile(author); const owner=canEditAuthor(author.name)||isAdminUnlocked();
+      const row=document.createElement('article');row.className='feed-post'+(isOfficial?' official-post':'');
+      row.innerHTML=`<div class="feed-author">${avatarHTML(author)}<div><strong>${safeText(author.name||'Listener')} ${verifiedHTML(author)}</strong><span>${safeText(author.bio||'Online now')}</span></div><button class="icon-btn follow-btn" type="button">${isFollowing(author.name)?'Following':'Follow'}</button></div><p>${safeText(post.text)}</p>${mediaHTML(post.media)}<div class="post-actions"><button class="icon-btn like-btn" type="button">Like · ${post.likes||0}</button><button class="icon-btn" type="button">Reply</button>${owner?'<span class="feed-owner-actions"><button class="icon-btn edit-post" type="button">Edit</button><button class="icon-btn delete-post" type="button">Delete</button></span>':''}</div>`;
+      row.querySelector('.follow-btn').addEventListener('click',()=>toggleFollow(author.name||'Listener'));
+      row.querySelector('.like-btn').addEventListener('click',()=>likePost(post.id));
+      if(owner){row.querySelector('.edit-post').addEventListener('click',()=>editFeedPost(post.id));row.querySelector('.delete-post').addEventListener('click',()=>deleteFeedPost(post.id));}
+      feedList.appendChild(row);
+    });
+    if(profileList){
+      const people=[officialIdentity(),current,...publicSeedProfiles(),...posts.map(p=>p.author)].filter(Boolean); const seen=new Set(); profileList.innerHTML='';
+      people.forEach(person=>{if(!person.name||seen.has(cleanText(person.name)))return; seen.add(cleanText(person.name)); const isSelf=cleanText(person.name)===cleanText(current.name); const row=document.createElement('div'); row.className='profile-row'; row.innerHTML=`${avatarHTML(person)}<div><strong>${safeText(person.name)} ${verifiedHTML(person)}</strong><span>${safeText(person.bio||'Music profile')}</span><span class="online-dot" title="Online"></span></div><button class="icon-btn" type="button" ${isSelf?'disabled':''}>${isSelf?'You':(isFollowing(person.name)?'Following':'Follow')}</button>`; if(!isSelf)row.querySelector('button').addEventListener('click',()=>toggleFollow(person.name)); profileList.appendChild(row);});
+    }
+    if(followingList){followingList.innerHTML=(st.following||[]).length?(st.following||[]).map(n=>`<div class="profile-row"><span class="mini-avatar">${safeText(n).slice(0,1).toUpperCase()}</span><div><strong>${safeText(n)}</strong><span>Following</span></div></div>`).join(''):'<p class="smart-note">No follows yet.</p>';}
+    if(followersList){followersList.innerHTML=(st.followers||[]).length?(st.followers||[]).map(n=>`<div class="profile-row"><span class="mini-avatar">${safeText(n).slice(0,1).toUpperCase()}</span><div><strong>${safeText(n)}</strong><span>Follower</span></div></div>`).join(''):'<p class="smart-note">No followers yet.</p>';}
+    renderAdminConsole();
+  };
+
+  window.renderComments=function(title){
+    if(!commentList)return; const all=loadComments(); const rows=(all[title]||[]).slice(-14).reverse(); commentList.innerHTML='';
+    if(!rows.length){commentList.innerHTML='<p class="smart-note">No comments yet. Be the first clean signal on this beat.</p>';return;}
+    rows.forEach(c=>{const owner=canEditAuthor(c.name)||isAdminUnlocked(); const person={name:c.name,email:c.email,avatar:c.avatar}; const row=document.createElement('div'); row.className='comment-item'; row.innerHTML=`<div class="comment-head">${avatarHTML(person)}<div><strong>${safeText(c.name||'Listener')} ${verifiedHTML(person)}</strong><span>${new Date(c.created).toLocaleString()}</span></div></div><p>${safeText(c.text)}</p>${owner?'<div class="comment-owner-actions"><button class="icon-btn edit-comment" type="button">Edit</button><button class="icon-btn delete-comment" type="button">Delete</button></div>':''}`; if(owner){row.querySelector('.edit-comment').addEventListener('click',()=>editComment(title,c.id)); row.querySelector('.delete-comment').addEventListener('click',()=>deleteComment(title,c.id));} commentList.appendChild(row);});
+  };
+
+  // ensure new posts carry avatar/bio/email/verification
+  window.createFeedPost=function(text,media){
+    const st=normalizeState(state()); const author=profileIdentity();
+    if(window.isPrinceCaliProfile(author)){author.name='Prince Cali';author.email=OFFICIAL_EMAIL;author.bio='Producer • Audio Engineer';author.verified=true;}
+    st.feed.unshift({id:'post-'+Date.now(),text,media,author,likes:0,created:new Date().toISOString()}); st.posts.unshift({text,media,created:new Date().toISOString()}); saveState(st); renderFeed(); renderCrate(); addActivity('post','Posted in the room.','');
+  };
+
+  function renderAdminConsole(){
+    const profiles=document.getElementById('adminProfiles'), mod=document.getElementById('adminModeration'), safety=document.getElementById('adminSafety');
+    if(!profiles||!isAdminUnlocked())return;
+    const st=normalizeState(state()); const comments=loadComments(); const allComments=Object.entries(comments).flatMap(([beat,arr])=>(arr||[]).map(c=>({...c,beat})));
+    profiles.innerHTML=`<div class="admin-row"><div><strong>${safeText(st.profile.name||'No profile')}</strong><small>${safeText(st.profile.email||'No email')}</small></div><button class="icon-btn danger" id="adminDeleteCurrentProfile" type="button">Delete local profile</button></div>`;
+    const del=document.getElementById('adminDeleteCurrentProfile'); if(del)del.onclick=deleteProfileData;
+    mod.innerHTML='';
+    (st.feed||[]).slice(0,20).forEach(p=>{const row=document.createElement('div');row.className='admin-row';row.innerHTML=`<div><strong>Feed post</strong><small>${safeText((p.author&&p.author.name)||'Listener')}: ${safeText(p.text).slice(0,80)}</small></div><button class="icon-btn danger" type="button">Delete</button>`;row.querySelector('button').onclick=()=>deleteFeedPost(p.id);mod.appendChild(row);});
+    allComments.slice(0,20).forEach(c=>{const row=document.createElement('div');row.className='admin-row';row.innerHTML=`<div><strong>${safeText(c.beat)}</strong><small>${safeText(c.name||'Listener')}: ${safeText(c.text).slice(0,80)}</small></div><button class="icon-btn danger" type="button">Delete</button>`;row.querySelector('button').onclick=()=>{deleteComment(c.beat,c.id);renderAdminConsole();};mod.appendChild(row);});
+    if(!mod.children.length)mod.innerHTML='<p class="smart-note">No local feed posts or comments to moderate.</p>';
+    safety.innerHTML=(st.violations||[]).length?(st.violations||[]).map(v=>`<div class="admin-row"><div><strong>${safeText(v.reason||'Violation')}</strong><small>${safeText(v.created||'')}</small></div></div>`).join(''):'<p class="smart-note">No local safety violations.</p>';
+  }
+  window.renderAdminConsole=renderAdminConsole;
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    const p=document.getElementById('postMediaUpload'), f=document.getElementById('feedMediaUpload');
+    if(p)p.setAttribute('accept','image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm');
+    if(f)f.setAttribute('accept','image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm');
+    const exp=document.getElementById('adminExport'), reset=document.getElementById('adminReset');
+    if(exp)exp.addEventListener('click',()=>{const box=document.getElementById('adminExportBox');if(box){box.value=JSON.stringify({state:state(),comments:loadComments()},null,2);box.select();navigator.clipboard&&navigator.clipboard.writeText(box.value);toast('Owner export copied');}});
+    if(reset)reset.addEventListener('click',()=>{if(confirm('Reset local Feed, comments, follows, and violations on this browser?')){const st=normalizeState(state());st.feed=[];st.following=[];st.followers=[];st.violations=[];saveState(st);safeStoreRemove('princeCaliCommentsV1');renderFeed();renderAdminConsole();toast('Local community reset');}});
+    applyAdminState();
+  });
+})();
+</script>
+
 </body>
 </html>
