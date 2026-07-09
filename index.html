@@ -1801,5 +1801,96 @@ body.dark-mode .profile-cover-card{background:rgba(255,255,255,.055)!important;b
 })();
 </script>
 
+
+<style id="v18-critical-social-carousel-fixes">
+/* v18: stable crossfade carousel, working social feed, dark-mode visibility */
+body.dark-mode nav,body.dark-mode .mobile-quick{color:#f7f0e7!important}
+body.dark-mode nav a,body.dark-mode .mobile-quick a,body.dark-mode .section-head,body.dark-mode .title,body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode h4,body.dark-mode p,body.dark-mode strong,body.dark-mode label{color:inherit}
+body.dark-mode .nav-links a{color:#f7f0e7!important}
+body.dark-mode .mobile-quick{background:rgba(12,10,9,.94)!important}
+
+/* Carousel uses one fixed center point. No diagonal travel or mobile snap. */
+#featured .featured-stage-wrap{position:relative!important;overflow:hidden!important;contain:layout paint!important;min-height:620px!important}
+#featured .featured-showcase{position:relative!important;overflow:hidden!important;min-height:620px!important;height:620px!important;transform:none!important;contain:layout paint!important}
+#featured .featured-showcase .art-card{position:absolute!important;inset:50% auto auto 50%!important;width:min(560px,72vw)!important;max-width:560px!important;margin:0!important;transform:translate(-50%,-50%) scale(.94)!important;transform-origin:center!important;opacity:0!important;filter:none!important;transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)!important;will-change:opacity,transform!important;pointer-events:none!important}
+#featured .featured-showcase .art-card.is-lead{opacity:1!important;transform:translate(-50%,-50%) scale(1)!important;z-index:5!important;pointer-events:auto!important}
+#featured .featured-showcase .art-card.is-back-a{opacity:.20!important;transform:translate(-50%,-50%) scale(.88)!important;z-index:3!important;filter:saturate(.72) blur(.35px)!important}
+#featured .featured-showcase .art-card.is-back-b{opacity:.10!important;transform:translate(-50%,-50%) scale(.80)!important;z-index:2!important;filter:saturate(.58) blur(.8px)!important}
+#featured .featured-showcase .art-card.is-back-c{opacity:.04!important;transform:translate(-50%,-50%) scale(.74)!important;z-index:1!important}
+#featured .featured-controls{left:50%!important;right:auto!important;bottom:18px!important;transform:translateX(-50%)!important;display:flex!important;gap:12px!important;z-index:20!important}
+#featured .featured-control{display:grid!important;place-items:center!important;width:48px!important;height:48px!important}
+@media(max-width:700px){
+ #featured .featured-stage-wrap{min-height:570px!important}
+ #featured .featured-showcase{height:570px!important;min-height:570px!important}
+ #featured .featured-showcase .art-card{width:min(76vw,520px)!important;inset:46% auto auto 50%!important}
+ #featured .featured-showcase .art-card.is-lead{transform:translate(-50%,-50%) scale(1)!important}
+ #featured .featured-showcase .art-card.is-back-a{transform:translate(-50%,-50%) scale(.88)!important}
+ #featured .featured-showcase .art-card.is-back-b{transform:translate(-50%,-50%) scale(.80)!important}
+ #featured .featured-controls{bottom:8px!important}
+}
+
+/* Feed is visible to guests; composer unlocks after profile creation. */
+#feedGate{display:none!important}
+body.pc-feed-guest #feed .feed-composer,body.pc-feed-guest #feed .feed-sidebar{filter:blur(0);opacity:.46;pointer-events:none;user-select:none}
+.feed-access-note{display:none;margin:14px 0;padding:14px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.32);font-size:14px}
+body.pc-feed-guest .feed-access-note{display:block}
+.feed-media-preview{margin-top:12px;display:none;max-width:420px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:rgba(0,0,0,.05)}
+.feed-media-preview.show{display:block}.feed-media-preview img,.feed-media-preview video{width:100%;max-height:320px;object-fit:contain;background:#080808}
+.feed-post{position:relative}.feed-post .feed-author{align-items:flex-start}.feed-post time{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.post-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.post-actions .icon-btn.is-active{background:var(--wine);color:#fff}
+.reply-composer{display:none;margin-top:12px;gap:8px}.reply-composer.show{display:flex}.reply-composer input{flex:1;padding:11px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.48)}
+.reply-list{display:grid;gap:8px;margin-top:12px}.reply-item{display:grid;grid-template-columns:34px 1fr;gap:9px;padding:10px 12px;border-left:2px solid rgba(139,16,24,.28)}.reply-item .mini-avatar{width:34px;height:34px}.reply-item p{margin:2px 0 0}
+.verified-badge,.official-crown-badge{background:linear-gradient(135deg,#7b123d,#d64e79)!important;color:#fff!important;border:1px solid rgba(255,255,255,.28)!important;box-shadow:0 7px 22px rgba(123,18,61,.22)!important}
+.official-crown-badge[title]:hover:after{content:'Verified';position:absolute;transform:translateY(-34px);background:#171313;color:#fff;padding:5px 8px;border-radius:8px;font-size:10px;white-space:nowrap}
+</style>
+<script id="v18-critical-social-carousel-fixes-js">
+(function(){
+'use strict';
+const q=s=>document.querySelector(s), qa=s=>Array.from(document.querySelectorAll(s));
+const STATE_KEY='princeCaliSiteStateV4';
+const guestDelay=10000;
+function getState(){try{const raw=localStorage.getItem(STATE_KEY);return raw?JSON.parse(raw):{};}catch(e){return {};}}
+function putState(st){try{localStorage.setItem(STATE_KEY,JSON.stringify(st));return true;}catch(e){if(window.toast)toast('Storage is full. Use a smaller image or video.');return false;}}
+function hasProfile(){const st=getState(),p=st.profile||{};return !!(p.created&&p.name&&p.email);}
+function identity(){const p=(getState().profile||{});return {name:p.name||'Listener',email:p.email||'',avatar:p.avatar||'',bio:p.bio||p.notes||'Music profile'};}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
+function avatar(a){return a&&a.avatar?`<img class="mini-avatar" src="${a.avatar}" alt="${esc(a.name||'Profile')}">`:`<span class="mini-avatar">${esc((a&&a.name||'L').slice(0,1).toUpperCase())}</span>`;}
+function verified(a){return /prince cali/i.test(a&&a.name||'')&&/princecali6989@gmail\.com/i.test(a&&a.email||'')?'<span class="verified-badge" title="Verified">♛</span>':'';}
+function mediaMarkup(src,type){if(!src)return '';return (type||'').startsWith('video/')||String(src).startsWith('data:video/')?`<div class="feed-media"><video src="${src}" controls playsinline loop preload="metadata"></video></div>`:`<div class="feed-media"><img src="${src}" alt="Post media"></div>`;}
+function normalize(){const st=getState();st.feed=Array.isArray(st.feed)?st.feed:[];st.posts=Array.isArray(st.posts)?st.posts:[];st.recent=Array.isArray(st.recent)?st.recent:[];return st;}
+function savePost(text,media='',mediaType=''){
+ const st=normalize(), author=identity();
+ const post={id:'post-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),text,media,mediaType,author,likes:0,liked:false,replies:[],created:new Date().toISOString()};
+ st.feed.unshift(post);st.posts.unshift({id:post.id,text,media,mediaType,created:post.created});
+ if(putState(st)){render();if(q('#feedPostText'))q('#feedPostText').value='';if(q('#profilePostText'))q('#profilePostText').value='';qa('#feedMediaUpload,#postMediaUpload').forEach(i=>i.value='');qa('.feed-media-preview').forEach(p=>{p.classList.remove('show');p.innerHTML='';});if(window.toast)toast('Posted to Feed');location.hash='#feed';}
+}
+function readFile(input,cb){const file=input&&input.files&&input.files[0];if(!file){cb('','');return;}const ok=/^(image\/(png|jpeg|webp|gif)|video\/(mp4|webm))$/i.test(file.type);if(!ok){toast&&toast('Use an image, GIF, MP4, or WebM.');return;}if(file.size>3*1024*1024){toast&&toast('Keep uploads under 3 MB so the post can save on this device.');return;}const r=new FileReader();r.onload=()=>cb(String(r.result||''),file.type);r.onerror=()=>toast&&toast('Media upload failed');r.readAsDataURL(file);}
+function submitFrom(textId,fileId){if(!hasProfile()){toast&&toast('Create a profile to post.');location.hash='#profile';return;}const text=(q('#'+textId)?.value||'').trim(),input=q('#'+fileId);if(!text&&!input?.files?.length){toast&&toast('Write something or add media.');return;}readFile(input,(src,type)=>savePost(text,src,type));}
+function render(){
+ const list=q('#feedList');if(!list)return;const st=normalize();let posts=st.feed;
+ if(!posts.length)posts=[{id:'seed',text:'Welcome to the music room. Preview the catalog, create a profile when ready, and join the conversation.',author:{name:'Prince Cali',email:'princecali6989@gmail.com',avatar:'assets/watermark.v2.png?v=25',bio:'Producer • Audio Engineer'},likes:0,liked:false,replies:[],created:new Date().toISOString()}];
+ list.innerHTML='';posts.slice(0,60).forEach(post=>{post.replies=Array.isArray(post.replies)?post.replies:[];const el=document.createElement('article');el.className='feed-post';el.dataset.id=post.id;el.innerHTML=`<div class="feed-author">${avatar(post.author)}<div><strong>${esc(post.author?.name||'Listener')} ${verified(post.author)}</strong><span>${esc(post.author?.bio||'Music profile')}</span><time>${new Date(post.created||Date.now()).toLocaleString()}</time></div></div><p>${esc(post.text)}</p>${mediaMarkup(post.media,post.mediaType)}<div class="post-actions"><button class="icon-btn js-like ${post.liked?'is-active':''}" type="button">♥ ${Number(post.likes)||0}</button><button class="icon-btn js-reply" type="button">Reply</button></div><div class="reply-composer"><input type="text" maxlength="280" placeholder="Write a reply"><button class="icon-btn js-send-reply" type="button">Send</button></div><div class="reply-list">${post.replies.map(r=>`<div class="reply-item">${avatar(r.author)}<div><strong>${esc(r.author?.name||'Listener')}</strong><p>${esc(r.text)}</p></div></div>`).join('')}</div>`;list.appendChild(el);});
+ document.body.classList.toggle('pc-feed-guest',!hasProfile());
+}
+function mutatePost(id,fn){const st=normalize(),p=st.feed.find(x=>x.id===id);if(!p)return;fn(p);putState(st);render();}
+function ensureGuestNote(){const composer=q('#feed .feed-composer');if(!composer||q('.feed-access-note'))return;const n=document.createElement('div');n.className='feed-access-note';n.innerHTML='<strong>Want to join the room?</strong> Create a profile to post, reply, like, follow, save beats, and keep your activity.';composer.parentNode.insertBefore(n,composer);}
+function setupGuestDelay(){ensureGuestNote();document.body.classList.remove('pc-feed-guest');if(hasProfile())return;setTimeout(()=>{if(!hasProfile()&&location.hash==='#feed'){document.body.classList.add('pc-feed-guest');if(window.toast)toast('Create a profile to interact with the Feed.');}},guestDelay);}
+function previewInput(id){const input=q('#'+id);if(!input||input.dataset.v18)return;input.dataset.v18='1';const box=document.createElement('div');box.className='feed-media-preview';input.closest('.post-attach-row')?.after(box);input.addEventListener('change',()=>{readFile(input,(src,type)=>{box.innerHTML=type.startsWith('video/')?`<video src="${src}" controls playsinline loop></video>`:`<img src="${src}" alt="Selected media">`;box.classList.add('show');});});}
+function carousel(){
+ const strip=q('#featuredStrip');if(!strip)return;let cards=Array.from(strip.children);if(!cards.length)return;window.featuredLeadIndex=Number(window.featuredLeadIndex)||0;
+ window.updateFeaturedStage=function(){cards=Array.from(strip.children);cards.forEach((c,i)=>{c.classList.remove('is-lead','is-back-a','is-back-b','is-back-c');const d=(i-window.featuredLeadIndex+cards.length)%cards.length;if(d===0)c.classList.add('is-lead');else if(d===1)c.classList.add('is-back-a');else if(d===cards.length-1)c.classList.add('is-back-b');else if(d===2)c.classList.add('is-back-c');});};
+ updateFeaturedStage();
+ const prev=q('#featuredPrev'),next=q('#featuredNext');if(prev)prev.onclick=e=>{e.preventDefault();window.featuredLeadIndex=(window.featuredLeadIndex-1+cards.length)%cards.length;updateFeaturedStage();};if(next)next.onclick=e=>{e.preventDefault();window.featuredLeadIndex=(window.featuredLeadIndex+1)%cards.length;updateFeaturedStage();};
+ if(window.__pcCarouselTimer)clearInterval(window.__pcCarouselTimer);window.__pcCarouselTimer=setInterval(()=>{if(document.hidden)return;window.featuredLeadIndex=(window.featuredLeadIndex+1)%cards.length;updateFeaturedStage();},6500);
+}
+function recentFix(){const b=q('#recentBeats');if(!b||b.dataset.v18)return;b.dataset.v18='1';b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();if(!hasProfile()){toast&&toast('Create a profile to keep recent beats.');location.hash='#profile';return;}const st=normalize(),titles=st.recent||[];const list=(window.beats||[]).filter(x=>titles.includes(x.title)).sort((a,b)=>titles.indexOf(a.title)-titles.indexOf(b.title));if(typeof window.showRail==='function')window.showRail('Recently viewed beats.',list);else if(list[0]&&typeof window.openPreview==='function')window.openPreview(list[0].title);else toast&&toast('No recent beats yet.');},true);}
+document.addEventListener('click',e=>{const post=e.target.closest('.feed-post');if(!post)return;const id=post.dataset.id;if(e.target.closest('.js-like')){e.preventDefault();if(!hasProfile()){toast&&toast('Create a profile to like posts.');location.hash='#profile';return;}mutatePost(id,p=>{p.liked=!p.liked;p.likes=Math.max(0,(Number(p.likes)||0)+(p.liked?1:-1));});}if(e.target.closest('.js-reply')){e.preventDefault();if(!hasProfile()){toast&&toast('Create a profile to reply.');location.hash='#profile';return;}post.querySelector('.reply-composer')?.classList.toggle('show');post.querySelector('.reply-composer input')?.focus();}if(e.target.closest('.js-send-reply')){e.preventDefault();const input=post.querySelector('.reply-composer input'),txt=(input?.value||'').trim();if(!txt)return;mutatePost(id,p=>{p.replies=Array.isArray(p.replies)?p.replies:[];p.replies.push({id:'reply-'+Date.now(),text:txt,author:identity(),created:new Date().toISOString()});});}},true);
+document.addEventListener('click',e=>{if(e.target.closest('#addFeedPost')){e.preventDefault();e.stopImmediatePropagation();submitFrom('feedPostText','feedMediaUpload');}if(e.target.closest('#addProfilePost')){e.preventDefault();e.stopImmediatePropagation();submitFrom('profilePostText','postMediaUpload');}},true);
+function init(){previewInput('feedMediaUpload');previewInput('postMediaUpload');render();setupGuestDelay();carousel();recentFix();window.addEventListener('hashchange',()=>{render();setupGuestDelay();});setTimeout(carousel,800);}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+window.renderFeed=render;
+})();
+</script>
+
 </body>
 </html>
