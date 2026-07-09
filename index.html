@@ -1842,6 +1842,124 @@ footer{
   }
 }
 
+
+
+/* URGENT SAFARI MOBILE STABILITY PATCH - do not remove */
+.reveal,
+.reveal.show,
+section.reveal,
+.hero .reveal,
+.panel.reveal{
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+}
+
+button.preview-cover,
+.cover.preview-cover,
+.carousel-cover.preview-cover,
+.smart-card.preview-cover{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  border:0!important;
+  background-color:rgba(0,0,0,.08)!important;
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+
+.cover.preview-cover::before,
+.carousel-cover.preview-cover::before,
+.smart-card.preview-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:var(--cover-img);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  z-index:0;
+  pointer-events:none;
+}
+
+.cover.preview-cover img,
+.carousel-cover.preview-cover img,
+.smart-card.preview-cover img{
+  position:relative!important;
+  z-index:1!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  opacity:1!important;
+  visibility:visible!important;
+  background:transparent!important;
+}
+
+.cover.preview-cover.img-failed img,
+.carousel-cover.preview-cover.img-failed img,
+.smart-card.preview-cover.img-failed img,
+.broken-cover-img{
+  display:none!important;
+}
+
+@media(max-width:700px){
+  body{min-width:0!important;}
+  .hero{min-height:auto!important; padding-top:120px!important; padding-bottom:70px!important;}
+  .hero-photo-wrap{display:none!important;}
+  .hero-photo-wrap-secondary{display:flex!important;}
+  .featured-grid,.featured-carousel,#beatGrid,.grid,.card,.cover,.preview-cover,.carousel-cover{opacity:1!important;visibility:visible!important;transform:none!important;}
+  .cover.preview-cover,.carousel-cover.preview-cover{min-height:280px!important;aspect-ratio:1/1!important;overflow:hidden!important;}
+}
+
+
+/* Final person-photo layout correction */
+.hero-photo-wrap-secondary{
+  max-width:420px;
+  margin:auto;
+  border-radius:42px;
+  overflow:hidden;
+  background:linear-gradient(135deg,rgba(139,16,24,.08),rgba(55,20,95,.08));
+  border:1px solid rgba(8,8,8,.10);
+  box-shadow:0 32px 90px rgba(0,0,0,.10);
+}
+
+.hero-photo-secondary{
+  width:100%;
+  max-width:360px;
+  max-height:560px;
+  object-fit:contain;
+  filter:grayscale(.10) sepia(.10) contrast(1.12) saturate(.86) brightness(.97) drop-shadow(0 32px 70px rgba(0,0,0,.18));
+  mix-blend-mode:multiply;
+}
+
+#about .about-photo-wrap{
+  display:none!important;
+}
+
+@media(max-width:700px){
+  .hero-photo-wrap-secondary{
+    display:flex!important;
+    justify-content:center!important;
+    align-items:center!important;
+    width:100%!important;
+    max-width:300px!important;
+    margin:34px auto 0!important;
+    border-radius:30px!important;
+  }
+
+  .hero-photo-secondary{
+    display:block!important;
+    width:100%!important;
+    max-width:250px!important;
+    max-height:380px!important;
+  }
+
+  .contact-photo-wrap{
+    display:flex!important;
+  }
+}
+
 </style>
 </head>
 
@@ -1862,7 +1980,7 @@ footer{
 </nav>
 
 <section class="hero">
-  <div class="reveal">
+  <div class="reveal show">
     <img class="hero-mark" src="assets/watermark.v2.png" alt="">
     <div class="kicker">Los Angeles born • PDX based • producing since 2012</div>
     <h1>Prince Cali</h1>
@@ -1873,12 +1991,12 @@ footer{
     </div>
   </div>
 
-  <div class="hero-photo-wrap reveal">
-    <img class="hero-photo" src="assets/IMG_6100-removebg-preview.png" alt="Prince Cali" onerror="this.parentElement.style.display='none'">
+  <div class="hero-photo-wrap hero-photo-wrap-secondary reveal show">
+    <img class="hero-photo hero-photo-secondary" src="assets/producer.Prince.Cali.2.png" alt="Prince Cali" onerror="this.parentElement.style.display='none'">
   </div>
 </section>
 
-<section id="featured" class="reveal">
+<section id="featured" class="reveal show">
   <div class="section-head">
     <div>
       <div class="kicker">Selected Work</div>
@@ -1890,7 +2008,7 @@ footer{
   <div class="featured-grid" id="featuredGrid"></div>
 </section>
 
-<section id="catalog" class="reveal">
+<section id="catalog" class="reveal show">
   <div class="kicker">Official Catalog</div>
   <h2 class="title">Full catalog.</h2>
   <p class="copy">Search by title, mood, or style. The catalog is structured so previews can be found with ease.</p>
@@ -1945,19 +2063,9 @@ Prince Cali is an audio engineer and producer originally from Los Angeles, now b
 
 </div>
 
-<div class="about-photo-wrap">
-
-<img
-class="about-photo"
-src="assets/IMG_6100-removebg-preview.png"
-alt="Prince Cali"
-onerror="this.parentElement.style.display='none'">
-
 </div>
 
-</div>
-
-<div class="reveal">
+<div class="reveal show">
 
 <div class="kicker">
 Beyond Beats
@@ -2000,7 +2108,7 @@ Audio engineering focused on clarity, impact, depth, and musical balance across 
 
 </section>
 
-<section class="reveal">
+<section class="reveal show">
 
 <div class="section-head">
 
@@ -2159,7 +2267,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
   </div>
 </section>
 
-<section id="contact" class="reveal">
+<section id="contact" class="reveal show">
   <div class="contact-shell">
     <div>
       <div class="kicker">Connect</div>
@@ -2454,7 +2562,7 @@ function coverBackground(beat){
 
 function youtubeEmbed(url){
   const id=youtubeId(url);
-  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1` : String(url || "");
+  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}` : String(url || "");
 }
 
 function slugify(value){
@@ -3071,7 +3179,7 @@ function youtubeThumb(url){
 
 function youtubeEmbed(url){
   const id=youtubeId(url);
-  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1` : String(url || "");
+  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}` : String(url || "");
 }
 
 function looseBeatFromText(value){
@@ -3212,7 +3320,7 @@ function openPreview(beat){
 
   if(beat.youtube){
     previewFrame.style.display="block";
-    previewFrame.setAttribute("allow","autoplay; encrypted-media; picture-in-picture");
+    previewFrame.setAttribute("allow","autoplay; fullscreen; encrypted-media; picture-in-picture");
     previewFrame.setAttribute("allowfullscreen","");
     previewModal.querySelector(".preview-modal-card").classList.add("youtube-mode");
   }else if(beat.video){
@@ -3231,10 +3339,11 @@ function openPreview(beat){
   previewModal.setAttribute("aria-hidden","false");
 
   if(beat.youtube){
-    requestAnimationFrame(()=>{
-      previewFrame.src=youtubeEmbed(beat.youtube);
-    });
+    /* Set iframe src immediately inside the tap/click handler.
+       iPhone Safari is stricter when autoplay is delayed through requestAnimationFrame. */
+    previewFrame.src=youtubeEmbed(beat.youtube);
   }else{
+    previewVideo.muted=false;
     previewVideo.play().catch(()=>{});
   }
 }
@@ -3405,6 +3514,7 @@ function personImageCandidates(src){
   const names=uniqueClean([
     base,base.toLowerCase(),base.toUpperCase(),
     "IMG_6100-removebg-preview","IMG_6100-removebg-preview","img_6100-removebg-preview",
+    "producer.Prince.Cali.2","Producer.Prince.Cali.2","producer.prince.cali.2",
     "producer.Prince.Cali","Producer.Prince.Cali","producer.prince.cali",
     "Prince.Cali","prince.cali","watermark.v2"
   ]);
@@ -3461,7 +3571,55 @@ window.addEventListener("orientationchange",()=>{
   setTimeout(()=>hydrateCoverImages(document),350);
 });
 
-console.log("Prince Cali site ready - mobile artwork fix active");
+
+
+/* LAST-RESORT MOBILE SAFARI ARTWORK PATCH
+   This is intentionally simple: after every render, paint the card with a direct CSS variable and keep the image optional.
+*/
+function pcFinalMobilePaint(){
+  document.querySelectorAll('.preview-cover[data-title]').forEach(holder=>{
+    const title=holder.dataset.title || '';
+    const beat=beatByTitle(title) || looseBeatFromText(title);
+    if(!beat)return;
+    const local=bustLocalSrc(beat.img || '');
+    const thumb=(beat.youtube ? (youtubeThumbnail(beat.youtube) || youtubeThumb(beat.youtube)) : '');
+    const first=local || thumb;
+    const second=thumb && thumb!==first ? thumb : '';
+    if(first){
+      holder.style.setProperty('--cover-img', safeCssUrl(first));
+      holder.style.backgroundImage = second ? `${safeCssUrl(first)}, ${safeCssUrl(second)}` : safeCssUrl(first);
+      holder.style.backgroundSize='cover';
+      holder.style.backgroundPosition='center';
+      holder.style.backgroundRepeat='no-repeat';
+    }
+    const img=holder.querySelector('img');
+    if(img){
+      img.loading='eager';
+      img.decoding='sync';
+      img.style.opacity='1';
+      img.style.visibility='visible';
+      img.style.display='block';
+      img.onerror=()=>{
+        if(thumb){
+          holder.classList.remove('img-failed');
+          holder.style.setProperty('--cover-img', safeCssUrl(thumb));
+          holder.style.backgroundImage=safeCssUrl(thumb);
+          img.src=thumb;
+        }else{
+          holder.classList.add('img-failed');
+          img.style.display='none';
+        }
+      };
+      if(local && img.getAttribute('src')!==local) img.src=local;
+    }
+  });
+}
+
+window.addEventListener('load',()=>{pcFinalMobilePaint(); setTimeout(pcFinalMobilePaint,500); setTimeout(pcFinalMobilePaint,1500);});
+window.addEventListener('pageshow',()=>{pcFinalMobilePaint(); setTimeout(pcFinalMobilePaint,600);});
+document.addEventListener('DOMContentLoaded',()=>{pcFinalMobilePaint(); setTimeout(pcFinalMobilePaint,300);});
+
+console.log("Prince Cali site ready - FINAL Safari patch active");
 </script>
 
 </body>
