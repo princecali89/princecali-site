@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Prince Cali | Official Website</title>
-<!-- premium-redesign-v9-profile-featured-social-polish -->
-<meta name="site-version" content="premium-redesign-v9-profile-featured-social-polish">
+<!-- premium-redesign-v10-stability-safety-polish -->
+<meta name="site-version" content="premium-redesign-v10-stability-safety-polish">
 <link rel="icon" type="image/png" href="assets/favicon.png?v=6">
 <link rel="shortcut icon" type="image/png" href="assets/favicon.png?v=6">
 <link rel="apple-touch-icon" href="assets/favicon.png?v=6">
@@ -387,6 +387,35 @@ body.dark-mode .btn:not(.dark),body.dark-mode .smart-button,body.dark-mode .filt
 .edit-modal{position:fixed;inset:0;z-index:5000;background:rgba(8,8,8,.56);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;padding:18px}.edit-modal.show{display:flex}.edit-modal-card{width:min(620px,94vw);max-height:92vh;overflow:auto;border-radius:34px;background:var(--paper);border:1px solid rgba(255,255,255,.22);box-shadow:0 40px 120px rgba(0,0,0,.32);padding:28px;position:relative}.edit-modal-card.small{width:min(480px,94vw)}.edit-modal-card h3{font-size:clamp(30px,4vw,56px);line-height:.94;letter-spacing:-.05em;margin:8px 0 10px}.media-preview-shell{border:1px solid rgba(8,8,8,.12);border-radius:24px;background:rgba(255,255,255,.28);padding:12px;margin:16px 0}.media-preview{height:210px;border-radius:18px;background:rgba(8,8,8,.08);background-size:cover;background-position:center;display:grid;place-items:center;overflow:hidden}.media-preview.avatar-mode{width:220px;height:220px;border-radius:50%;margin:auto}.media-file-label{display:inline-flex!important;margin-top:6px}.modal-tools{display:grid!important;grid-template-columns:1fr 1fr;margin-top:16px}.modal-list{margin-top:12px}.comment-actions .comment-owner-actions{margin-left:auto}.comment-owner-actions{display:flex;gap:8px;margin-top:8px}.comment-owner-actions button,.feed-owner-actions button{font-size:10px;padding:7px 10px}.feed-owner-actions{display:flex;gap:8px;margin-top:8px}.feed-author .verified-badge{margin-left:0}.feed-media img{object-fit:cover}.feed-post.beat-upload-blocked{outline:2px solid rgba(139,16,24,.20)}
 @media(max-width:900px){.featured-stage-wrap{min-height:520px}.featured-showcase{min-height:500px!important}.featured-showcase .art-card{width:78vw!important}.profile-form{grid-template-columns:1fr!important}.modal-tools{grid-template-columns:1fr}.featured-showcase .art-card.is-lead{transform:translate(-50%,-50%) scale(1)!important}.featured-showcase .art-card.is-back-a{transform:translate(-14%,-52%) scale(.68)!important}.featured-showcase .art-card.is-back-b{transform:translate(-84%,-47%) scale(.58)!important}}
 
+
+
+/* v10 stability, routing, featured, and profile polish */
+body.profile-view #profile{display:block!important;min-height:100vh;}
+body.feed-view #feed{display:block!important;min-height:100vh;}
+body:not(.profile-view) #profile{display:none!important;}
+body:not(.feed-view) #feed{display:none!important;}
+body.profile-view nav,body.feed-view nav{background:rgba(244,239,230,.88);}
+body.dark-mode.profile-view nav,body.dark-mode.feed-view nav{background:rgba(18,15,14,.88);}
+.featured-week-note{display:none!important;}
+.featured-stage-wrap{display:block!important;min-height:500px!important;overflow:visible!important;padding:8px 0 28px!important;}
+.featured-showcase{min-height:500px!important;overflow:visible!important;border-radius:0!important;background:transparent!important;}
+.featured-showcase .art-card{width:min(500px,48vw)!important;max-width:500px!important;}
+.featured-showcase .art-card.is-lead{transform:translate(-50%,-48%) scale(1)!important;}
+.featured-showcase .art-card.is-back-a{transform:translate(-16%,-50%) scale(.70) rotate(2deg)!important;opacity:.34!important;}
+.featured-showcase .art-card.is-back-b{transform:translate(-82%,-48%) scale(.62) rotate(-3deg)!important;opacity:.25!important;}
+.profile-cover-card{overflow:hidden;}
+.profile-cover-bg{filter:saturate(.96) contrast(1.02);}
+.profile-cover-card .copy,.profile-cover-card .profile-status{max-width:900px;}
+#profileStatus{display:none!important;}
+.profile-social-stats button{cursor:pointer;}
+.icon-btn,.btn{box-shadow:none;}
+.btn.dark,.primary-cta{background:linear-gradient(135deg,var(--ink),#2c221f)!important;color:var(--paper)!important;border-color:rgba(8,8,8,.8)!important;}
+body.dark-mode .btn.dark,body.dark-mode .primary-cta{background:linear-gradient(135deg,#f4efe6,#d9c8b5)!important;color:#12100f!important;border-color:rgba(244,239,230,.7)!important;}
+.edit-modal-card{font-family:Inter,Arial,Helvetica,sans-serif;}
+.safety-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(139,16,24,.18);background:rgba(139,16,24,.06);color:var(--wine);border-radius:999px;padding:8px 11px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+@media(max-width:900px){.featured-stage-wrap{min-height:430px!important}.featured-showcase{min-height:420px!important}.featured-showcase .art-card{width:76vw!important}}
+@media(max-width:620px){.featured-stage-wrap{min-height:390px!important}.featured-showcase{min-height:380px!important}.featured-showcase .art-card{width:82vw!important}.featured-showcase .art-card.is-back-a{transform:translate(-8%,-52%) scale(.68)!important}.featured-showcase .art-card.is-back-b{transform:translate(-78%,-47%) scale(.58)!important}}
+
 </style>
 </head>
 <body>
@@ -613,13 +642,16 @@ const profileName=$("#profileName"),profileEmail=$("#profileEmail"),profileNotes
 const profileAvatar=$("#profileAvatar"),avatarInitials=$("#avatarInitials"),avatarUpload=$("#avatarUpload"),coverUpload=$("#coverUpload"),profileCoverBg=$("#profileCoverBg"),avatarScale=$("#avatarScale"),avatarPosY=$("#avatarPosY"),profileStatus=$("#profileStatus"),profileNameDisplay=$("#profileNameDisplay"),ownerModePill=$("#ownerModePill"),recommendGrid=$("#recommendGrid"),featuredWeekNote=$("#featuredWeekNote"),featuredStageCopy=$("#featuredStageCopy"),profilePostText=$("#profilePostText"),profilePostList=$("#profilePostList"),postMediaUpload=$("#postMediaUpload"),feedPostText=$("#feedPostText"),feedMediaUpload=$("#feedMediaUpload"),feedList=$("#feedList"),profileList=$("#profileList"),followingList=$("#followingList"),followersList=$("#followersList"),followingCount=$("#followingCount"),followerCount=$("#followerCount"),commentText=$("#commentText"),postComment=$("#postComment"),commentList=$("#commentList"),dnaGrid=$("#dnaGrid"),dnaTags=$("#dnaTags"),profileAssistant=$("#profileAssistant");
 let activeFilter="all",currentList=[...beats],currentIndex=0,selectedBeatTitle="",licenseBasket=[],featuredLeadIndex=0,pendingPostMedia=null,pendingFeedMedia=null,featuredTimer=null;
 const storeKey="princeCaliSiteStateV4";
-function loadState(){try{return normalizeState(JSON.parse(localStorage.getItem(storeKey))||{})}catch(e){return normalizeState({})}}
-function saveState(state){localStorage.setItem(storeKey,JSON.stringify(state));}
+function safeStoreGet(key){try{return window.localStorage?localStorage.getItem(key):null}catch(e){return null}}
+function safeStoreSet(key,value){try{if(window.localStorage)localStorage.setItem(key,value)}catch(e){}}
+function safeStoreRemove(key){try{if(window.localStorage)localStorage.removeItem(key)}catch(e){}}
+function loadState(){try{return normalizeState(JSON.parse(safeStoreGet(storeKey))||{})}catch(e){return normalizeState({})}}
+function saveState(state){safeStoreSet(storeKey,JSON.stringify(state));}
 function state(){return loadState();}
 function isProfileCreated(){const st=normalizeState(state());return Boolean(st.profile&&st.profile.created&&st.profile.name&&st.profile.email);}
 function requireProfile(action="use this feature"){if(isProfileCreated())return true;toast(`Create a profile to ${action}`);location.hash="#profile";routeProfileView();return false;}
-function isOwnerMode(){return localStorage.getItem("princeCaliOwnerMode")==="1"||new URLSearchParams(location.search).get("owner")==="1";}
-function setOwnerMode(on){localStorage.setItem("princeCaliOwnerMode",on?"1":"0");renderCrate();toast(on?"Owner mode on — your previews will not count":"Owner mode off");}
+function isOwnerMode(){return safeStoreGet("princeCaliOwnerMode")==="1"||new URLSearchParams(location.search).get("owner")==="1";}
+function setOwnerMode(on){safeStoreSet("princeCaliOwnerMode",on?"1":"0");renderCrate();toast(on?"Owner mode on — your previews will not count":"Owner mode off");}
 function trackVisit(){const st=normalizeState(state());const today=new Date().toISOString();st.visits=(st.visits||0)+1;st.lastVisit=today;saveState(st);}
 function toast(msg){siteToast.textContent=msg;siteToast.classList.add("show");setTimeout(()=>siteToast.classList.remove("show"),2200)}
 function cleanText(v){return String(v||"").toLowerCase().trim().replace(/\s+/g," ");}
@@ -738,7 +770,15 @@ function saveCollectionData(){if(!requireProfile("save collections"))return;cons
 function moderationCheck(text="",file=null){const t=cleanText(text);const banned=["nigger","faggot","kike","spic","chink","coon","retard","kill yourself","kys","i will kill","shoot up","rape","porn","nude","onlyfans","terrorist","lynch","hang yourself","go die","child porn","cp ","explicit teen"];if(banned.some(w=>t.includes(w)))return {ok:false,reason:"Post blocked for hate, sexual abuse, or threat language."};if(file){const allowed=["image/png","image/jpeg","image/webp","image/gif"];if(!allowed.includes(file.type))return {ok:false,reason:"Only clean image/GIF uploads are allowed in the Feed."};if(file.size>3*1024*1024)return {ok:false,reason:"Upload blocked. Keep images/GIFs under 3MB."};const name=cleanText(file.name);if(["porn","nude","sex","xxx","onlyfans","nsfw","cp","explicit"].some(w=>name.includes(w)))return {ok:false,reason:"Upload blocked by safety filter."};}return {ok:true};}
 function suspendLocalProfile(reason){const st=normalizeState(state());st.profile.suspended=true;st.violations.unshift({reason,created:new Date().toISOString()});saveState(st);renderCrate();toast("Profile suspended on this device for safety violation");}
 function requireCleanProfile(action="post"){const st=normalizeState(state());if(!requireProfile(action))return false;if(st.profile.suspended){toast("This profile is suspended on this device.");location.hash="#profile";routeProfileView();return false;}return true;}
-function readSafeMedia(file,cb){if(!file){cb("");return;}const check=moderationCheck("",file);if(!check.ok){toast(check.reason);cb("");return;}const reader=new FileReader();reader.onload=()=>cb(reader.result);reader.readAsDataURL(file);}
+function readSafeMedia(file,cb){
+  if(!file){cb("");return;}
+  const check=moderationCheck("",file);
+  if(!check.ok){toast(check.reason);cb("");return;}
+  fastImageSafetyScan(file,scan=>{
+    if(!scan.ok){toast(scan.reason);cb("");return;}
+    const reader=new FileReader();reader.onload=()=>cb(reader.result);reader.readAsDataURL(file);
+  });
+}
 function profileIdentity(){const st=normalizeState(state());return {name:st.profile.name||"Listener",avatar:st.profile.avatar||"",cover:st.profile.cover||""};}
 function createFeedPost(text,media=""){const st=normalizeState(state());const id="post-"+Date.now()+"-"+Math.random().toString(16).slice(2);const author=profileIdentity();const post={id,text,media,author,likes:0,comments:[],created:new Date().toISOString()};st.feed.unshift(post);st.posts.unshift({id,text,media,created:post.created});saveState(st);renderCrate();renderFeed();}
 function addProfilePost(){if(!requireCleanProfile("post to the Feed"))return;const text=(profilePostText&&profilePostText.value||"").trim();if(!text){toast("Write a post first");return;}const check=moderationCheck(text,postMediaUpload&&postMediaUpload.files&&postMediaUpload.files[0]);if(!check.ok){suspendLocalProfile(check.reason);return;}readSafeMedia(postMediaUpload&&postMediaUpload.files&&postMediaUpload.files[0],media=>{createFeedPost(text,media);profilePostText.value="";if(postMediaUpload)postMediaUpload.value="";toast("Posted to Feed");});}
@@ -751,7 +791,7 @@ function toggleFollow(name){if(!requireCleanProfile("follow profiles"))return;co
 function likePost(id){if(!requireCleanProfile("interact with posts"))return;const st=normalizeState(state());const p=(st.feed||[]).find(x=>x.id===id);if(p){p.likes=(p.likes||0)+1;saveState(st);renderFeed();}}
 function avatarHTML(author){if(author&&author.avatar)return `<span class="mini-avatar"><img src="${author.avatar}" alt=""></span>`;const init=(author&&author.name||"P").split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase();return `<span class="mini-avatar">${init}</span>`;}
 function renderFeed(){if(!feedList)return;const st=normalizeState(state());const created=isProfileCreated();document.body.classList.toggle("feed-locked",location.hash==="#feed"&&!created);if(!created){feedList.innerHTML=profileGateHTML();if(profileList)profileList.innerHTML="";if(followingList)followingList.innerHTML="<p class='smart-note'>Create a profile to follow people.</p>";if(followersList)followersList.innerHTML="<p class='smart-note'>Create a profile to build your list.</p>";return;}const current=profileIdentity();let posts=[...(st.feed||[])];if(!posts.length){posts=[{id:"seed-1",text:"Welcome to the music room. Save beats, build a crate, post clean thoughts, and keep the catalog experience separate from the community feed.",media:"",author:{name:"Prince Cali",avatar:"assets/watermark.v2.png?v=25"},likes:0,created:new Date().toISOString()}];}feedList.innerHTML="";posts.slice(0,40).forEach(post=>{const row=document.createElement("article");row.className="feed-post";row.innerHTML=`<div class="feed-author">${avatarHTML(post.author)}<div><strong>${safeText(post.author&&post.author.name||"Listener")}</strong><span>${new Date(post.created).toLocaleString()}</span></div><button class="icon-btn follow-btn" type="button">${isFollowing(post.author&&post.author.name)?"Following":"Follow"}</button></div><p>${safeText(post.text)}</p>${post.media?`<div class="feed-media"><img src="${post.media}" alt="Feed upload"></div>`:""}<div class="post-actions"><button class="icon-btn like-btn" type="button">Like · ${post.likes||0}</button><button class="icon-btn" type="button">Reply</button></div>`;row.querySelector(".follow-btn").addEventListener("click",()=>toggleFollow(post.author&&post.author.name||"Listener"));row.querySelector(".like-btn").addEventListener("click",()=>likePost(post.id));feedList.appendChild(row);});if(profileList){const people=[current,...publicSeedProfiles(),...posts.map(p=>p.author)].filter(Boolean);const seen=new Set();profileList.innerHTML="";people.forEach(person=>{if(!person.name||seen.has(person.name))return;seen.add(person.name);const row=document.createElement("div");row.className="profile-row";row.innerHTML=`${avatarHTML(person)}<div><strong>${safeText(person.name)}</strong><span>${safeText(person.bio||"Music profile")}</span></div><button class="icon-btn" type="button">${isFollowing(person.name)?"Following":"Follow"}</button>`;row.querySelector("button").addEventListener("click",()=>toggleFollow(person.name));profileList.appendChild(row);});}if(followingList){followingList.innerHTML=(st.following||[]).length?st.following.map(n=>`<div class="profile-row"><span class="mini-avatar">${safeText(n).slice(0,1).toUpperCase()}</span><div><strong>${safeText(n)}</strong><span>Following</span></div></div>`).join(""):"<p class='smart-note'>No follows yet.</p>";}if(followersList){const self=st.profile.name||"Your profile";const followers=st.followers||[];followersList.innerHTML=followers.length?followers.map(n=>`<div class="profile-row"><span class="mini-avatar">${safeText(n).slice(0,1).toUpperCase()}</span><div><strong>${safeText(n)}</strong><span>Follower</span></div></div>`).join(""):`<p class='smart-note'>Followers appear here once this becomes a backend community. Locally, ${safeText(self)} is ready.</p>`;}}
-function migrateOldState(){try{const old=localStorage.getItem("princeCaliSiteStateV3");if(old&&!localStorage.getItem(storeKey)){localStorage.setItem(storeKey,old);}}catch(e){}}
+function migrateOldState(){try{const old=safeStoreGet("princeCaliSiteStateV3");if(old&&!safeStoreGet(storeKey)){safeStoreSet(storeKey,old);}}catch(e){}}
 
 
 function deleteProfileData(){
@@ -759,7 +799,7 @@ function deleteProfileData(){
   const name=st.profile&&st.profile.name?st.profile.name:"this profile";
   const ok=confirm(`Delete ${name}? This removes saved beats, profile info, local posts, follows, voice memo records, and comments from this browser. Beat previews will still work.`);
   if(!ok)return;
-  try{localStorage.removeItem(storeKey);localStorage.removeItem("princeCaliCommentsV1");}catch(e){}
+  try{safeStoreRemove(storeKey);safeStoreRemove("princeCaliCommentsV1");}catch(e){}
   try{if(indexedDB&&indexedDB.deleteDatabase)indexedDB.deleteDatabase("PrinceCaliVoiceMemosV1");}catch(e){}
   licenseBasket=[];
   toast("Profile deleted. Previewing remains open.");
@@ -774,8 +814,8 @@ function profileGateHTML(){
 function safeText(str){return String(str||"").replace(/[<>&]/g,m=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[m]));}
 const bannedWords=["nigger","faggot","kike","spic","chink","retard","kill yourself","kys","coon","i will kill","shoot up","rape","porn","nude","onlyfans","terrorist","lynch","hang yourself","go die","child porn","cp "];
 function isBlockedComment(text){const t=cleanText(text);return bannedWords.some(w=>t.includes(w));}
-function loadComments(){try{return JSON.parse(localStorage.getItem("princeCaliCommentsV1"))||{}}catch(e){return {}}}
-function saveComments(obj){localStorage.setItem("princeCaliCommentsV1",JSON.stringify(obj));}
+function loadComments(){try{return JSON.parse(safeStoreGet("princeCaliCommentsV1"))||{}}catch(e){return {}}}
+function saveComments(obj){safeStoreSet("princeCaliCommentsV1",JSON.stringify(obj));}
 function renderComments(title){if(!commentList)return;const all=loadComments();const rows=(all[title]||[]).slice(-8).reverse();commentList.innerHTML="";if(!rows.length){commentList.innerHTML='<p class="smart-note">No comments yet. Be the first clean signal on this beat.</p>';return;}rows.forEach(c=>{const row=document.createElement("div");row.className="comment-item";row.innerHTML=`<strong>${safeText(c.name||"Listener")}</strong><span>${new Date(c.created).toLocaleString()}</span><p>${safeText(c.text)}</p>`;commentList.appendChild(row);});}
 function addComment(){if(!requireCleanProfile("leave comments"))return;const title=previewTitle.textContent;const text=(commentText&&commentText.value||"").trim();if(text.length<3){toast("Write a real comment first");return;}if(isBlockedComment(text)||!moderationCheck(text).ok){suspendLocalProfile("Comment blocked by safety filter.");return;}const st=normalizeState(state());const all=loadComments();all[title]=all[title]||[];all[title].push({name:st.profile.name||"Listener",text,created:new Date().toISOString()});saveComments(all);commentText.value="";renderComments(title);toast("Comment posted locally");}
 function updateDynamicSeo(beat){try{document.title=`${beat.title} Beat Preview | Prince Cali`;document.querySelector('meta[name="description"]').setAttribute('content',`${beat.title} by Prince Cali — ${beat.vibe} Preview cinematic beats, save favorites, record ideas, and request licensing.`);}catch(e){}}
@@ -786,15 +826,55 @@ let mediaEditMode="avatar",mediaEditData="";
 function isPrinceCaliProfile(person={}){const n=cleanText(person.name||"");const e=cleanText(person.email||"");return isOwnerMode()||n==="prince cali"||e==="princecali6989@gmail.com";}
 function verifiedHTML(person={}){return isPrinceCaliProfile(person)?'<span class="verified-badge">Verified</span>':"";}
 const oldNormalizeState=normalizeState;
-normalizeState=function(st){st=oldNormalizeState(st);st.profile.bio=st.profile.bio||"";st.profile.coverScale=st.profile.coverScale||100;st.profile.coverPosY=st.profile.coverPosY||50;st.profile.theme=st.profile.theme||localStorage.getItem("princeCaliTheme")||"light";return st;};
-function applyTheme(){const st=normalizeState(state());const mode=st.profile.theme||localStorage.getItem("princeCaliTheme")||"light";document.body.classList.toggle("dark-mode",mode==="dark");const t=document.getElementById("themeToggle");if(t)t.textContent=mode==="dark"?"Light Mode":"Dark Mode";}
-function setTheme(mode){const st=normalizeState(state());st.profile.theme=mode;localStorage.setItem("princeCaliTheme",mode);saveState(st);applyTheme();}
+normalizeState=function(st){st=oldNormalizeState(st);st.profile.bio=st.profile.bio||"";st.profile.coverScale=st.profile.coverScale||100;st.profile.coverPosY=st.profile.coverPosY||50;st.profile.theme=st.profile.theme||safeStoreGet("princeCaliTheme")||"light";return st;};
+function applyTheme(){const st=normalizeState(state());const mode=st.profile.theme||safeStoreGet("princeCaliTheme")||"light";document.body.classList.toggle("dark-mode",mode==="dark");const t=document.getElementById("themeToggle");if(t)t.textContent=mode==="dark"?"Light Mode":"Dark Mode";}
+function setTheme(mode){const st=normalizeState(state());st.profile.theme=mode;safeStoreSet("princeCaliTheme",mode);saveState(st);applyTheme();}
 function openListModal(title,names){const modal=document.getElementById("listModal"),body=document.getElementById("listModalBody"),head=document.getElementById("listModalTitle");if(!modal||!body||!head)return;head.textContent=title;body.innerHTML=(names&&names.length)?names.map(n=>`<div class="profile-row"><span class="mini-avatar">${safeText(n).slice(0,1).toUpperCase()}</span><div><strong>${safeText(n)}</strong><span>${title}</span></div><button class="icon-btn" type="button">View</button></div>`).join(""):`<p class="smart-note">Nothing here yet.</p>`;modal.classList.add("show");modal.setAttribute("aria-hidden","false");}
 function closeListModal(){const m=document.getElementById("listModal");if(m){m.classList.remove("show");m.setAttribute("aria-hidden","true");}}
 function openMediaEditor(mode){if(!requireProfile("edit your profile"))return;mediaEditMode=mode;mediaEditData="";const st=normalizeState(state());const modal=document.getElementById("mediaEditModal"),title=document.getElementById("mediaEditTitle"),help=document.getElementById("mediaEditHelp"),prev=document.getElementById("mediaPreview"),scale=document.getElementById("mediaEditScale"),pos=document.getElementById("mediaEditPos"),file=document.getElementById("mediaEditFile");if(!modal||!prev)return;file.value="";prev.className="media-preview"+(mode==="avatar"?" avatar-mode":"");if(mode==="avatar"){title.textContent="Edit avatar";help.textContent="Use a clean image/GIF. Adjust size and vertical position until it sits right.";mediaEditData=st.profile.avatar||"";scale.value=st.profile.avatarScale||100;pos.value=st.profile.avatarPosY||50;}else{title.textContent="Edit background";help.textContent="Use a wide image, ideally 1600×500. The site crops it consistently so profiles stay uniform.";mediaEditData=st.profile.cover||"";scale.value=st.profile.coverScale||100;pos.value=st.profile.coverPosY||50;}prev.style.backgroundImage=mediaEditData?`url(${mediaEditData})`:"";prev.style.backgroundSize=(mode==="avatar"?`${scale.value}%`:`${scale.value}% auto`);prev.style.backgroundPosition=`center ${pos.value}%`;modal.classList.add("show");modal.setAttribute("aria-hidden","false");}
 function closeMediaEditor(){const m=document.getElementById("mediaEditModal");if(m){m.classList.remove("show");m.setAttribute("aria-hidden","true");}}
 function previewMediaEditor(){const prev=document.getElementById("mediaPreview"),scale=document.getElementById("mediaEditScale"),pos=document.getElementById("mediaEditPos");if(!prev)return;prev.style.backgroundImage=mediaEditData?`url(${mediaEditData})`:"";prev.style.backgroundSize=(mediaEditMode==="avatar"?`${scale.value}%`:`${scale.value}% auto`);prev.style.backgroundPosition=`center ${pos.value}%`;}
-function validateImageDimensions(file,cb){if(!file){cb({ok:false,reason:"Choose an image first"});return;}const check=moderationCheck("",file);if(!check.ok){cb(check);return;}const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{URL.revokeObjectURL(url);if(mediaEditMode==="cover"&&(img.width<900||img.height<280)){cb({ok:false,reason:"Background needs to be at least 900×280. Wide images look best."});return;}cb({ok:true});};img.onerror=()=>{URL.revokeObjectURL(url);cb({ok:false,reason:"Could not read that image."});};img.src=url;}
+function fastImageSafetyScan(file,cb){
+  if(!file||!file.type||!file.type.startsWith("image/")||file.type==="image/gif"){cb({ok:true});return;}
+  const url=URL.createObjectURL(file);
+  const img=new Image();
+  img.onload=()=>{
+    try{
+      const canvas=document.createElement("canvas");
+      const size=96; canvas.width=size; canvas.height=size;
+      const ctx=canvas.getContext("2d",{willReadFrequently:true});
+      ctx.drawImage(img,0,0,size,size);
+      const data=ctx.getImageData(0,0,size,size).data;
+      let skin=0,total=0;
+      for(let i=0;i<data.length;i+=4){
+        const r=data[i],g=data[i+1],b=data[i+2],a=data[i+3];
+        if(a<180)continue; total++;
+        const max=Math.max(r,g,b),min=Math.min(r,g,b);
+        const looksSkin=r>85&&g>35&&b>20&&(max-min)>18&&r>g&&r>b&&Math.abs(r-g)>10;
+        if(looksSkin)skin++;
+      }
+      URL.revokeObjectURL(url);
+      const ratio=total?skin/total:0;
+      if(ratio>.58){cb({ok:false,reason:"Image flagged fast by safety scan. Choose a cleaner/non-explicit image."});return;}
+      cb({ok:true});
+    }catch(e){URL.revokeObjectURL(url);cb({ok:true});}
+  };
+  img.onerror=()=>{URL.revokeObjectURL(url);cb({ok:false,reason:"Could not read that image."});};
+  img.src=url;
+}
+function validateImageDimensions(file,cb){
+  if(!file){cb({ok:false,reason:"Choose an image first"});return;}
+  const check=moderationCheck("",file);
+  if(!check.ok){cb(check);return;}
+  fastImageSafetyScan(file,scan=>{
+    if(!scan.ok){cb(scan);return;}
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{URL.revokeObjectURL(url);if(mediaEditMode==="cover"&&(img.width<900||img.height<280)){cb({ok:false,reason:"Background needs to be at least 900×280. Wide images look best."});return;}cb({ok:true});};
+    img.onerror=()=>{URL.revokeObjectURL(url);cb({ok:false,reason:"Could not read that image."});};
+    img.src=url;
+  });
+}
 function saveMediaEditor(){const st=normalizeState(state());const scale=Number(document.getElementById("mediaEditScale").value)||100;const pos=Number(document.getElementById("mediaEditPos").value)||50;if(mediaEditMode==="avatar"){if(mediaEditData)st.profile.avatar=mediaEditData;st.profile.avatarScale=scale;st.profile.avatarPosY=pos;toast("Avatar updated");}else{if(mediaEditData)st.profile.cover=mediaEditData;st.profile.coverScale=scale;st.profile.coverPosY=pos;toast("Background updated");}saveState(st);renderCrate();closeMediaEditor();}
 const oldRenderCrate=renderCrate;
 renderCrate=async function(){await oldRenderCrate();const st=normalizeState(state());applyTheme();const bio=document.getElementById("profileBio");if(bio)bio.value=st.profile.bio||"";const badge=document.getElementById("profileVerifiedBadge");if(badge){badge.style.display=isPrinceCaliProfile({name:st.profile.name,email:st.profile.email})?"inline-flex":"none";}if(profileStatus){profileStatus.textContent=isProfileCreated()?"Profile active • Online now":"Create a profile to unlock saves, comments, downloads, voice takes, follows, and Feed access.";}if(profileCoverBg){profileCoverBg.style.backgroundSize=`${st.profile.coverScale||100}% auto`;profileCoverBg.style.backgroundPosition=`center ${st.profile.coverPosY||50}%`;}
@@ -821,10 +901,22 @@ const oldToggleFollow=toggleFollow;
 toggleFollow=function(name){if(cleanText(name)===cleanText(currentUserName())){toast("This is your profile");return;}oldToggleFollow(name);};
 function requestVerification(){if(!requireProfile("request verification"))return;const st=normalizeState(state());toast(isPrinceCaliProfile(st.profile)?"Verified owner profile active":"Verification request saved for future review");st.profile.verificationRequested=true;saveState(st);renderCrate();}
 function v9Init(){applyTheme();const ev=(id,fn)=>{const el=document.getElementById(id);if(el)el.addEventListener("click",fn)};ev("editAvatarBtn",()=>openMediaEditor("avatar"));ev("editCoverBtn",()=>openMediaEditor("cover"));ev("mediaEditClose",closeMediaEditor);ev("cancelMediaEdit",closeMediaEditor);ev("saveMediaEdit",saveMediaEditor);ev("listModalClose",closeListModal);ev("openFollowing",()=>openListModal("Following",normalizeState(state()).following||[]));ev("openFollowers",()=>openListModal("Followers",normalizeState(state()).followers||[]));ev("requestVerify",requestVerification);ev("themeToggle",()=>{const isDark=document.body.classList.contains("dark-mode");setTheme(isDark?"light":"dark");});const file=document.getElementById("mediaEditFile");if(file)file.addEventListener("change",e=>{const f=e.target.files&&e.target.files[0];validateImageDimensions(f,res=>{if(!res.ok){toast(res.reason);file.value="";return;}const r=new FileReader();r.onload=()=>{mediaEditData=r.result;previewMediaEditor();};r.readAsDataURL(f);});});["mediaEditScale","mediaEditPos"].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("input",previewMediaEditor);});}
-document.addEventListener("DOMContentLoaded",v9Init);
+function handleHeroParallax(){
+  const art=document.querySelector('.hero-art');
+  const portrait=document.querySelector('.ghost-portrait');
+  if(!art&&!portrait)return;
+  const y=Math.min(window.scrollY||0,600);
+  if(art)art.style.transform=`translateY(${y*.035}px)`;
+  if(portrait){portrait.style.opacity=String(Math.max(.08,.18-y/5000));portrait.style.transform=`scale(1.18) translate(${4+y*.005}%,${y*.025}px)`;}
+}
 
 function init(){enhanceBeatAssets();migrateOldState();trackVisit();injectCatalogStructuredData();routeProfileView();handleHeroParallax();renderFeatured();renderCloud();renderCatalog();renderSelect();renderBasket();renderCrate();renderFeed();renderNews();loadDynamicNews();initReveals();initStudioGrid();searchBox.addEventListener("input",()=>{smartRail.classList.remove("show");renderCatalog();});$$('.filter').forEach(btn=>btn.addEventListener('click',()=>{$$('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeFilter=btn.dataset.filter;smartRail.classList.remove('show');renderCatalog();}));$('#surpriseBeat').addEventListener('click',()=>{const st=normalizeState(state());const pool=beats.filter(b=>!st.recent.slice(0,Math.min(12,beats.length-1)).includes(b.title));const pick=(pool.length?pool:beats)[Math.floor(Math.random()*(pool.length?pool.length:beats.length))];toast('🎲 '+pick.title);openPreview(pick.title);});$('#showSaved').addEventListener('click',()=>{const saved=state().saved.map(t=>beats.find(b=>b.title===t)).filter(Boolean);showRail('Saved beats. These stay on this device so artists can come back without starting over.',saved);});$('#recentBeats').addEventListener('click',()=>{const recent=state().recent.map(t=>beats.find(b=>b.title===t)).filter(Boolean);showRail('Recently viewed beats. Pick up where you left off.',recent);});$('#clearSearch').addEventListener('click',()=>{searchBox.value='';searchBox.blur();activeFilter='all';$$('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));smartRail.innerHTML='';smartRail.classList.remove('show');currentList=[...beats];renderCatalog(beats);toast('Search cleared');});previewClose.addEventListener('click',closePreview);previewModal.addEventListener('click',e=>{if(e.target===previewModal)closePreview();});previewPrev.addEventListener('click',()=>movePreview(-1));previewNext.addEventListener('click',()=>movePreview(1));previewSave.addEventListener('click',()=>toggleSave(previewTitle.textContent));if(previewShare)previewShare.addEventListener('click',()=>toast('Beat sharing is disabled. Use Feed/Profile for community posts.'));$$('.license-choice').forEach(b=>b.addEventListener('click',()=>addToBasket(b.dataset.term)));$('#clearBasket').addEventListener('click',()=>{licenseBasket=[];renderBasket();toast('Request cleared');});if($('#saveProfile'))$('#saveProfile').addEventListener('click',saveProfileData);if($('#copySaveCode'))$('#copySaveCode').addEventListener('click',copySaveCode);if($('#importSaveCode'))$('#importSaveCode').addEventListener('click',importSaveCodeData);if($('#saveCollection'))$('#saveCollection').addEventListener('click',saveCollectionData);if($('#toggleOwnerMode'))$('#toggleOwnerMode').addEventListener('click',()=>setOwnerMode(!isOwnerMode()));if($('#deleteProfile'))$('#deleteProfile').addEventListener('click',deleteProfileData);if(avatarUpload)avatarUpload.addEventListener('change',e=>handleAvatarUpload(e.target.files&&e.target.files[0]));if(coverUpload)coverUpload.addEventListener('change',e=>handleCoverUpload(e.target.files&&e.target.files[0]));if(avatarScale)avatarScale.addEventListener('input',e=>{const st=normalizeState(state());st.profile.avatarScale=Number(e.target.value)||100;saveState(st);renderCrate();});if(avatarPosY)avatarPosY.addEventListener('input',e=>{const st=normalizeState(state());st.profile.avatarPosY=Number(e.target.value)||50;saveState(st);renderCrate();});if($('#addProfilePost'))$('#addProfilePost').addEventListener('click',addProfilePost);if($('#addFeedPost'))$('#addFeedPost').addEventListener('click',addFeedPost);if(postComment)postComment.addEventListener('click',addComment);previewRecord.addEventListener('click',startVoiceRecording);previewStopRecord.addEventListener('click',stopVoiceRecording);previewDownloadRecord.addEventListener('click',downloadLastRecording);const profileJump=document.getElementById("previewProfileJump");if(profileJump)profileJump.addEventListener("click",()=>{closePreview();location.hash="#profile";routeProfileView();});beatSelect.addEventListener('change',()=>{selectedBeatTitle=beatSelect.value;});document.addEventListener('keydown',e=>{if(e.key==='Escape')closePreview();if(previewModal.classList.contains('show')&&e.key==='ArrowRight')movePreview(1);if(previewModal.classList.contains('show')&&e.key==='ArrowLeft')movePreview(-1);});if(cursorGlow)document.addEventListener('mousemove',e=>{cursorGlow.style.left=e.clientX+'px';cursorGlow.style.top=e.clientY+'px';});window.addEventListener('hashchange',routeProfileView);window.addEventListener('scroll',handleHeroParallax,{passive:true});}
-document.addEventListener('DOMContentLoaded',init);
+
+function v10Boot(){
+  try{v9Init();}catch(e){console.error('v10 polish init failed',e);}
+  try{init();}catch(e){console.error('v10 main init failed',e);document.body.classList.remove('profile-view','feed-view');const fallback=document.createElement('div');fallback.style.cssText='position:fixed;inset:12px;z-index:99999;background:#f4efe6;color:#080808;border:1px solid rgba(8,8,8,.18);border-radius:24px;padding:22px;font-family:Arial;overflow:auto';fallback.innerHTML='<h2 style="margin:0 0 8px;font-size:28px">Prince Cali site safety fallback</h2><p>The page loaded, but one script was blocked. Clear browser site data or upload this v10 file fresh as index.html.</p>';document.body.appendChild(fallback);}
+}
+document.addEventListener('DOMContentLoaded',v10Boot);
 </script>
 </body>
 </html>
