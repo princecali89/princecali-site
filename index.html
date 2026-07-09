@@ -769,6 +769,20 @@ footer{
   display:block;
 }
 
+.preview-frame{
+  width:100%;
+  aspect-ratio:9/16;
+  max-height:72vh;
+  background:#080808;
+  border:0;
+  border-radius:24px;
+  display:none;
+}
+
+.preview-modal-card.youtube-mode{
+  width:min(520px,94vw);
+}
+
 .preview-copy{
   padding:22px 6px 4px;
 }
@@ -1448,6 +1462,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
   <div class="preview-modal-card" role="dialog" aria-modal="true" aria-label="Beat preview">
     <button class="preview-close" id="previewClose" aria-label="Close preview">×</button>
     <video class="preview-video" id="previewVideo" controls playsinline preload="metadata"></video>
+    <iframe class="preview-frame" id="previewFrame" title="Beat preview" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     <div class="preview-copy">
       <div class="kicker">Now Previewing</div>
       <h3 id="previewTitle">Beat Preview</h3>
@@ -1466,46 +1481,47 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 /*
   PLUG-AND-PLAY BEAT SETUP:
   1. Upload cover: assets/BeatName.png
-  2. Optional preview: assets/BeatName.canvas.mp4
+  2. Optional preview: youtube:"https://youtube.com/shorts/VIDEOID" or video:"assets/BeatName.canvas.mp4"
   3. Add one beat object below. The license dropdown, catalog, search, preview modal, and basket update from this list.
 */
 const beats=[
-{title:"589",img:"assets/589.png",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
+{title:"589",img:"assets/589.png",youtube:"https://youtube.com/shorts/2-sekLJC0xw?feature=share",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
 {title:"Velvet",img:"assets/Velvet.png",tags:["melodic","luxury"],vibe:"Smooth, colorful, polished production with premium motion.",audio:"",featured:true},
 {title:"Blackjack",img:"assets/Blackjack.png",tags:["luxury","dark"],vibe:"Dark casino luxury with bounce and pressure.",audio:"",featured:true},
-{title:"Cherry Blossom",img:"assets/Cherry.Blossom.png",tags:["melodic","cinematic"],vibe:"Moonlit, emotional, and smooth with room for vocals.",audio:"",featured:true},
-{title:"Benedict Arnold",img:"assets/Benedict.Arnold.png",tags:["cinematic","dark"],vibe:"Dramatic war-film energy with betrayal in the atmosphere.",audio:"",featured:true},
+{title:"Cherry Blossom",img:"assets/Cherry.Blossom.png",youtube:"https://youtube.com/shorts/7Ny2BbTcjjs?feature=share",tags:["melodic","cinematic"],vibe:"Moonlit, emotional, and smooth with room for vocals.",audio:"",featured:true},
+{title:"Benedict Arnold",img:"assets/Benedict.Arnold.png",youtube:"https://youtube.com/shorts/MvC4OUx1w2k?feature=share",tags:["cinematic","dark"],vibe:"Dramatic war-film energy with betrayal in the atmosphere.",audio:"",featured:true},
 {title:"The Void",img:"assets/The.Void.png",tags:["dark","cinematic"],vibe:"Deep, moody, atmospheric production built for presence.",audio:"",featured:true},
-{title:"No Time",img:"assets/No.Time.png",tags:["melodic","street"],vibe:"Clean motion, bounce, and focus.",audio:""},
-{title:"GOODAH",img:"assets/GOODAH.png",tags:["dark","street"],vibe:"Hard drums and street bounce.",audio:""},
-{title:"Night Opera",img:"assets/Night.Opera.png",tags:["cinematic","dark","luxury"],vibe:"Opera-house drama with luxury tension.",audio:""},
-{title:"Magia",img:"assets/Magia.png",tags:["melodic","luxury"],vibe:"Mystic, smooth, cinematic texture.",audio:""},
+{title:"No Time",img:"assets/No.Time.png",youtube:"https://youtube.com/shorts/Bgb3UCGT8Sw?feature=share",tags:["melodic","street"],vibe:"Clean motion, bounce, and focus.",audio:""},
+{title:"GOODAH",img:"assets/GOODAH.png",youtube:"https://youtube.com/shorts/hqRCWICsnms?feature=share",tags:["dark","street"],vibe:"Hard drums and street bounce.",audio:""},
+{title:"Ghetto Boyz",img:"assets/Ghetto.Boyz.png",youtube:"https://youtube.com/shorts/TM4kpHwvjCQ?feature=share",tags:["street","dark"],vibe:"Raw street energy with a hard pocket and culture-heavy feel.",audio:""},
+{title:"Night Opera",img:"assets/Night.Opera.png",youtube:"https://youtube.com/shorts/AO5W3hCTRcQ?feature=share",tags:["cinematic","dark","luxury"],vibe:"Opera-house drama with luxury tension.",audio:""},
+{title:"Magia",img:"assets/Magia.png",youtube:"https://youtube.com/shorts/OvIKMQK-0WU?feature=share",tags:["melodic","luxury"],vibe:"Mystic, smooth, cinematic texture.",audio:""},
 {title:"SubLandia",img:"assets/SubLandia.png",tags:["dark","cinematic"],vibe:"Deep bass world with low-end pressure.",audio:""},
-{title:"Lights Out",img:"assets/Lights.Out.png",tags:["dark"],vibe:"Late-night, clean, moody production.",audio:""},
-{title:"Revival",img:"assets/Revival.png",tags:["cinematic","melodic"],vibe:"Comeback energy with emotion and lift.",audio:""},
+{title:"Lights Out",img:"assets/Lights.Out.png",youtube:"https://youtube.com/shorts/uFy_5khQvf4?feature=share",tags:["dark"],vibe:"Late-night, clean, moody production.",audio:""},
+{title:"Revival",img:"assets/Revival.png",youtube:"https://youtube.com/shorts/PVgl46ezCMo?feature=share",tags:["cinematic","melodic"],vibe:"Comeback energy with emotion and lift.",audio:""},
 {title:"ZOM",img:"assets/ZOM.png",tags:["dark"],vibe:"Dark bounce with horror texture.",audio:""},
 {title:"The Mack",img:"assets/The.Mack.png",tags:["luxury","street"],vibe:"Smooth player energy with polish.",audio:""},
 {title:"The Boonies",img:"assets/The.Boonies.png",tags:["dark","street"],vibe:"Raw, gritty, outside energy.",audio:""},
-{title:"Lucille",img:"assets/Lucille.png",tags:["melodic"],vibe:"Soulful, reflective, smooth production.",audio:""},
-{title:"Maestro",img:"assets/Maestro.png",tags:["cinematic","luxury"],vibe:"Composer energy with polished arrangement.",audio:""},
+{title:"Lucille",img:"assets/Lucille.png",youtube:"https://youtube.com/shorts/2PBXsciUp_o?feature=share",tags:["melodic"],vibe:"Soulful, reflective, smooth production.",audio:""},
+{title:"Maestro",img:"assets/Maestro.png",youtube:"https://youtube.com/shorts/DpcqfCNv6qo?feature=share",tags:["cinematic","luxury"],vibe:"Composer energy with polished arrangement.",audio:""},
 {title:"Smile",img:"assets/Smile.png",tags:["melodic"],vibe:"Bright, melodic, clean atmosphere.",audio:""},
 {title:"Tranquillo",img:"assets/Tranquillo.png",tags:["melodic","luxury"],vibe:"Calm, smooth, patient production.",audio:""},
-{title:"SENSATIONAL",img:"assets/SENSATIONAL.png",tags:["cinematic","melodic"],vibe:"Emotional, timeless, clean sound.",audio:""},
-{title:"Circus Freak",img:"assets/Circus.Freak.png",tags:["dark"],vibe:"Twisted bounce with strange character.",audio:""},
-{title:"Rush Hour",img:"assets/Rush.Hour.png",tags:["dark","street"],vibe:"Fast motion and pressure.",audio:""},
+{title:"SENSATIONAL",img:"assets/SENSATIONAL.png",youtube:"https://youtube.com/shorts/tNCJUg7xZ3E?feature=share",tags:["cinematic","melodic"],vibe:"Emotional, timeless, clean sound.",audio:""},
+{title:"Circus Freak",img:"assets/Circus.Freak.png",youtube:"https://youtube.com/shorts/LK4H0GF9Pu4?feature=share",tags:["dark"],vibe:"Twisted bounce with strange character.",audio:""},
+{title:"Rush Hour",img:"assets/Rush.Hour.png",youtube:"https://youtube.com/shorts/y9VUS9eVcGo?feature=share",tags:["dark","street"],vibe:"Fast motion and pressure.",audio:""},
 {title:"The Getaway",img:"assets/the.Getaway.png",tags:["cinematic","dark"],vibe:"Escape energy with cinematic movement.",audio:""},
-{title:"Familia",img:"assets/Familia.png",tags:["cinematic","street"],vibe:"Family, loyalty, and legacy.",audio:""},
-{title:"Grime",img:"assets/Grime.png",tags:["dark","street"],vibe:"Dirty drums and pressure.",audio:""},
-{title:"Ledger",img:"assets/Ledger.png",tags:["dark"],vibe:"Calculated, cold, and sharp.",audio:""},
-{title:"Pressed",img:"assets/Pressed.png",tags:["street","dark"],vibe:"Pressure, tension, and bounce.",audio:""},
+{title:"Familia",img:"assets/Familia.png",youtube:"https://youtube.com/shorts/R060VDmHh2E?feature=share",tags:["cinematic","street"],vibe:"Family, loyalty, and legacy.",audio:""},
+{title:"Grime",img:"assets/Grime.png",youtube:"https://youtube.com/shorts/Sl0f49WhUkA?feature=share",tags:["dark","street"],vibe:"Dirty drums and pressure.",audio:""},
+{title:"Ledger",img:"assets/Ledger.png",youtube:"https://youtube.com/shorts/D9KtPPVJd8M?feature=share",tags:["dark"],vibe:"Calculated, cold, and sharp.",audio:""},
+{title:"Pressed",img:"assets/Pressed.png",youtube:"https://youtube.com/shorts/_CWsHSOsW8o?feature=share",tags:["street","dark"],vibe:"Pressure, tension, and bounce.",audio:""},
 {title:"Presto",img:"assets/Presto.png",video:"assets/Presto.canvas.mp4",tags:["street"],vibe:"Sharp, clean production with motion and bounce.",audio:""},
-{title:"PunchLime",img:"assets/PunchLime.png",tags:["street"],vibe:"Sharp, witty, direct energy.",audio:""},
+{title:"PunchLime",img:"assets/PunchLime.png",youtube:"https://youtube.com/shorts/3lVWhii11Yk?feature=share",tags:["street"],vibe:"Sharp, witty, direct energy.",audio:""},
 {title:"Sleezer",img:"assets/Sleezer.png",tags:["street","dark"],vibe:"Cold bounce with street pressure and attitude.",audio:""},
-{title:"Iced Cheese",img:"assets/Iced.Cheese.png",tags:["street","luxury"],vibe:"Flashy, frozen, and slick with polished movement.",audio:""},
-{title:"Dutch",img:"assets/Dutch.png",tags:["street","dark"],vibe:"Smoky street energy with a focused pocket.",audio:""},
-{title:"PPGF",img:"assets/PPGF.png",tags:["street"],vibe:"Direct, confident production built for performance.",audio:""},
+{title:"Iced Cheese",img:"assets/Iced.Cheese.png",youtube:"https://youtube.com/shorts/xn3J6uitPAE?feature=share",tags:["street","luxury"],vibe:"Flashy, frozen, and slick with polished movement.",audio:""},
+{title:"Dutch",img:"assets/Dutch.png",youtube:"https://youtube.com/shorts/zHQwqAQsYZQ?feature=share",tags:["street","dark"],vibe:"Smoky street energy with a focused pocket.",audio:""},
+{title:"PPGF",img:"assets/PPGF.png",youtube:"https://youtube.com/shorts/ykb99TNSx6E?feature=share",tags:["street"],vibe:"Direct, confident production built for performance.",audio:""},
 {title:"Spiked Love",img:"assets/Spiked.Love.png",tags:["melodic","dark"],vibe:"Melodic tension with an edge and emotional bite.",audio:""},
-{title:"Gross Lunch",img:"assets/Gross.Lunch.png",tags:["dark","street"],vibe:"Raw, strange, gritty energy with character.",audio:""},
+{title:"Gross Lunch",img:"assets/Gross.Lunch.png",youtube:"https://youtube.com/shorts/65-OmFf-ZPM?feature=share",tags:["dark","street"],vibe:"Raw, strange, gritty energy with character.",audio:""},
 {title:"UNDESIRABLE",img:"assets/UNDESIRABLE.png",tags:["dark"],vibe:"Cold, raw, unwanted atmosphere.",audio:""},
 {title:"XX",img:"assets/XX.png",tags:["dark"],vibe:"Minimal, dark, focused production.",audio:""}
 ];
@@ -1517,6 +1533,7 @@ const smartNote=document.getElementById("smartNote");
 const cursorGlow=document.getElementById("cursorGlow");
 const previewModal=document.getElementById("previewModal");
 const previewVideo=document.getElementById("previewVideo");
+const previewFrame=document.getElementById("previewFrame");
 const previewTitle=document.getElementById("previewTitle");
 const previewVibe=document.getElementById("previewVibe");
 const previewLease=document.getElementById("previewLease");
@@ -1568,23 +1585,51 @@ function leaseSubject(title){
   return `Beat Inquiry: ${encodeURIComponent(title)}`;
 }
 
+function hasPreview(beat){
+  return Boolean(beat && (beat.youtube || beat.video || beat.audio));
+}
+
+function youtubeEmbed(url){
+  if(!url)return "";
+  const text=String(url);
+  let id="";
+  const shorts=text.match(/shorts\/([^?&/]+)/);
+  const watch=text.match(/[?&]v=([^?&/]+)/);
+  const shortLink=text.match(/youtu\.be\/([^?&/]+)/);
+  if(shorts)id=shorts[1];
+  else if(watch)id=watch[1];
+  else if(shortLink)id=shortLink[1];
+  return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1` : text;
+}
+
+function storePreview(title){
+  try{
+    const viewed=JSON.parse(localStorage.getItem("pc_recent_previews") || "[]").filter(item=>item!==title);
+    viewed.unshift(title);
+    localStorage.setItem("pc_recent_previews",JSON.stringify(viewed.slice(0,12)));
+    const counts=JSON.parse(localStorage.getItem("pc_preview_counts") || "{}");
+    counts[title]=(counts[title] || 0)+1;
+    localStorage.setItem("pc_preview_counts",JSON.stringify(counts));
+  }catch(e){}
+}
+
 function renderFeatured(){
   const b=featured[slideIndex];
 
   featuredGrid.innerHTML=`
     <div class="featured-carousel">
       <div class="carousel-stage">
-        <button class="carousel-cover preview-cover ${b.video?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
+        <button class="carousel-cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
           <img src="${b.img}" alt="${b.title}" onerror="fallbackImage(this,'${b.title}')">
           <div class="fallback">${b.title}</div>
-          ${b.video?`<span class="play-badge">Play Preview</span>`:""}
+          ${hasPreview(b)?`<span class="play-badge">Play Preview</span>`:""}
         </button>
         <div class="carousel-info">
           <div class="kicker">Featured Beat</div>
           <h3>${b.title}</h3>
           <p>${b.vibe}</p>
           <div class="mini">
-            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(b.video?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
+            ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(hasPreview(b)?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
             <button class="lease-select" data-title="${b.title}" type="button">License Beat</button>
             <a href="#catalog">Full Catalog</a>
           </div>
@@ -1641,16 +1686,16 @@ function renderCatalog(){
     card.className=`card reveal show ${b.featured?"featured":""}`;
     card.innerHTML=`
       ${b.featured?`<div class="badge">Featured</div>`:""}
-      <button class="cover preview-cover ${b.video?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
+      <button class="cover preview-cover ${hasPreview(b)?"has-video":""}" data-title="${b.title}" aria-label="Preview ${b.title}">
         <img src="${b.img}" alt="${b.title} cover" loading="lazy" onerror="fallbackImage(this,'${b.title}')">
         <div class="fallback">${b.title}</div>
-        ${b.video?`<span class="play-badge">Play Preview</span>`:""}
+        ${hasPreview(b)?`<span class="play-badge">Play Preview</span>`:""}
       </button>
       <div class="meta">
         <h3>${b.title}</h3>
         <p>${b.vibe}</p>
         <div class="mini">
-          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(b.video?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
+          ${b.audio?`<audio controls preload="none" src="${b.audio}"></audio>`:(hasPreview(b)?`<span>Click Cover To Preview</span>`:`<span>Preview Coming Soon</span>`)}
           <button class="lease-select" data-title="${b.title}" type="button">License Beat</button>
         </div>
       </div>
@@ -1675,9 +1720,10 @@ function updateSelectedBeatChip(){
 }
 
 function openPreview(beat){
-  if(!beat || !beat.video)return;
+  if(!beat || !hasPreview(beat))return;
 
   stopCarousel();
+  storePreview(beat.title);
 
   previewTitle.textContent=beat.title;
   previewVibe.textContent=beat.vibe;
@@ -1686,14 +1732,36 @@ function openPreview(beat){
   updateSelectedBeatChip();
 
   previewLease.href="#licenses";
-  previewVideo.poster=beat.img;
-  previewVideo.innerHTML=`<source src="${beat.video}" type="video/mp4">`;
-  previewVideo.load();
+  previewVideo.pause();
+  previewVideo.removeAttribute("src");
+  previewVideo.innerHTML="";
+  previewFrame.removeAttribute("src");
+  previewFrame.style.display="none";
+  previewVideo.style.display="none";
+  previewModal.querySelector(".preview-modal-card").classList.remove("youtube-mode");
+
+  if(beat.youtube){
+    previewFrame.src=youtubeEmbed(beat.youtube);
+    previewFrame.style.display="block";
+    previewModal.querySelector(".preview-modal-card").classList.add("youtube-mode");
+  }else if(beat.video){
+    previewVideo.poster=beat.img;
+    previewVideo.innerHTML=`<source src="${beat.video}" type="video/mp4">`;
+    previewVideo.style.display="block";
+    previewVideo.load();
+  }else if(beat.audio){
+    previewVideo.poster=beat.img;
+    previewVideo.innerHTML=`<source src="${beat.audio}" type="audio/mpeg">`;
+    previewVideo.style.display="block";
+    previewVideo.load();
+  }
 
   previewModal.classList.add("show");
   previewModal.setAttribute("aria-hidden","false");
 
-  previewVideo.play().catch(()=>{});
+  if(!beat.youtube){
+    previewVideo.play().catch(()=>{});
+  }
 }
 
 function closePreview(){
@@ -1702,6 +1770,10 @@ function closePreview(){
   previewVideo.pause();
   previewVideo.removeAttribute("src");
   previewVideo.innerHTML="";
+  previewVideo.style.display="none";
+  previewFrame.removeAttribute("src");
+  previewFrame.style.display="none";
+  previewModal.querySelector(".preview-modal-card").classList.remove("youtube-mode");
   previewVideo.load();
   startCarousel();
 }
@@ -1782,7 +1854,7 @@ document.addEventListener("click",e=>{
   if(!cover)return;
 
   const beat=beatByTitle(cover.dataset.title);
-  if(beat && beat.video){
+  if(beat && hasPreview(beat)){
     e.preventDefault();
     openPreview(beat);
   }
@@ -1892,7 +1964,7 @@ window.PrinceCaliAI={
     return beats[Math.floor(Math.random()*beats.length)];
   },
   catalog(){
-    return beats.map(b=>({title:b.title,tags:b.tags,vibe:b.vibe,hasPreview:Boolean(b.video||b.audio)}));
+    return beats.map(b=>({title:b.title,tags:b.tags,vibe:b.vibe,hasPreview:Boolean(b.youtube||b.video||b.audio)}));
   }
 };
 
