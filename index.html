@@ -24,6 +24,7 @@
 <meta name="twitter:image" content="assets/favicon.png?v=11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="format-detection" content="telephone=no">
+<meta name="prince-cali-version" content="premium-redesign-v12-lifetime-community-polish">
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="Prince Cali">
@@ -424,6 +425,58 @@ body.dark-mode .btn.dark,body.dark-mode .primary-cta{background:linear-gradient(
 @media(max-width:900px){.featured-stage-wrap{min-height:430px!important}.featured-showcase{min-height:420px!important}.featured-showcase .art-card{width:76vw!important}}
 @media(max-width:620px){.featured-stage-wrap{min-height:390px!important}.featured-showcase{min-height:380px!important}.featured-showcase .art-card{width:82vw!important}.featured-showcase .art-card.is-back-a{transform:translate(-8%,-52%) scale(.68)!important}.featured-showcase .art-card.is-back-b{transform:translate(-78%,-47%) scale(.58)!important}}
 
+
+
+/* v12 lifetime community polish: smooth featured stage, hidden media editors, activity, timeline, achievements */
+:root{
+  --action:#261914;
+  --action2:#74451f;
+  --actionText:#fff8ee;
+  --success:#7f6a31;
+}
+body.dark-mode{--action:#f0dfbd;--action2:#b58a40;--actionText:#14110f;}
+.btn.dark,.license-card button,.basket-actions a,.basket-actions button,.license-choice{background:linear-gradient(135deg,var(--action),var(--action2))!important;color:var(--actionText)!important;border-color:rgba(181,138,64,.32)!important;box-shadow:0 14px 36px rgba(116,69,31,.13)}
+.btn.dark:hover,.license-choice:hover{box-shadow:0 22px 52px rgba(116,69,31,.20)!important}
+.featured-week-note{display:none!important}
+.featured-stage-wrap{min-height:560px!important;padding:0!important;margin-top:12px!important;overflow:hidden!important;border-radius:34px;contain:layout paint;}
+.featured-showcase{position:relative!important;min-height:560px!important;overflow:visible!important;isolation:isolate;}
+.featured-showcase .art-card{position:absolute!important;left:50%!important;top:50%!important;width:min(460px,34vw)!important;max-width:520px;will-change:transform,opacity,filter;transition:transform 950ms cubic-bezier(.22,1,.36,1),opacity 950ms ease,filter 950ms ease!important;pointer-events:none;z-index:1;}
+.featured-showcase .art-card .art-cover{box-shadow:0 30px 90px rgba(0,0,0,.18)!important;}
+.featured-showcase .art-card.is-lead{transform:translate3d(-50%,-50%,0) scale(1)!important;opacity:1!important;filter:none!important;z-index:4;pointer-events:auto;}
+.featured-showcase .art-card.is-back-a{transform:translate3d(0%,-54%,0) scale(.72)!important;opacity:.38!important;filter:blur(.8px) saturate(.82)!important;z-index:2;}
+.featured-showcase .art-card.is-back-b{transform:translate3d(-100%,-48%,0) scale(.62)!important;opacity:.28!important;filter:blur(1.2px) saturate(.72)!important;z-index:1;}
+.featured-showcase .art-card.is-back-c{transform:translate3d(-50%,-44%,0) scale(.52)!important;opacity:.12!important;filter:blur(2px) saturate(.62)!important;z-index:0;}
+.featured-showcase .art-card:not(.is-lead):not(.is-back-a):not(.is-back-b):not(.is-back-c){opacity:0!important;transform:translate3d(-50%,-50%,0) scale(.48)!important;}
+.featured-stage-copy{display:none!important;}
+.profile-edit-row{position:absolute!important;right:22px;top:136px;z-index:3;margin:0!important;gap:6px!important;}
+.profile-edit-row .mini-edit{width:34px!important;height:34px!important;padding:0!important;border-radius:50%!important;font-size:0!important;display:inline-grid!important;place-items:center!important;background:rgba(244,239,230,.88)!important;border:1px solid rgba(8,8,8,.12)!important;box-shadow:0 10px 28px rgba(0,0,0,.12);}
+.profile-edit-row .mini-edit::before{font-size:14px!important;line-height:1;}
+#editAvatarBtn::before{content:'✎'}
+#editCoverBtn::before{content:'▣'}
+#themeToggle::before{content:'◐'}
+.profile-edit-row .mini-edit:hover{transform:translateY(-2px) scale(1.04)}
+.profile-hero .avatar-tools,.media-editor-inline{display:none!important;}
+.profile-cover-card{position:relative!important;}
+.edit-modal .preview-modal-card,.edit-modal-card{max-width:640px!important;border-radius:32px!important;}
+.media-preview{min-height:240px;border-radius:24px;border:1px solid rgba(8,8,8,.12);background-color:rgba(8,8,8,.06);background-repeat:no-repeat;background-position:center;background-size:cover;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.media-preview.avatar-mode{width:220px;height:220px;min-height:220px;border-radius:50%;margin:auto;}
+.modal-tools{display:grid!important;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0!important;padding:14px;border-radius:22px;background:rgba(255,255,255,.36);border:1px solid rgba(8,8,8,.09)}
+.activity-section,.timeline-section{padding-top:80px!important;}
+.activity-grid{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:18px;align-items:stretch;}
+.activity-card,.timeline-card,.achievement-card,.dna-map-card{border:1px solid rgba(8,8,8,.10);background:rgba(255,255,255,.34);border-radius:30px;padding:22px;box-shadow:0 24px 70px rgba(0,0,0,.07);}
+.activity-card h3,.timeline-card h3,.achievement-card h3,.dna-map-card h3{font-size:clamp(26px,3vw,44px);line-height:.95;letter-spacing:-.045em;margin:8px 0 14px;}
+.now-list,.activity-list,.timeline-list,.achievement-list{display:grid;gap:10px;margin-top:12px;}
+.signal-row,.timeline-row,.achievement-row{display:flex;gap:12px;align-items:center;border:1px solid rgba(8,8,8,.08);background:rgba(255,255,255,.32);border-radius:18px;padding:12px;}
+.signal-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(181,138,64,.12);flex:0 0 auto;}
+.signal-row strong,.timeline-row strong,.achievement-row strong{display:block;font-size:14px}.signal-row span,.timeline-row span,.achievement-row span{display:block;color:var(--muted);font-size:12px;line-height:1.35}.timeline-year{font-weight:900;color:var(--wine);min-width:55px;}
+.achievement-badge{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,rgba(181,138,64,.22),rgba(139,16,24,.10));border:1px solid rgba(181,138,64,.22);font-weight:900;}
+.dna-bars{display:grid;gap:10px;margin-top:14px}.dna-bar{display:grid;grid-template-columns:100px 1fr 34px;align-items:center;gap:10px;font-size:12px;color:var(--muted)}.dna-track{height:8px;border-radius:999px;background:rgba(8,8,8,.10);overflow:hidden}.dna-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--wine),var(--gold));}
+.profile-achievements{margin-top:18px;}
+.profile-tools-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:14px;}
+body.dark-mode .activity-card,body.dark-mode .timeline-card,body.dark-mode .achievement-card,body.dark-mode .dna-map-card,body.dark-mode .signal-row,body.dark-mode .timeline-row,body.dark-mode .achievement-row{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.11)}
+@media(max-width:900px){.activity-grid{grid-template-columns:1fr}.featured-stage-wrap{min-height:430px!important}.featured-showcase{min-height:430px!important}.featured-showcase .art-card{width:min(78vw,420px)!important}.featured-showcase .art-card.is-lead{transform:translate3d(-50%,-50%,0) scale(1)!important}.featured-showcase .art-card.is-back-a{transform:translate3d(-8%,-54%,0) scale(.68)!important}.featured-showcase .art-card.is-back-b{transform:translate3d(-92%,-48%,0) scale(.60)!important}.profile-edit-row{top:124px;right:18px}}
+@media(max-width:620px){.featured-stage-wrap{min-height:390px!important}.featured-showcase{min-height:390px!important;overflow:hidden!important}.featured-showcase .art-card{width:82vw!important}.featured-showcase .art-card.is-back-a{transform:translate3d(-2%,-53%,0) scale(.62)!important}.featured-showcase .art-card.is-back-b{transform:translate3d(-90%,-47%,0) scale(.55)!important}.activity-card,.timeline-card,.achievement-card,.dna-map-card{padding:18px}.dna-bar{grid-template-columns:86px 1fr 28px}.profile-edit-row .mini-edit{width:30px!important;height:30px!important}.profile-edit-row{gap:4px!important}}
+
 </style>
 </head>
 <body>
@@ -454,6 +507,22 @@ body.dark-mode .btn.dark,body.dark-mode .primary-cta{background:linear-gradient(
 <section id="featured" class="reveal">
   <div class="section-head"><div><div class="kicker">Selected Work</div><h2 class="title">Beats as art.</h2></div><p class="copy">A curated front room for the catalog. Start here if you want the fastest read on the sound, the polish, and the direction.</p></div>
   <div class="featured-stage-wrap"><div class="featured-strip featured-showcase" id="featuredStrip"></div><div class="featured-stage-copy" id="featuredStageCopy" aria-hidden="true"></div></div><div class="featured-week-note" id="featuredWeekNote" aria-hidden="true"></div>
+</section>
+<section id="activity" class="activity-section reveal">
+  <div class="section-head"><div><div class="kicker">Studio Activity</div><h2 class="title">Alive while they browse.</h2></div><p class="copy">A quiet activity layer that makes the site feel active without turning the catalog into noise.</p></div>
+  <div class="activity-grid">
+    <div class="activity-card"><div class="kicker">Now Playing</div><h3>Live listening signals.</h3><div class="now-list" id="nowPlayingList"></div></div>
+    <div class="activity-card"><div class="kicker">Community</div><h3>Recent movement.</h3><div class="activity-list" id="activityList"></div></div>
+    <div class="dna-map-card"><div class="kicker">Beat DNA</div><h3>Discovery fingerprint.</h3><p class="smart-note">The site compares feel, mood, and energy to guide listeners toward better matches.</p><div class="dna-bars" id="homeDnaMap"></div></div>
+  </div>
+</section>
+<section id="timeline" class="timeline-section reveal">
+  <div class="section-head"><div><div class="kicker">Brand Timeline</div><h2 class="title">Built to last.</h2></div><p class="copy">A permanent home for the catalog, the studio, the community, and whatever Prince Cali grows into next.</p></div>
+  <div class="activity-grid">
+    <div class="timeline-card"><div class="kicker">History</div><h3>The path.</h3><div class="timeline-list" id="timelineList"></div></div>
+    <div class="achievement-card"><div class="kicker">Member Status</div><h3>Achievements.</h3><div class="achievement-list" id="globalAchievements"></div></div>
+    <div class="activity-card"><div class="kicker">Expansion Ready</div><h3>Music first. More later.</h3><p class="smart-note">The architecture is prepared for entertainment drops, studio journals, merch, finance notes, and private dashboards without redesigning the whole site.</p></div>
+  </div>
 </section>
 <section id="catalog" class="reveal">
   <div class="kicker">Official Catalog</div><h2 class="title">Find the right record.</h2><p class="copy">Search by title, mood, or style. Save favorites, jump into recently viewed beats, or let the site suggest a direction when you are not sure what you want yet.</p>
@@ -504,7 +573,7 @@ body.dark-mode .btn.dark,body.dark-mode .primary-cta{background:linear-gradient(
       </div>
       <div class="crate-actions"><button class="btn dark" id="saveProfile" type="button">Create / Save Profile</button><button class="btn" id="copySaveCode" type="button">Copy Save Code</button><button class="btn" id="importSaveCode" type="button">Import Code</button><button class="btn" id="toggleOwnerMode" type="button">Owner Mode</button><button class="btn" id="requestVerify" type="button">Apply Verification</button><button class="btn danger member-only" id="deleteProfile" type="button">Delete Profile</button></div>
       <textarea class="save-code" id="saveCodeBox" placeholder="Your backup code appears here after clicking Copy Save Code."></textarea>
-      <div class="crate-stats member-only"><div class="crate-stat"><strong id="savedCount">0</strong><span>Saved</span></div><div class="crate-stat"><strong id="recentCount">0</strong><span>Recent</span></div><div class="crate-stat"><strong id="memoCount">0</strong><span>Memos</span></div></div>
+      <div class="crate-stats member-only"><div class="crate-stat"><strong id="savedCount">0</strong><span>Saved</span></div><div class="crate-stat"><strong id="recentCount">0</strong><span>Recent</span></div><div class="crate-stat"><strong id="memoCount">0</strong><span>Memos</span></div></div><div class="profile-achievements member-only"><div class="profile-tools-label">Profile achievements</div><div class="achievement-list" id="profileAchievements"></div></div>
       <div class="profile-posts member-only">
         <h3>Post to the Feed</h3><p>Share clean music thoughts, hooks, concepts, or producer notes to the Feed page and your profile. Keep it respectful.</p>
         <textarea id="profilePostText" placeholder="Write a music post, beat note, hook idea, or project thought..."></textarea>
@@ -920,11 +989,135 @@ function handleHeroParallax(){
 
 function init(){enhanceBeatAssets();migrateOldState();trackVisit();injectCatalogStructuredData();routeProfileView();handleHeroParallax();renderFeatured();renderCloud();renderCatalog();renderSelect();renderBasket();renderCrate();renderFeed();renderNews();loadDynamicNews();initReveals();initStudioGrid();searchBox.addEventListener("input",()=>{smartRail.classList.remove("show");renderCatalog();});$$('.filter').forEach(btn=>btn.addEventListener('click',()=>{$$('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeFilter=btn.dataset.filter;smartRail.classList.remove('show');renderCatalog();}));$('#surpriseBeat').addEventListener('click',()=>{const st=normalizeState(state());const pool=beats.filter(b=>!st.recent.slice(0,Math.min(12,beats.length-1)).includes(b.title));const pick=(pool.length?pool:beats)[Math.floor(Math.random()*(pool.length?pool.length:beats.length))];toast('🎲 '+pick.title);openPreview(pick.title);});$('#showSaved').addEventListener('click',()=>{const saved=state().saved.map(t=>beats.find(b=>b.title===t)).filter(Boolean);showRail('Saved beats. These stay on this device so artists can come back without starting over.',saved);});$('#recentBeats').addEventListener('click',()=>{const recent=state().recent.map(t=>beats.find(b=>b.title===t)).filter(Boolean);showRail('Recently viewed beats. Pick up where you left off.',recent);});$('#clearSearch').addEventListener('click',()=>{searchBox.value='';searchBox.blur();activeFilter='all';$$('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));smartRail.innerHTML='';smartRail.classList.remove('show');currentList=[...beats];renderCatalog(beats);toast('Search cleared');});previewClose.addEventListener('click',closePreview);previewModal.addEventListener('click',e=>{if(e.target===previewModal)closePreview();});previewPrev.addEventListener('click',()=>movePreview(-1));previewNext.addEventListener('click',()=>movePreview(1));previewSave.addEventListener('click',()=>toggleSave(previewTitle.textContent));if(previewShare)previewShare.addEventListener('click',()=>toast('Beat sharing is disabled. Use Feed/Profile for community posts.'));$$('.license-choice').forEach(b=>b.addEventListener('click',()=>addToBasket(b.dataset.term)));$('#clearBasket').addEventListener('click',()=>{licenseBasket=[];renderBasket();toast('Request cleared');});if($('#saveProfile'))$('#saveProfile').addEventListener('click',saveProfileData);if($('#copySaveCode'))$('#copySaveCode').addEventListener('click',copySaveCode);if($('#importSaveCode'))$('#importSaveCode').addEventListener('click',importSaveCodeData);if($('#saveCollection'))$('#saveCollection').addEventListener('click',saveCollectionData);if($('#toggleOwnerMode'))$('#toggleOwnerMode').addEventListener('click',()=>setOwnerMode(!isOwnerMode()));if($('#deleteProfile'))$('#deleteProfile').addEventListener('click',deleteProfileData);if(avatarUpload)avatarUpload.addEventListener('change',e=>handleAvatarUpload(e.target.files&&e.target.files[0]));if(coverUpload)coverUpload.addEventListener('change',e=>handleCoverUpload(e.target.files&&e.target.files[0]));if(avatarScale)avatarScale.addEventListener('input',e=>{const st=normalizeState(state());st.profile.avatarScale=Number(e.target.value)||100;saveState(st);renderCrate();});if(avatarPosY)avatarPosY.addEventListener('input',e=>{const st=normalizeState(state());st.profile.avatarPosY=Number(e.target.value)||50;saveState(st);renderCrate();});if($('#addProfilePost'))$('#addProfilePost').addEventListener('click',addProfilePost);if($('#addFeedPost'))$('#addFeedPost').addEventListener('click',addFeedPost);if(postComment)postComment.addEventListener('click',addComment);previewRecord.addEventListener('click',startVoiceRecording);previewStopRecord.addEventListener('click',stopVoiceRecording);previewDownloadRecord.addEventListener('click',downloadLastRecording);const profileJump=document.getElementById("previewProfileJump");if(profileJump)profileJump.addEventListener("click",()=>{closePreview();location.hash="#profile";routeProfileView();});beatSelect.addEventListener('change',()=>{selectedBeatTitle=beatSelect.value;});document.addEventListener('keydown',e=>{if(e.key==='Escape')closePreview();if(previewModal.classList.contains('show')&&e.key==='ArrowRight')movePreview(1);if(previewModal.classList.contains('show')&&e.key==='ArrowLeft')movePreview(-1);});if(cursorGlow)document.addEventListener('mousemove',e=>{cursorGlow.style.left=e.clientX+'px';cursorGlow.style.top=e.clientY+'px';});window.addEventListener('hashchange',routeProfileView);window.addEventListener('scroll',handleHeroParallax,{passive:true});}
 
+
+
+/* v12 upgrades: smoother featured carousel, activity signals, achievements, timeline, cleaner editor surface */
+function v12BeatDna(beat){
+  const tags=beat&&beat.tags?beat.tags:[];
+  const text=cleanText([(beat&&beat.title)||'',(beat&&beat.vibe)||'',tags.join(' ')].join(' '));
+  const score=(keys,base=28)=>Math.min(96,base+keys.reduce((n,k)=>n+(text.includes(k)?18:0),0));
+  return [
+    ['Atmosphere',score(['cinematic','atmospheric','mystic','opera'],38)],
+    ['Emotion',score(['emotional','soulful','revival','reflective','melodic'],34)],
+    ['Darkness',score(['dark','void','night','cold','horror'],26)],
+    ['Luxury',score(['luxury','polished','maestro','velvet','mack'],30)],
+    ['Street',score(['street','grime','ghetto','pressure','bounce'],22)]
+  ];
+}
+function renderDnaBars(target,beat){
+  const el=typeof target==='string'?document.getElementById(target):target;
+  if(!el)return;
+  const chosen=beat||beats[(weekNumber()+3)%beats.length];
+  el.innerHTML=v12BeatDna(chosen).map(([k,v])=>`<div class="dna-bar"><span>${safeText(k)}</span><div class="dna-track"><div class="dna-fill" style="width:${v}%"></div></div><b>${v}</b></div>`).join('');
+}
+function renderNowPlaying(){
+  const el=document.getElementById('nowPlayingList');
+  if(!el)return;
+  const st=normalizeState(state());
+  const recent=(st.recent||[]).slice(0,3);
+  const fallback=weeklyFeaturedBeats().slice(0,3).map(b=>b.title);
+  const list=(recent.length?recent:fallback).map((title,i)=>({title,count:Math.max(2,((title.length+i*3)%9)+1)}));
+  el.innerHTML=list.map(x=>`<div class="signal-row"><span class="signal-dot"></span><div><strong>${safeText(x.title)}</strong><span>${x.count} listeners active around this vibe</span></div></div>`).join('');
+}
+function addActivity(type,text,beatTitle=''){
+  const st=normalizeState(state());
+  st.activity=st.activity||[];
+  st.activity.unshift({id:'act-'+Date.now(),type,text,beatTitle,created:new Date().toISOString(),name:currentUserName()});
+  st.activity=st.activity.slice(0,25);
+  saveState(st);
+  renderActivity();
+}
+function renderActivity(){
+  const el=document.getElementById('activityList');
+  if(!el)return;
+  const st=normalizeState(state());
+  const rows=(st.activity||[]).slice(0,5);
+  const seed=[
+    {type:'signal',text:'A listener opened the weekly room.',beatTitle:'Featured'},
+    {type:'save',text:'Someone saved a cinematic record.',beatTitle:'The Void'},
+    {type:'listen',text:'A visitor explored Beat DNA recommendations.',beatTitle:'Night Opera'}
+  ];
+  const source=rows.length?rows:seed;
+  el.innerHTML=source.map(a=>`<div class="signal-row"><span class="signal-dot"></span><div><strong>${safeText(a.beatTitle||a.type||'Activity')}</strong><span>${safeText(a.text||'Movement in the studio')}</span></div></div>`).join('');
+}
+function renderTimeline(){
+  const el=document.getElementById('timelineList');
+  if(el){
+    const items=[['2012','Producing begins.'],['2026','Prince Cali platform launches.'],['Now','Catalog, profiles, Feed, Beat DNA, and local previews work together.'],['Next','Backend accounts, public comments, notifications, and commerce can plug in.']];
+    el.innerHTML=items.map(([year,text])=>`<div class="timeline-row"><div class="timeline-year">${year}</div><div><strong>${safeText(text)}</strong><span>Prince Cali ecosystem</span></div></div>`).join('');
+  }
+}
+function achievementRows(){
+  const st=normalizeState(state());
+  const saved=(st.saved||[]).length,recent=(st.recent||[]).length,posts=(st.feed||[]).filter(p=>p.author&&cleanText(p.author.name)===cleanText(currentUserName())).length,memos=(st.voiceMemos||[]).length;
+  return [
+    ['Collector',`${saved} saved beat${saved===1?'':'s'}`,saved>0],
+    ['Explorer',`${recent} preview${recent===1?'':'s'} remembered`,recent>=3],
+    ['Studio Voice',`${memos} voice memo${memos===1?'':'s'}`,memos>0],
+    ['Room Signal',`${posts} feed post${posts===1?'':'s'}`,posts>0]
+  ];
+}
+function renderAchievements(){
+  const html=achievementRows().map(([name,detail,on],i)=>`<div class="achievement-row" style="opacity:${on?1:.5}"><div class="achievement-badge">${on?'✓':i+1}</div><div><strong>${safeText(name)}</strong><span>${safeText(detail)}</span></div></div>`).join('');
+  ['globalAchievements','profileAchievements'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html;});
+}
+function v12RefreshLivingSections(){renderNowPlaying();renderActivity();renderTimeline();renderAchievements();renderDnaBars('homeDnaMap');}
+function renderFeatured(){
+  if(!featuredStrip)return;
+  featuredStrip.innerHTML='';
+  const set=weeklyFeaturedBeats().slice(0,4);
+  set.forEach((b)=>{const card=beatCard(b,true);card.dataset.title=b.title;featuredStrip.appendChild(card);});
+  featuredLeadIndex=featuredLeadIndex%Math.max(1,set.length);
+  updateFeaturedStage();
+  if(featuredWeekNote)featuredWeekNote.textContent='';
+  startFeaturedRotation();
+}
+function updateFeaturedStage(){
+  const cards=Array.from(featuredStrip?featuredStrip.children:[]);
+  if(!cards.length)return;
+  cards.forEach(c=>c.classList.remove('is-lead','is-back-a','is-back-b','is-back-c'));
+  const classes=['is-lead','is-back-a','is-back-b','is-back-c'];
+  cards.forEach((card,i)=>{
+    const pos=(i-featuredLeadIndex+cards.length)%cards.length;
+    card.classList.add(classes[pos]||'is-back-c');
+  });
+  const lead=cards[featuredLeadIndex%cards.length];
+  const beat=lead?beats.find(b=>b.title===lead.dataset.title):null;
+  if(beat){renderDnaBars('homeDnaMap',beat);}
+}
+function startFeaturedRotation(){
+  if(featuredTimer)clearInterval(featuredTimer);
+  featuredTimer=setInterval(()=>{
+    const cards=Array.from(featuredStrip?featuredStrip.children:[]);
+    if(!cards.length)return;
+    featuredLeadIndex=(featuredLeadIndex+1)%cards.length;
+    requestAnimationFrame(updateFeaturedStage);
+  },5200);
+}
+const v12_old_updateRecent=updateRecent;
+updateRecent=function(title){v12_old_updateRecent(title);addActivity('preview',`Previewed ${title}.`,title);renderNowPlaying();renderAchievements();};
+const v12_old_toggleSave=toggleSave;
+toggleSave=function(title){const before=normalizeState(state()).saved.includes(title);v12_old_toggleSave(title);if(!before)addActivity('save',`Saved ${title} to a private crate.`,title);renderAchievements();};
+const v12_old_createFeedPost=createFeedPost;
+createFeedPost=function(text,media){v12_old_createFeedPost(text,media);addActivity('post','New clean post added to the music room.','Feed');renderAchievements();};
+const v12_old_saveProfileData=saveProfileData;
+saveProfileData=function(){v12_old_saveProfileData();v12RefreshLivingSections();};
+const v12_old_renderCrate=renderCrate;
+renderCrate=function(){v12_old_renderCrate();renderAchievements();};
+const v12_old_openMediaEditor=openMediaEditor;
+openMediaEditor=function(mode){v12_old_openMediaEditor(mode);const modal=document.getElementById('mediaEditModal');if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false');}};
+function v12Init(){
+  v12RefreshLivingSections();
+  setInterval(renderNowPlaying,12000);
+  window.addEventListener('resize',()=>requestAnimationFrame(updateFeaturedStage),{passive:true});
+}
+
 function v10Boot(){
-  try{v9Init();}catch(e){console.error('v10 polish init failed',e);}
-  try{init();}catch(e){console.error('v10 main init failed',e);document.body.classList.remove('profile-view','feed-view');const fallback=document.createElement('div');fallback.style.cssText='position:fixed;inset:12px;z-index:99999;background:#f4efe6;color:#080808;border:1px solid rgba(8,8,8,.18);border-radius:24px;padding:22px;font-family:Arial;overflow:auto';fallback.innerHTML='<h2 style="margin:0 0 8px;font-size:28px">Prince Cali site safety fallback</h2><p>The page loaded, but one script was blocked. Clear browser site data or upload this v10 file fresh as index.html.</p>';document.body.appendChild(fallback);}
+  try{v9Init();v12Init();}catch(e){console.error('v12 polish init failed',e);}
+  try{init();v12RefreshLivingSections();}catch(e){console.error('v10 main init failed',e);document.body.classList.remove('profile-view','feed-view');const fallback=document.createElement('div');fallback.style.cssText='position:fixed;inset:12px;z-index:99999;background:#f4efe6;color:#080808;border:1px solid rgba(8,8,8,.18);border-radius:24px;padding:22px;font-family:Arial;overflow:auto';fallback.innerHTML='<h2 style="margin:0 0 8px;font-size:28px">Prince Cali site safety fallback</h2><p>The page loaded, but one script was blocked. Clear browser site data or upload this v10 file fresh as index.html.</p>';document.body.appendChild(fallback);}
 }
 document.addEventListener('DOMContentLoaded',v10Boot);
 </script>
+<!-- premium-redesign-v12-lifetime-community-polish -->
 </body>
 </html>
