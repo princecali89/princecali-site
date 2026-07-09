@@ -1756,13 +1756,11 @@ footer{
 }
 
 
-
-/* Clean fixed mobile artwork layer */
+/* URGENT MOBILE ARTWORK FIX — paints cover art with both IMG and CSS variable fallback */
 .cover.preview-cover,
 .carousel-cover.preview-cover,
 .smart-card.preview-cover{
   position:relative!important;
-  display:block!important;
   overflow:hidden!important;
   background-color:rgba(0,0,0,.08)!important;
   background-size:cover!important;
@@ -1776,54 +1774,71 @@ footer{
   content:"";
   position:absolute;
   inset:0;
-  background-image:var(--cover-bg,none);
+  z-index:0;
+  background-image:var(--cover-img);
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  z-index:1;
 }
 
 .cover.preview-cover img,
 .carousel-cover.preview-cover img,
 .smart-card.preview-cover img{
-  position:absolute!important;
-  inset:0!important;
-  z-index:2!important;
+  position:relative!important;
+  z-index:1!important;
   display:block!important;
   width:100%!important;
   height:100%!important;
-  min-height:0!important;
   object-fit:cover!important;
   opacity:1!important;
   visibility:visible!important;
-  transform:none!important;
 }
 
 .cover.preview-cover img.broken-cover-img,
 .carousel-cover.preview-cover img.broken-cover-img,
 .smart-card.preview-cover img.broken-cover-img{
-  opacity:0!important;
-  visibility:hidden!important;
+  display:none!important;
 }
 
 .cover.preview-cover .fallback,
 .carousel-cover.preview-cover .fallback{
-  position:absolute;
-  inset:0;
-  z-index:0;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
 }
 
-.play-badge,
-.badge{
+.cover.preview-cover .play-badge,
+.carousel-cover.preview-cover .play-badge,
+.card .badge{
   z-index:5!important;
 }
 
 @media(max-width:700px){
   .cover.preview-cover,
   .carousel-cover.preview-cover{
+    display:block!important;
+    width:100%!important;
     aspect-ratio:1/1!important;
     min-height:280px!important;
-    height:auto!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+
+  .cover.preview-cover img,
+  .carousel-cover.preview-cover img{
+    min-height:280px!important;
+  }
+
+  .hero-photo-wrap,
+  .about-photo-wrap,
+  .contact-photo-wrap{
+    min-height:0!important;
+  }
+
+  img.hero-photo.broken-person-img,
+  img.about-photo.broken-person-img,
+  img.contact-photo.broken-person-img{
+    display:none!important;
   }
 }
 
@@ -2157,7 +2172,7 @@ Follow Prince Cali across every platform to stay current with new releases, beat
     </div>
 
     <div class="contact-photo-wrap">
-      <img class="contact-photo" src="assets/producer.Prince.Cali.png?v=20260709" alt="Prince Cali" onerror="this.onerror=null;this.src='assets/producer.Prince.Cali.PNG?v=20260709';">
+      <img class="contact-photo" src="assets/producer.Prince.Cali.png" alt="Prince Cali">
     </div>
   </div>
 </section>
@@ -3231,35 +3246,52 @@ function closePreview(){
 }
 
 
-/* Clean fixed artwork resolver: prevents mobile blank covers by testing real image paths first, then falling back to YouTube thumbs. */
-const COVER_CACHE_BUSTER="v=20260709";
+/* FINAL CLEAN MOBILE IMAGE FIX
+   This overrides the older duplicated image handlers above. It specifically fixes Safari/iPhone blank boxes by:
+   1) cache-busting local asset URLs,
+   2) testing the real image before committing it,
+   3) painting the same art as a CSS background variable,
+   4) falling back to the YouTube Shorts thumbnail instead of leaving an empty clickable cover.
+*/
+const MOBILE_IMAGE_FIX_VERSION = "v=20260709-mobile-cover-fix-3";
 
-function withCacheBuster(src){
-  if(!src || /^https?:\/\//i.test(src) || src.startsWith("data:"))return src;
-  return src + (src.includes("?") ? "&" : "?") + COVER_CACHE_BUSTER;
+function isRemoteSrc(src){
+  return /^https?:\/\//i.test(String(src || ""));
 }
 
-function uniqueList(list){
-  return [...new Set(list.filter(Boolean).map(String))];
+function bustLocalSrc(src){
+  if(!src)return "";
+  if(isRemoteSrc(src) || String(src).startsWith("data:"))return src;
+  const clean=String(src).split("#")[0];
+  return clean + (clean.includes("?") ? "&" : "?") + MOBILE_IMAGE_FIX_VERSION;
 }
 
-function filenameParts(path){
+function safeCssUrl(src){
+  return `url("${String(src || "").replace(/"/g,"%22")}")`;
+}
+
+function uniqueClean(list){
+  return [...new Set(list.filter(Boolean).map(v=>String(v).trim()).filter(Boolean))];
+}
+
+function splitAssetPath(path){
   const clean=String(path || "").split("?")[0];
   const slash=clean.lastIndexOf("/");
-  const dir=slash>=0 ? clean.slice(0,slash+1) : "";
+  const dir=slash>=0 ? clean.slice(0,slash+1) : "assets/";
   const file=slash>=0 ? clean.slice(slash+1) : clean;
   const dot=file.lastIndexOf(".");
   return {dir,base:dot>=0?file.slice(0,dot):file,ext:dot>=0?file.slice(dot+1):"png"};
 }
 
-function titleCaseFile(name){
+function upperFirstFileName(name){
   return String(name || "").replace(/(^|[ ._-])([a-z])/g,(m,p,c)=>p+c.toUpperCase());
 }
 
-function coverCandidates(beat,extra=""){
-  const title=beat && beat.title ? beat.title : "";
-  const img=beat && beat.img ? beat.img : "";
-  const parts=filenameParts(img || `assets/${title}.png`);
+function buildBeatImageCandidates(beat,extra=""){
+  if(!beat)return [];
+  const img=beat.img || "";
+  const parts=splitAssetPath(img || `assets/${beat.title}.png`);
+  const title=String(beat.title || "");
   const rawNames=[
     parts.base,
     title,
@@ -3272,78 +3304,80 @@ function coverCandidates(beat,extra=""){
   ];
   const names=[];
   rawNames.filter(Boolean).forEach(name=>{
-    names.push(name);
-    names.push(name.toLowerCase());
-    names.push(name.toUpperCase());
-    names.push(titleCaseFile(name));
+    names.push(name,name.toLowerCase(),name.toUpperCase(),upperFirstFileName(name));
   });
-  const exts=[parts.ext,"png","PNG","jpg","JPG","jpeg","JPEG","webp","WEBP"];
-  const local=[];
-  if(img)local.push(img);
-  if(extra)local.push(extra);
-  uniqueList(names).forEach(name=>{
-    uniqueList(exts).forEach(ext=>local.push(`${parts.dir || "assets/"}${name}.${ext}`));
+  const exts=uniqueClean([parts.ext,"png","PNG","jpg","JPG","jpeg","JPEG","webp","WEBP"]);
+  const candidates=[];
+  if(img)candidates.push(img);
+  if(extra)candidates.push(extra);
+  uniqueClean(names).forEach(name=>{
+    exts.forEach(ext=>candidates.push(`${parts.dir || "assets/"}${name}.${ext}`));
   });
-  if(beat && beat.youtube){
-    const thumb=youtubeThumb(beat.youtube) || youtubeThumbnail(beat.youtube);
-    if(thumb)local.push(thumb);
+  if(beat.youtube){
+    const thumb=youtubeThumbnail(beat.youtube) || youtubeThumb(beat.youtube);
+    if(thumb)candidates.push(thumb);
   }
-  return uniqueList(local);
+  return uniqueClean(candidates);
 }
 
-function testImage(src){
+function testImageLoad(src){
   return new Promise(resolve=>{
     if(!src)return resolve("");
     const image=new Image();
     image.onload=()=>resolve(src);
     image.onerror=()=>resolve("");
-    image.src=withCacheBuster(src);
+    image.src=bustLocalSrc(src);
   });
 }
 
-async function resolveCover(holder,img,beat,extra=""){
-  if(!holder || !beat)return;
-  const candidates=coverCandidates(beat,extra);
-
-  holder.dataset.title=beat.title;
+function applyCoverToHolder(holder,img,src){
+  if(!holder || !src)return;
+  const finalSrc=bustLocalSrc(src);
+  holder.classList.remove("img-failed");
+  holder.style.backgroundImage=safeCssUrl(finalSrc);
   holder.style.backgroundSize="cover";
   holder.style.backgroundPosition="center";
   holder.style.backgroundRepeat="no-repeat";
+  holder.style.setProperty("--cover-img",safeCssUrl(finalSrc));
+  if(img){
+    img.classList.remove("broken-cover-img");
+    img.style.display="block";
+    img.style.opacity="1";
+    img.style.visibility="visible";
+    if(img.getAttribute("src")!==finalSrc)img.src=finalSrc;
+  }
+}
+
+async function resolveCoverImage(holder,img,beat,extra=""){
+  if(!holder || !beat)return;
+  holder.dataset.title=beat.title;
+  const candidates=buildBeatImageCandidates(beat,extra);
+
   if(candidates[0]){
-    const first=withCacheBuster(candidates[0]);
-    holder.style.backgroundImage=`url("${first}")`;
-    holder.style.setProperty("--cover-bg",`url("${first}")`);
+    applyCoverToHolder(holder,null,candidates[0]);
   }
 
   for(const candidate of candidates){
-    const good=await testImage(candidate);
-    if(good){
-      const src=withCacheBuster(good);
-      holder.classList.remove("img-failed");
-      holder.style.backgroundImage=`url("${src}")`;
-      holder.style.setProperty("--cover-bg",`url("${src}")`);
-      if(img){
-        img.classList.remove("broken-cover-img");
-        if(img.getAttribute("src")!==src)img.src=src;
-        img.style.display="block";
-        img.style.opacity="1";
-        img.style.visibility="visible";
-      }
+    const ok=await testImageLoad(candidate);
+    if(ok){
+      applyCoverToHolder(holder,img,ok);
       return;
     }
   }
 
   holder.classList.add("img-failed");
-  if(img)img.classList.add("broken-cover-img");
+  if(img){
+    img.classList.add("broken-cover-img");
+    img.style.display="none";
+  }
 }
 
 function fallbackImage(img,title,backupSrc=""){
   if(!img)return;
-  const holder=img.closest(".preview-cover,.cover,.carousel-cover,.smart-card");
-  const beat=beatByTitle(holder ? holder.dataset.title : "") || beatByTitle(title) || looseBeatFromText(title) || looseBeatFromText(img.getAttribute("alt"));
+  const holder=img.closest(".cover.preview-cover,.carousel-cover.preview-cover,.smart-card.preview-cover");
+  const beat=(holder && beatByTitle(holder.dataset.title)) || beatByTitle(title) || looseBeatFromText(title) || looseBeatFromText(img.getAttribute("alt"));
   if(holder && beat){
-    holder.classList.add("img-failed");
-    resolveCover(holder,img,beat,backupSrc);
+    resolveCoverImage(holder,img,beat,backupSrc);
   }else{
     img.classList.add("broken-cover-img");
   }
@@ -3358,19 +3392,76 @@ function hydrateCoverImages(root=document){
     if(img){
       img.loading="eager";
       img.decoding="async";
+      img.alt=img.alt || `${beat.title} cover`;
       img.onerror=()=>fallbackImage(img,beat.title,backup);
     }
-    resolveCover(holder,img,beat,backup);
+    resolveCoverImage(holder,img,beat,backup);
   });
 }
 
-renderFeatured();
-renderCatalog();
-renderBeatSelect();
-updateBasket();
-startCarousel();
+function personImageCandidates(src){
+  const parts=splitAssetPath(src || "assets/IMG_6100-removebg-preview.png");
+  const base=parts.base;
+  const names=uniqueClean([
+    base,base.toLowerCase(),base.toUpperCase(),
+    "IMG_6100-removebg-preview","IMG_6100-removebg-preview","img_6100-removebg-preview",
+    "producer.Prince.Cali","Producer.Prince.Cali","producer.prince.cali",
+    "Prince.Cali","prince.cali","watermark.v2"
+  ]);
+  const exts=uniqueClean([parts.ext,"png","PNG","jpg","JPG","jpeg","JPEG","webp","WEBP"]);
+  const out=[];
+  if(src)out.push(src);
+  names.forEach(name=>exts.forEach(ext=>out.push(`${parts.dir || "assets/"}${name}.${ext}`)));
+  return uniqueClean(out);
+}
 
-console.log("Prince Cali site ready");
+async function hydratePersonImages(){
+  const imgs=document.querySelectorAll("img.hero-photo,img.about-photo,img.contact-photo");
+  for(const img of imgs){
+    const original=img.getAttribute("src") || "";
+    img.onerror=async()=>{
+      for(const candidate of personImageCandidates(original)){
+        const ok=await testImageLoad(candidate);
+        if(ok){
+          img.classList.remove("broken-person-img");
+          img.style.display="block";
+          img.src=bustLocalSrc(ok);
+          return;
+        }
+      }
+      img.classList.add("broken-person-img");
+      img.style.display="none";
+    };
+    if(original){
+      const ok=await testImageLoad(original);
+      if(ok)img.src=bustLocalSrc(ok);
+      else img.onerror();
+    }
+  }
+}
+
+function rerenderAndHydrateEverything(){
+  renderFeatured();
+  renderCatalog();
+  renderBeatSelect();
+  updateBasket();
+  hydrateCoverImages(document);
+  hydratePersonImages();
+  startCarousel();
+}
+
+rerenderAndHydrateEverything();
+
+window.addEventListener("pageshow",()=>{
+  hydrateCoverImages(document);
+  hydratePersonImages();
+});
+
+window.addEventListener("orientationchange",()=>{
+  setTimeout(()=>hydrateCoverImages(document),350);
+});
+
+console.log("Prince Cali site ready - mobile artwork fix active");
 </script>
 
 </body>
