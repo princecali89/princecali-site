@@ -1994,779 +1994,327 @@ button.preview-cover,
 }
 
 
-/* ==========================================================
-   PRINCE CALI — PREMIUM DREAM EXPERIENCE REDESIGN
-   Built on top of the working Safari/mobile fixed site.
-   Keeps all existing previews/catalog/licensing systems.
-   ========================================================== */
 
-:root{
-  --pc-ink:#070606;
-  --pc-cream:#f3efe6;
-  --pc-cream-2:#e8dfcf;
-  --pc-burgundy:#8b1018;
-  --pc-purple:#37145f;
-  --pc-gold:#b08a45;
-  --pc-muted:#6b625a;
-  --pc-card:rgba(255,255,255,.30);
-  --pc-line:rgba(8,8,8,.12);
-  --pc-shadow:0 34px 110px rgba(0,0,0,.12);
-}
-
-html{
-  scroll-padding-top:96px;
-}
-
-body{
+/* =========================================================
+   PRINCE CALI PREMIUM REDESIGN V1 — GHOST HERO + ART GALLERY
+   This block is intentionally visible in source so you can verify the redesign loaded.
+   ========================================================= */
+body.premium-redesign-v1{
+  --pc-cream:#f4efe4;
+  --pc-ink:#070605;
+  --pc-muted:#6b6258;
+  --pc-burgundy:#7d1018;
+  --pc-purple:#35185f;
+  --pc-gold:#b9965a;
   background:
-    radial-gradient(circle at 12% 4%,rgba(139,16,24,.14),transparent 30%),
-    radial-gradient(circle at 92% 8%,rgba(55,20,95,.15),transparent 36%),
-    radial-gradient(circle at 55% 60%,rgba(176,138,69,.10),transparent 38%),
-    linear-gradient(180deg,#f6f0e5 0%,#eee4d5 45%,#e7dccb 100%)!important;
-  font-family:Arial,Helvetica,sans-serif;
+    radial-gradient(circle at 74% 16%,rgba(125,16,24,.18),transparent 34%),
+    radial-gradient(circle at 12% 76%,rgba(53,24,95,.13),transparent 38%),
+    linear-gradient(180deg,#f8f3ea 0%,#eee5d6 48%,#e7dccb 100%)!important;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background:
-    linear-gradient(rgba(8,8,8,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(8,8,8,.025) 1px,transparent 1px);
-  background-size:72px 72px;
-  mask-image:linear-gradient(to bottom,rgba(0,0,0,.18),transparent 58%);
+body.premium-redesign-v1 nav{
+  padding:18px 6.4%;
+  background:rgba(248,243,234,.72)!important;
+  border-bottom:1px solid rgba(7,6,5,.10)!important;
+  box-shadow:0 18px 60px rgba(7,6,5,.05);
 }
 
-body:after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.34;
-  background:
-    radial-gradient(circle at 40% 20%,rgba(255,255,255,.45),transparent 26%),
-    radial-gradient(circle at 70% 82%,rgba(139,16,24,.09),transparent 36%);
-  mix-blend-mode:soft-light;
-}
-
-.cursor-glow{
-  opacity:.75;
-}
-
-nav{
-  width:calc(100% - 34px)!important;
-  top:16px!important;
-  left:17px!important;
-  border-radius:999px!important;
-  padding:13px 5.5%!important;
-  background:rgba(243,239,230,.72)!important;
-  border:1px solid rgba(8,8,8,.10)!important;
-  box-shadow:0 18px 60px rgba(0,0,0,.08)!important;
-}
-
-.nav-logo{
-  height:32px!important;
-}
-
-.nav-links a{
-  position:relative;
-  opacity:.82;
-}
-
-.nav-links a:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-8px;
-  height:1px;
-  transform:scaleX(0);
-  transform-origin:left;
-  background:linear-gradient(90deg,var(--pc-burgundy),var(--pc-purple));
-  transition:.25s ease;
-}
-
-.nav-links a:hover:after{
-  transform:scaleX(1);
-}
-
-/* Floating smart navigation */
-.muse-dock{
-  position:fixed;
-  left:50%;
-  bottom:18px;
-  transform:translateX(-50%);
-  z-index:2400;
-  display:flex;
-  gap:8px;
-  align-items:center;
-  padding:8px;
-  border-radius:999px;
-  background:rgba(8,8,8,.74);
-  border:1px solid rgba(243,239,230,.18);
-  box-shadow:0 22px 80px rgba(0,0,0,.28);
-  backdrop-filter:blur(18px);
-}
-
-.muse-dock button,
-.muse-dock a{
-  border:1px solid rgba(243,239,230,.14);
-  background:rgba(243,239,230,.08);
-  color:#f3efe6;
-  border-radius:999px;
-  padding:10px 14px;
-  font-size:10px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  cursor:pointer;
-  white-space:nowrap;
-}
-
-.muse-dock button:hover,
-.muse-dock a:hover{
-  background:#f3efe6;
-  color:#080808;
-}
-
-/* Hero as a luxury identity moment */
-.hero{
+body.premium-redesign-v1 .hero.hero-premium{
   min-height:100vh!important;
-  grid-template-columns:1fr!important;
+  display:flex!important;
   align-items:center!important;
-  overflow:hidden;
+  padding:150px 7% 95px!important;
+  overflow:hidden!important;
+  position:relative!important;
   isolation:isolate;
-  padding-top:150px!important;
-  padding-bottom:90px!important;
+  border-bottom:1px solid rgba(7,6,5,.08);
 }
 
-.hero:before{
+body.premium-redesign-v1 .hero.hero-premium:before{
   content:"";
   position:absolute;
-  right:-16vw;
-  top:4vh;
-  width:72vw;
-  height:92vh;
-  z-index:0;
+  inset:9% 5% 8%;
+  border-radius:54px;
   background:
-    radial-gradient(circle at 50% 42%,rgba(176,138,69,.16),transparent 38%),
-    radial-gradient(circle at 48% 45%,rgba(139,16,24,.12),transparent 45%),
-    radial-gradient(circle at 52% 50%,rgba(55,20,95,.12),transparent 48%);
-  filter:blur(10px);
-  opacity:.95;
+    linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.05)),
+    radial-gradient(circle at 82% 35%,rgba(125,16,24,.15),transparent 28%),
+    radial-gradient(circle at 68% 68%,rgba(53,24,95,.12),transparent 34%);
+  border:1px solid rgba(7,6,5,.08);
+  box-shadow:0 54px 150px rgba(7,6,5,.09);
+  z-index:-3;
 }
 
-.hero > .reveal:first-child{
+body.premium-redesign-v1 .hero-orbit{
+  position:absolute;
+  right:-9vw;
+  top:16vh;
+  width:58vw;
+  height:58vw;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,rgba(185,150,90,.20) 0 1px,transparent 2px),
+    radial-gradient(circle at 48% 48%,rgba(125,16,24,.10),rgba(53,24,95,.08),transparent 62%);
+  background-size:34px 34px,auto;
+  opacity:.7;
+  filter:blur(.2px);
+  z-index:-2;
+  pointer-events:none;
+}
+
+body.premium-redesign-v1 .hero-copy{
   position:relative;
   z-index:3;
-  max-width:930px;
+  max-width:880px;
 }
 
-.hero-mark{
-  width:80px!important;
-  opacity:.84;
+body.premium-redesign-v1 .hero-mark{
+  width:76px!important;
+  margin-bottom:26px!important;
+  filter:drop-shadow(0 14px 28px rgba(7,6,5,.12));
 }
 
-.hero .kicker{
-  color:#5f554d;
+body.premium-redesign-v1 .hero .kicker{
+  color:#6d5c4b!important;
+  letter-spacing:.32em!important;
 }
 
-h1{
-  font-size:clamp(74px,14vw,210px)!important;
-  line-height:.78!important;
-  letter-spacing:-.09em!important;
-  max-width:960px;
-  text-wrap:balance;
+body.premium-redesign-v1 .hero h1{
+  margin:22px 0 26px!important;
+  font-size:clamp(74px,15.4vw,238px)!important;
+  line-height:.74!important;
+  letter-spacing:-.105em!important;
+  color:var(--pc-ink)!important;
+  text-shadow:0 35px 90px rgba(7,6,5,.12);
 }
 
-.lead{
+body.premium-redesign-v1 .hero h1 span{
+  display:inline-block;
+  padding-left:.04em;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(7,6,5,.86);
+  text-shadow:none;
+}
+
+body.premium-redesign-v1 .hero .lead{
   max-width:760px!important;
-  font-size:clamp(20px,2.25vw,34px)!important;
-  color:#201b18!important;
+  font-size:clamp(18px,2.25vw,31px)!important;
+  line-height:1.28!important;
+  color:#2a241f!important;
 }
 
-/* Ghost portrait: no box, no profile-card look */
-.hero-photo-wrap-secondary,
-.hero-photo-wrap{
-  position:absolute!important;
-  right:clamp(-190px,-10vw,-60px)!important;
-  bottom:-2vh!important;
-  top:auto!important;
-  width:min(70vw,790px)!important;
-  max-width:none!important;
-  height:min(94vh,900px)!important;
-  margin:0!important;
-  padding:0!important;
-  border:0!important;
-  border-radius:0!important;
-  box-shadow:none!important;
-  background:transparent!important;
-  overflow:visible!important;
-  opacity:.15!important;
-  mix-blend-mode:multiply;
-  pointer-events:none;
-  z-index:1!important;
-  display:flex!important;
-  align-items:flex-end!important;
-  justify-content:center!important;
+body.premium-redesign-v1 .hero-actions{
+  margin-top:34px!important;
+  gap:10px;
 }
 
-.hero-photo-wrap-secondary:before,
-.hero-photo-wrap:before{
-  display:none!important;
+body.premium-redesign-v1 .btn{
+  backdrop-filter:blur(12px);
+  box-shadow:0 18px 46px rgba(7,6,5,.08);
 }
 
-.hero-photo-secondary,
-.hero-photo{
-  width:100%!important;
-  height:100%!important;
-  max-width:none!important;
-  max-height:none!important;
-  object-fit:contain!important;
-  object-position:center bottom!important;
-  transform:none!important;
-  filter:grayscale(1) contrast(1.2) brightness(.95)!important;
-  opacity:1!important;
-  mix-blend-mode:multiply!important;
-  animation:none!important;
-}
-
-/* Quick trust cues under hero */
-.hero-actions{
+body.premium-redesign-v1 .hero-trust-strip{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
-  margin-top:34px!important;
+  margin-top:30px;
 }
 
-.btn{
-  backdrop-filter:blur(12px);
-}
-
-.btn.dark{
-  box-shadow:0 22px 60px rgba(8,8,8,.16);
-}
-
-.section-head{
-  align-items:flex-end;
-  border-top:1px solid rgba(8,8,8,.09);
-  padding-top:34px;
-}
-
-.title{
-  font-size:clamp(50px,8vw,116px)!important;
-}
-
-/* Featured becomes gallery opening */
-.featured-grid{
-  display:block!important;
-}
-
-.featured-carousel{
-  border-radius:54px!important;
-  padding:26px!important;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.48),rgba(255,255,255,.18)),
-    radial-gradient(circle at 20% 20%,rgba(139,16,24,.08),transparent 36%)!important;
-  box-shadow:0 48px 140px rgba(0,0,0,.14)!important;
-}
-
-.carousel-stage{
-  grid-template-columns:minmax(280px,.82fr) minmax(300px,1.18fr)!important;
-}
-
-.carousel-cover{
-  border-radius:40px!important;
-  box-shadow:0 34px 100px rgba(0,0,0,.20)!important;
-}
-
-.carousel-info h3{
-  font-size:clamp(58px,8vw,128px)!important;
-}
-
-/* Catalog: covers as art, not product boxes */
-#catalog{
-  padding-top:110px!important;
-}
-
-.tools{
-  position:relative;
-  align-items:center;
-  padding:14px;
-  border-radius:34px;
-  background:rgba(255,255,255,.26);
-  border:1px solid rgba(8,8,8,.10);
-  box-shadow:0 22px 70px rgba(0,0,0,.06);
-}
-
-.search{
-  flex:1 1 320px;
-  min-width:220px!important;
-  background:rgba(255,255,255,.62)!important;
-  border-color:rgba(8,8,8,.10)!important;
-}
-
-.grid{
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))!important;
-  gap:34px!important;
-}
-
-.card{
-  background:transparent!important;
-  border:0!important;
-  border-radius:0!important;
-  box-shadow:none!important;
-  padding:0!important;
-  overflow:visible!important;
-}
-
-.card:hover{
-  transform:none!important;
-  box-shadow:none!important;
-}
-
-.card .cover{
-  border-radius:34px!important;
-  box-shadow:0 28px 80px rgba(0,0,0,.14);
-  transition:transform .45s ease, box-shadow .45s ease, filter .45s ease;
-}
-
-.card:hover .cover{
-  transform:translateY(-10px) scale(1.018);
-  box-shadow:0 42px 120px rgba(0,0,0,.22);
-}
-
-.card .cover img{
-  transition:transform .55s ease, filter .55s ease;
-}
-
-.card:hover .cover img{
-  transform:scale(1.045)!important;
-}
-
-.meta{
-  padding:16px 3px 0!important;
-}
-
-.meta h3{
-  font-size:24px!important;
-}
-
-.meta p{
-  max-width:92%;
-}
-
-.mini{
-  opacity:.96;
-}
-
-.favorite-beat,
-.preview-related button,
-.pc-mini-action{
-  border:1px solid rgba(8,8,8,.12);
-  background:rgba(255,255,255,.34);
-  color:#080808;
-  border-radius:999px;
-  padding:9px 12px;
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  cursor:pointer;
-}
-
-.favorite-beat.is-saved{
-  background:#080808!important;
-  color:#f3efe6!important;
-}
-
-/* Smart curation section */
-.pc-experience{
-  padding-top:70px!important;
-}
-
-.pc-experience-grid{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:24px;
-  align-items:stretch;
-}
-
-.pc-experience-panel{
-  border-radius:44px;
-  background:linear-gradient(135deg,rgba(255,255,255,.40),rgba(255,255,255,.16));
-  border:1px solid rgba(8,8,8,.10);
-  box-shadow:var(--pc-shadow);
-  padding:34px;
-  overflow:hidden;
-  position:relative;
-}
-
-.pc-experience-panel:after{
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  right:-100px;
-  bottom:-120px;
-  background:radial-gradient(circle,rgba(139,16,24,.12),transparent 68%);
-}
-
-.pc-mood-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-top:24px;
-  position:relative;
-  z-index:1;
-}
-
-.pc-mood{
-  padding:20px;
-  border-radius:26px;
-  border:1px solid rgba(8,8,8,.10);
-  background:rgba(255,255,255,.34);
-  cursor:pointer;
-  text-align:left;
-  transition:.25s ease;
-}
-
-.pc-mood:hover{
-  transform:translateY(-5px);
-  box-shadow:0 24px 70px rgba(0,0,0,.10);
-}
-
-.pc-mood strong{
-  display:block;
-  font-size:22px;
-  letter-spacing:-.04em;
-}
-
-.pc-mood span{
-  display:block;
-  margin-top:6px;
-  color:#6b625a;
-  line-height:1.45;
-}
-
-.pc-continue-card{
-  margin-top:22px;
+body.premium-redesign-v1 .hero-trust-strip a,
+body.premium-redesign-v1 .hero-trust-strip button{
   display:flex;
-  gap:16px;
   align-items:center;
-  padding:16px;
-  border-radius:28px;
-  background:rgba(8,8,8,.06);
-  border:1px solid rgba(8,8,8,.08);
+  gap:10px;
+  border:1px solid rgba(7,6,5,.10);
+  background:rgba(255,255,255,.34);
+  color:var(--pc-ink);
+  border-radius:999px;
+  padding:12px 15px;
+  cursor:pointer;
+  font:inherit;
+  box-shadow:0 16px 46px rgba(7,6,5,.06);
 }
 
-.pc-continue-card img{
-  width:92px;
-  height:92px;
-  object-fit:cover;
-  border-radius:20px;
-}
-
-.pc-continue-card strong{
-  display:block;
-  font-size:24px;
+body.premium-redesign-v1 .hero-trust-strip strong{
+  font-size:18px;
   letter-spacing:-.04em;
 }
 
-.pc-continue-card span{
-  display:block;
-  margin:5px 0 12px;
-  color:#6b625a;
+body.premium-redesign-v1 .hero-trust-strip span{
+  color:var(--pc-muted);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
 }
 
-/* Studio storytelling */
-.studio-section{
-  padding-top:80px!important;
+body.premium-redesign-v1 .hero-ghost{
+  position:absolute;
+  right:-2vw;
+  bottom:-8vh;
+  height:min(94vh,840px);
+  width:auto;
+  max-width:none!important;
+  opacity:.135;
+  z-index:1;
+  pointer-events:none;
+  object-fit:contain;
+  filter:grayscale(.18) sepia(.13) contrast(1.12) saturate(.84) brightness(.92) blur(.15px);
+  mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 10%,#000 72%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 10%,#000 72%,transparent 100%);
 }
 
-.studio-card{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:28px;
-  border-radius:54px;
-  padding:34px;
-  background:
-    linear-gradient(135deg,rgba(8,8,8,.92),rgba(40,23,50,.90)),
-    radial-gradient(circle at 20% 10%,rgba(139,16,24,.22),transparent 40%);
-  color:#f3efe6;
-  box-shadow:0 46px 140px rgba(0,0,0,.20);
-  overflow:hidden;
+body.premium-redesign-v1 .section-head{
+  align-items:flex-start!important;
 }
 
-.studio-card .kicker,
-.studio-card .copy{
-  color:rgba(243,239,230,.72);
+body.premium-redesign-v1 section{
+  padding-left:7%!important;
+  padding-right:7%!important;
 }
 
-.studio-card .title{
-  color:#f3efe6;
+body.premium-redesign-v1 #featured,
+body.premium-redesign-v1 #catalog{
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,0));
 }
 
-.studio-visual{
-  min-height:360px;
-  border-radius:38px;
-  border:1px solid rgba(243,239,230,.12);
-  background:
-    linear-gradient(90deg,rgba(243,239,230,.07) 1px,transparent 1px),
-    linear-gradient(rgba(243,239,230,.06) 1px,transparent 1px),
-    radial-gradient(circle at 30% 30%,rgba(176,138,69,.18),transparent 35%),
-    radial-gradient(circle at 70% 70%,rgba(139,16,24,.18),transparent 38%),
-    #0c0b0d;
-  background-size:44px 44px,44px 44px,100% 100%,100% 100%,100%;
+body.premium-redesign-v1 .title{
+  font-size:clamp(54px,8vw,120px)!important;
+  letter-spacing:-.082em!important;
+}
+
+body.premium-redesign-v1 .featured-carousel,
+body.premium-redesign-v1 .card,
+body.premium-redesign-v1 .license-card,
+body.premium-redesign-v1 .platform,
+body.premium-redesign-v1 .contact-card,
+body.premium-redesign-v1 .panel{
+  background:rgba(255,255,255,.24)!important;
+  border:1px solid rgba(7,6,5,.10)!important;
+  box-shadow:0 34px 110px rgba(7,6,5,.08)!important;
+}
+
+body.premium-redesign-v1 .grid{
+  gap:30px!important;
+}
+
+body.premium-redesign-v1 .card{
+  border-radius:34px!important;
+  padding:12px!important;
+  transform:translateZ(0);
+}
+
+body.premium-redesign-v1 .cover{
+  border-radius:26px!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+}
+
+body.premium-redesign-v1 .card:hover{
+  transform:translateY(-12px) scale(1.018)!important;
+  box-shadow:0 46px 130px rgba(7,6,5,.16)!important;
+}
+
+body.premium-redesign-v1 .meta{
+  padding:16px 6px 8px!important;
+}
+
+body.premium-redesign-v1 .meta h3{
+  font-size:24px!important;
+  letter-spacing:-.055em!important;
+}
+
+body.premium-redesign-v1 .mini span,
+body.premium-redesign-v1 .mini a,
+body.premium-redesign-v1 .mini button,
+body.premium-redesign-v1 .filter,
+body.premium-redesign-v1 .smart-action,
+body.premium-redesign-v1 .search{
+  background:rgba(255,255,255,.34)!important;
+  border-color:rgba(7,6,5,.10)!important;
+}
+
+body.premium-redesign-v1 .filter.active{
+  background:#070605!important;
+  color:#f4efe4!important;
+}
+
+body.premium-redesign-v1 .preview-modal{
+  background:rgba(7,6,5,.72)!important;
+}
+
+body.premium-redesign-v1 .preview-modal-card{
+  background:linear-gradient(180deg,#f7f1e7,#e9decc)!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+}
+
+body.premium-redesign-v1 #about .panel{
   position:relative;
   overflow:hidden;
 }
 
-.studio-visual:before{
-  content:"FL Studio • Arrangement • Mix • Polish";
+body.premium-redesign-v1 #about .panel:after{
+  content:"Built in Los Angeles. Refined in Portland.";
   position:absolute;
-  left:24px;
-  right:24px;
-  top:24px;
-  padding:14px 16px;
-  border-radius:18px;
-  background:rgba(243,239,230,.08);
-  border:1px solid rgba(243,239,230,.12);
-  color:rgba(243,239,230,.70);
-  font-size:11px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
+  right:-2rem;
+  bottom:-.8rem;
+  max-width:520px;
+  color:rgba(7,6,5,.045);
+  font-weight:900;
+  font-size:clamp(48px,8vw,108px);
+  line-height:.82;
+  letter-spacing:-.08em;
+  pointer-events:none;
 }
 
-.studio-visual:after{
-  content:"";
-  position:absolute;
-  left:10%;
-  right:10%;
-  bottom:18%;
-  height:42%;
-  border-radius:28px;
-  background:
-    linear-gradient(90deg,rgba(176,138,69,.35) 0 14%,transparent 14% 18%,rgba(139,16,24,.32) 18% 34%,transparent 34% 39%,rgba(55,20,95,.35) 39% 58%,transparent 58% 64%,rgba(243,239,230,.18) 64% 86%,transparent 86%),
-    linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03));
-  box-shadow:0 30px 90px rgba(0,0,0,.42);
-}
-
-/* About and licensing refinement */
-.panel,
-.service,
-.platform,
-.contact-card,
-.license-card,
-.basket-panel,
-.license-faq{
-  backdrop-filter:blur(16px);
-}
-
-.about{
-  align-items:start!important;
-}
-
-#about .panel{
-  border-radius:44px!important;
-}
-
-/* Preview modal: add related recs */
-.preview-modal-card{
-  background:
-    radial-gradient(circle at 15% 5%,rgba(139,16,24,.08),transparent 30%),
-    #f3efe6!important;
-}
-
-.preview-related{
-  margin-top:20px;
-  padding-top:18px;
-  border-top:1px solid rgba(8,8,8,.10);
-}
-
-.preview-related h4{
-  margin:0 0 12px;
-  font-size:12px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:#6b625a;
-}
-
-.preview-related-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.preview-related button{
-  text-align:left;
-  padding:10px;
-  border-radius:18px;
-  background:rgba(255,255,255,.36);
-}
-
-.preview-related img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:14px;
-  margin-bottom:8px;
-}
-
-.preview-related strong{
-  display:block;
-  font-size:13px;
-  letter-spacing:-.02em;
-}
-
-/* Predictive search */
-.pc-search-pop{
-  position:absolute;
-  top:calc(100% + 10px);
-  left:14px;
-  right:14px;
-  z-index:20;
-  display:none;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  padding:12px;
-  border-radius:28px;
-  background:rgba(243,239,230,.94);
-  border:1px solid rgba(8,8,8,.12);
-  box-shadow:0 34px 100px rgba(0,0,0,.16);
-  backdrop-filter:blur(18px);
-}
-
-.pc-search-pop.show{
-  display:grid;
-}
-
-.pc-search-pop button{
-  border:0;
-  border-radius:20px;
-  background:rgba(255,255,255,.45);
-  padding:10px;
-  text-align:left;
-  cursor:pointer;
-}
-
-.pc-search-pop img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:14px;
-  margin-bottom:8px;
-}
-
-.pc-search-pop strong{
-  display:block;
-  font-size:13px;
-}
-
-/* Mobile */
 @media(max-width:900px){
-  nav{
-    width:calc(100% - 20px)!important;
-    left:10px!important;
-    top:10px!important;
+  body.premium-redesign-v1 .hero.hero-premium{
+    min-height:94vh!important;
+    padding:130px 6% 74px!important;
   }
-
-  .hero{
-    padding-top:120px!important;
-    min-height:92vh!important;
+  body.premium-redesign-v1 .hero.hero-premium:before{
+    inset:86px 3.5% 28px;
+    border-radius:36px;
   }
-
-  .hero-photo-wrap-secondary,
-  .hero-photo-wrap{
-    display:flex!important;
-    width:100vw!important;
-    right:-34vw!important;
-    bottom:-4vh!important;
-    height:76vh!important;
-    opacity:.10!important;
+  body.premium-redesign-v1 .hero-ghost{
+    right:-34vw;
+    bottom:-2vh;
+    height:76vh;
+    opacity:.105;
   }
-
-  .muse-dock{
-    left:10px;
-    right:10px;
-    transform:none;
-    justify-content:space-between;
-    overflow-x:auto;
-    border-radius:22px;
-  }
-
-  .muse-dock button,
-  .muse-dock a{
-    flex:0 0 auto;
-  }
-
-  .carousel-stage,
-  .pc-experience-grid,
-  .studio-card{
-    grid-template-columns:1fr!important;
-  }
-
-  .pc-mood-grid,
-  .preview-related-grid,
-  .pc-search-pop{
-    grid-template-columns:1fr 1fr!important;
-  }
-
-  .grid{
-    gap:30px!important;
+  body.premium-redesign-v1 .hero-orbit{
+    width:92vw;
+    height:92vw;
+    right:-40vw;
+    top:22vh;
+    opacity:.45;
   }
 }
 
 @media(max-width:600px){
-  section{
-    padding-left:5%!important;
-    padding-right:5%!important;
+  body.premium-redesign-v1 .hero h1{
+    font-size:clamp(72px,22vw,118px)!important;
+    line-height:.78!important;
   }
-
-  h1{
-    font-size:clamp(70px,23vw,118px)!important;
+  body.premium-redesign-v1 .hero .lead{
+    font-size:18px!important;
   }
-
-  .lead{
-    font-size:20px!important;
+  body.premium-redesign-v1 .hero-trust-strip{
+    display:grid;
+    grid-template-columns:1fr;
   }
-
-  .hero-actions .btn{
+  body.premium-redesign-v1 .hero-trust-strip a,
+  body.premium-redesign-v1 .hero-trust-strip button{
     width:100%;
-    margin-right:0;
+    justify-content:space-between;
   }
-
-  .tools{
-    border-radius:26px;
-  }
-
-  .pc-mood-grid,
-  .preview-related-grid,
-  .pc-search-pop{
-    grid-template-columns:1fr!important;
-  }
-
-  .studio-card,
-  .pc-experience-panel{
-    border-radius:34px;
-    padding:24px;
-  }
-
-  .studio-visual{
-    min-height:280px;
-  }
-
-  footer{
-    padding-bottom:92px!important;
+  body.premium-redesign-v1 .title{
+    font-size:clamp(46px,14vw,82px)!important;
   }
 }
 
 </style>
 </head>
 
-<body>
+<body class="premium-redesign-v1" data-redesign="ghost-gallery-v1">
 
 <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -2782,48 +2330,43 @@ h1{
   </div>
 </nav>
 
-<div class="muse-dock" id="museDock" aria-label="Smart site navigation">
-  <button type="button" id="pcContinueDock">Continue</button>
-  <button type="button" id="pcSurpriseDock">Surprise Me</button>
-  <button type="button" id="pcSavedDock">Saved</button>
-  <a href="#catalog">Catalog</a>
-  <a href="#licenses">License</a>
-</div>
+<section class="hero hero-premium" aria-label="Prince Cali landing experience">
+  <img class="hero-ghost" src="assets/producer.Prince.Cali.2.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
+  <div class="hero-orbit" aria-hidden="true"></div>
 
-
-<section class="hero">
-  <div class="reveal show">
-    <img class="hero-mark" src="assets/watermark.v2.png" alt="">
-    <div class="kicker">Los Angeles born • PDX based • producing since 2012</div>
-    <h1>Prince Cali</h1>
-    <p class="lead">Cinematic production, polished drums, and atmospheric sound built for artists who want records with presence.</p>
+  <div class="hero-copy reveal show">
+    <img class="hero-mark" src="assets/watermark.v2.png" alt="Prince Cali logo">
+    <div class="kicker">Los Angeles born • Portland refined • producing since 2012</div>
+    <h1>Prince<br><span>Cali</span></h1>
+    <p class="lead">Cinematic production, polished drums, and atmospheric records built for artists who want presence before the first word lands.</p>
     <div class="hero-actions">
-      <a class="btn dark" href="#featured">Featured Beats</a>
-      <a class="btn" href="#catalog">Full Catalog</a>
+      <a class="btn dark" href="#featured">Enter the Gallery</a>
+      <a class="btn" href="#catalog">Find Your Sound</a>
     </div>
-  </div>
-
-  <div class="hero-photo-wrap hero-photo-wrap-secondary reveal show">
-    <img class="hero-photo hero-photo-secondary" src="assets/producer.Prince.Cali.2.png" alt="Prince Cali" onerror="this.parentElement.style.display='none'">
+    <div class="hero-trust-strip" aria-label="Quick navigation">
+      <a href="#catalog"><strong>40+</strong><span>beats</span></a>
+      <a href="#licenses"><strong>3</strong><span>lease paths</span></a>
+      <button id="heroSurprise" type="button"><strong>?</strong><span>surprise me</span></button>
+    </div>
   </div>
 </section>
 
 <section id="featured" class="reveal show">
   <div class="section-head">
     <div>
-      <div class="kicker">Selected Work</div>
-      <h2 class="title">Featured beats.</h2>
+      <div class="kicker">Gallery Entrance</div>
+      <h2 class="title">Beats as artwork.</h2>
     </div>
-    <p class="copy">A focused selection of records that introduce the sound, range, and atmosphere of Prince Cali production.</p>
+    <p class="copy">A curated opening wall for the catalog. Each cover leads into a preview built to feel like stepping closer to the art.</p>
   </div>
 
   <div class="featured-grid" id="featuredGrid"></div>
 </section>
 
 <section id="catalog" class="reveal show">
-  <div class="kicker">Official Catalog</div>
-  <h2 class="title">Full catalog.</h2>
-  <p class="copy">Search by title, mood, or style. The catalog is structured so previews can be found with ease.</p>
+  <div class="kicker">The Archive</div>
+  <h2 class="title">Choose the room.</h2>
+  <p class="copy">Browse by mood, title, or instinct. Search stays quick, filters stay simple, and every cover stays treated like a finished piece of art.</p>
 
   <div class="tools">
     <input class="search" id="searchBox" placeholder="Search beats, moods, styles...">
@@ -2846,58 +2389,6 @@ h1{
   <div class="smart-rail" id="smartRail"></div>
   <div class="grid" id="beatGrid"></div>
 </section>
-
-<section id="experience" class="pc-experience reveal show">
-  <div class="section-head">
-    <div>
-      <div class="kicker">Smart Curation</div>
-      <h2 class="title">Find the right feeling.</h2>
-    </div>
-    <p class="copy">The catalog is built to guide artists by mood, energy, and replay value. Start with a feeling, save what connects, then keep browsing from where you left off.</p>
-  </div>
-
-  <div class="pc-experience-grid">
-    <div class="pc-experience-panel">
-      <div class="kicker">Mood Selector</div>
-      <h3 style="font-size:clamp(34px,4vw,64px);line-height:.92;letter-spacing:-.055em;margin:12px 0 8px;">Choose a lane.</h3>
-      <p class="copy">Tap a mood and the catalog reshapes around that energy.</p>
-      <div class="pc-mood-grid">
-        <button class="pc-mood" data-pc-mood="cinematic"><strong>Cinematic</strong><span>Big scenes, tension, story, atmosphere.</span></button>
-        <button class="pc-mood" data-pc-mood="dark"><strong>Dark</strong><span>Pressure, grit, night energy, menace.</span></button>
-        <button class="pc-mood" data-pc-mood="luxury"><strong>Luxury</strong><span>Polished, expensive, smooth confidence.</span></button>
-        <button class="pc-mood" data-pc-mood="melodic"><strong>Melodic</strong><span>Emotion, motion, hooks, replay value.</span></button>
-      </div>
-    </div>
-
-    <div class="pc-experience-panel">
-      <div class="kicker">Continue Browsing</div>
-      <h3 style="font-size:clamp(34px,4vw,64px);line-height:.92;letter-spacing:-.055em;margin:12px 0 8px;">Your session remembers.</h3>
-      <p class="copy">Recently previewed beats and saved favorites stay ready on this device.</p>
-      <div id="pcContinueCard" class="pc-continue-card"></div>
-      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="pc-mini-action" id="pcShowFavorites" type="button">Show Saved</button>
-        <button class="pc-mini-action" id="pcShowRecent" type="button">Show Recent</button>
-        <button class="pc-mini-action" id="pcRandomInspiration" type="button">Random Inspiration</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="studio" class="studio-section reveal show">
-  <div class="studio-card">
-    <div>
-      <div class="kicker">Inside the Studio</div>
-      <h2 class="title">Built from scratch.</h2>
-      <p class="copy">The sound is designed around atmosphere, drums, space, and polish. Every preview is part of a growing catalog made to feel bigger than a beat folder.</p>
-      <div class="hero-actions">
-        <a class="btn dark" href="#catalog">Explore Catalog</a>
-        <a class="btn" href="#licenses">Licensing Options</a>
-      </div>
-    </div>
-    <div class="studio-visual" aria-label="Abstract FL Studio inspired production visual"></div>
-  </div>
-</section>
-
 <section id="about" class="about">
 
 <div class="panel reveal">
@@ -4483,319 +3974,25 @@ window.addEventListener('load',()=>{pcFinalMobilePaint(); setTimeout(pcFinalMobi
 window.addEventListener('pageshow',()=>{pcFinalMobilePaint(); setTimeout(pcFinalMobilePaint,600);});
 document.addEventListener('DOMContentLoaded',()=>{pcFinalMobilePaint(); setTimeout(pcFinalMobilePaint,300);});
 
+console.log("Prince Cali site ready - FINAL Safari patch active");
+</script>
 
-/* ==========================================================
-   PRINCE CALI SMART EXPERIENCE LAYER
-   Adds favorites, predictive search, related beats, continue
-   browsing, sticky navigation, and mood curation without
-   removing existing working features.
-   ========================================================== */
-(function(){
-  const PC_FAV_KEY="pc_saved_beats_v1";
-  const PC_RANDOM_KEY="pc_random_cycle_v1";
 
-  function safeJSON(key,fallback){
-    try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}
-    catch(e){return fallback;}
-  }
-
-  function saveJSON(key,value){
-    try{localStorage.setItem(key,JSON.stringify(value));}catch(e){}
-  }
-
-  function getSaved(){
-    return safeJSON(PC_FAV_KEY,[]);
-  }
-
-  function isSaved(title){
-    return getSaved().includes(title);
-  }
-
-  function toggleSaved(title){
-    if(!title)return;
-    const saved=getSaved().filter(t=>t!==title);
-    if(!isSaved(title))saved.unshift(title);
-    saveJSON(PC_FAV_KEY,saved.slice(0,60));
-    decorateSmartExperience();
-    showToast(isSaved(title)?`${title} saved`:`${title} removed`);
-  }
-
-  function relatedTo(beat,limit=3){
-    if(!beat)return [];
-    return beats
-      .filter(b=>b.title!==beat.title && hasPreview(b))
-      .map(b=>{
-        const shared=b.tags.filter(t=>beat.tags.includes(t)).length;
-        const words=cleanText(`${beat.vibe} ${beat.title}`).split(" ");
-        const matchWords=words.filter(w=>w.length>4 && cleanText(b.vibe).includes(w)).length;
-        return {beat:b,score:shared*4+matchWords};
-      })
-      .sort((a,b)=>b.score-a.score)
-      .slice(0,limit)
-      .map(item=>item.beat);
-  }
-
-  function lastBeat(){
-    const recent=getRecentPreviewTitles();
-    return recent.length ? beatByTitle(recent[0]) : beats.find(hasPreview);
-  }
-
-  function nonRepeatingRandom(){
-    const pool=beats.filter(hasPreview);
-    let cycle=safeJSON(PC_RANDOM_KEY,[]);
-    if(cycle.length>=pool.length)cycle=[];
-    const fresh=pool.filter(b=>!cycle.includes(b.title));
-    const pick=fresh[Math.floor(Math.random()*fresh.length)] || pool[Math.floor(Math.random()*pool.length)];
-    cycle.push(pick.title);
-    saveJSON(PC_RANDOM_KEY,cycle);
-    return pick;
-  }
-
-  function ensureSearchPop(){
-    const tools=document.querySelector(".tools");
-    if(!tools || document.getElementById("pcSearchPop"))return;
-    const pop=document.createElement("div");
-    pop.id="pcSearchPop";
-    pop.className="pc-search-pop";
-    tools.appendChild(pop);
-  }
-
-  function renderSearchPop(){
-    ensureSearchPop();
-    const pop=document.getElementById("pcSearchPop");
-    if(!pop || !searchBox)return;
-    const q=cleanText(searchBox.value);
-    if(q.length<2){
-      pop.classList.remove("show");
-      pop.innerHTML="";
-      return;
-    }
-    const picks=beats.filter(b=>cleanText(`${b.title} ${b.vibe} ${b.tags.join(" ")}`).includes(q)).slice(0,4);
-    if(!picks.length){
-      pop.classList.remove("show");
-      pop.innerHTML="";
-      return;
-    }
-    pop.innerHTML=picks.map(b=>`
-      <button type="button" data-pc-pop="${b.title}" style="${coverBackground(b)}">
-        <img src="${b.img}" alt="${b.title} cover" data-backup="${youtubeThumbnail(b.youtube)}" onerror="fallbackImage(this,'${b.title}',this.dataset.backup)">
-        <strong>${b.title}</strong>
-      </button>
-    `).join("");
-    pop.classList.add("show");
-    hydrateCoverImages(pop);
-  }
-
-  function decorateCards(){
-    document.querySelectorAll("#beatGrid .card").forEach(card=>{
-      const cover=card.querySelector(".preview-cover");
-      if(!cover)return;
-      const title=cover.dataset.title;
-      const mini=card.querySelector(".mini");
-      if(mini && !mini.querySelector(".favorite-beat")){
-        const fav=document.createElement("button");
-        fav.className="favorite-beat";
-        fav.type="button";
-        fav.dataset.favoriteTitle=title;
-        mini.appendChild(fav);
-      }
-      const fav=mini ? mini.querySelector(".favorite-beat") : null;
-      if(fav){
-        fav.classList.toggle("is-saved",isSaved(title));
-        fav.textContent=isSaved(title)?"Saved":"Save";
+<script>
+/* Premium redesign helper: proves this file is not the old build and powers the hero Surprise Me button. */
+document.addEventListener("DOMContentLoaded",function(){
+  const heroSurprise=document.getElementById("heroSurprise");
+  if(heroSurprise){
+    heroSurprise.addEventListener("click",function(){
+      if(Array.isArray(window.beats) && window.beats.length && typeof window.openPreview==="function"){
+        window.openPreview(window.beats[Math.floor(Math.random()*window.beats.length)]);
+      }else{
+        const catalog=document.getElementById("catalog");
+        if(catalog)catalog.scrollIntoView({behavior:"smooth",block:"start"});
       }
     });
   }
-
-  function renderRelatedInPreview(){
-    const wrap=document.querySelector(".preview-copy");
-    if(!wrap)return;
-    let block=document.getElementById("pcPreviewRelated");
-    if(!block){
-      block=document.createElement("div");
-      block.id="pcPreviewRelated";
-      block.className="preview-related";
-      wrap.appendChild(block);
-    }
-    const beat=beatByTitle(currentPreviewTitle);
-    const picks=relatedTo(beat,3);
-    if(!beat || !picks.length){
-      block.innerHTML="";
-      return;
-    }
-    block.innerHTML=`
-      <h4>You may also like</h4>
-      <div class="preview-related-grid">
-        ${picks.map(b=>`
-          <button type="button" data-related-title="${b.title}" style="${coverBackground(b)}">
-            <img src="${b.img}" alt="${b.title} cover" data-backup="${youtubeThumbnail(b.youtube)}" onerror="fallbackImage(this,'${b.title}',this.dataset.backup)">
-            <strong>${b.title}</strong>
-          </button>
-        `).join("")}
-      </div>
-    `;
-    hydrateCoverImages(block);
-  }
-
-  function renderContinueCard(){
-    const target=document.getElementById("pcContinueCard");
-    if(!target)return;
-    const b=lastBeat();
-    if(!b){
-      target.innerHTML=`<div><strong>Start anywhere.</strong><span>No previews yet.</span><button class="pc-mini-action" id="pcContinueInner" type="button">Surprise Me</button></div>`;
-      return;
-    }
-    target.innerHTML=`
-      <img src="${b.img}" alt="${b.title} cover" data-backup="${youtubeThumbnail(b.youtube)}" onerror="fallbackImage(this,'${b.title}',this.dataset.backup)">
-      <div>
-        <strong>${b.title}</strong>
-        <span>Pick up from your last preview.</span>
-        <button class="pc-mini-action" id="pcContinueInner" type="button">Continue</button>
-      </div>
-    `;
-    hydrateCoverImages(target);
-  }
-
-  function decorateSmartExperience(){
-    decorateCards();
-    renderContinueCard();
-    const savedCount=getSaved().length;
-    const savedDock=document.getElementById("pcSavedDock");
-    if(savedDock)savedDock.textContent=savedCount?`Saved ${savedCount}`:"Saved";
-  }
-
-  function showSavedRail(){
-    const saved=getSaved().map(beatByTitle).filter(Boolean);
-    if(saved.length){
-      renderSmartRail(saved,"Saved on this device");
-      document.getElementById("catalog")?.scrollIntoView({behavior:"smooth",block:"start"});
-    }else{
-      showToast("No saved beats yet");
-    }
-  }
-
-  function showRecentRail(){
-    const recent=getRecentPreviewTitles().map(beatByTitle).filter(Boolean);
-    if(recent.length){
-      renderSmartRail(recent,"Recently previewed");
-      document.getElementById("catalog")?.scrollIntoView({behavior:"smooth",block:"start"});
-    }else{
-      showToast("No recent previews yet");
-    }
-  }
-
-  function filterMood(mood){
-    const btn=document.querySelector(`.filter[data-filter="${mood}"]`);
-    if(btn)btn.click();
-    document.getElementById("catalog")?.scrollIntoView({behavior:"smooth",block:"start"});
-  }
-
-  const originalRenderCatalog=window.renderCatalog || renderCatalog;
-  window.renderCatalog=function(){
-    originalRenderCatalog();
-    decorateSmartExperience();
-    renderSearchPop();
-  };
-
-  const originalRenderFeatured=window.renderFeatured || renderFeatured;
-  window.renderFeatured=function(){
-    originalRenderFeatured();
-    decorateSmartExperience();
-  };
-
-  const originalOpenPreview=window.openPreview || openPreview;
-  window.openPreview=function(beat){
-    originalOpenPreview(beat);
-    setTimeout(()=>{
-      renderRelatedInPreview();
-      decorateSmartExperience();
-    },60);
-  };
-
-  document.addEventListener("click",e=>{
-    const fav=e.target.closest(".favorite-beat");
-    if(fav){
-      e.preventDefault();
-      e.stopPropagation();
-      toggleSaved(fav.dataset.favoriteTitle);
-      return;
-    }
-
-    const related=e.target.closest("[data-related-title]");
-    if(related){
-      e.preventDefault();
-      const b=beatByTitle(related.dataset.relatedTitle);
-      if(b)openPreview(b);
-      return;
-    }
-
-    const pop=e.target.closest("[data-pc-pop]");
-    if(pop){
-      e.preventDefault();
-      const b=beatByTitle(pop.dataset.pcPop);
-      if(b)openPreview(b);
-      return;
-    }
-
-    const mood=e.target.closest("[data-pc-mood]");
-    if(mood){
-      filterMood(mood.dataset.pcMood);
-      return;
-    }
-
-    if(e.target.closest("#pcContinueDock") || e.target.closest("#pcContinueInner")){
-      const b=lastBeat();
-      if(b)openPreview(b);
-      return;
-    }
-
-    if(e.target.closest("#pcSurpriseDock") || e.target.closest("#pcRandomInspiration")){
-      const b=nonRepeatingRandom();
-      if(b)openPreview(b);
-      return;
-    }
-
-    if(e.target.closest("#pcSavedDock") || e.target.closest("#pcShowFavorites")){
-      showSavedRail();
-      return;
-    }
-
-    if(e.target.closest("#pcShowRecent")){
-      showRecentRail();
-      return;
-    }
-  },true);
-
-  if(searchBox){
-    searchBox.addEventListener("input",()=>setTimeout(renderSearchPop,0));
-    searchBox.addEventListener("focus",renderSearchPop);
-  }
-
-  document.addEventListener("keydown",e=>{
-    if(e.key==="/" && document.activeElement!==searchBox){
-      e.preventDefault();
-      searchBox?.focus();
-      showToast("Search ready");
-    }
-    if(e.key.toLowerCase()==="f" && currentPreviewTitle){
-      toggleSaved(currentPreviewTitle);
-    }
-  });
-
-  window.addEventListener("DOMContentLoaded",()=>{
-    ensureSearchPop();
-    decorateSmartExperience();
-    setTimeout(decorateSmartExperience,500);
-  });
-  window.addEventListener("load",()=>{
-    ensureSearchPop();
-    decorateSmartExperience();
-    setTimeout(decorateSmartExperience,900);
-  });
-})();
-
-
-console.log("Prince Cali site ready - FINAL Safari patch active");
+});
 </script>
 
 </body>
