@@ -1217,6 +1217,46 @@ footer{
   margin-top:0;
 }
 
+.preview-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:1px solid rgba(8,8,8,.14);
+  background:rgba(243,239,230,.82);
+  color:#080808;
+  font-size:26px;
+  cursor:pointer;
+  z-index:6;
+  box-shadow:0 18px 44px rgba(0,0,0,.16);
+}
+
+.preview-nav.prev{left:18px}
+.preview-nav.next{right:68px}
+
+.preview-protect-note{
+  margin-top:10px;
+  font-size:12px;
+  color:#6b625a;
+  letter-spacing:.04em;
+}
+
+.preview-cover img,
+.carousel-cover img,
+.cover img,
+.preview-video,
+.preview-frame{
+  -webkit-user-drag:none;
+  user-select:none;
+}
+
+.protected-media{
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+
 @media(max-width:900px){
   .smart-rail{
     grid-template-columns:repeat(2,1fr);
@@ -1288,7 +1328,7 @@ footer{
 <section id="catalog" class="reveal">
   <div class="kicker">Official Catalog</div>
   <h2 class="title">Full catalog.</h2>
-  <p class="copy">Search by title, mood, or style. The catalog is structured so previews can be found with ease.</p>
+  <p class="copy">Search by title, mood, or style. The catalog is structured so previews, leases, and future beat pages can be added without rebuilding the site.</p>
 
   <div class="tools">
     <input class="search" id="searchBox" placeholder="Search beats, moods, styles...">
@@ -1576,7 +1616,9 @@ Follow Prince Cali across every platform to stay current with new releases, beat
 <div class="preview-modal" id="previewModal" aria-hidden="true">
   <div class="preview-modal-card" role="dialog" aria-modal="true" aria-label="Beat preview">
     <button class="preview-close" id="previewClose" aria-label="Close preview">×</button>
-    <video class="preview-video" id="previewVideo" controls playsinline preload="metadata"></video>
+    <button class="preview-nav prev" id="previewPrev" type="button" aria-label="Previous beat">‹</button>
+    <button class="preview-nav next" id="previewNext" type="button" aria-label="Next beat">›</button>
+    <video class="preview-video" id="previewVideo" controls playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture></video>
     <iframe class="preview-frame" id="previewFrame" title="Beat preview" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     <div class="preview-copy">
       <div class="kicker">Now Previewing</div>
@@ -1585,7 +1627,10 @@ Follow Prince Cali across every platform to stay current with new releases, beat
       <div class="preview-actions">
         <a class="btn dark" id="previewLease" href="#licenses">License This Beat</a>
         <button class="btn" id="previewShare" type="button">Share Beat</button>
+        <button class="btn" id="previewTikTok" type="button">Share TikTok</button>
+        <button class="btn" id="previewInstagram" type="button">Share Instagram</button>
       </div>
+      <div class="preview-protect-note">Preview only. Prince Cali retains ownership of all production.</div>
     </div>
   </div>
 </div>
@@ -1657,6 +1702,10 @@ const previewTitle=document.getElementById("previewTitle");
 const previewVibe=document.getElementById("previewVibe");
 const previewLease=document.getElementById("previewLease");
 const previewClose=document.getElementById("previewClose");
+const previewPrev=document.getElementById("previewPrev");
+const previewNext=document.getElementById("previewNext");
+const previewTikTok=document.getElementById("previewTikTok");
+const previewInstagram=document.getElementById("previewInstagram");
 const beatSelect=document.getElementById("beatSelect");
 const selectedBeatChip=document.getElementById("selectedBeatChip");
 const smartRail=document.getElementById("smartRail");
@@ -1671,6 +1720,7 @@ let activeFilter="all";
 let slideIndex=0;
 let carouselTimer=null;
 let selectedBeatTitle="";
+let currentPreviewTitle="";
 let licenseBasket=[];
 const featured=beats.filter(b=>b.featured).slice(0,6);
 
@@ -1725,7 +1775,7 @@ function youtubeEmbed(url){
   if(shorts)id=shorts[1];
   else if(watch)id=watch[1];
   else if(shortLink)id=shortLink[1];
-  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1` : text;
+  return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1` : text;
 }
 
 function slugify(value){
@@ -1893,6 +1943,7 @@ function openPreview(beat){
     history.replaceState(null,"",`#beat/${slugify(beat.title)}`);
   }
 
+  currentPreviewTitle=beat.title;
   previewTitle.textContent=beat.title;
   previewVibe.textContent=beat.vibe;
   selectedBeatTitle=beat.title;
@@ -1943,6 +1994,7 @@ function closePreview(){
   previewFrame.style.display="none";
   previewModal.querySelector(".preview-modal-card").classList.remove("youtube-mode");
   previewVideo.load();
+  currentPreviewTitle="";
   startCarousel();
 }
 
@@ -2028,7 +2080,42 @@ document.addEventListener("click",e=>{
   }
 });
 
+function previewableBeats(){
+  return beats.filter(hasPreview);
+}
+
+function movePreview(direction){
+  const pool=previewableBeats();
+  if(pool.length===0)return;
+  const current=currentPreviewTitle || selectedBeatTitle || pool[0].title;
+  const index=pool.findIndex(b=>b.title===current);
+  const next=pool[(index + direction + pool.length) % pool.length];
+  if(next)openPreview(next);
+}
+
+function shareBeatToPlatform(platform){
+  if(!selectedBeatTitle)return;
+  const url=beatLink(selectedBeatTitle);
+  const title=`Prince Cali - ${selectedBeatTitle}`;
+  if(navigator.share){
+    navigator.share({title,url,text:`Preview ${selectedBeatTitle} by Prince Cali`}).catch(()=>{});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>showToast(`${platform} share link copied`));
+  }else{
+    showToast(url);
+  }
+}
+
+function applyPreviewProtection(){
+  document.body.classList.add("protected-media");
+}
+
+
 previewClose.addEventListener("click",closePreview);
+if(previewPrev)previewPrev.addEventListener("click",()=>movePreview(-1));
+if(previewNext)previewNext.addEventListener("click",()=>movePreview(1));
+if(previewTikTok)previewTikTok.addEventListener("click",()=>shareBeatToPlatform("TikTok"));
+if(previewInstagram)previewInstagram.addEventListener("click",()=>shareBeatToPlatform("Instagram"));
 previewModal.addEventListener("click",e=>{
   if(e.target===previewModal)closePreview();
 });
@@ -2041,17 +2128,7 @@ previewLease.addEventListener("click",e=>{
   }
 });
 if(previewShare){
-  previewShare.addEventListener("click",()=>{
-    if(!selectedBeatTitle)return;
-    const url=beatLink(selectedBeatTitle);
-    if(navigator.share){
-      navigator.share({title:`Prince Cali - ${selectedBeatTitle}`,url}).catch(()=>{});
-    }else if(navigator.clipboard){
-      navigator.clipboard.writeText(url).then(()=>showToast("Beat link copied"));
-    }else{
-      showToast(url);
-    }
-  });
+  previewShare.addEventListener("click",()=>shareBeatToPlatform("Share"));
 }
 
 
@@ -2092,11 +2169,18 @@ if(clearBasket){
 }
 
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape" && previewModal.classList.contains("show"))closePreview();
-  if(!previewModal.classList.contains("show")){
-    if(e.key==="ArrowLeft")changeSlide(-1,true);
-    if(e.key==="ArrowRight")changeSlide(1,true);
+  const previewOpen=previewModal.classList.contains("show");
+  if(e.key==="Escape" && previewOpen){
+    closePreview();
+    return;
   }
+  if(previewOpen){
+    if(e.key==="ArrowLeft")movePreview(-1);
+    if(e.key==="ArrowRight")movePreview(1);
+    return;
+  }
+  if(e.key==="ArrowLeft")changeSlide(-1,true);
+  if(e.key==="ArrowRight")changeSlide(1,true);
 });
 if(surpriseBeat){
   surpriseBeat.addEventListener("click",()=>{
@@ -2161,20 +2245,46 @@ if("scrollRestoration" in history){
 }
 
 window.addEventListener("load",()=>{
+  window.scrollTo(0,0);
   if(location.hash.startsWith("#beat/")){
     const beat=beatBySlug(location.hash.replace("#beat/",""));
     if(beat){
-      setTimeout(()=>openPreview(beat),250);
-      return;
+      selectedBeatTitle=beat.title;
+      if(beatSelect)beatSelect.value=beat.title;
+      updateSelectedBeatChip();
+      showToast(`${beat.title} loaded. Tap the cover to preview.`);
     }
   }
-  window.scrollTo(0,0);
+  applyPreviewProtection();
 });
 
 window.addEventListener("hashchange",()=>{
   if(location.hash.startsWith("#beat/")){
     const beat=beatBySlug(location.hash.replace("#beat/",""));
-    if(beat)openPreview(beat);
+    if(beat){
+      selectedBeatTitle=beat.title;
+      if(beatSelect)beatSelect.value=beat.title;
+      updateSelectedBeatChip();
+    }
+  }
+});
+
+
+document.addEventListener("contextmenu",e=>{
+  if(e.target.closest("img, video, iframe, .preview-cover, .carousel-cover, .cover")){
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("dragstart",e=>{
+  if(e.target.closest("img, video, iframe")){
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("selectstart",e=>{
+  if(e.target.closest(".preview-modal, .preview-cover, .cover, .carousel-cover")){
+    e.preventDefault();
   }
 });
 
