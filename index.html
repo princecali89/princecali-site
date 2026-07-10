@@ -2781,5 +2781,106 @@ body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
 }
 </style>
 
+
+<style id="pc-v26-targeted-visual-fixes">
+/* HERO PORTRAIT: remove every visible panel/square and ghost the actual image
+   naturally into both light and dark page backgrounds. */
+.hero,
+.hero-art{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+.hero-art{
+  overflow:visible!important;
+  isolation:isolate!important;
+}
+
+.hero-art::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+.hero-art::before{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+.hero-art .ghost-portrait,
+.hero-art img[src*="producer.Prince.Cali.2.png"]{
+  display:block!important;
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  clip-path:none!important;
+
+  /* Fade all four edges, with a stronger lower-edge dissolve. */
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0%,rgba(0,0,0,.42) 7%,#000 18%,#000 82%,rgba(0,0,0,.42) 93%,transparent 100%),
+    linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.48) 7%,#000 18%,#000 64%,rgba(0,0,0,.82) 76%,rgba(0,0,0,.38) 89%,transparent 100%)!important;
+  -webkit-mask-composite:source-in!important;
+  mask-image:
+    linear-gradient(to right,transparent 0%,rgba(0,0,0,.42) 7%,#000 18%,#000 82%,rgba(0,0,0,.42) 93%,transparent 100%),
+    linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.48) 7%,#000 18%,#000 64%,rgba(0,0,0,.82) 76%,rgba(0,0,0,.38) 89%,transparent 100%)!important;
+  mask-composite:intersect!important;
+}
+
+body:not(.dark-mode) .hero-art .ghost-portrait,
+body:not(.dark-mode) .hero-art img[src*="producer.Prince.Cali.2.png"]{
+  mix-blend-mode:multiply!important;
+  opacity:.17!important;
+  filter:grayscale(.08) sepia(.07) contrast(1.04) saturate(.82) brightness(.96)!important;
+}
+
+body.dark-mode .hero-art .ghost-portrait,
+body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
+  mix-blend-mode:screen!important;
+  opacity:.13!important;
+  filter:grayscale(.18) sepia(.08) contrast(.96) saturate(.62) brightness(.68)!important;
+}
+
+/* CONTACT PORTRAIT: desktop only, bring producer.Prince.Cali.png much closer
+   to the Work With Prince Cali copy. */
+@media(min-width:901px){
+  .contact-shell{
+    grid-template-columns:minmax(0,520px) 360px!important;
+    justify-content:start!important;
+    column-gap:12px!important;
+  }
+
+  .contact-shell > :first-child{
+    max-width:520px!important;
+  }
+
+  .contact-photo-wrap{
+    justify-self:start!important;
+    margin-left:-34px!important;
+  }
+}
+
+@media(max-width:900px){
+  .hero-art .ghost-portrait,
+  .hero-art img[src*="producer.Prince.Cali.2.png"]{
+    -webkit-mask-image:
+      linear-gradient(to right,transparent 0%,rgba(0,0,0,.38) 5%,#000 15%,#000 85%,rgba(0,0,0,.38) 95%,transparent 100%),
+      linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.40) 5%,#000 16%,#000 61%,rgba(0,0,0,.76) 74%,rgba(0,0,0,.32) 88%,transparent 100%)!important;
+    -webkit-mask-composite:source-in!important;
+    mask-image:
+      linear-gradient(to right,transparent 0%,rgba(0,0,0,.38) 5%,#000 15%,#000 85%,rgba(0,0,0,.38) 95%,transparent 100%),
+      linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.40) 5%,#000 16%,#000 61%,rgba(0,0,0,.76) 74%,rgba(0,0,0,.32) 88%,transparent 100%)!important;
+    mask-composite:intersect!important;
+  }
+}
+</style>
+
 </body>
 </html>
