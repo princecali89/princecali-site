@@ -869,7 +869,7 @@ body.dark-mode .pc-ruby-verified{
 <div class="site-toast" id="siteToast"></div>
 <footer><div>© 2026 Prince Cali</div><div>Official Prince Cali Website</div></footer>
 <script>
-const beats=[
+const beats=window.beats=[
 {title:"589",img:"assets/589.png",youtube:"https://youtube.com/shorts/2-sekLJC0xw?feature=share",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
 {title:"Velvet",img:"assets/Velvet.png",youtube:"https://youtube.com/shorts/dROZDGP19zU?feature=share",tags:["melodic","luxury"],vibe:"Smooth, colorful, polished production with premium motion.",audio:"",featured:true},
 {title:"Vice",img:"assets/Vice.png",youtube:"https://youtube.com/shorts/pl7oWbNDZ00?feature=share",tags:["dark","luxury","melodic"],vibe:"Seductive, polished production with cinematic tension and smooth motion.",audio:""},
@@ -977,7 +977,7 @@ function routeProfileView(){const isProfile=location.hash==='#profile';const isF
 function updateAgentInsights(){if(!profileAssistant)return;const st=normalizeState(state());const topTag=Object.entries(st.behavior.tagWeights||{}).sort((a,b)=>b[1]-a[1])[0];const saved=st.saved.length,recent=st.recent.length;let msg='Create your profile to unlock saves, comments, downloads, voice takes, follows, and better recommendations.';if(isProfileCreated()){msg=`Profile active. ${saved} saved beat${saved===1?'':'s'}, ${recent} recent preview${recent===1?'':'s'}`+(topTag?`, strongest current vibe: ${topTag[0]}.`:'.');}profileAssistant.innerHTML=`<strong>Your workspace</strong><p>${msg}</p>`;}
 function injectCatalogStructuredData(){try{let old=document.getElementById('beatCatalogSchema');if(old)old.remove();const data={"@context":"https://schema.org","@type":"ItemList","name":"Prince Cali Beat Catalog","itemListElement":beats.map((b,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"MusicComposition","name":b.title,"description":b.vibe,"url":"https://princecali.com/#catalog","keywords":(b.tags||[]).join(', ')}}))};const el=document.createElement('script');el.id='beatCatalogSchema';el.type='application/ld+json';el.textContent=JSON.stringify(data);document.head.appendChild(el);}catch(e){}}
 function renderRecommendations(beat){if(!recommendGrid)return;recommendGrid.innerHTML="";getRecommendations(beat).forEach(rec=>{const card=document.createElement("button");card.type="button";card.className="recommend-card";const img=document.createElement("img");img.alt=rec.title;img.src=(rec.img||youtubeThumb(rec.youtube)||"assets/watermark.v2.png")+((rec.img||"").startsWith("assets/")?"?v=25":"");img.onerror=()=>{const t=youtubeThumb(rec.youtube);if(t)img.src=t;};card.appendChild(img);card.insertAdjacentHTML("beforeend",`<strong>${rec.title}</strong><span>${rec.tags.join(" • ")}</span>`);card.addEventListener("click",()=>openPreview(rec.title));recommendGrid.appendChild(card);});}
-function openPreview(title){const beat=beats.find(b=>b.title===title)||beats[0];currentIndex=currentList.findIndex(b=>b.title===beat.title);if(currentIndex<0)currentIndex=beats.findIndex(b=>b.title===beat.title);updateRecent(beat.title);selectedBeatTitle=beat.title;beatSelect.value=beat.title;previewTitle.textContent=beat.title;previewVibe.textContent=beat.vibe||"";previewLease.href="#licenses";updatePreviewSaveButton();renderRecommendations(beat);renderBeatDNA(beat);voiceStatus.textContent=beat.video?"Ready: local MP4 preview loaded. Record creates a beat + vocal idea take when browser allows it.":"Voice memo only until this beat has a local MP4 preview.";voiceStatus.classList.remove("live");previewVideo.pause();previewVideo.removeAttribute("src");previewVideo.loop=true;previewVideo.classList.remove("show");previewFrame.classList.remove("show");previewFrame.src="about:blank";if(beat.video){previewVideo.src=beat.video+"?v=local5";previewVideo.classList.add("show");previewVideo.loop=true;previewVideo.load();previewVideo.onerror=()=>{if(beat.youtube){previewVideo.classList.remove("show");previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");voiceStatus.textContent="YouTube fallback loaded. Recording is mic-only unless the local MP4 exists.";}};setTimeout(()=>previewVideo.play().catch(()=>{}),80);}else if(beat.youtube){previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");}renderComments(beat.title);updateDynamicSeo(beat);previewModal.classList.add("show");previewModal.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+window.openPreview=function openPreview(title){const beat=beats.find(b=>b.title===title)||beats[0];currentIndex=currentList.findIndex(b=>b.title===beat.title);if(currentIndex<0)currentIndex=beats.findIndex(b=>b.title===beat.title);updateRecent(beat.title);selectedBeatTitle=beat.title;beatSelect.value=beat.title;previewTitle.textContent=beat.title;previewVibe.textContent=beat.vibe||"";previewLease.href="#licenses";updatePreviewSaveButton();renderRecommendations(beat);renderBeatDNA(beat);voiceStatus.textContent=beat.video?"Ready: local MP4 preview loaded. Record creates a beat + vocal idea take when browser allows it.":"Voice memo only until this beat has a local MP4 preview.";voiceStatus.classList.remove("live");previewVideo.pause();previewVideo.removeAttribute("src");previewVideo.loop=true;previewVideo.classList.remove("show");previewFrame.classList.remove("show");previewFrame.src="about:blank";if(beat.video){previewVideo.src=beat.video+"?v=local5";previewVideo.classList.add("show");previewVideo.loop=true;previewVideo.load();previewVideo.onerror=()=>{if(beat.youtube){previewVideo.classList.remove("show");previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");voiceStatus.textContent="YouTube fallback loaded. Recording is mic-only unless the local MP4 exists.";}};setTimeout(()=>previewVideo.play().catch(()=>{}),80);}else if(beat.youtube){previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");}renderComments(beat.title);updateDynamicSeo(beat);previewModal.classList.add("show");previewModal.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
 function closePreview(){if(mediaRecorder&&mediaRecorder.state!=="inactive")stopVoiceRecording();previewModal.classList.remove("show");previewModal.setAttribute("aria-hidden","true");document.body.style.overflow="";previewVideo.pause();previewVideo.removeAttribute("src");previewFrame.src="about:blank";}
 function movePreview(dir){const list=currentList.length?currentList:beats;currentIndex=(currentIndex+dir+list.length)%list.length;openPreview(list[currentIndex].title);}
 function renderSelect(){beatSelect.innerHTML=`<option value="">Choose a beat...</option>`+beats.map(b=>`<option value="${b.title}">${b.title}</option>`).join("");}
@@ -2373,6 +2373,349 @@ function init(){
   },true);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+
+<style id="pc-v24-targeted-fixes">
+/* v24 targeted repairs only: AI catalog, dark featured copy, mobile carousel,
+   profile identity routing, portrait edge blend, desktop contact spacing */
+
+/* Featured titles and descriptions must remain readable in dark mode. */
+body.dark-mode .featured-showcase .art-title,
+body.dark-mode .featured-showcase .art-vibe,
+body.dark-mode #featured .art-title,
+body.dark-mode #featured .art-vibe{
+  color:#f4efe6!important;
+}
+
+/* Blend the lower edge of the top portrait instead of exposing a hard cutoff. */
+.hero-art .ghost-portrait[src*="producer.Prince.Cali.2.png"]{
+  -webkit-mask-image:linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 68%,
+    rgba(0,0,0,.94) 76%,
+    rgba(0,0,0,.68) 84%,
+    rgba(0,0,0,.28) 92%,
+    transparent 100%
+  )!important;
+  mask-image:linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 68%,
+    rgba(0,0,0,.94) 76%,
+    rgba(0,0,0,.68) 84%,
+    rgba(0,0,0,.28) 92%,
+    transparent 100%
+  )!important;
+}
+
+/* Give the lower contact portrait real desktop breathing room. */
+@media(min-width:901px){
+  .contact-shell{
+    grid-template-columns:minmax(0,1fr) 360px!important;
+    column-gap:clamp(130px,13vw,235px)!important;
+  }
+  .contact-photo-wrap{
+    justify-self:end!important;
+  }
+}
+
+/* Mobile carousel: every card stays in one clipped horizontal track.
+   New lead enters from the right; old lead exits left with no vertical drop. */
+@media(max-width:700px){
+  .featured-stage-wrap{
+    position:relative!important;
+    min-height:410px!important;
+    overflow:hidden!important;
+    contain:layout paint!important;
+    border-radius:28px!important;
+  }
+  .featured-showcase{
+    position:relative!important;
+    min-height:410px!important;
+    overflow:hidden!important;
+    perspective:none!important;
+    isolation:isolate!important;
+  }
+  .featured-showcase .art-card{
+    position:absolute!important;
+    top:50%!important;
+    left:50%!important;
+    width:min(82vw,390px)!important;
+    max-width:390px!important;
+    margin:0!important;
+    transform-origin:center center!important;
+    transition:
+      transform 900ms cubic-bezier(.22,1,.36,1),
+      opacity 760ms ease,
+      filter 760ms ease!important;
+    will-change:transform,opacity!important;
+    backface-visibility:hidden!important;
+    -webkit-backface-visibility:hidden!important;
+  }
+  .featured-showcase .art-card.is-lead{
+    transform:translate3d(-50%,-50%,0) scale(1)!important;
+    opacity:1!important;
+    filter:none!important;
+    z-index:4!important;
+    pointer-events:auto!important;
+  }
+  .featured-showcase .art-card.is-back-a{
+    transform:translate3d(54%,-50%,0) scale(.78)!important;
+    opacity:.24!important;
+    filter:saturate(.82)!important;
+    z-index:2!important;
+    pointer-events:none!important;
+  }
+  .featured-showcase .art-card.is-back-b{
+    transform:translate3d(-154%,-50%,0) scale(.78)!important;
+    opacity:.18!important;
+    filter:saturate(.78)!important;
+    z-index:1!important;
+    pointer-events:none!important;
+  }
+  .featured-showcase .art-card.is-back-c,
+  .featured-showcase .art-card:not(.is-lead):not(.is-back-a):not(.is-back-b){
+    transform:translate3d(54%,-50%,0) scale(.72)!important;
+    opacity:0!important;
+    filter:none!important;
+    z-index:0!important;
+    pointer-events:none!important;
+  }
+  .featured-showcase .art-cover,
+  .featured-showcase .art-cover img{
+    width:100%!important;
+    aspect-ratio:1/1!important;
+    height:auto!important;
+    min-height:0!important;
+  }
+}
+</style>
+
+<script id="pc-v24-targeted-fixes-js">
+(function(){
+  'use strict';
+
+  const STATE_KEY='princeCaliSiteStateV4';
+  const OWNER_EMAIL='princecali6989@gmail.com';
+  const clean=v=>String(v||'').trim().toLowerCase();
+  const esc=v=>String(v||'').replace(/[&<>'"]/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+  }[c]));
+
+  function readState(){
+    try{return JSON.parse(localStorage.getItem(STATE_KEY)||'{}')}
+    catch(_){return {}}
+  }
+
+  function currentProfile(){
+    return readState().profile||{};
+  }
+
+  function isOwn(author){
+    const mine=currentProfile();
+    if(author&&author.email&&mine.email){
+      return clean(author.email)===clean(mine.email);
+    }
+    return !!(author&&author.name&&mine.name&&clean(author.name)===clean(mine.name));
+  }
+
+  function savedNames(author){
+    const st=readState();
+    const profile=st.profile||{};
+    let values=author?.savedBeats||author?.saved||author?.beatSaves||author?.collection||[];
+    if(isOwn(author)){
+      values=st.saved||st.savedBeats||st.crate||profile.savedBeats||profile.saved||values;
+    }
+    if(!Array.isArray(values))return [];
+    return values.map(item=>{
+      if(typeof item==='string')return item;
+      return item?.title||item?.name||'';
+    }).filter(Boolean);
+  }
+
+  function profileModal(){
+    let modal=document.getElementById('pcPersonProfileModalV24');
+    if(modal)return modal;
+
+    modal=document.createElement('div');
+    modal.id='pcPersonProfileModalV24';
+    modal.className='pc-person-profile-modal';
+    modal.innerHTML=
+      '<div class="pc-person-profile-card">'+
+        '<div class="pc-person-profile-head">'+
+          '<strong>Profile</strong>'+
+          '<button type="button" aria-label="Close profile">×</button>'+
+        '</div>'+
+        '<div class="pc-person-profile-body"></div>'+
+      '</div>';
+
+    document.body.appendChild(modal);
+    modal.addEventListener('click',event=>{
+      if(event.target===modal||event.target.closest('.pc-person-profile-head button')){
+        modal.classList.remove('show');
+      }
+    });
+    return modal;
+  }
+
+  function openAuthor(author){
+    if(!author)return;
+
+    if(isOwn(author)){
+      if(location.hash!=='#profile')location.hash='#profile';
+      else window.dispatchEvent(new HashChangeEvent('hashchange'));
+      requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}));
+      return;
+    }
+
+    const modal=profileModal();
+    const body=modal.querySelector('.pc-person-profile-body');
+    const initial=esc((author.name||'L').slice(0,1).toUpperCase());
+    const avatar=author.avatar
+      ? '<span class="pc-final-avatar"><img src="'+esc(author.avatar)+'" alt=""></span>'
+      : '<span class="pc-final-avatar">'+initial+'</span>';
+    const saves=savedNames(author);
+
+    body.innerHTML=
+      '<div class="pc-person-profile-identity">'+
+        avatar+
+        '<div>'+
+          '<h3>'+esc(author.name||'Listener')+'</h3>'+
+          '<p class="pc-profile-sub">'+esc(author.bio||author.handle||'Music profile')+'</p>'+
+        '</div>'+
+      '</div>'+
+      '<section class="pc-person-saves">'+
+        '<h4>Saved beats</h4>'+
+        (saves.length
+          ? '<div class="pc-person-save-grid">'+saves.map(name=>
+              '<div class="pc-person-save"><strong>'+esc(name)+
+              '</strong><span>Saved to collection</span></div>'
+            ).join('')+'</div>'
+          : '<div class="pc-empty">No public beat saves yet.</div>')+
+      '</section>';
+
+    modal.classList.add('show');
+  }
+
+  function findPost(row){
+    const id=row?.dataset?.id;
+    if(!id)return null;
+    const st=readState();
+    return [...(st.feed||[]),...(st.posts||[])].find(post=>String(post.id)===String(id))||null;
+  }
+
+  function bindProfileRouting(){
+    document.addEventListener('click',event=>{
+      const identity=event.target.closest(
+        '.pc-final-post > .pc-final-avatar,'+
+        '.pc-final-post .pc-final-head strong,'+
+        '.feed-post .feed-avatar,'+
+        '.feed-post .mini-avatar,'+
+        '.feed-post .feed-author strong,'+
+        '.profile-row .feed-avatar,'+
+        '.profile-row .mini-avatar,'+
+        '.profile-row strong'
+      );
+      if(!identity||event.target.closest('button'))return;
+
+      const row=identity.closest('[data-id]');
+      const post=findPost(row);
+      if(post?.author){
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        openAuthor(post.author);
+        return;
+      }
+
+      const name=identity.closest('.profile-row')?.querySelector('strong')?.textContent||'';
+      if(name){
+        const st=readState();
+        const author=[
+          st.profile,
+          ...(st.feed||[]).map(item=>item.author)
+        ].find(person=>person&&clean(person.name)===clean(name.replace(/verified/ig,'')));
+        if(author){
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          openAuthor(author);
+        }
+      }
+    },true);
+  }
+
+  function repairGuide(){
+    const guide=document.getElementById('pcGuidePanel');
+    if(!guide)return;
+
+    guide.addEventListener('click',event=>{
+      const option=event.target.closest('[data-vibe]');
+      if(!option)return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const catalog=Array.isArray(window.beats)?window.beats:[];
+      const result=document.getElementById('pcGuideResult');
+      if(!result)return;
+
+      if(!catalog.length){
+        result.textContent='The catalog is still loading. Tap the direction again.';
+        return;
+      }
+
+      const vibe=clean(option.dataset.vibe);
+      let matches=vibe==='surprise'
+        ? [...catalog]
+        : catalog.filter(beat=>{
+            const searchable=[
+              beat.title,
+              beat.vibe,
+              ...(Array.isArray(beat.tags)?beat.tags:[])
+            ].join(' ').toLowerCase();
+            return searchable.includes(vibe);
+          });
+
+      if(!matches.length){
+        matches=catalog.map(beat=>{
+          const words=new Set([
+            clean(beat.title),
+            clean(beat.vibe),
+            ...(Array.isArray(beat.tags)?beat.tags.map(clean):[])
+          ].join(' ').split(/\s+/).filter(Boolean));
+          const score=words.has(vibe)?3:[...words].some(word=>word.includes(vibe)||vibe.includes(word))?1:0;
+          return {beat,score};
+        }).sort((a,b)=>b.score-a.score).filter(item=>item.score>0).map(item=>item.beat);
+      }
+
+      if(!matches.length)matches=[...catalog];
+      const beat=matches[Math.floor(Math.random()*matches.length)];
+
+      result.innerHTML=
+        '<strong>'+esc(beat.title)+'</strong>'+
+        '<p>'+esc(beat.vibe||((beat.tags||[]).join(' • '))||'Recommended from the catalog')+'</p>'+
+        '<button class="btn dark" id="pcGuidePreviewV24" type="button">Preview</button>';
+
+      document.getElementById('pcGuidePreviewV24')?.addEventListener('click',previewEvent=>{
+        previewEvent.preventDefault();
+        previewEvent.stopPropagation();
+        if(typeof window.openPreview==='function')window.openPreview(beat.title);
+      },{once:true});
+    },true);
+  }
+
+  function init(){
+    bindProfileRouting();
+    repairGuide();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init,{once:true});
+  }else{
+    init();
+  }
 })();
 </script>
 
