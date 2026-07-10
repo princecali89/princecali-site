@@ -1966,11 +1966,15 @@ window.renderFeed=render;
 #featured .featured-showcase .art-card .art-title{font-size:clamp(28px,3vw,44px)!important;line-height:1!important;margin:22px 0 8px!important;letter-spacing:-.045em!important}
 #featured .featured-showcase .art-card .art-vibe{font-size:17px!important;line-height:1.45!important;color:var(--muted)!important}
 #featured .featured-controls{left:50%!important;right:auto!important;bottom:18px!important;transform:translateX(-50%)!important;z-index:20!important}
+@media(max-width:700px){
  #featured .featured-stage-wrap{min-height:610px!important;height:auto!important;padding-bottom:95px!important;overflow:visible!important}
  #featured .featured-showcase{height:545px!important;min-height:545px!important;overflow:visible!important}
  #featured .featured-showcase .art-card{width:min(84vw,390px)!important}
  #featured .featured-showcase .art-card.is-lead{transform:translate3d(0,0,0) scale(1)!important}
-  #featured .featured-showcase .art-card .art-title{font-size:32px!important;margin-top:18px!important}
+ #featured .featured-showcase .art-card.is-back-a{transform:translate3d(21%,0,0) scale(.68)!important;opacity:.20!important}
+ #featured .featured-showcase .art-card.is-back-b{transform:translate3d(-21%,0,0) scale(.64)!important;opacity:.16!important}
+ #featured .featured-showcase .art-card.is-back-c{transform:translate3d(0,-1%,0) scale(.56)!important;opacity:.10!important}
+ #featured .featured-showcase .art-card .art-title{font-size:32px!important;margin-top:18px!important}
  #featured .featured-showcase .art-card .art-vibe{font-size:16px!important}
  #featured .featured-controls{bottom:0!important}
 }
@@ -2607,18 +2611,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <style id="pc-v33-requested-final-fixes">
 /* Preview badges: white background on every beat cover. */
 .art-cover::after,
-.art-cover:after{
-    content:"Preview";
-    position:absolute;
-    right:12px;
-    bottom:12px;
-    padding:8px 10px;
-    border-radius:999px;
-    background:#fff !important;
-    color:#000 !important;
-    border:1px solid rgba(0,0,0,.15) !important;
-
-
+.art-cover:after,
+#featured .art-cover::after,
+#featured .art-cover:after{
+  background:#fff!important;
+  color:#080808!important;
+  border:1px solid rgba(8,8,8,.12)!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.14)!important;
+  opacity:1!important;
 }
 
 /* Bring the remaining contact portrait approximately 650px closer to the copy on desktop only. */
