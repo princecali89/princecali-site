@@ -1738,11 +1738,18 @@ body.dark-mode #featured .featured-control{background:rgba(255,255,255,.10)!impo
   let pcFeaturedIndex=0;
   let pcFeaturedTimer=null;
   function getFeaturedSet(){
-    try{
-      const base=typeof weeklyFeaturedBeats==='function' ? weeklyFeaturedBeats() : (window.beats||[]).filter(b=>b.featured).slice(0,4);
-      return (base&&base.length?base:(window.beats||[]).slice(0,4)).slice(0,4);
-    }catch(e){return (window.beats||[]).slice(0,4)}
+  try{
+    const base=typeof weeklyFeaturedBeats==="function"
+      ? weeklyFeaturedBeats()
+      : (window.beats||[]).filter(b=>b&&b.featured===true);
+
+    return Array.isArray(base)
+      ? base.filter(b=>b&&b.featured===true)
+      : [];
+  }catch(e){
+    return (window.beats||[]).filter(b=>b&&b.featured===true);
   }
+}
   function classifyFeatured(){
     const strip=q('#featuredStrip'); if(!strip)return;
     const cards=Array.from(strip.children); if(!cards.length)return;
