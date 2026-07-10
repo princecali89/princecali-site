@@ -1247,7 +1247,7 @@ function v12RefreshLivingSections(){renderNowPlaying();renderActivity();renderTi
 function renderFeatured(){
   if(!featuredStrip)return;
   featuredStrip.innerHTML='';
-  const set=weeklyFeaturedBeats().slice(0,4);
+  const set=weeklyFeaturedBeats();
   set.forEach((b)=>{const card=beatCard(b,true);card.dataset.title=b.title;featuredStrip.appendChild(card);});
   featuredLeadIndex=featuredLeadIndex%Math.max(1,set.length);
   updateFeaturedStage();
