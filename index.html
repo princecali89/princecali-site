@@ -599,20 +599,7 @@ body.dark-mode .pc-ruby-verified{
 @media (prefers-reduced-motion: reduce){
   .featured-showcase .art-card{transition:none!important;}
 }
-</style>
-<script id="pc-early-stability">
-(function(){
-  try{history.scrollRestoration='manual';}catch(e){}
-  document.documentElement.classList.add('pc-booting');
-  window.addEventListener('pageshow',function(){requestAnimationFrame(function(){window.scrollTo(0,0);});});
-})();
-</script>
-<style id="pc-early-stability-css">
-html.pc-booting body.feed-view #feed{visibility:hidden!important;opacity:0!important}
-html.pc-feed-ready body.feed-view #feed{visibility:visible!important;opacity:1!important;transition:opacity .18s ease}
-</style>
-
-</head>
+</style></head>
 <body>
 <a class="skip-link" href="#catalog">Skip to catalog</a>
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -2149,110 +2136,77 @@ window.addEventListener('storage',()=>{markMember();installAvatarBadge()});
 </script>
 
 
-<style id="pc-v23-feed-profile-fix-css">
-/* Authoritative v23 feed/profile cleanup */
-.feed-author>.mini-avatar~.mini-avatar,
-.feed-author>.feed-avatar~.feed-avatar{display:none!important}
-.feed-author{display:grid!important;grid-template-columns:46px minmax(0,1fr) auto!important;align-items:start!important;gap:12px!important}
-.feed-author .mini-avatar{width:44px!important;height:44px!important;border-radius:50%!important;object-fit:cover!important;display:grid!important;place-items:center!important;overflow:hidden!important;flex:none!important}
-.feed-author .pc-author-meta{min-width:0!important}
-.feed-author .pc-author-line{display:flex!important;align-items:center!important;gap:7px!important;flex-wrap:wrap!important}
-.feed-author .pc-author-line strong{cursor:pointer!important}
-.feed-author .pc-author-line strong:hover{text-decoration:underline}
-.feed-author time{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.pc-verified-crown{display:inline-grid;place-items:center;width:23px;height:20px;border-radius:999px;background:linear-gradient(135deg,#7b123d,#d84d7d);color:#fff;border:1px solid rgba(255,255,255,.42);box-shadow:0 6px 18px rgba(123,18,61,.24);vertical-align:middle;flex:none}
-.pc-verified-crown svg{width:13px;height:13px;display:block}
-.pc-verified-crown[title]:hover:after{content:'Verified';position:absolute;transform:translateY(-30px);background:#151110;color:white;padding:5px 8px;border-radius:7px;font-size:10px;white-space:nowrap;z-index:20}
-.feed-post{position:relative!important}
-.feed-post .post-actions{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important}
-.feed-post .pc-like{font-size:20px!important;min-width:70px!important}
-.feed-post .pc-like.pc-pop{animation:pcV23Heart .46s cubic-bezier(.2,.9,.2,1)}
-@keyframes pcV23Heart{0%{transform:scale(1)}35%{transform:scale(1.42)}70%{transform:scale(.92)}100%{transform:scale(1)}}
-.pc-reply-box{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);grid-template-columns:1fr auto;gap:8px}
-.pc-reply-box.show{display:grid}
-.pc-reply-box input{width:100%;padding:12px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:inherit}
-.pc-replies{display:grid;gap:10px;margin-top:10px}
-.pc-reply{display:grid;grid-template-columns:34px 1fr;gap:9px;padding:10px 0;border-top:1px solid var(--line)}
-.pc-reply .mini-avatar{width:32px!important;height:32px!important}
-.pc-feed-actions-owner{margin-left:auto;display:flex;gap:7px}
-.pc-follow-btn{padding:7px 11px!important;font-size:10px!important}
-.profile-posts.member-only{display:block!important}
-body.profile-locked .profile-posts.member-only{display:none!important}
-#profilePostList{display:grid!important;gap:0!important}
-#profilePostList .pc-profile-feed-row{display:grid;grid-template-columns:46px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
-#profilePostList .pc-profile-feed-row .mini-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover}
-#profilePostList .post-actions{margin-top:9px}
-body.feed-view #feed{min-height:100vh}
-@media(max-width:700px){
-  .feed-author{grid-template-columns:42px minmax(0,1fr)!important}
-  .feed-author>.pc-follow-btn{grid-column:2;justify-self:start}
-  .pc-feed-actions-owner{margin-left:0}
-}
+<style id="pc-final-social-cleanup-css">
+/* FINAL SOCIAL CLEANUP — single visual system */
+#profileVerifiedBadge,.verified-badge,.online-dot{display:none!important}
+#pcAvatarVerified{position:absolute!important;right:-4px!important;bottom:-4px!important;width:34px!important;height:34px!important;border-radius:50%!important;display:none!important;place-items:center!important;background:linear-gradient(135deg,#b11349,#ef3e78)!important;color:#fff!important;border:3px solid var(--paper)!important;box-shadow:0 8px 24px rgba(177,19,73,.35)!important;z-index:9!important}
+#pcAvatarVerified.show{display:grid!important}
+#pcAvatarVerified svg{width:18px!important;height:18px!important}
+.profile-hero{background:transparent!important;border:0!important;box-shadow:none!important;padding:20px 0!important;border-radius:0!important}
+.profile-cover-card{background:rgba(255,255,255,.035)!important}
+body.dark-mode .profile-cover-card{background:rgba(255,255,255,.025)!important}
+.profile-social-stats .stat-link,.profile-social-stats .stat-link b{color:var(--ink)!important;background:transparent!important;border:0!important;padding:4px 0!important}
+body.dark-mode .profile-social-stats .stat-link,body.dark-mode .profile-social-stats .stat-link b{color:#fff!important}
+.profile-posts{border-top:1px solid var(--line)!important}
+#profilePostList,.feed-list{display:block!important}
+.pc-final-post{display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;gap:12px!important;padding:18px 0!important;border-bottom:1px solid var(--line)!important;background:transparent!important;border-radius:0!important}
+.pc-final-avatar{width:48px!important;height:48px!important;border-radius:50%!important;overflow:hidden!important;background:rgba(255,255,255,.08)!important;display:grid!important;place-items:center!important;font-weight:900!important;flex:none!important}
+.pc-final-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
+.pc-final-head{display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important}
+.pc-final-head strong{font-size:16px!important}
+.pc-final-head time{font-size:12px!important;color:var(--muted)!important}
+.pc-final-verify{display:inline-grid!important;place-items:center!important;width:22px!important;height:22px!important;border-radius:50%!important;background:linear-gradient(135deg,#b11349,#ef3e78)!important;color:#fff!important;box-shadow:0 6px 18px rgba(177,19,73,.28)!important}
+.pc-final-verify svg{width:13px;height:13px}
+.pc-final-text{margin:8px 0 0!important;font-size:16px!important;line-height:1.5!important;color:var(--ink)!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+.pc-final-media{margin-top:12px!important;border-radius:20px!important;overflow:hidden!important;border:1px solid var(--line)!important;max-height:520px!important}
+.pc-final-media img,.pc-final-media video{display:block!important;width:100%!important;max-height:520px!important;object-fit:cover!important}
+.pc-final-actions{display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important;margin-top:12px!important}
+.pc-final-actions button{border:0!important;background:transparent!important;color:var(--muted)!important;padding:8px 10px!important;border-radius:999px!important;cursor:pointer!important;font-weight:700!important}
+.pc-final-actions button:hover{background:rgba(139,16,24,.10)!important;color:var(--ink)!important}
+.pc-final-like{font-size:18px!important;min-width:54px!important}.pc-final-like.liked{color:#d32663!important}.pc-final-like.pop{animation:pcHeartPop .42s ease}
+@keyframes pcHeartPop{0%{transform:scale(1)}45%{transform:scale(1.55) rotate(-8deg)}100%{transform:scale(1)}}
+.pc-final-impressions{margin-left:auto!important;color:var(--muted)!important;font-size:12px!important}
+.feed-post,.post-item{background:transparent!important;border-radius:0!important;box-shadow:none!important}
+#feedList>.feed-post:not(.pc-final-post),#profilePostList>.post-item:not(.pc-final-post){display:none!important}
+.pc-final-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(16px)}
+.pc-final-modal.show{display:flex}.pc-final-modal-card{width:min(680px,96vw);max-height:92vh;overflow:auto;background:var(--paper);border-radius:28px;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.4)}
+.pc-final-modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}.pc-final-modal-head button{border:0;background:transparent;color:var(--ink);font-size:28px;cursor:pointer}.pc-final-modal-body{padding:20px}
+.pc-final-reply{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:18px}.pc-final-reply input{width:100%;padding:14px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--ink)}.pc-final-reply button{padding:12px 18px;border:0;border-radius:999px;background:linear-gradient(135deg,#8b1018,#b58a40);color:#fff;font-weight:800;cursor:pointer}
+.pc-final-replies{display:grid;gap:12px;margin-top:16px}.pc-final-reply-item{display:grid;grid-template-columns:36px 1fr;gap:10px;padding-top:12px;border-top:1px solid var(--line)}.pc-final-reply-item .pc-final-avatar{width:36px!important;height:36px!important}
+@media(max-width:700px){.pc-final-post{grid-template-columns:42px minmax(0,1fr)!important}.pc-final-avatar{width:42px!important;height:42px!important}.pc-final-impressions{margin-left:0!important}.profile-cover-bg{height:180px!important}.featured-showcase .art-cover,.featured-showcase .art-cover img{aspect-ratio:1/1!important;height:auto!important;min-height:0!important}.featured-showcase .art-card{transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)!important}}
 </style>
-<script id="pc-v23-feed-profile-fix-js">
-(function(){
+<script id="pc-final-social-cleanup-js">
+(()=>{
 'use strict';
-const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-const KEY='princeCaliSiteStateV4';
-let rendering=false, observerQueued=false, carouselTimer=null;
-const crown=`<span class="pc-verified-crown" title="Verified" aria-label="Verified"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M6 46 14 14l15 18L32 6l3 26 15-18 8 32H6Zm8 6h36v6H14v-6Z"/></svg></span>`;
-function esc(v){return String(v??'').replace(/[&<>\'\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
-function save(st){try{localStorage.setItem(KEY,JSON.stringify(st));return true}catch(e){alert('Storage is full. Remove a large uploaded file and try again.');return false}}
-function normalize(){const st=load();st.profile=st.profile||{};st.feed=Array.isArray(st.feed)?st.feed:[];st.posts=Array.isArray(st.posts)?st.posts:[];st.following=Array.isArray(st.following)?st.following:[];st.followers=Array.isArray(st.followers)?st.followers:[];return st}
-function profile(){return normalize().profile||{}}
-function hasProfile(){const p=profile();return !!String(p.name||'').trim()&&!!String(p.email||'').trim()}
-function official(p={}){const n=String(p.name||'').trim().toLowerCase(),e=String(p.email||'').trim().toLowerCase();return (n==='prince cali'&&e==='princecali6989@gmail.com')||p.verified===true||p.role==='verified'||p.role==='owner'||p.role==='Owner'}
-function isMine(author={}){const p=profile();return String(author.email||'').trim().toLowerCase()===String(p.email||'').trim().toLowerCase()&&String(author.email||'').trim()!==''}
-function isOwner(){const p=profile();return localStorage.getItem('princeCaliAdminUnlocked')==='1'||(String(p.email||'').toLowerCase()==='princecali6989@gmail.com'&&(p.role==='Owner'||p.role==='owner'))}
-function avatar(p={}){if(p.avatar)return `<img class="mini-avatar" src="${esc(p.avatar)}" alt="${esc(p.name||'Profile')} avatar">`;const initial=esc(String(p.name||'L').trim().slice(0,1).toUpperCase()||'L');return `<span class="mini-avatar">${initial}</span>`}
-function media(post){if(!post.media)return '';const type=String(post.mediaType||'');if(type.startsWith('video/')||String(post.media).startsWith('data:video/'))return `<div class="feed-media"><video src="${esc(post.media)}" controls playsinline loop preload="metadata"></video></div>`;return `<div class="feed-media"><img src="${esc(post.media)}" alt="Post media"></div>`}
-function replyMarkup(r){return `<div class="pc-reply">${avatar(r.author||{})}<div><strong>${esc(r.author?.name||'Listener')} ${official(r.author||{})?crown:''}</strong><p>${esc(r.text||'')}</p></div></div>`}
-function authorMarkup(post){const a=post.author||{};const mine=isMine(a);const st=normalize();const following=st.following.includes(a.name);return `<div class="feed-author">${avatar(a)}<div class="pc-author-meta"><div class="pc-author-line"><strong class="pc-author-link" data-author="${esc(a.name||'Listener')}">${esc(a.name||'Listener')}</strong>${official(a)?crown:''}</div><span>${esc(a.bio||a.role||'Music profile')}</span><time>${new Date(post.created||Date.now()).toLocaleString()}</time></div>${mine?'':`<button class="icon-btn pc-follow-btn" type="button" data-author="${esc(a.name||'Listener')}">${following?'Following':'Follow'}</button>`}</div>`}
-function renderFeed(){
- const list=$('#feedList');if(!list)return;
- const st=normalize();rendering=true;list.dataset.pcFinal='1';list.innerHTML='';
- const posts=st.feed.slice().sort((a,b)=>new Date(b.created||0)-new Date(a.created||0));
- if(!posts.length){list.innerHTML='<div class="pc-empty">No posts yet. Be the first to post.</div>'}
- posts.forEach(post=>{post.replies=Array.isArray(post.replies)?post.replies:[];post.likes=Number(post.likes)||0;post.impressions=Number(post.impressions)||0;const own=isMine(post.author)||isOwner();const el=document.createElement('article');el.className='feed-post';el.dataset.id=post.id;el.innerHTML=`${authorMarkup(post)}<p>${esc(post.text||'')}</p>${media(post)}<div class="post-actions"><button class="icon-btn pc-like ${post.liked?'is-active':''}" type="button">♥ <span>${post.likes}</span></button><button class="icon-btn pc-reply-toggle" type="button">Reply</button><button class="icon-btn pc-open" type="button">Open</button><span class="pc-post-analytics">${post.impressions} impression${post.impressions===1?'':'s'}</span>${own?`<span class="pc-feed-actions-owner"><button class="icon-btn pc-edit" type="button">Edit</button><button class="icon-btn pc-delete" type="button">Delete</button></span>`:''}</div><div class="pc-reply-box"><input maxlength="280" placeholder="Write a reply"><button class="icon-btn pc-send-reply" type="button">Reply</button></div><div class="pc-replies">${post.replies.map(replyMarkup).join('')}</div>`;list.appendChild(el)});
- renderProfilePosts();
- rendering=false;document.documentElement.classList.remove('pc-booting');document.documentElement.classList.add('pc-feed-ready');
-}
-function renderProfilePosts(){const host=$('#profilePostList');if(!host)return;const st=normalize(),p=profile();const posts=st.feed.filter(x=>isMine(x.author)).sort((a,b)=>new Date(b.created||0)-new Date(a.created||0));host.innerHTML=posts.length?'':'<div class="pc-empty">No posts yet.</div>';posts.forEach(post=>{const row=document.createElement('article');row.className='pc-profile-feed-row';row.dataset.id=post.id;row.innerHTML=`${avatar(post.author||p)}<div><strong>${esc(post.author?.name||p.name||'Listener')} ${official(post.author||p)?crown:''}</strong><time>${new Date(post.created||Date.now()).toLocaleString()}</time><p>${esc(post.text||'')}</p>${media(post)}<div class="post-actions"><button class="icon-btn pc-like" type="button">♥ <span>${Number(post.likes)||0}</span></button><button class="icon-btn pc-open" type="button">Open</button><button class="icon-btn pc-edit" type="button">Edit</button><button class="icon-btn pc-delete" type="button">Delete</button></div></div>`;host.appendChild(row)});
- const composer=$('.profile-posts.member-only');if(composer)composer.style.display=hasProfile()?'block':'none';
-}
-function getPost(id){const st=normalize();return {st,post:st.feed.find(p=>String(p.id)===String(id))}}
-function commit(st){save(st);renderFeed()}
-function like(id,button){const {st,post}=getPost(id);if(!post)return;post.liked=!post.liked;post.likes=Math.max(0,(Number(post.likes)||0)+(post.liked?1:-1));save(st);button.classList.remove('pc-pop');void button.offsetWidth;button.classList.add('pc-pop');renderFeed()}
-function edit(id){const {st,post}=getPost(id);if(!post)return;const v=prompt('Edit post',post.text||'');if(v===null||!v.trim())return;post.text=v.trim();post.edited=new Date().toISOString();const twin=st.posts.find(x=>String(x.id)===String(id));if(twin)twin.text=post.text;commit(st)}
-function remove(id){if(!confirm('Delete this post?'))return;const st=normalize();st.feed=st.feed.filter(x=>String(x.id)!==String(id));st.posts=st.posts.filter(x=>String(x.id)!==String(id));commit(st)}
-function sendReply(id,input){if(!hasProfile()){alert('Create a profile to reply.');location.hash='#profile';return}const text=String(input.value||'').trim();if(!text)return;const {st,post}=getPost(id);if(!post)return;post.replies=Array.isArray(post.replies)?post.replies:[];const p=profile();post.replies.push({id:'reply-'+Date.now(),text,created:new Date().toISOString(),author:{name:p.name,email:p.email,avatar:p.avatar||'',bio:p.bio||p.notes||''}});commit(st)}
-function openPost(id){const {st,post}=getPost(id);if(!post)return;const key='pcV23View:'+id;if(!sessionStorage.getItem(key)){post.impressions=(Number(post.impressions)||0)+1;sessionStorage.setItem(key,'1');save(st)}if(typeof window.openPostEnhanced==='function'){window.openPostEnhanced(id)}else if(typeof window.openPost==='function'){try{window.openPost(id)}catch(e){}}renderFeed()}
-function submitFrom(textId,fileId){if(!hasProfile()){alert('Create a profile to post.');location.hash='#profile';return}const text=String($('#'+textId)?.value||'').trim(),file=$('#'+fileId)?.files?.[0];if(!text&&!file)return;const finish=(mediaData='',mediaType='')=>{const st=normalize(),p=profile(),post={id:'post-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),text,media:mediaData,mediaType,created:new Date().toISOString(),likes:0,replies:[],impressions:0,author:{name:p.name,email:p.email,avatar:p.avatar||'',bio:p.bio||p.notes||'',verified:official(p),role:p.role||''}};st.feed.unshift(post);st.posts.unshift(post);if(save(st)){if($('#'+textId))$('#'+textId).value='';if($('#'+fileId))$('#'+fileId).value='';renderFeed();location.hash='#feed'}};if(file){const r=new FileReader();r.onload=()=>finish(String(r.result||''),file.type||'');r.readAsDataURL(file)}else finish()}
-function toggleFollow(name){if(!hasProfile()){alert('Create a profile to follow people.');location.hash='#profile';return}const st=normalize(),i=st.following.indexOf(name);if(i>=0)st.following.splice(i,1);else st.following.push(name);save(st);renderFeed()}
-function bind(){
- document.addEventListener('click',e=>{
-  const feedPost=e.target.closest('.feed-post'),profileRow=e.target.closest('.pc-profile-feed-row'),row=feedPost||profileRow,id=row?.dataset.id;
-  if(e.target.closest('#addFeedPost')){e.preventDefault();e.stopImmediatePropagation();submitFrom('feedPostText','feedMediaUpload');return}
-  if(e.target.closest('#addProfilePost')){e.preventDefault();e.stopImmediatePropagation();submitFrom('profilePostText','postMediaUpload');return}
-  if(e.target.closest('.pc-follow-btn')){e.preventDefault();e.stopImmediatePropagation();toggleFollow(e.target.closest('.pc-follow-btn').dataset.author);return}
-  if(!id)return;
-  if(e.target.closest('.pc-like')){e.preventDefault();e.stopImmediatePropagation();like(id,e.target.closest('.pc-like'));return}
-  if(e.target.closest('.pc-reply-toggle')){e.preventDefault();e.stopImmediatePropagation();row.querySelector('.pc-reply-box')?.classList.toggle('show');return}
-  if(e.target.closest('.pc-send-reply')){e.preventDefault();e.stopImmediatePropagation();sendReply(id,row.querySelector('.pc-reply-box input'));return}
-  if(e.target.closest('.pc-edit')){e.preventDefault();e.stopImmediatePropagation();edit(id);return}
-  if(e.target.closest('.pc-delete')){e.preventDefault();e.stopImmediatePropagation();remove(id);return}
-  if(e.target.closest('.pc-open')){e.preventDefault();e.stopImmediatePropagation();openPost(id);return}
- },true);
-}
-function enforceFinalFeed(){const list=$('#feedList');if(!list)return;if(rendering)return;if(list.dataset.pcFinal!=='1'||$$('.feed-author>.mini-avatar',list).some((x,i,a)=>x.parentElement.querySelectorAll(':scope > .mini-avatar').length>1)){renderFeed()}}
-function observe(){const list=$('#feedList');if(!list)return;const mo=new MutationObserver(()=>{if(rendering||observerQueued)return;observerQueued=true;queueMicrotask(()=>{observerQueued=false;enforceFinalFeed()})});mo.observe(list,{childList:true,subtree:true});}
-function carousel(){const cards=()=>$$('#featuredStrip .art-card');let index=Math.max(0,Number(window.featuredLeadIndex)||0);const paint=()=>{const arr=cards();if(!arr.length)return;index=(index+arr.length)%arr.length;window.featuredLeadIndex=index;arr.forEach((c,i)=>{c.classList.remove('is-lead','is-back-a','is-back-b','is-back-c');const d=(i-index+arr.length)%arr.length;if(d===0)c.classList.add('is-lead');else if(d===1)c.classList.add('is-back-a');else if(d===arr.length-1)c.classList.add('is-back-b');else c.classList.add('is-back-c')})};const reset=()=>{clearInterval(carouselTimer);['__pcCarouselTimer','featuredTimer'].forEach(k=>{if(window[k])clearInterval(window[k])});carouselTimer=setInterval(()=>{index++;paint()},5000)};const move=d=>{index+=d;paint();reset()};paint();reset();const prev=$('#featuredPrev'),next=$('#featuredNext');if(prev)prev.onclick=e=>{e.preventDefault();move(-1)};if(next)next.onclick=e=>{e.preventDefault();move(1)}}
-function init(){try{history.scrollRestoration='manual'}catch(e){};bind();renderFeed();observe();carousel();renderProfilePosts();requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(()=>{renderFeed();document.documentElement.classList.add('pc-feed-ready')},120)}
+const KEY='princeCaliSiteStateV4',OWNER='princecali6989@gmail.com';
+const $=(s,r=document)=>r.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}};
+const put=st=>{try{localStorage.setItem(KEY,JSON.stringify(st));return true}catch{alert('Storage is full. Remove a large upload and try again.');return false}};
+const normalize=st=>{st=st&&typeof st==='object'?st:{};st.profile=st.profile||{};st.feed=Array.isArray(st.feed)?st.feed:[];st.posts=Array.isArray(st.posts)?st.posts:[];st.feed.forEach(p=>{p.replies=Array.isArray(p.replies)?p.replies:[];p.likes=Number(p.likes)||0;p.impressions=Number(p.impressions)||0});return st};
+const me=()=>normalize(get()).profile||{};
+const isAdmin=()=>localStorage.getItem('princeCaliAdminUnlocked')==='1'&&String(me().email||'').toLowerCase()===OWNER;
+const isVerified=a=>String(a?.email||'').toLowerCase()===OWNER||a?.verified===true;
+const mine=p=>isAdmin()||String(p?.author?.email||'').toLowerCase()===String(me().email||'').toLowerCase()&&!!me().email;
+const crown=()=>'<span class="pc-final-verify" title="Verified"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M6 46 14 14l15 18L32 6l3 26 15-18 8 32H6Zm8 6h36v6H14v-6Z"/></svg></span>';
+const avatar=a=>a?.avatar?`<span class="pc-final-avatar"><img src="${esc(a.avatar)}" alt=""></span>`:`<span class="pc-final-avatar">${esc((a?.name||'L').slice(0,1).toUpperCase())}</span>`;
+const media=p=>!p?.media?'':String(p.mediaType||'').startsWith('video')?`<div class="pc-final-media"><video src="${esc(p.media)}" controls playsinline preload="metadata"></video></div>`:`<div class="pc-final-media"><img src="${esc(p.media)}" alt="Post media"></div>`;
+function postHTML(p){const a=p.author||{};return `<article class="pc-final-post" data-final-post="1" data-id="${esc(p.id)}">${avatar(a)}<div><div class="pc-final-head"><strong>${esc(a.name||'Listener')}</strong>${isVerified(a)?crown():''}<time>${new Date(p.created||Date.now()).toLocaleString()}</time></div><p class="pc-final-text">${esc(p.text||'')}</p>${media(p)}<div class="pc-final-actions"><button class="pc-final-like ${p.liked?'liked':''}" type="button">♥ <span>${p.likes||0}</span></button><button class="pc-final-reply-btn" type="button">Reply</button><button class="pc-final-open" type="button">Open</button>${mine(p)?'<button class="pc-final-edit" type="button">Edit</button><button class="pc-final-delete" type="button">Delete</button>':''}<span class="pc-final-impressions">${p.impressions||0} impressions</span></div></div></article>`}
+function ownPosts(st){const p=st.profile||{};return st.feed.filter(x=>String(x.author?.email||'').toLowerCase()===String(p.email||'').toLowerCase()&&!!p.email)}
+let rendering=false;
+function render(){if(rendering)return;rendering=true;const st=normalize(get());const feed=$('#feedList'),profile=$('#profilePostList');if(feed){feed.innerHTML=st.feed.length?st.feed.slice(0,100).map(postHTML).join(''):'<div class="pc-empty">No posts yet.</div>';feed.dataset.finalRender='1'}if(profile){const posts=ownPosts(st);profile.innerHTML=posts.length?posts.map(postHTML).join(''):'<div class="pc-empty">No posts yet.</div>';profile.dataset.finalRender='1'}installBadge();rendering=false}
+function installBadge(){document.querySelectorAll('.verified-badge,.online-dot').forEach(x=>x.style.display='none');const wrap=$('#avatarWrap');if(!wrap)return;let b=$('#pcAvatarVerified');if(!b){b=document.createElement('span');b.id='pcAvatarVerified';b.title='Verified';b.innerHTML='<svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M6 46 14 14l15 18L32 6l3 26 15-18 8 32H6Zm8 6h36v6H14v-6Z"/></svg>';wrap.appendChild(b)}b.classList.toggle('show',isVerified(me()))}
+function mutate(id,fn){const st=normalize(get()),p=st.feed.find(x=>x.id===id);if(!p)return;fn(p,st);const twin=st.posts.find(x=>x.id===id);if(twin)Object.assign(twin,p);put(st);render()}
+function remove(id){const st=normalize(get());st.feed=st.feed.filter(x=>x.id!==id);st.posts=st.posts.filter(x=>x.id!==id);put(st);render()}
+function modal(){let m=$('#pcFinalPostModal');if(m)return m;m=document.createElement('div');m.id='pcFinalPostModal';m.className='pc-final-modal';m.innerHTML='<div class="pc-final-modal-card"><div class="pc-final-modal-head"><strong>Post</strong><button type="button">×</button></div><div class="pc-final-modal-body"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.pc-final-modal-head button'))m.classList.remove('show')});return m}
+function openPost(id,focusReply=false){const st=normalize(get()),p=st.feed.find(x=>x.id===id);if(!p)return;const key='pcFinalSeen:'+id;if(!sessionStorage.getItem(key)){p.impressions++;sessionStorage.setItem(key,'1');put(st);render()}const m=modal(),body=$('.pc-final-modal-body',m),a=p.author||{};body.innerHTML=`<div class="pc-final-head">${avatar(a)}<strong>${esc(a.name||'Listener')}</strong>${isVerified(a)?crown():''}<time>${new Date(p.created||Date.now()).toLocaleString()}</time></div><p class="pc-final-text" style="font-size:21px!important">${esc(p.text||'')}</p>${media(p)}<div class="pc-final-actions"><button class="pc-final-like ${p.liked?'liked':''}" data-modal-id="${esc(id)}" type="button">♥ <span>${p.likes||0}</span></button><span>${p.impressions||0} impressions</span></div><div class="pc-final-reply"><input maxlength="280" placeholder="Post your reply"><button type="button">Reply</button></div><div class="pc-final-replies">${(p.replies||[]).map(r=>`<div class="pc-final-reply-item">${avatar(r.author||{})}<div><strong>${esc(r.author?.name||'Listener')}</strong><p>${esc(r.text||'')}</p></div></div>`).join('')||'<div class="pc-empty">No replies yet.</div>'}</div>`;const input=$('.pc-final-reply input',body);$('.pc-final-reply button',body).onclick=()=>{const text=input.value.trim();if(!text)return;if(!me().email){alert('Create a profile to reply.');location.hash='profile';return}mutate(id,p=>p.replies.push({id:'reply-'+Date.now(),text,created:new Date().toISOString(),author:{name:me().name||'Listener',email:me().email||'',avatar:me().avatar||''}}));openPost(id)};$('.pc-final-like',body).onclick=()=>{mutate(id,p=>{p.liked=!p.liked;p.likes=Math.max(0,p.likes+(p.liked?1:-1))});openPost(id)};m.classList.add('show');if(focusReply)setTimeout(()=>input.focus(),50)}
+function createFrom(textId,fileId){const text=($(textId)?.value||'').trim();if(!text)return alert('Write a post first.');if(!me().email){alert('Create a profile first.');location.hash='profile';return}const file=$(fileId)?.files?.[0];const finish=(media='',type='')=>{const st=normalize(get()),p={id:'post-'+Date.now(),text,media,mediaType:type,likes:0,liked:false,impressions:0,replies:[],created:new Date().toISOString(),author:{name:me().name||'Listener',email:me().email||'',avatar:me().avatar||'',verified:isVerified(me())}};st.feed.unshift(p);st.posts.unshift({...p});put(st);$(textId).value='';if($(fileId))$(fileId).value='';render()};if(!file)return finish();if(file.size>3*1024*1024)return alert('Media must be 3 MB or smaller.');if(!(file.type.startsWith('image/')||file.type==='video/mp4'||file.type==='video/webm'))return alert('Use an image, GIF, MP4, or WebM.');const r=new FileReader();r.onload=()=>finish(r.result,file.type);r.readAsDataURL(file)}
+function bind(){document.addEventListener('click',e=>{const row=e.target.closest('.pc-final-post');if(!row)return;const id=row.dataset.id;if(e.target.closest('.pc-final-like')){e.preventDefault();e.stopImmediatePropagation();const b=e.target.closest('.pc-final-like');mutate(id,p=>{p.liked=!p.liked;p.likes=Math.max(0,p.likes+(p.liked?1:-1))});setTimeout(()=>{b.classList.add('pop');setTimeout(()=>b.classList.remove('pop'),450)},0);return}if(e.target.closest('.pc-final-reply-btn')){e.preventDefault();e.stopImmediatePropagation();openPost(id,true);return}if(e.target.closest('.pc-final-open')){e.preventDefault();e.stopImmediatePropagation();openPost(id);return}if(e.target.closest('.pc-final-edit')){e.preventDefault();e.stopImmediatePropagation();const st=normalize(get()),p=st.feed.find(x=>x.id===id);const v=prompt('Edit post',p?.text||'');if(v!==null&&v.trim())mutate(id,p=>p.text=v.trim());return}if(e.target.closest('.pc-final-delete')){e.preventDefault();e.stopImmediatePropagation();if(confirm('Delete this post?'))remove(id);return}},true);
+const fp=$('#addFeedPost'),pp=$('#addProfilePost');if(fp){const n=fp.cloneNode(true);fp.replaceWith(n);n.addEventListener('click',()=>createFrom('#feedPostText','#feedMediaUpload'))}if(pp){const n=pp.cloneNode(true);pp.replaceWith(n);n.addEventListener('click',()=>createFrom('#profilePostText','#postMediaUpload'))}}
+function observe(){['#feedList','#profilePostList'].forEach(sel=>{const el=$(sel);if(!el)return;new MutationObserver(()=>{if(rendering)return;if(!el.dataset.finalRender||el.querySelector(':scope > :not(.pc-final-post):not(.pc-empty)'))setTimeout(render,0)}).observe(el,{childList:true})})}
+function carousel(){const strip=$('#featuredStrip');if(!strip)return;const cards=[...strip.children];if(!cards.length)return;let idx=Math.max(0,cards.findIndex(c=>c.classList.contains('is-lead'))),timer;const apply=()=>{cards.forEach((c,i)=>{c.classList.remove('is-lead','is-back-a','is-back-b','is-back-c');const pos=(i-idx+cards.length)%cards.length;c.classList.add(pos===0?'is-lead':pos===1?'is-back-a':pos===cards.length-1?'is-back-b':'is-back-c')})};const reset=()=>{clearInterval(timer);timer=setInterval(()=>{idx=(idx+1)%cards.length;apply()},5000)};['featuredPrev','featuredNext'].forEach((id,n)=>{const old=document.getElementById(id);if(!old)return;const b=old.cloneNode(true);old.replaceWith(b);b.addEventListener('click',e=>{e.preventDefault();idx=(idx+(n?1:-1)+cards.length)%cards.length;apply();reset()})});apply();reset();strip.addEventListener('mouseenter',()=>clearInterval(timer));strip.addEventListener('mouseleave',reset)}
+function init(){installBadge();bind();render();observe();carousel();window.addEventListener('storage',render);window.addEventListener('hashchange',()=>setTimeout(render,0))}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.addEventListener('pageshow',()=>{requestAnimationFrame(()=>window.scrollTo(0,0));setTimeout(renderFeed,0)});
-window.addEventListener('hashchange',()=>{if(location.hash==='#feed'||location.hash==='#profile'){setTimeout(()=>{renderFeed();window.scrollTo(0,0)},0)}});
-window.renderFeed=renderFeed;
 })();
 </script>
 
