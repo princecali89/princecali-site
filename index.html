@@ -1510,10 +1510,14 @@ body.dark-mode .copy,body.dark-mode .smart-note,body.dark-mode .meta p,body.dark
   function profileExists(){try{return isProfileCreated()}catch(e){const p=st().profile||{};return !!(p.name||p.email)}}
   function ownerUnlocked(){const p=st().profile||{};const params=new URLSearchParams(location.search);return (params.get('owner')==='1'||localStorage.getItem('princeCaliOwnerMode')==='1') && String(p.email||'').toLowerCase().trim()===OFFICIAL_EMAIL}
   function addSocials(){
-    if(!q('.hero-actions')||q('.hero-social-links'))return;
-    const wrap=document.createElement('div');wrap.className='social-links hero-social-links';wrap.innerHTML=officialLinks.map(([n,u])=>`<a class="social-link" href="${u}" target="_blank" rel="noopener">${n}</a>`).join('');
-    q('.hero-actions').after(wrap);
-    const contact=q('.contact-card');if(contact&&!q('.contact-social-links')){const c=document.createElement('div');c.className='social-links contact-social-links';c.innerHTML=officialLinks.map(([n,u])=>`<a class="social-link" href="${u}" target="_blank" rel="noopener">${n}</a>`).join('');contact.after(c);}
+    document.querySelectorAll('.hero-social-links').forEach(el=>el.remove());
+    const contact=q('.contact-card');
+    if(contact&&!q('.contact-social-links')){
+      const c=document.createElement('div');
+      c.className='social-links contact-social-links';
+      c.innerHTML=officialLinks.map(([n,u])=>`<a class="social-link" href="${u}" target="_blank" rel="noopener">${n}</a>`).join('');
+      contact.after(c);
+    }
   }
   function cleanCustomerCopy(){
     const activityTitle=q('#activity .title');if(activityTitle)activityTitle.textContent='Website ecosystem.';
@@ -2893,6 +2897,101 @@ body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
   }
 }
 </style>
+
+
+<style id="pc-v28-definitive-hero-fix">
+/* Remove duplicated socials from the top of the page. */
+.hero-social-links{
+  display:none!important;
+}
+
+/* Definitive hero fix:
+   The source image itself contains a rectangular background, so clip the
+   actual image into a soft portrait shape rather than trying to blend its box. */
+.hero-art,
+.hero-art::before,
+.hero-art::after{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+.hero-art::before,
+.hero-art::after{
+  content:none!important;
+  display:none!important;
+}
+
+.hero-art .ghost-portrait,
+.hero-art img[src*="producer.Prince.Cali.2.png"]{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+
+  /* This physically removes every rectangular corner and the straight bottom. */
+  clip-path:ellipse(43% 47% at 50% 45%)!important;
+  -webkit-clip-path:ellipse(43% 47% at 50% 45%)!important;
+
+  /* Feather the visible portrait inside the clipped shape. */
+  -webkit-mask-image:radial-gradient(
+    ellipse 57% 62% at 50% 44%,
+    #000 0%,
+    #000 56%,
+    rgba(0,0,0,.92) 66%,
+    rgba(0,0,0,.58) 78%,
+    rgba(0,0,0,.20) 89%,
+    transparent 100%
+  )!important;
+  mask-image:radial-gradient(
+    ellipse 57% 62% at 50% 44%,
+    #000 0%,
+    #000 56%,
+    rgba(0,0,0,.92) 66%,
+    rgba(0,0,0,.58) 78%,
+    rgba(0,0,0,.20) 89%,
+    transparent 100%
+  )!important;
+
+  opacity:.18!important;
+  mix-blend-mode:multiply!important;
+  filter:grayscale(.08) sepia(.06) contrast(1.08) saturate(.82) brightness(.94)!important;
+}
+
+body.dark-mode .hero-art .ghost-portrait,
+body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
+  opacity:.20!important;
+  mix-blend-mode:screen!important;
+  filter:grayscale(.14) sepia(.08) contrast(.94) saturate(.62) brightness(.72)!important;
+}
+
+@media(max-width:900px){
+  .hero-art .ghost-portrait,
+  .hero-art img[src*="producer.Prince.Cali.2.png"]{
+    clip-path:ellipse(46% 48% at 50% 44%)!important;
+    -webkit-clip-path:ellipse(46% 48% at 50% 44%)!important;
+  }
+}
+</style>
+
+<script id="pc-v28-remove-top-socials">
+(function(){
+  function removeHeroSocials(){
+    document.querySelectorAll('.hero-social-links').forEach(el=>el.remove());
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',removeHeroSocials,{once:true});
+  }else{
+    removeHeroSocials();
+  }
+  new MutationObserver(removeHeroSocials).observe(document.documentElement,{
+    childList:true,
+    subtree:true
+  });
+})();
+</script>
 
 </body>
 </html>
