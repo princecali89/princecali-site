@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -787,7 +789,7 @@ opacity:1!important;filter:none!important;mix-blend-mode:normal!important;backgr
 <div class="feed-shell">
 <div class="feed-composer crate-card">
 <div class="kicker">Create a post</div><h3>Share from your profile.</h3>
-<p>Posts require a profile and are monitored for safety.</p>
+<p>Posts require a profile and are filtered for hate, threats, harassment, and explicit abuse.</p>
 <textarea id="feedPostText" placeholder="What are you working on, listening to, or looking for?"></textarea>
 <div class="post-attach-row"><label class="avatar-label" for="feedMediaUpload">Add media</label><input accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm" class="avatar-input" id="feedMediaUpload" type="file"/><span class="smart-note">Images, GIFs, and short videos. No beat/audio uploads.</span></div>
 <div class="crate-actions"><button class="btn dark" id="addFeedPost" type="button">Post</button><a class="btn" href="#profile">Profile</a></div>
@@ -804,7 +806,7 @@ opacity:1!important;filter:none!important;mix-blend-mode:normal!important;backgr
 </div>
 </section>
 <section class="news-section reveal" id="news">
-<div class="section-head"><div><div class="kicker">Release Room</div><h2 class="title">News, drops, and signals.</h2></div><p class="copy">New releases, catalog highlights, studio notes, and official Prince Cali updates in one place.</p></div>
+<div class="section-head"><div><div class="kicker">Release Room</div><h2 class="title">News, drops, and signals.</h2></div><p class="copy">New releases, catalog highlights, studio notes, and official Prince Cali updates in one clean place.</p></div>
 <div class="news-grid" id="newsGrid"></div>
 <p aria-hidden="true" class="news-note"></p>
 </section>
@@ -864,7 +866,47 @@ opacity:1!important;filter:none!important;mix-blend-mode:normal!important;backgr
 <div class="site-toast" id="siteToast"></div>
 <footer><div>© 2026 Prince Cali</div><div>Official Prince Cali Website</div></footer>
 <script>
-
+const beats=window.beats=[
+{title:"589",img:"assets/589.png",youtube:"https://youtube.com/shorts/2-sekLJC0xw?feature=share",tags:["cinematic","dark","street"],vibe:"Street cinematic energy with legacy weight.",audio:"",featured:true},
+{title:"Velvet",img:"assets/Velvet.png",youtube:"https://youtube.com/shorts/dROZDGP19zU?feature=share",tags:["melodic","luxury"],vibe:"Smooth, colorful, polished production with premium motion.",audio:"",featured:true},
+{title:"Vice",img:"assets/Vice.png",youtube:"https://youtube.com/shorts/pl7oWbNDZ00?feature=share",tags:["dark","luxury","melodic"],vibe:"Seductive, polished production with cinematic tension and smooth motion.",audio:""},
+{title:"Blackjack",img:"assets/Blackjack.png",youtube:"https://youtube.com/shorts/JMeGXg8L4Bw?feature=share",tags:["luxury","dark"],vibe:"Dark casino luxury with bounce and pressure.",audio:"",featured:true},
+{title:"Cherry Blossom",img:"assets/Cherry.Blossom.png",youtube:"https://youtube.com/shorts/7Ny2BbTcjjs?feature=share",tags:["melodic","cinematic"],vibe:"Moonlit, emotional, and smooth with room for vocals.",audio:"",featured:true},
+{title:"Benedict Arnold",img:"assets/Benedict.Arnold.png",youtube:"https://youtube.com/shorts/MvC4OUx1w2k?feature=share",tags:["cinematic","dark"],vibe:"Dramatic war-film energy with betrayal in the atmosphere.",audio:"",featured:true},
+{title:"The Void",img:"assets/The.Void.png",youtube:"https://youtube.com/shorts/kekMeq7wgyQ?feature=share",tags:["dark","cinematic"],vibe:"Deep, moody, atmospheric production built for presence.",audio:"",featured:true},
+{title:"No Time",img:"assets/No.Time.png",youtube:"https://youtube.com/shorts/Bgb3UCGT8Sw?feature=share",tags:["melodic","street"],vibe:"Clean motion, bounce, and focus.",audio:""},
+{title:"GOODAH",img:"assets/GOODAH.png",youtube:"https://youtube.com/shorts/hqRCWICsnms?feature=share",tags:["dark","street"],vibe:"Hard drums and street bounce.",audio:""},
+{title:"Ghetto Boyz",img:"assets/Ghetto.Boyz.png",youtube:"https://youtube.com/shorts/TM4kpHwvjCQ?feature=share",tags:["street","dark"],vibe:"Raw street energy with a hard pocket and culture-heavy feel.",audio:""},
+{title:"Night Opera",img:"assets/Night.Opera.png",youtube:"https://youtube.com/shorts/AO5W3hCTRcQ?feature=share",tags:["cinematic","dark","luxury"],vibe:"Opera-house drama with luxury tension.",audio:""},
+{title:"Magia",img:"assets/Magia.png",youtube:"https://youtube.com/shorts/OvIKMQK-0WU?feature=share",tags:["melodic","luxury"],vibe:"Mystic, smooth, cinematic texture.",audio:""},
+{title:"SubLandia",img:"assets/SubLandia.png",youtube:"https://youtube.com/shorts/geP80FOw5H0?feature=share",tags:["dark","cinematic"],vibe:"Deep bass world with low-end pressure.",audio:""},
+{title:"Lights Out",img:"assets/Lights.Out.png",youtube:"https://youtube.com/shorts/uFy_5khQvf4?feature=share",tags:["dark"],vibe:"Late-night, clean, moody production.",audio:""},
+{title:"Revival",img:"assets/Revival.png",youtube:"https://youtube.com/shorts/PVgl46ezCMo?feature=share",tags:["cinematic","melodic"],vibe:"Comeback energy with emotion and lift.",audio:""},
+{title:"ZOM",img:"assets/ZOM.png",youtube:"https://youtube.com/shorts/51C31YArwak?feature=share",tags:["dark"],vibe:"Dark bounce with horror texture.",audio:""},
+{title:"The Mack",img:"assets/The.Mack.png",youtube:"https://youtube.com/shorts/DVnifCIiLpk?feature=share",tags:["luxury","street"],vibe:"Smooth player energy with polish.",audio:""},
+{title:"The Boonies",img:"assets/The.Boonies.png",youtube:"https://youtube.com/shorts/fAOsNB6Ty-Y?feature=share",tags:["dark","street"],vibe:"Raw, gritty, outside energy.",audio:""},
+{title:"Lucille",img:"assets/Lucille.png",youtube:"https://youtube.com/shorts/2PBXsciUp_o?feature=share",tags:["melodic"],vibe:"Soulful, reflective, smooth production.",audio:""},
+{title:"Maestro",img:"assets/Maestro.png",youtube:"https://youtube.com/shorts/DpcqfCNv6qo?feature=share",tags:["cinematic","luxury"],vibe:"Composer energy with polished arrangement.",audio:""},
+{title:"Smile",img:"assets/Smile.png",youtube:"https://youtube.com/shorts/TJT1Fw0xapw?feature=share",tags:["melodic"],vibe:"Bright, melodic, clean atmosphere.",audio:""},
+{title:"Tranquillo",img:"assets/Tranquillo.png",youtube:"https://youtube.com/shorts/Ndx0HaMsHiE?feature=share",tags:["melodic","luxury"],vibe:"Calm, smooth, patient production.",audio:""},
+{title:"SENSATIONAL",img:"assets/SENSATIONAL.png",youtube:"https://youtube.com/shorts/tNCJUg7xZ3E?feature=share",tags:["cinematic","melodic"],vibe:"Emotional, timeless, clean sound.",audio:""},
+{title:"Circus Freak",img:"assets/Circus.Freak.png",youtube:"https://youtube.com/shorts/LK4H0GF9Pu4?feature=share",tags:["dark"],vibe:"Twisted bounce with strange character.",audio:""},
+{title:"Rush Hour",img:"assets/Rush.Hour.png",youtube:"https://youtube.com/shorts/y9VUS9eVcGo?feature=share",tags:["dark","street"],vibe:"Fast motion and pressure.",audio:""},
+{title:"The Getaway",img:"assets/the.Getaway.png",youtube:"https://youtube.com/shorts/IeospveL370?feature=share",tags:["cinematic","dark"],vibe:"Escape energy with cinematic movement.",audio:""},
+{title:"Familia",img:"assets/Familia.png",youtube:"https://youtube.com/shorts/R060VDmHh2E?feature=share",tags:["cinematic","street"],vibe:"Family, loyalty, and legacy.",audio:""},
+{title:"Grime",img:"assets/Grime.png",youtube:"https://youtube.com/shorts/Sl0f49WhUkA?feature=share",tags:["dark","street"],vibe:"Dirty drums and pressure.",audio:""},
+{title:"Ledger",img:"assets/Ledger.png",youtube:"https://youtube.com/shorts/D9KtPPVJd8M?feature=share",tags:["dark"],vibe:"Calculated, cold, and sharp.",audio:""},
+{title:"Pressed",img:"assets/Pressed.png",youtube:"https://youtube.com/shorts/_CWsHSOsW8o?feature=share",tags:["street","dark"],vibe:"Pressure, tension, and bounce.",audio:""},
+{title:"Presto",img:"assets/Presto.png",video:"assets/Presto.canvas.mp4",tags:["street"],vibe:"Sharp, clean production with motion and bounce.",audio:""},
+{title:"PunchLime",img:"assets/PunchLime.png",youtube:"https://youtube.com/shorts/3lVWhii11Yk?feature=share",tags:["street"],vibe:"Sharp, witty, direct energy.",audio:""},
+{title:"Sleezer",img:"assets/Sleezer.png",youtube:"https://youtube.com/shorts/NWdLlQdeaDM?feature=share",tags:["street","dark"],vibe:"Cold bounce with street pressure and attitude.",audio:""},
+{title:"Iced Cheese",img:"assets/Iced.Cheese.png",youtube:"https://youtube.com/shorts/xn3J6uitPAE?feature=share",tags:["street","luxury"],vibe:"Flashy, frozen, and slick with polished movement.",audio:""},
+{title:"Dutch",img:"assets/Dutch.png",youtube:"https://youtube.com/shorts/zHQwqAQsYZQ?feature=share",tags:["street","dark"],vibe:"Smoky street energy with a focused pocket.",audio:""},
+{title:"PPGF",img:"assets/PPGF.png",youtube:"https://youtube.com/shorts/ykb99TNSx6E?feature=share",tags:["street"],vibe:"Direct, confident production built for performance.",audio:""},
+{title:"Spiked Love",img:"assets/Spiked.Love.png",youtube:"https://youtube.com/shorts/Hpfrcar-8EI?feature=share",tags:["melodic","dark"],vibe:"Melodic tension with an edge and emotional bite.",audio:""},
+{title:"Gross Lunch",img:"assets/Gross.Lunch.png",youtube:"https://youtube.com/shorts/65-OmFf-ZPM?feature=share",tags:["dark","street"],vibe:"Raw, strange, gritty energy with character.",audio:""},
+{title:"UNDESIRABLE",img:"assets/UNDESIRABLE.png",youtube:"https://youtube.com/shorts/GTKphmBEpJg?feature=share",tags:["dark"],vibe:"Cold, raw, unwanted atmosphere.",audio:""},
+{title:"XX",img:"assets/XX.png",youtube:"https://youtube.com/shorts/9Mm4csgc0a4?feature=share",tags:["dark"],vibe:"Minimal, dark, focused production.",audio:""}
 ];
 const $=sel=>document.querySelector(sel);
 const $$=sel=>Array.from(document.querySelectorAll(sel));
