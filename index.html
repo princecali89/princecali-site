@@ -2620,13 +2620,20 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </style>
 
 <style id="pc-v33-requested-final-fixes">
-/* Preview badges: white background on every beat cover. */
+/* White Preview badge everywhere else */
 .art-cover::after,
-.art-cover:after,
+.art-cover:after{
+    background:#fff!important;
+    color:#080808!important;
+    border:1px solid rgba(8,8,8,.12)!important;
+    box-shadow:0 8px 22px rgba(0,0,0,.14)!important;
+    opacity:1!important;
+}
+
+/* Hide Preview badge only in featured carousel */
 #featured .art-cover::after,
 #featured .art-cover:after{
     display:none!important;
-
 }
 
 /* Bring the remaining contact portrait approximately 650px closer to the copy on desktop only. */
