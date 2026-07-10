@@ -24,7 +24,7 @@
 <meta name="twitter:image" content="assets/favicon.png?v=11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="format-detection" content="telephone=no">
-<meta name="prince-cali-version" content="premium-redesign-v17-owner-feed-profile-fixed">
+<meta name="prince-cali-version" content="premium-redesign-v19-social-profile-carousel-complete">
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="Prince Cali">
@@ -1234,7 +1234,7 @@ function v10Boot(){
 }
 document.addEventListener('DOMContentLoaded',v10Boot);
 </script>
-<!-- premium-redesign-v17-owner-feed-profile-fixed -->
+<!-- premium-redesign-v19-social-profile-carousel-complete -->
 
 <script>
 /* v14: owner-only console, official verification, social/profile/feed polish */
@@ -1889,6 +1889,115 @@ document.addEventListener('click',e=>{if(e.target.closest('#addFeedPost')){e.pre
 function init(){previewInput('feedMediaUpload');previewInput('postMediaUpload');render();setupGuestDelay();carousel();recentFix();window.addEventListener('hashchange',()=>{render();setupGuestDelay();});setTimeout(carousel,800);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 window.renderFeed=render;
+})();
+</script>
+
+<style id="v19-final-social-carousel-profile-css">
+/* v19 targeted repairs: stable featured stage, single verification mark, functional social profile */
+#profile .online-dot{display:none!important}
+#profileNameDisplay~.verified-badge,#profileNameDisplay~.official-crown-badge{margin-left:8px}
+.pc-ruby-verified{position:relative;display:inline-flex;align-items:center;justify-content:center;width:30px;height:24px;border-radius:999px;background:linear-gradient(135deg,#7f123f,#c02764);color:#fff;border:1px solid rgba(255,255,255,.42);box-shadow:0 8px 22px rgba(127,18,63,.24);vertical-align:middle}
+.pc-ruby-verified svg{width:15px;height:15px;display:block}.pc-ruby-verified:hover:after{content:'Verified';position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#171313;color:#fff;padding:6px 9px;border-radius:8px;font-size:10px;white-space:nowrap;z-index:30}
+#profile .verified-badge:not(#profileVerifiedBadge),#profile .official-crown-badge:not(#profileVerifiedBadge){display:none!important}
+
+#featured .featured-stage-wrap{height:auto!important;min-height:720px!important;overflow:visible!important;padding:0 0 100px!important}
+#featured .featured-showcase{display:grid!important;place-items:center!important;grid-template-columns:1fr!important;grid-template-rows:1fr!important;position:relative!important;height:650px!important;min-height:650px!important;overflow:visible!important;contain:layout!important;isolation:isolate}
+#featured .featured-showcase .art-card{grid-area:1/1!important;position:relative!important;left:auto!important;top:auto!important;width:min(540px,58vw)!important;max-width:540px!important;margin:0!important;opacity:0!important;pointer-events:none!important;transform:translate3d(0,0,0) scale(.82)!important;filter:grayscale(.28) blur(.6px)!important;transition:transform 1200ms cubic-bezier(.2,.72,.18,1),opacity 1000ms ease,filter 1000ms ease!important;will-change:transform,opacity,filter;backface-visibility:hidden}
+#featured .featured-showcase .art-card .art-cover{width:100%!important;aspect-ratio:1/1!important;display:block!important;border-radius:34px!important;overflow:hidden!important;box-shadow:0 30px 90px rgba(0,0,0,.16)}
+#featured .featured-showcase .art-card .art-cover img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important}
+#featured .featured-showcase .art-card .art-title,#featured .featured-showcase .art-card .art-vibe{opacity:0!important;transform:translateY(8px);transition:opacity .55s ease .35s,transform .55s ease .35s;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;max-width:100%!important}
+#featured .featured-showcase .art-card.is-lead{z-index:4!important;opacity:1!important;pointer-events:auto!important;filter:none!important;transform:translate3d(0,0,0) scale(1)!important}
+#featured .featured-showcase .art-card.is-lead .art-title,#featured .featured-showcase .art-card.is-lead .art-vibe{opacity:1!important;transform:none!important}
+#featured .featured-showcase .art-card.is-back-a{z-index:3!important;opacity:.30!important;transform:translate3d(34%,0,0) scale(.72) rotate(1.5deg)!important}
+#featured .featured-showcase .art-card.is-back-b{z-index:2!important;opacity:.22!important;transform:translate3d(-34%,0,0) scale(.68) rotate(-1.5deg)!important}
+#featured .featured-showcase .art-card.is-back-c{z-index:1!important;opacity:.12!important;transform:translate3d(0,-2%,0) scale(.58)!important}
+#featured .featured-showcase .art-card .art-title{font-size:clamp(28px,3vw,44px)!important;line-height:1!important;margin:22px 0 8px!important;letter-spacing:-.045em!important}
+#featured .featured-showcase .art-card .art-vibe{font-size:17px!important;line-height:1.45!important;color:var(--muted)!important}
+#featured .featured-controls{left:50%!important;right:auto!important;bottom:18px!important;transform:translateX(-50%)!important;z-index:20!important}
+@media(max-width:700px){
+ #featured .featured-stage-wrap{min-height:610px!important;height:auto!important;padding-bottom:95px!important;overflow:visible!important}
+ #featured .featured-showcase{height:545px!important;min-height:545px!important;overflow:visible!important}
+ #featured .featured-showcase .art-card{width:min(84vw,390px)!important}
+ #featured .featured-showcase .art-card.is-lead{transform:translate3d(0,0,0) scale(1)!important}
+ #featured .featured-showcase .art-card.is-back-a{transform:translate3d(21%,0,0) scale(.68)!important;opacity:.20!important}
+ #featured .featured-showcase .art-card.is-back-b{transform:translate3d(-21%,0,0) scale(.64)!important;opacity:.16!important}
+ #featured .featured-showcase .art-card.is-back-c{transform:translate3d(0,-1%,0) scale(.56)!important;opacity:.10!important}
+ #featured .featured-showcase .art-card .art-title{font-size:32px!important;margin-top:18px!important}
+ #featured .featured-showcase .art-card .art-vibe{font-size:16px!important}
+ #featured .featured-controls{bottom:0!important}
+}
+
+.feed-post{border:0!important;border-radius:0!important;background:transparent!important;padding:18px 8px!important;border-bottom:1px solid var(--line)!important;cursor:pointer;transition:background .18s ease}
+.feed-post:hover{background:rgba(139,16,24,.035)!important}.feed-post .feed-author{margin-bottom:8px}.feed-post>p{margin:8px 0 0!important}.feed-post .feed-media{border-radius:20px!important}.post-actions{justify-content:space-between;align-items:center;border-top:0!important;margin-top:12px!important}
+.pc-like{font-size:22px!important;min-width:70px!important;justify-content:center!important;transition:transform .2s ease,color .2s ease,background .2s ease!important}.pc-like.is-active{color:#b4104d!important}.pc-like.pc-pop{animation:pcHeartPop .48s cubic-bezier(.2,.9,.2,1)}
+@keyframes pcHeartPop{0%{transform:scale(1)}35%{transform:scale(1.45) rotate(-8deg)}70%{transform:scale(.92) rotate(4deg)}100%{transform:scale(1)}}
+.pc-post-tools{display:flex;gap:8px;margin-left:auto}.pc-post-tools .icon-btn{font-size:11px!important}.pc-post-analytics{font-size:12px;color:var(--muted);margin-left:auto;white-space:nowrap}
+
+.pc-post-modal{position:fixed;inset:0;z-index:10020;background:rgba(10,8,7,.68);display:none;place-items:center;padding:20px;backdrop-filter:blur(12px)}.pc-post-modal.show{display:grid}.pc-post-modal-card{width:min(720px,96vw);max-height:88vh;overflow:auto;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 40px 120px rgba(0,0,0,.35)}.pc-post-modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.pc-post-modal-close{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:inherit;font-size:20px}.pc-analytics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.pc-analytics-box{padding:14px;border-radius:18px;background:rgba(139,16,24,.06);border:1px solid rgba(139,16,24,.12)}.pc-analytics-box strong{font-size:24px;display:block}.pc-analytics-box span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+
+.profile-tabs{position:sticky;top:72px;z-index:12;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(14px)}
+#profileTimelineView{margin:0 28px 28px}.pc-profile-post{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:18px 0;border-bottom:1px solid var(--line)}.pc-profile-post .mini-avatar{width:48px;height:48px}.pc-profile-post p{margin:7px 0;line-height:1.5}.pc-profile-post .feed-media{margin-top:10px}.pc-empty{padding:34px 0;color:var(--muted)}
+@media(max-width:700px){#profileTimelineView{margin:0 18px 24px}.pc-analytics-grid{grid-template-columns:1fr 1fr}.pc-post-modal-card{padding:18px}}
+
+.pc-guide-button{position:fixed;right:22px;bottom:92px;z-index:9500;border:1px solid rgba(255,255,255,.28);background:linear-gradient(135deg,#3d1d19,#8b1018);color:#fff;border-radius:999px;padding:13px 17px;font-weight:800;box-shadow:0 18px 54px rgba(70,20,20,.28);cursor:pointer}.pc-guide-panel{position:fixed;right:22px;bottom:150px;z-index:9501;width:min(360px,calc(100vw - 28px));display:none;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 30px 90px rgba(0,0,0,.25)}.pc-guide-panel.show{display:block}.pc-guide-options{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.pc-guide-options button{border:1px solid var(--line);background:transparent;color:inherit;border-radius:999px;padding:9px 12px;cursor:pointer}.pc-guide-result{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+@media(max-width:700px){.pc-guide-button{right:14px;bottom:102px}.pc-guide-panel{right:14px;bottom:158px}}
+</style>
+<script id="v19-final-social-carousel-profile-js">
+(function(){
+'use strict';
+const q=s=>document.querySelector(s), qa=s=>Array.from(document.querySelectorAll(s));
+const KEY='princeCaliSiteStateV4';
+const RUBY=`<span class="pc-ruby-verified" title="Verified"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M7 45 14 16l14 16L32 7l4 25 14-16 7 29H7Zm8 6h34v6H15v-6Z"/></svg></span>`;
+function get(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+function put(st){try{localStorage.setItem(KEY,JSON.stringify(st));return true}catch(e){window.toast&&toast('Storage is full. Remove a large upload and try again.');return false}}
+function clean(v){return String(v||'').trim().toLowerCase()}
+function me(){const p=(get().profile||{});return {name:p.name||'Listener',email:p.email||'',avatar:p.avatar||'',bio:p.bio||p.notes||'Music profile'}}
+function official(person){return clean(person&&person.name)==='prince cali'&&clean(person&&person.email)==='princecali6989@gmail.com'}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]))}
+function avatar(person){return person&&person.avatar?`<img class="mini-avatar" src="${person.avatar}" alt="${esc(person.name||'Profile')}">`:`<span class="mini-avatar">${esc((person&&person.name||'L').slice(0,1).toUpperCase())}</span>`}
+function media(src,type){if(!src)return '';return ((type||'').startsWith('video/')||String(src).startsWith('data:video/'))?`<div class="feed-media"><video src="${src}" controls playsinline loop preload="metadata"></video></div>`:`<div class="feed-media"><img src="${src}" alt="Post media"></div>`}
+function isAdmin(){return document.body.classList.contains('pc-admin')||document.body.classList.contains('owner-admin')}
+function canEdit(post){const mine=me();return isAdmin()||(clean(post.author&&post.author.name)===clean(mine.name)&&clean(post.author&&post.author.email)===clean(mine.email))}
+function normalize(){const st=get();st.feed=Array.isArray(st.feed)?st.feed:[];st.posts=Array.isArray(st.posts)?st.posts:[];st.recent=Array.isArray(st.recent)?st.recent:[];return st}
+function dedupeProfileBadges(){
+ const host=q('#profileNameDisplay')?.parentElement;if(!host)return;qa('#profile .verified-badge,#profile .official-crown-badge,#profile .pc-ruby-verified').forEach(x=>x.remove());if(official(me()))host.insertAdjacentHTML('beforeend',RUBY);qa('#profile .online-dot').forEach(x=>x.remove());
+}
+window.verifiedHTML=function(person={}){return official(person)?RUBY:''};
+
+let featureTimer=null;
+function stageCards(){return qa('#featuredStrip .art-card')}
+function stageUpdate(){const cards=stageCards();if(!cards.length)return;window.featuredLeadIndex=Math.max(0,Number(window.featuredLeadIndex)||0)%cards.length;cards.forEach((card,i)=>{card.classList.remove('is-lead','is-back-a','is-back-b','is-back-c');const d=(i-window.featuredLeadIndex+cards.length)%cards.length;if(d===0)card.classList.add('is-lead');else if(d===1)card.classList.add('is-back-a');else if(d===cards.length-1)card.classList.add('is-back-b');else card.classList.add('is-back-c')})}
+function resetFeatureTimer(){if(featureTimer)clearInterval(featureTimer);if(window.__pcCarouselTimer)clearInterval(window.__pcCarouselTimer);if(window.featuredTimer)clearInterval(window.featuredTimer);featureTimer=setInterval(()=>{if(document.hidden)return;const cards=stageCards();if(!cards.length)return;window.featuredLeadIndex=(Number(window.featuredLeadIndex||0)+1)%cards.length;requestAnimationFrame(stageUpdate)},11000)}
+function moveFeature(dir){const cards=stageCards();if(!cards.length)return;window.featuredLeadIndex=(Number(window.featuredLeadIndex||0)+dir+cards.length)%cards.length;requestAnimationFrame(stageUpdate);resetFeatureTimer()}
+function initFeature(){stageUpdate();resetFeatureTimer();const prev=q('#featuredPrev'),next=q('#featuredNext');if(prev){prev.onclick=null;prev.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();moveFeature(-1)},true)}if(next){next.onclick=null;next.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();moveFeature(1)},true)}}
+window.updateFeaturedStage=stageUpdate;window.startFeaturedRotation=resetFeatureTimer;
+
+function saveStateMutation(id,fn){const st=normalize(),p=st.feed.find(x=>x.id===id);if(!p)return;fn(p);put(st);renderFeedV19();renderProfileTab()}
+function deletePost(id){const st=normalize();st.feed=st.feed.filter(x=>x.id!==id);st.posts=st.posts.filter(x=>x.id!==id);put(st);renderFeedV19();renderProfileTab();window.toast&&toast('Post deleted')}
+function editPost(id){const st=normalize(),p=st.feed.find(x=>x.id===id);if(!p)return;const val=prompt('Edit post',p.text||'');if(val===null)return;const t=val.trim();if(!t)return; p.text=t;p.edited=new Date().toISOString();const twin=st.posts.find(x=>x.id===id);if(twin)twin.text=t;put(st);renderFeedV19();renderProfileTab()}
+function openPost(id){const st=normalize(),p=st.feed.find(x=>x.id===id);if(!p)return;const key='pcViewedPost:'+id;if(!sessionStorage.getItem(key)){p.impressions=(Number(p.impressions)||0)+1;sessionStorage.setItem(key,'1');put(st)}let modal=q('#pcPostModal');if(!modal){modal=document.createElement('div');modal.id='pcPostModal';modal.className='pc-post-modal';modal.innerHTML='<div class="pc-post-modal-card"><div class="pc-post-modal-head"><strong>Post</strong><button class="pc-post-modal-close" type="button">×</button></div><div id="pcPostModalBody"></div></div>';document.body.appendChild(modal);modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('.pc-post-modal-close'))modal.classList.remove('show')})}q('#pcPostModalBody').innerHTML=`<div class="feed-author">${avatar(p.author)}<div><strong>${esc(p.author&&p.author.name||'Listener')} ${official(p.author)?RUBY:''}</strong><span>${new Date(p.created||Date.now()).toLocaleString()}</span></div></div><p style="font-size:20px;line-height:1.5">${esc(p.text||'')}</p>${media(p.media,p.mediaType)}<div class="pc-analytics-grid"><div class="pc-analytics-box"><strong>${Number(p.impressions)||0}</strong><span>Impressions</span></div><div class="pc-analytics-box"><strong>${Number(p.likes)||0}</strong><span>Likes</span></div><div class="pc-analytics-box"><strong>${(p.replies||[]).length}</strong><span>Replies</span></div></div>`;modal.classList.add('show')}
+function renderFeedV19(){
+ const list=q('#feedList');if(!list)return;const st=normalize();let posts=st.feed;if(!posts.length)posts=[{id:'seed-v19',text:'Welcome to the music room. Preview the catalog, create a profile when ready, and join the conversation.',author:{name:'Prince Cali',email:'princecali6989@gmail.com',avatar:'assets/watermark.v2.png?v=25',bio:'Producer • Audio Engineer'},likes:0,replies:[],impressions:0,created:new Date().toISOString()}];list.innerHTML='';
+ posts.slice(0,80).forEach(post=>{post.replies=Array.isArray(post.replies)?post.replies:[];const row=document.createElement('article');row.className='feed-post';row.dataset.id=post.id;const edit=canEdit(post);row.innerHTML=`<div class="feed-author">${avatar(post.author)}<div><strong>${esc(post.author&&post.author.name||'Listener')} ${official(post.author)?RUBY:''}</strong><span>${esc(post.author&&post.author.bio||'Music profile')} · ${new Date(post.created||Date.now()).toLocaleString()}</span></div></div><p>${esc(post.text||'')}</p>${media(post.media,post.mediaType)}<div class="post-actions"><button class="icon-btn pc-like ${post.liked?'is-active':''}" type="button" aria-label="Like post">♥ <span>${Number(post.likes)||0}</span></button><button class="icon-btn js-reply" type="button">Reply</button><span class="pc-post-analytics">${Number(post.impressions)||0} impressions</span>${edit?'<span class="pc-post-tools"><button class="icon-btn pc-edit-post" type="button">Edit</button><button class="icon-btn pc-delete-post" type="button">Delete</button></span>':''}</div><div class="reply-composer"><input type="text" maxlength="280" placeholder="Write a reply"><button class="icon-btn js-send-reply" type="button">Send</button></div><div class="reply-list">${post.replies.map(r=>`<div class="reply-item">${avatar(r.author)}<div><strong>${esc(r.author&&r.author.name||'Listener')}</strong><p>${esc(r.text)}</p></div></div>`).join('')}</div>`;list.appendChild(row)})
+}
+window.renderFeed=renderFeedV19;
+
+function ensureProfileView(){let view=q('#profileTimelineView');const tabs=q('.profile-tabs');if(!view&&tabs){view=document.createElement('div');view.id='profileTimelineView';tabs.insertAdjacentElement('afterend',view)}return view}
+let activeTab='Posts';
+function currentPosts(){const st=normalize(),person=me();return st.feed.filter(p=>clean(p.author&&p.author.name)===clean(person.name)&&clean(p.author&&p.author.email)===clean(person.email))}
+function profileRows(){const posts=currentPosts();if(activeTab==='Replies'){const rows=[];normalize().feed.forEach(p=>(p.replies||[]).forEach(r=>{if(clean(r.author&&r.author.name)===clean(me().name)&&clean(r.author&&r.author.email)===clean(me().email))rows.push({id:r.id,text:r.text,author:r.author,created:r.created,parent:p})}));return rows}if(activeTab==='Highlights')return posts.filter(p=>(Number(p.likes)||0)+(p.replies||[]).length+(Number(p.impressions)||0)/10>=3);if(activeTab==='Media')return posts.filter(p=>p.media);if(activeTab==='Likes')return normalize().feed.filter(p=>p.liked);return posts}
+function renderProfileTab(){const view=ensureProfileView();if(!view)return;const rows=profileRows();if(!rows.length){view.innerHTML=`<div class="pc-empty">No ${activeTab.toLowerCase()} yet.</div>`;return}view.innerHTML=rows.map(p=>`<article class="pc-profile-post" data-id="${esc(p.id||'')}">${avatar(p.author||me())}<div><strong>${esc((p.author||me()).name||'Listener')} ${official(p.author||me())?RUBY:''}</strong><span style="display:block;color:var(--muted);font-size:12px">${new Date(p.created||Date.now()).toLocaleString()}</span><p>${esc(p.text||'')}</p>${media(p.media,p.mediaType)}</div></article>`).join('')}
+function initTabs(){const tabs=q('.profile-tabs');if(!tabs)return;tabs.addEventListener('click',e=>{const b=e.target.closest('.feed-tab');if(!b)return;activeTab=b.textContent.trim();qa('.profile-tabs .feed-tab').forEach(x=>x.classList.toggle('active',x===b));renderProfileTab()});renderProfileTab()}
+
+function initGuide(){if(q('#pcGuideButton'))return;const button=document.createElement('button');button.id='pcGuideButton';button.className='pc-guide-button';button.type='button';button.textContent='Find a beat';const panel=document.createElement('div');panel.className='pc-guide-panel';panel.id='pcGuidePanel';panel.innerHTML='<strong>What direction are you after?</strong><div class="pc-guide-options"><button data-vibe="dark">Dark</button><button data-vibe="cinematic">Cinematic</button><button data-vibe="melodic">Melodic</button><button data-vibe="luxury">Luxury</button><button data-vibe="street">Street</button><button data-vibe="surprise">Surprise me</button></div><div class="pc-guide-result" id="pcGuideResult">Pick a direction and I’ll surface a match.</div>';document.body.append(button,panel);button.onclick=()=>panel.classList.toggle('show');panel.onclick=e=>{const b=e.target.closest('[data-vibe]');if(!b)return;const vibe=b.dataset.vibe;const all=window.beats||[];let choices=vibe==='surprise'?all:all.filter(x=>clean([x.title,x.vibe,(x.tags||[]).join(' ')].join(' ')).includes(vibe));if(!choices.length)choices=all;const beat=choices[Math.floor(Math.random()*choices.length)];q('#pcGuideResult').innerHTML=beat?`<strong>${esc(beat.title)}</strong><p>${esc(beat.vibe||'')}</p><button class="btn dark" id="pcGuidePreview" type="button">Preview</button>`:'No match yet.';q('#pcGuidePreview')?.addEventListener('click',()=>window.openPreview&&openPreview(beat.title))}}
+
+function bind(){
+ dedupeProfileBadges();initFeature();initTabs();initGuide();renderFeedV19();
+ document.addEventListener('click',e=>{const post=e.target.closest('.feed-post');if(post){const id=post.dataset.id;if(e.target.closest('.pc-like')){e.preventDefault();e.stopPropagation();saveStateMutation(id,p=>{p.liked=!p.liked;p.likes=Math.max(0,(Number(p.likes)||0)+(p.liked?1:-1))});setTimeout(()=>{q(`.feed-post[data-id="${CSS.escape(id)}"] .pc-like`)?.classList.add('pc-pop')},0);return}if(e.target.closest('.pc-delete-post')){e.preventDefault();e.stopPropagation();if(confirm('Delete this post?'))deletePost(id);return}if(e.target.closest('.pc-edit-post')){e.preventDefault();e.stopPropagation();editPost(id);return}if(!e.target.closest('button,input,video,a,.reply-composer'))openPost(id)}},true);
+ const obs=new MutationObserver(()=>{dedupeProfileBadges();renderProfileTab()});const profile=q('#profile');if(profile)obs.observe(profile,{subtree:true,childList:true});
+ window.addEventListener('resize',()=>requestAnimationFrame(stageUpdate),{passive:true});document.addEventListener('visibilitychange',()=>{if(!document.hidden)resetFeatureTimer()});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(bind,400));else setTimeout(bind,400);
 })();
 </script>
 
