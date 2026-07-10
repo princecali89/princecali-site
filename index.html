@@ -1779,6 +1779,10 @@ body.dark-mode #featured .featured-control{background:rgba(255,255,255,.10)!impo
   function startRotation(){
     if(pcFeaturedTimer)clearInterval(pcFeaturedTimer);
     pcFeaturedTimer=null;
+
+    pcFeaturedTimer = setInterval(()=>{
+    next(1);
+},5000);
   }
   function addControls(){
     const wrap=q('#featured .featured-stage-wrap'); if(!wrap)return;
