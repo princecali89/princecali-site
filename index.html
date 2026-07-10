@@ -2415,10 +2415,10 @@ body.dark-mode #featured .art-vibe{
 @media(min-width:901px){
   .contact-shell{
     grid-template-columns:minmax(0,1fr) 360px!important;
-    column-gap:clamp(130px,13vw,235px)!important;
+    column-gap:clamp(28px,3vw,48px)!important;
   }
   .contact-photo-wrap{
-    justify-self:end!important;
+    justify-self:start!important;
   }
 }
 
@@ -2718,6 +2718,68 @@ body.dark-mode #featured .art-vibe{
   }
 })();
 </script>
+
+
+<style id="pc-v25-hero-ghost-fix">
+/* Remove the visible hero square and let the portrait dissolve into the page. */
+.hero-art{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+
+.hero-art:after{
+  content:none!important;
+  display:none!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.hero-art .ghost-portrait,
+.hero-art img[src*="producer.Prince.Cali.2.png"]{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  -webkit-mask-image:
+    radial-gradient(ellipse 72% 88% at 50% 45%, #000 0%, #000 58%, rgba(0,0,0,.92) 69%, rgba(0,0,0,.58) 81%, transparent 100%),
+    linear-gradient(to bottom,#000 0%,#000 67%,rgba(0,0,0,.72) 82%,transparent 100%)!important;
+  -webkit-mask-composite:source-in!important;
+  mask-image:
+    radial-gradient(ellipse 72% 88% at 50% 45%, #000 0%, #000 58%, rgba(0,0,0,.92) 69%, rgba(0,0,0,.58) 81%, transparent 100%),
+    linear-gradient(to bottom,#000 0%,#000 67%,rgba(0,0,0,.72) 82%,transparent 100%)!important;
+  mask-composite:intersect!important;
+}
+
+body:not(.dark-mode) .hero-art .ghost-portrait,
+body:not(.dark-mode) .hero-art img[src*="producer.Prince.Cali.2.png"]{
+  mix-blend-mode:multiply!important;
+  opacity:.18!important;
+}
+
+body.dark-mode .hero-art .ghost-portrait,
+body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
+  mix-blend-mode:screen!important;
+  opacity:.14!important;
+  filter:grayscale(.14) sepia(.10) contrast(1.05) saturate(.72) brightness(.72)!important;
+}
+
+@media(max-width:900px){
+  .hero-art .ghost-portrait,
+  .hero-art img[src*="producer.Prince.Cali.2.png"]{
+    -webkit-mask-image:
+      radial-gradient(ellipse 78% 92% at 50% 44%, #000 0%, #000 56%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.48) 82%, transparent 100%),
+      linear-gradient(to bottom,#000 0%,#000 64%,rgba(0,0,0,.68) 80%,transparent 100%)!important;
+    -webkit-mask-composite:source-in!important;
+    mask-image:
+      radial-gradient(ellipse 78% 92% at 50% 44%, #000 0%, #000 56%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.48) 82%, transparent 100%),
+      linear-gradient(to bottom,#000 0%,#000 64%,rgba(0,0,0,.68) 80%,transparent 100%)!important;
+    mask-composite:intersect!important;
+  }
+}
+</style>
 
 </body>
 </html>
