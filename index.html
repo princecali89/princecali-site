@@ -25,7 +25,7 @@
 <meta content="assets/favicon.png?v=11" name="twitter:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="telephone=no" name="format-detection"/>
-<meta content="premium-redesign-v19-social-profile-carousel-complete" name="prince-cali-version"/>
+<meta content="premium-redesign-v21-profile-interactions-carousel-stable" name="prince-cali-version"/>
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Prince Cali" name="author"/>
@@ -2032,5 +2032,108 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot,{once:true});
   else boot();
 })();
-</script></body>
+</script>
+<style id="pc-v21-polish">
+/* v21 targeted profile + interaction repairs */
+#profile.pc-member .profile-cover-card > .kicker,
+#profile.pc-member #profileGreeting,
+#profile.pc-member .profile-cover-card > p,
+#profile.pc-member #profileUnlockPanel{display:none!important}
+#profile .online-dot{display:none!important}
+#profileVerifiedBadge,.verified-badge,.official-crown-badge,.pc-ruby-verified{display:none!important}
+.avatar-wrap{position:relative!important;cursor:pointer}
+#pcAvatarVerified{position:absolute;right:-4px;bottom:6px;width:34px;height:34px;border-radius:50%;display:none;align-items:center;justify-content:center;background:linear-gradient(145deg,#b20d48,#7a0731);border:3px solid var(--paper);box-shadow:0 8px 24px rgba(122,7,49,.34);z-index:8;color:#fff;cursor:help}
+#pcAvatarVerified svg{width:19px;height:19px;display:block}
+#pcAvatarVerified.show{display:flex}
+.profile-hero{align-items:flex-end!important}
+#profileNameDisplay{cursor:pointer}
+#pcEditProfileBtn{margin-left:auto;align-self:flex-start;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:9px 16px;font-weight:800;cursor:pointer}
+#profile .profile-form,#profile .crate-actions,#profile .save-code{display:none!important}
+#profile.pc-profile-editing .profile-form,#profile.pc-profile-editing .crate-actions,#profile.pc-profile-editing .save-code{display:grid!important}
+#profile.pc-profile-editing .crate-actions{display:flex!important}
+#profile.pc-profile-editing .save-code{display:block!important}
+#profile .profile-form{margin:18px 28px!important;padding:18px;border:1px solid var(--line);border-radius:24px;background:color-mix(in srgb,var(--paper) 92%,transparent)}
+#profile .profile-form input,#profile .profile-form textarea{background:transparent!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding:14px 4px!important}
+#profile .profile-edit-row{display:none!important}
+#profile.pc-profile-editing .profile-edit-row{display:flex!important}
+#profileTimelineView{display:none!important}
+.profile-tabs .feed-tab{position:relative}
+.profile-tabs .feed-tab:after{content:'';position:absolute;left:25%;right:25%;bottom:0;height:3px;background:var(--wine);transform:scaleX(0);transition:transform .22s ease}
+.profile-tabs .feed-tab.active:after{transform:scaleX(1)}
+.pc-tab-modal,.pc-person-modal{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.62);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;padding:18px}
+.pc-tab-modal.show,.pc-person-modal.show{display:flex}
+.pc-tab-card,.pc-person-card{width:min(720px,96vw);max-height:88vh;overflow:auto;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:28px;box-shadow:0 38px 120px rgba(0,0,0,.35)}
+.pc-tab-head,.pc-person-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.pc-tab-body,.pc-person-body{padding:0 20px 20px}
+.pc-close{border:0;background:transparent;color:var(--ink);font-size:30px;cursor:pointer}
+.pc-profile-row{display:grid;grid-template-columns:48px 1fr;gap:12px;padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.pc-profile-row .mini-avatar{width:48px;height:48px}
+.pc-profile-row p{margin:6px 0;line-height:1.45}
+.pc-profile-row .post-actions{margin-top:10px}
+.feed-author{cursor:pointer}
+.pc-post-modal-card{border-radius:28px!important}
+#pcPostModalBody .pc-modal-reply{display:flex;gap:10px;padding-top:14px;margin-top:16px;border-top:1px solid var(--line)}
+#pcPostModalBody .pc-modal-reply input{flex:1;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);padding:12px 16px}
+#pcPostModalBody .pc-modal-reply button{border:0;border-radius:999px;background:var(--wine);color:#fff;padding:10px 18px;font-weight:800;cursor:pointer}
+#pcPostModalBody .reply-list{margin-top:18px}
+/* lock carousel geometry to stop mobile stretch/snap */
+#featured .featured-stage-wrap{contain:layout paint!important;overflow:hidden!important}
+#featured .featured-showcase{contain:layout paint!important;overflow:hidden!important}
+#featured .featured-showcase .art-card{width:min(500px,48vw)!important;aspect-ratio:1/1!important;height:auto!important;transition:transform 1.25s cubic-bezier(.22,1,.36,1),opacity 1.25s ease,filter 1.25s ease!important;transform-origin:center center!important;backface-visibility:hidden!important}
+#featured .featured-showcase .art-card .art-cover{width:100%!important;height:100%!important;aspect-ratio:1/1!important;display:block!important;overflow:hidden!important}
+#featured .featured-showcase .art-card .art-cover img{width:100%!important;height:100%!important;aspect-ratio:1/1!important;object-fit:cover!important;display:block!important}
+@media(max-width:700px){
+ #featured .featured-stage-wrap{height:500px!important;min-height:500px!important}
+ #featured .featured-showcase{height:430px!important;min-height:430px!important}
+ #featured .featured-showcase .art-card{width:min(320px,80vw)!important;height:min(320px,80vw)!important;top:48%!important}
+ #featured .featured-showcase .art-card.is-lead{transform:translate3d(-50%,-50%,0) scale(1)!important}
+ #featured .featured-showcase .art-card.is-back-a{transform:translate3d(-40%,-50%,0) scale(.76)!important}
+ #featured .featured-showcase .art-card.is-back-b{transform:translate3d(-60%,-50%,0) scale(.68)!important}
+ #featured .featured-showcase .art-card *{max-width:100%!important}
+ #pcEditProfileBtn{padding:8px 12px;font-size:12px}
+ .profile-tabs{overflow-x:auto}
+}
+body.dark-mode #pcAvatarVerified{border-color:#1a1716}
+</style>
+<script id="pc-v21-fixes">
+(()=>{
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const KEY='princeCaliSiteStateV4';
+const OWNER_EMAIL='princecali6989@gmail.com';
+const safe=t=>String(t??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function state(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+function save(st){try{localStorage.setItem(KEY,JSON.stringify(st));return true}catch(e){alert('Storage is full. Remove a large upload and try again.');return false}}
+function profile(){return state().profile||{}}
+function hasProfile(){const p=profile();return !!(p.name||p.email)}
+function isOwner(){const p=profile();return localStorage.getItem('princeCaliAdminUnlocked')==='1'&&String(p.email||'').toLowerCase()===OWNER_EMAIL}
+function official(a){return isOwner()&&String((a||profile()).name||'').toLowerCase().includes('prince cali')}
+function avatarMarkup(a){a=a||{};if(a.avatar)return `<img class="mini-avatar" src="${safe(a.avatar)}" alt="">`;const n=safe((a.name||'L').slice(0,1).toUpperCase());return `<span class="mini-avatar">${n}</span>`}
+function mediaMarkup(p){if(!p||!p.media)return '';const type=p.mediaType||'';return type.startsWith('video')?`<video class="feed-media" src="${safe(p.media)}" controls playsinline></video>`:`<img class="feed-media" src="${safe(p.media)}" alt="">`}
+function normalizePosts(st){st.feed=Array.isArray(st.feed)?st.feed:[];st.posts=Array.isArray(st.posts)?st.posts:[];st.feed.forEach(p=>{p.replies=Array.isArray(p.replies)?p.replies:[];p.likes=Number(p.likes)||0;p.impressions=Number(p.impressions)||0});return st}
+function markMember(){const sec=$('#profile');if(sec)sec.classList.toggle('pc-member',hasProfile())}
+function installAvatarBadge(){const wrap=$('#avatarWrap');if(!wrap)return;let badge=$('#pcAvatarVerified');if(!badge){badge=document.createElement('span');badge.id='pcAvatarVerified';badge.title='Verified';badge.innerHTML='<svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M6 46 14 14l15 18L32 6l3 26 15-18 8 32H6Zm8 6h36v6H14v-6Z"/></svg>';wrap.appendChild(badge)}badge.classList.toggle('show',official(profile()));}
+function installEditButton(){const hero=$('#profile .profile-hero');if(!hero||$('#pcEditProfileBtn'))return;const b=document.createElement('button');b.id='pcEditProfileBtn';b.type='button';b.textContent='Edit profile';hero.appendChild(b);b.onclick=()=>{const sec=$('#profile');const open=sec.classList.toggle('pc-profile-editing');b.textContent=open?'Close editor':'Edit profile';if(open)$('#profileName')?.focus()};}
+function ensureOwnerPanel(){const params=new URLSearchParams(location.search);if(params.get('owner')!=='setup'&&!isOwner())return;const card=$('#profileCoverCard');if(!card||$('.owner-setup-panel',card))return;const panel=document.createElement('div');panel.className='owner-setup-panel';panel.innerHTML='<strong>Owner setup</strong><p class="smart-note">Private owner activation for Prince Cali only.</p><button class="btn dark" type="button">Activate Prince Cali Admin</button>';card.appendChild(panel);panel.querySelector('button').onclick=()=>{const code=prompt('Enter owner activation code');if(code==='PRINCE-CALI-OWNER-6989'){localStorage.setItem('princeCaliAdminUnlocked','1');const st=state();st.profile=st.profile||{};st.profile.name='Prince Cali';st.profile.email=OWNER_EMAIL;st.profile.role='Owner';save(st);location.reload()}else if(code!==null)alert('Incorrect activation code')};}
+function ownPosts(){const st=normalizePosts(state()),p=profile();return st.feed.filter(x=>String(x.author?.email||'').toLowerCase()===String(p.email||'').toLowerCase()||String(x.author?.name||'')===String(p.name||''));}
+function rowsFor(tab){const posts=ownPosts();if(tab==='Replies')return posts.filter(p=>(p.replies||[]).length);if(tab==='Highlights')return posts.filter(p=>(p.likes||0)+(p.replies||[]).length*2>=3).sort((a,b)=>((b.likes||0)+(b.replies||[]).length*2)-((a.likes||0)+(a.replies||[]).length*2));if(tab==='Media')return posts.filter(p=>p.media);if(tab==='Likes')return normalizePosts(state()).feed.filter(p=>p.liked);return posts}
+function ensureTabModal(){let m=$('#pcTabModal');if(m)return m;m=document.createElement('div');m.id='pcTabModal';m.className='pc-tab-modal';m.innerHTML='<div class="pc-tab-card"><div class="pc-tab-head"><strong id="pcTabTitle">Posts</strong><button class="pc-close" type="button">×</button></div><div class="pc-tab-body" id="pcTabBody"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.pc-close'))m.classList.remove('show')});return m}
+function renderTab(tab){const m=ensureTabModal(),body=$('#pcTabBody',m);$('#pcTabTitle',m).textContent=tab;const rows=rowsFor(tab);if(!rows.length){body.innerHTML=`<div class="pc-empty">No ${safe(tab.toLowerCase())} at this time.</div>`}else body.innerHTML=rows.map(p=>`<article class="pc-profile-row" data-id="${safe(p.id)}">${avatarMarkup(p.author||profile())}<div><strong>${safe((p.author||profile()).name||'Listener')}</strong><span style="display:block;color:var(--muted);font-size:12px">${new Date(p.created||Date.now()).toLocaleString()}</span><p>${safe(p.text||'')}</p>${mediaMarkup(p)}<div class="post-actions"><button class="icon-btn pc-v21-like" type="button">♥ ${p.likes||0}</button><button class="icon-btn pc-v21-open" type="button">Open</button>${isOwner()?'<button class="icon-btn pc-v21-edit" type="button">Edit</button><button class="icon-btn pc-v21-delete" type="button">Delete</button>':''}</div></div></article>`).join('');m.classList.add('show')}
+function mutate(id,fn){const st=normalizePosts(state()),p=st.feed.find(x=>x.id===id);if(!p)return;fn(p);save(st);window.renderFeedV19?.();renderTab($('#pcTabTitle')?.textContent||'Posts')}
+function deletePost(id){const st=normalizePosts(state());st.feed=st.feed.filter(p=>p.id!==id);st.posts=st.posts.filter(p=>p.id!==id);save(st);window.renderFeedV19?.();const m=$('#pcTabModal');if(m?.classList.contains('show'))renderTab($('#pcTabTitle')?.textContent||'Posts')}
+function editPost(id){const st=normalizePosts(state()),p=st.feed.find(x=>x.id===id);if(!p)return;const v=prompt('Edit post',p.text||'');if(v===null||!v.trim())return;p.text=v.trim();p.edited=new Date().toISOString();const twin=st.posts.find(x=>x.id===id);if(twin)twin.text=p.text;save(st);window.renderFeedV19?.();const m=$('#pcTabModal');if(m?.classList.contains('show'))renderTab($('#pcTabTitle')?.textContent||'Posts')}
+function openPostEnhanced(id){const st=normalizePosts(state()),p=st.feed.find(x=>x.id===id);if(!p)return;const k='pcViewedPost:'+id;if(!sessionStorage.getItem(k)){p.impressions=(p.impressions||0)+1;sessionStorage.setItem(k,'1');save(st)}let modal=$('#pcPostModal');if(!modal){modal=document.createElement('div');modal.id='pcPostModal';modal.className='pc-post-modal';modal.innerHTML='<div class="pc-post-modal-card"><div class="pc-post-modal-head"><strong>Post</strong><button class="pc-post-modal-close" type="button">×</button></div><div id="pcPostModalBody"></div></div>';document.body.appendChild(modal);modal.onclick=e=>{if(e.target===modal||e.target.closest('.pc-post-modal-close'))modal.classList.remove('show')}}const replies=(p.replies||[]).map(r=>`<div class="reply-item">${avatarMarkup(r.author)}<div><strong>${safe(r.author?.name||'Listener')}</strong><p>${safe(r.text||'')}</p></div></div>`).join('');$('#pcPostModalBody').innerHTML=`<div class="feed-author pc-author-link">${avatarMarkup(p.author)}<div><strong>${safe(p.author?.name||'Listener')}</strong><span>${new Date(p.created||Date.now()).toLocaleString()}</span></div></div><p style="font-size:20px;line-height:1.5">${safe(p.text||'')}</p>${mediaMarkup(p)}<div class="pc-analytics-grid"><div class="pc-analytics-box"><strong>${p.impressions||0}</strong><span>Impressions</span></div><div class="pc-analytics-box"><strong>${p.likes||0}</strong><span>Likes</span></div><div class="pc-analytics-box"><strong>${(p.replies||[]).length}</strong><span>Replies</span></div></div><div class="pc-modal-reply"><input id="pcModalReplyInput" maxlength="280" placeholder="Post your reply"><button id="pcModalReplySend" type="button">Reply</button></div><div class="reply-list">${replies||'<div class="pc-empty">No replies yet.</div>'}</div>`;$('#pcModalReplySend').onclick=()=>{if(!hasProfile()){alert('Create a profile to reply.');location.hash='profile';return}const input=$('#pcModalReplyInput'),txt=(input.value||'').trim();if(!txt)return;const s=normalizePosts(state()),post=s.feed.find(x=>x.id===id);post.replies=post.replies||[];post.replies.push({id:'reply-'+Date.now(),text:txt,author:{name:profile().name||'Listener',email:profile().email||'',avatar:profile().avatar||''},created:new Date().toISOString()});save(s);openPostEnhanced(id);window.renderFeedV19?.()};modal.classList.add('show')}
+function showPerson(author){if(!author)return;if(String(author.email||'').toLowerCase()===String(profile().email||'').toLowerCase()||String(author.name||'')===String(profile().name||'')){location.hash='profile';return}let m=$('#pcPersonModal');if(!m){m=document.createElement('div');m.id='pcPersonModal';m.className='pc-person-modal';m.innerHTML='<div class="pc-person-card"><div class="pc-person-head"><strong>Profile</strong><button class="pc-close" type="button">×</button></div><div class="pc-person-body"></div></div>';document.body.appendChild(m);m.onclick=e=>{if(e.target===m||e.target.closest('.pc-close'))m.classList.remove('show')}}const posts=normalizePosts(state()).feed.filter(p=>String(p.author?.name||'')===String(author.name||''));$('.pc-person-body',m).innerHTML=`<div style="display:flex;gap:16px;align-items:center;padding:22px 0">${avatarMarkup(author)}<div><h3 style="margin:0">${safe(author.name||'Listener')}</h3><p style="margin:4px 0;color:var(--muted)">${safe(author.bio||'Music profile')}</p></div></div>${posts.length?posts.map(p=>`<div class="pc-profile-row" data-id="${safe(p.id)}"><div><p>${safe(p.text||'')}</p></div></div>`).join(''):'<div class="pc-empty">No posts at this time.</div>'}`;m.classList.add('show')}
+function bindTabs(){const tabs=$('.profile-tabs');if(!tabs||tabs.dataset.v21)return;tabs.dataset.v21='1';tabs.addEventListener('click',e=>{const b=e.target.closest('.feed-tab');if(!b)return;e.preventDefault();e.stopImmediatePropagation();renderTab(b.textContent.trim())},true)}
+function bindGlobal(){document.addEventListener('click',e=>{const row=e.target.closest('.pc-profile-row');if(row){const id=row.dataset.id;if(e.target.closest('.pc-v21-like')){mutate(id,p=>{p.liked=!p.liked;p.likes=Math.max(0,(p.likes||0)+(p.liked?1:-1))});return}if(e.target.closest('.pc-v21-delete')){if(confirm('Delete this post?'))deletePost(id);return}if(e.target.closest('.pc-v21-edit')){editPost(id);return}if(e.target.closest('.pc-v21-open')||!e.target.closest('button')){openPostEnhanced(id);return}}
+ const authorEl=e.target.closest('.feed-author');if(authorEl&&!e.target.closest('button')){const postEl=e.target.closest('.feed-post');const id=postEl?.dataset.id;const p=normalizePosts(state()).feed.find(x=>x.id===id);showPerson(p?.author);}
+ if(e.target.closest('#avatarWrap,#profileNameDisplay'))location.hash='profile';
+},true)}
+function init(){markMember();installAvatarBadge();installEditButton();ensureOwnerPanel();bindTabs();bindGlobal();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+window.addEventListener('storage',()=>{markMember();installAvatarBadge()});
+})();
+</script>
+
+</body>
 </html>
