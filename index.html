@@ -1764,7 +1764,7 @@ body.dark-mode #featured .featured-control{background:rgba(255,255,255,.10)!impo
     const strip=q('#featuredStrip'); if(!strip || typeof beatCard!=='function')return;
     const set=getFeaturedSet();
     strip.innerHTML='';
-    set.forEach(b=>{const card=beatCard(b,true);card.dataset.title=b.title;strip.appendChild(card);});
+    set.forEach(b=>{const card=beatCard(b,true);card.dataset.title=b.title;strip.appendChild(card);if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){card.addEventListener('mouseenter',()=>{if(pcFeaturedTimer){clearInterval(pcFeaturedTimer);pcFeaturedTimer=null;}const cards=Array.from(strip.children);const index=cards.indexOf(card);if(index>=0){pcFeaturedIndex=index;classifyFeatured();}});card.addEventListener('mouseleave',()=>{startRotation();});}});
     pcFeaturedIndex=0;
     classifyFeatured();
     addControls();
