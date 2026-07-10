@@ -95,7 +95,7 @@ h1{font-size:clamp(76px,13vw,210px)}
 .hero-art{position:relative;z-index:1;min-height:650px;display:flex;align-items:center;justify-content:center;isolation:isolate}
 .hero-art:before{content:"";position:absolute;width:min(640px,80vw);height:min(640px,80vw);border-radius:50%;background:radial-gradient(circle,rgba(139,16,24,.18),rgba(55,20,95,.13) 38%,rgba(181,138,64,.06) 58%,transparent 72%);filter:blur(12px);z-index:-2}
 .hero-art:after{content:"";position:absolute;inset:16% 0 0 18%;border:1px solid rgba(8,8,8,.08);border-radius:44% 44% 8% 8%;z-index:-1}
-.ghost-portrait{width:min(560px,42vw);max-height:760px;object-fit:contain;opacity:.18;filter:grayscale(.1) sepia(.08) contrast(1.08) saturate(.86) brightness(.94);mix-blend-mode:multiply;transform:scale(1.18) translateX(4%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 66%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 66%,transparent 100%)}
+.ghost-portrait{width:min(560px,42vw);max-height:760px;object-fit:contain;opacity:.18;filter:grayscale(.1) sepia(.08) contrast(1.08) saturate(.86) brightness(.94);mix-blend-mode:multiply;transform:scale(1.18) translateX(4%)}
 .cover-cloud{position:absolute;inset:auto 4% 8% 6%;display:grid;grid-template-columns:repeat(4,76px);gap:10px;opacity:.20;filter:blur(.1px);z-index:-1}
 .cover-cloud img{width:76px;height:76px;object-fit:cover;border-radius:14px;box-shadow:0 14px 36px rgba(0,0,0,.16)}
 .scroll-cue{position:absolute;left:6.5%;bottom:34px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px;letter-spacing:.18em;text-transform:uppercase;z-index:5}
@@ -2393,28 +2393,6 @@ body.dark-mode #featured .art-vibe{
   color:#f4efe6!important;
 }
 
-/* Blend the lower edge of the top portrait instead of exposing a hard cutoff. */
-.hero-art .ghost-portrait[src*="producer.Prince.Cali.2.png"]{
-  -webkit-mask-image:linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 68%,
-    rgba(0,0,0,.94) 76%,
-    rgba(0,0,0,.68) 84%,
-    rgba(0,0,0,.28) 92%,
-    transparent 100%
-  )!important;
-  mask-image:linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 68%,
-    rgba(0,0,0,.94) 76%,
-    rgba(0,0,0,.68) 84%,
-    rgba(0,0,0,.28) 92%,
-    transparent 100%
-  )!important;
-}
-
 /* Give the lower contact portrait real desktop breathing room. */
 @media(min-width:901px){
   .contact-shell{
@@ -2722,260 +2700,6 @@ body.dark-mode #featured .art-vibe{
   }
 })();
 </script>
-
-
-<style id="pc-v25-hero-ghost-fix">
-/* Remove the visible hero square and let the portrait dissolve into the page. */
-.hero-art{
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  overflow:visible!important;
-}
-
-.hero-art:after{
-  content:none!important;
-  display:none!important;
-  border:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-
-.hero-art .ghost-portrait,
-.hero-art img[src*="producer.Prince.Cali.2.png"]{
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  border-radius:0!important;
-  -webkit-mask-image:
-    radial-gradient(ellipse 72% 88% at 50% 45%, #000 0%, #000 58%, rgba(0,0,0,.92) 69%, rgba(0,0,0,.58) 81%, transparent 100%),
-    linear-gradient(to bottom,#000 0%,#000 67%,rgba(0,0,0,.72) 82%,transparent 100%)!important;
-  -webkit-mask-composite:source-in!important;
-  mask-image:
-    radial-gradient(ellipse 72% 88% at 50% 45%, #000 0%, #000 58%, rgba(0,0,0,.92) 69%, rgba(0,0,0,.58) 81%, transparent 100%),
-    linear-gradient(to bottom,#000 0%,#000 67%,rgba(0,0,0,.72) 82%,transparent 100%)!important;
-  mask-composite:intersect!important;
-}
-
-body:not(.dark-mode) .hero-art .ghost-portrait,
-body:not(.dark-mode) .hero-art img[src*="producer.Prince.Cali.2.png"]{
-  mix-blend-mode:multiply!important;
-  opacity:.18!important;
-}
-
-body.dark-mode .hero-art .ghost-portrait,
-body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
-  mix-blend-mode:screen!important;
-  opacity:.14!important;
-  filter:grayscale(.14) sepia(.10) contrast(1.05) saturate(.72) brightness(.72)!important;
-}
-
-@media(max-width:900px){
-  .hero-art .ghost-portrait,
-  .hero-art img[src*="producer.Prince.Cali.2.png"]{
-    -webkit-mask-image:
-      radial-gradient(ellipse 78% 92% at 50% 44%, #000 0%, #000 56%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.48) 82%, transparent 100%),
-      linear-gradient(to bottom,#000 0%,#000 64%,rgba(0,0,0,.68) 80%,transparent 100%)!important;
-    -webkit-mask-composite:source-in!important;
-    mask-image:
-      radial-gradient(ellipse 78% 92% at 50% 44%, #000 0%, #000 56%, rgba(0,0,0,.88) 69%, rgba(0,0,0,.48) 82%, transparent 100%),
-      linear-gradient(to bottom,#000 0%,#000 64%,rgba(0,0,0,.68) 80%,transparent 100%)!important;
-    mask-composite:intersect!important;
-  }
-}
-</style>
-
-
-<style id="pc-v27-final-visual-fix">
-/* CONTACT: restore a clear desktop gap of roughly 2–3 inches. */
-@media (min-width:901px){
-  .contact-shell{
-    grid-template-columns:minmax(0,620px) 360px!important;
-    justify-content:start!important;
-    column-gap:clamp(145px,11vw,210px)!important;
-  }
-
-  .contact-shell > :first-child{
-    max-width:620px!important;
-  }
-
-  .contact-photo-wrap{
-    justify-self:start!important;
-    margin-left:0!important;
-    transform:none!important;
-  }
-}
-
-/* HERO: remove decorative panel and eliminate the image's visible rectangle.
-   A single WebKit-safe mask is used so Safari/iPhone honors the fade. */
-.hero-art,
-.hero-art::before,
-.hero-art::after{
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-}
-
-.hero-art{
-  background:transparent!important;
-  overflow:visible!important;
-}
-
-.hero-art::after{
-  content:none!important;
-  display:none!important;
-  background:none!important;
-}
-
-.hero-art .ghost-portrait,
-.hero-art img[src*="producer.Prince.Cali.2.png"]{
-  background:transparent!important;
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-  border-radius:0!important;
-
-  /* One mask only: dependable in Safari and fades every edge,
-     with the strongest fade across the bottom. */
-  -webkit-mask-image:radial-gradient(
-    ellipse 68% 82% at 50% 42%,
-    #000 0%,
-    #000 47%,
-    rgba(0,0,0,.94) 57%,
-    rgba(0,0,0,.72) 68%,
-    rgba(0,0,0,.38) 79%,
-    rgba(0,0,0,.10) 90%,
-    transparent 100%
-  )!important;
-  mask-image:radial-gradient(
-    ellipse 68% 82% at 50% 42%,
-    #000 0%,
-    #000 47%,
-    rgba(0,0,0,.94) 57%,
-    rgba(0,0,0,.72) 68%,
-    rgba(0,0,0,.38) 79%,
-    rgba(0,0,0,.10) 90%,
-    transparent 100%
-  )!important;
-
-  /* Multiply removes a white image background in both themes. */
-  mix-blend-mode:multiply!important;
-  opacity:.19!important;
-  filter:grayscale(.08) sepia(.06) contrast(1.08) saturate(.82) brightness(.94)!important;
-}
-
-body.dark-mode .hero-art .ghost-portrait,
-body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
-  mix-blend-mode:multiply!important;
-  opacity:.24!important;
-  filter:grayscale(.10) sepia(.08) contrast(1.24) saturate(.72) brightness(1.26)!important;
-}
-
-@media (max-width:900px){
-  .hero-art .ghost-portrait,
-  .hero-art img[src*="producer.Prince.Cali.2.png"]{
-    -webkit-mask-image:radial-gradient(
-      ellipse 72% 84% at 50% 41%,
-      #000 0%,
-      #000 45%,
-      rgba(0,0,0,.92) 56%,
-      rgba(0,0,0,.66) 68%,
-      rgba(0,0,0,.30) 80%,
-      rgba(0,0,0,.08) 91%,
-      transparent 100%
-    )!important;
-    mask-image:radial-gradient(
-      ellipse 72% 84% at 50% 41%,
-      #000 0%,
-      #000 45%,
-      rgba(0,0,0,.92) 56%,
-      rgba(0,0,0,.66) 68%,
-      rgba(0,0,0,.30) 80%,
-      rgba(0,0,0,.08) 91%,
-      transparent 100%
-    )!important;
-  }
-}
-</style>
-
-
-<style id="pc-v28-definitive-hero-fix">
-/* Remove duplicated socials from the top of the page. */
-.hero-social-links{
-  display:none!important;
-}
-
-/* Definitive hero fix:
-   The source image itself contains a rectangular background, so clip the
-   actual image into a soft portrait shape rather than trying to blend its box. */
-.hero-art,
-.hero-art::before,
-.hero-art::after{
-  background:transparent!important;
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-}
-
-.hero-art::before,
-.hero-art::after{
-  content:none!important;
-  display:none!important;
-}
-
-.hero-art .ghost-portrait,
-.hero-art img[src*="producer.Prince.Cali.2.png"]{
-  background:transparent!important;
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-  border-radius:0!important;
-
-  /* This physically removes every rectangular corner and the straight bottom. */
-  clip-path:ellipse(43% 47% at 50% 45%)!important;
-  -webkit-clip-path:ellipse(43% 47% at 50% 45%)!important;
-
-  /* Feather the visible portrait inside the clipped shape. */
-  -webkit-mask-image:radial-gradient(
-    ellipse 57% 62% at 50% 44%,
-    #000 0%,
-    #000 56%,
-    rgba(0,0,0,.92) 66%,
-    rgba(0,0,0,.58) 78%,
-    rgba(0,0,0,.20) 89%,
-    transparent 100%
-  )!important;
-  mask-image:radial-gradient(
-    ellipse 57% 62% at 50% 44%,
-    #000 0%,
-    #000 56%,
-    rgba(0,0,0,.92) 66%,
-    rgba(0,0,0,.58) 78%,
-    rgba(0,0,0,.20) 89%,
-    transparent 100%
-  )!important;
-
-  opacity:.18!important;
-  mix-blend-mode:multiply!important;
-  filter:grayscale(.08) sepia(.06) contrast(1.08) saturate(.82) brightness(.94)!important;
-}
-
-body.dark-mode .hero-art .ghost-portrait,
-body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
-  opacity:.20!important;
-  mix-blend-mode:screen!important;
-  filter:grayscale(.14) sepia(.08) contrast(.94) saturate(.62) brightness(.72)!important;
-}
-
-@media(max-width:900px){
-  .hero-art .ghost-portrait,
-  .hero-art img[src*="producer.Prince.Cali.2.png"]{
-    clip-path:ellipse(46% 48% at 50% 44%)!important;
-    -webkit-clip-path:ellipse(46% 48% at 50% 44%)!important;
-  }
-}
-</style>
-
 <script id="pc-v28-remove-top-socials">
 (function(){
   function removeHeroSocials(){
@@ -2992,6 +2716,117 @@ body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
   });
 })();
 </script>
+
+
+<style id="pc-v29-clean-hero-fix">
+/* Remove the actual large rectangular overlay covering the hero. */
+.hero::after,
+.hero:after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+
+/* Keep the hero image itself clean—no mask, no clipping, no panel. */
+.hero-art{
+  position:relative!important;
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+
+.hero-art::before{
+  border:0!important;
+  box-shadow:none!important;
+}
+
+.hero-art .ghost-portrait,
+.hero-art img[src*="producer.Prince.Cali.2.png"]{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  -webkit-mask:none!important;
+  mask:none!important;
+  -webkit-clip-path:none!important;
+  clip-path:none!important;
+  mix-blend-mode:multiply!important;
+  opacity:.18!important;
+  filter:grayscale(.10) sepia(.07) contrast(1.06) saturate(.82) brightness(.95)!important;
+}
+
+/* Separate fade overlay—not attached to or masking the PNG. */
+.hero-art::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  height:34%!important;
+  z-index:3!important;
+  pointer-events:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:linear-gradient(
+    to bottom,
+    rgba(244,239,230,0) 0%,
+    rgba(238,229,218,.22) 34%,
+    rgba(232,221,210,.72) 72%,
+    rgba(232,221,210,1) 100%
+  )!important;
+}
+
+body.dark-mode .hero-art .ghost-portrait,
+body.dark-mode .hero-art img[src*="producer.Prince.Cali.2.png"]{
+  mix-blend-mode:screen!important;
+  opacity:.14!important;
+  filter:grayscale(.12) sepia(.08) contrast(.96) saturate(.68) brightness(.72)!important;
+}
+
+body.dark-mode .hero-art::after{
+  background:linear-gradient(
+    to bottom,
+    rgba(21,17,15,0) 0%,
+    rgba(25,20,18,.22) 34%,
+    rgba(30,24,21,.76) 72%,
+    rgba(33,26,23,1) 100%
+  )!important;
+}
+
+/* Keep the top duplicate social row gone. */
+.hero-social-links{
+  display:none!important;
+}
+
+/* Keep the lower portrait roughly 2–3 inches from the copy on desktop. */
+@media(min-width:901px){
+  .contact-shell{
+    grid-template-columns:minmax(0,620px) 360px!important;
+    justify-content:start!important;
+    column-gap:clamp(145px,11vw,210px)!important;
+  }
+  .contact-shell > :first-child{
+    max-width:620px!important;
+  }
+  .contact-photo-wrap{
+    justify-self:start!important;
+    margin-left:0!important;
+    transform:none!important;
+  }
+}
+
+@media(max-width:900px){
+  .hero-art::after{
+    height:30%!important;
+  }
+}
+</style>
 
 </body>
 </html>
