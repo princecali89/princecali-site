@@ -918,11 +918,17 @@ const beats=window.beats=[
 const $=sel=>document.querySelector(sel);
 const $$=sel=>Array.from(document.querySelectorAll(sel));
 const featuredStrip=$("#featuredStrip"),grid=$("#beatGrid"),searchBox=$("#searchBox"),smartNote=$("#smartNote"),smartRail=$("#smartRail"),noResults=$("#noResults"),cursorGlow=$("#cursorGlow"),coverCloud=$("#coverCloud");
+const catalogPagination=$("#catalogPagination"),
+      catalogCount=$("#catalogCount"),
+      pageSizeSelect=$("#pageSize"),
+      pageControls=$("#pageControls");
 const previewModal=$("#previewModal"),previewVideo=$("#previewVideo"),previewFrame=$("#previewFrame"),previewTitle=$("#previewTitle"),previewVibe=$("#previewVibe"),previewLease=$("#previewLease"),previewClose=$("#previewClose"),previewPrev=$("#previewPrev"),previewNext=$("#previewNext"),previewSave=$("#previewSave"),previewShare=$("#previewShare");
 const beatSelect=$("#beatSelect"),basketList=$("#basketList"),submitLicenseRequest=$("#submitLicenseRequest"),siteToast=$("#siteToast");
 const profileName=$("#profileName"),profileEmail=$("#profileEmail"),profileNotes=$("#profileNotes"),profileGreeting=$("#profileGreeting"),saveCodeBox=$("#saveCodeBox"),crateSavedList=$("#crateSavedList"),savedCountEl=$("#savedCount"),recentCountEl=$("#recentCount"),memoCountEl=$("#memoCount"),newsGrid=$("#newsGrid"),previewRecord=$("#previewRecord"),previewStopRecord=$("#previewStopRecord"),previewDownloadRecord=$("#previewDownloadRecord"),voiceStatus=$("#voiceStatus");
 const profileAvatar=$("#profileAvatar"),avatarInitials=$("#avatarInitials"),avatarUpload=$("#avatarUpload"),coverUpload=$("#coverUpload"),profileCoverBg=$("#profileCoverBg"),avatarScale=$("#avatarScale"),avatarPosY=$("#avatarPosY"),profileStatus=$("#profileStatus"),profileNameDisplay=$("#profileNameDisplay"),ownerModePill=$("#ownerModePill"),recommendGrid=$("#recommendGrid"),featuredWeekNote=$("#featuredWeekNote"),featuredStageCopy=$("#featuredStageCopy"),profilePostText=$("#profilePostText"),profilePostList=$("#profilePostList"),postMediaUpload=$("#postMediaUpload"),feedPostText=$("#feedPostText"),feedMediaUpload=$("#feedMediaUpload"),feedList=$("#feedList"),profileList=$("#profileList"),followingList=$("#followingList"),followersList=$("#followersList"),followingCount=$("#followingCount"),followerCount=$("#followerCount"),commentText=$("#commentText"),postComment=$("#postComment"),commentList=$("#commentList"),dnaGrid=$("#dnaGrid"),dnaTags=$("#dnaTags"),profileAssistant=$("#profileAssistant");
 let activeFilter="all",currentList=[...beats],currentIndex=0,selectedBeatTitle="",licenseBasket=[],featuredLeadIndex=0,pendingPostMedia=null,pendingFeedMedia=null,featuredTimer=null;
+let currentPage=1;
+let beatsPerPage=10;
 const storeKey="princeCaliSiteStateV4";
 function safeStoreGet(key){try{return window.localStorage?localStorage.getItem(key):null}catch(e){return null}}
 function safeStoreSet(key,value){try{if(window.localStorage)localStorage.setItem(key,value)}catch(e){}}
