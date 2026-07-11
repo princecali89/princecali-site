@@ -1013,6 +1013,7 @@ document.getElementById("catalog").scrollIntoView({
     behavior:"smooth",
     block:"start"
 });
+});
 
 window.addEventListener("popstate",event=>{console.log("Popstate", event.state);
   const pageFromState=event.state&&event.state.catalogPage
@@ -1029,7 +1030,7 @@ window.addEventListener("popstate",event=>{console.log("Popstate", event.state);
 });
 
   
-});
+
 const storeKey="princeCaliSiteStateV4";
 function safeStoreGet(key){try{return window.localStorage?localStorage.getItem(key):null}catch(e){return null}}
 function safeStoreSet(key,value){try{if(window.localStorage)localStorage.setItem(key,value)}catch(e){}}
