@@ -1013,6 +1013,21 @@ document.getElementById("catalog").scrollIntoView({
     behavior:"smooth",
     block:"start"
 });
+
+window.addEventListener("popstate",event=>{
+  const pageFromState=event.state&&event.state.catalogPage
+    ?Number(event.state.catalogPage)
+    :1;
+
+  currentPage=pageFromState;
+  renderCatalog(currentList);
+
+  document.getElementById("catalog").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+});
+
   
 });
 const storeKey="princeCaliSiteStateV4";
