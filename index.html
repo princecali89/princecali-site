@@ -1070,6 +1070,18 @@ function renderPagination(totalItems){
   if(currentPage>totalPages){
     currentPage=totalPages;
   }
+  const correctCatalogHash="#catalog-page-"+currentPage;
+
+if(
+  location.hash.startsWith("#catalog-page-") &&
+  location.hash!==correctCatalogHash
+){
+  history.replaceState(
+    {catalogPage:currentPage},
+    "",
+    correctCatalogHash
+  );
+}
 
   const start=totalItems===0?0:((currentPage-1)*beatsPerPage)+1;
   const end=Math.min(currentPage*beatsPerPage,totalItems);
