@@ -1078,7 +1078,14 @@ function renderPagination(totalItems){
     button.className=active?"page-button active":"page-button";
     button.addEventListener("click",()=>{
       currentPage=page;
-      renderCatalog(currentList);
+
+history.pushState(
+    {catalogPage:currentPage},
+    "",
+    "#catalog-page-"+currentPage
+);
+
+renderCatalog(currentList);
       document.getElementById("catalog").scrollIntoView({
         behavior:"smooth",
         block:"start"
