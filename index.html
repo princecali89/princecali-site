@@ -961,6 +961,54 @@ function updateFeaturedStage(){const cards=Array.from(featuredStrip.children);if
 function startFeaturedRotation(){if(featuredTimer)clearInterval(featuredTimer);featuredTimer=null;}
 function renderCloud(){if(!coverCloud)return;coverCloud.innerHTML="";beats.filter(b=>b.featured).slice(0,8).forEach(b=>{const img=document.createElement("img");img.alt="";img.src=(b.img||"")+"?v=25";img.onerror=()=>{const t=youtubeThumb(b.youtube);if(t)img.src=t;else img.remove();};img.style.setProperty("--i",String(coverCloud.children.length));coverCloud.appendChild(img);});}
 function matches(beat,q){const hay=cleanText([beat.title,beat.vibe,(beat.tags||[]).join(" ")].join(" "));return !q||hay.includes(q);}
+function renderPagination(totalItems){
+  const totalPages=Math.max(1,Math.ceil(totalItems/beatsPerPage));
+
+  if(currentPage>totalPages){
+    currentPage=totalPages;
+  }
+
+  const start=totalItems===0?0:((currentPage-1)*beatsPerPage)+1;
+  const end=Math.min(currentPage*beatsPerPage,totalItems);
+
+  catalogCount.textContent=totalItems
+    ?`Showing ${start}-${end} of ${totalItems} beats`
+    :"0 beats";
+
+  pageControls.innerHTML="";
+
+  if(totalItems===0){
+    catalogPagination.style.display="none";
+    return;
+  }
+
+  catalogPagination.style.display="flex";
+
+  const makeButton=(label,page,disabled=false,active=false)=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.textContent=label;
+    button.disabled=disabled;
+    button.className=active?"page-button active":"page-button";
+    button.addEventListener("click",()=>{
+      currentPage=page;
+      renderCatalog(currentList);
+      document.getElementById("catalog").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+    });
+    pageControls.appendChild(button);
+  };
+
+  makeButton("‹",currentPage-1,currentPage===1);
+
+  for(let page=1;page<=totalPages;page++){
+    makeButton(String(page),page,false,page===currentPage);
+  }
+
+  makeButton("›",currentPage+1,currentPage===totalPages);
+}
 function renderCatalog(list=null){const q=cleanText(searchBox.value);const src=list||beats.filter(b=>(activeFilter==="all"||(b.tags||[]).includes(activeFilter))&&matches(b,q));currentList=src;grid.innerHTML="";src.forEach(b=>grid.appendChild(beatCard(b,false)));noResults.classList.toggle("show",src.length===0);smartNote.textContent=src.length?`${src.length} beat${src.length===1?"":"s"} showing. Click cover to preview, save to remember, or license when ready.`:"No match yet. Clear the search or try a broader mood.";}
 function showRail(title,list){smartRail.innerHTML="";if(!list.length){smartRail.classList.remove("show");toast("Nothing saved yet");return;}list.slice(0,8).forEach(b=>{const c=document.createElement("div");c.className="smart-card";const img=document.createElement("img");prepareImage(img,b);c.appendChild(img);c.insertAdjacentHTML("beforeend",`<strong>${b.title}</strong><span>${b.vibe}</span>`);c.addEventListener("click",()=>openPreview(b.title));smartRail.appendChild(c);});smartRail.classList.add("show");smartNote.textContent=title;}
 function toggleSave(title){if(!requireProfile("save beats"))return;const st=state();st.saved=st.saved.includes(title)?st.saved.filter(x=>x!==title):[title,...st.saved];saveState(st);renderCatalog();if(title===previewTitle.textContent)updatePreviewSaveButton();toast(st.saved.includes(title)?"Beat saved":"Beat removed");renderCrate();}
