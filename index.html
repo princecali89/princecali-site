@@ -1014,7 +1014,7 @@ document.getElementById("catalog").scrollIntoView({
     block:"start"
 });
 
-window.addEventListener("popstate",event=>{
+window.addEventListener("popstate",event=>{console.log("Popstate", event.state);
   const pageFromState=event.state&&event.state.catalogPage
     ?Number(event.state.catalogPage)
     :1;
@@ -1094,6 +1094,8 @@ function renderPagination(totalItems){
     button.addEventListener("click",()=>{
       currentPage=page;
 
+console.log("Pushing page", currentPage);
+      
 history.pushState(
     {catalogPage:currentPage},
     "",
