@@ -1008,6 +1008,12 @@ pageSizeSelect.addEventListener("change",()=>{
 
   currentPage=1;
   renderCatalog(currentList);
+
+document.getElementById("catalog").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+});
+  
 });
 const storeKey="princeCaliSiteStateV4";
 function safeStoreGet(key){try{return window.localStorage?localStorage.getItem(key):null}catch(e){return null}}
