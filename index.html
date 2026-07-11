@@ -1011,8 +1011,10 @@ pageSizeSelect.addEventListener("change",()=>{
   renderCatalog(currentList);
 
 
-
-  
+document.getElementById("catalog").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+});
 });
 
 window.addEventListener("popstate",event=>{console.log("Popstate", event.state);
