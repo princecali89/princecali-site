@@ -1699,6 +1699,37 @@ body.dark-mode .copy,body.dark-mode .smart-note,body.dark-mode .meta p,body.dark
 /* feed/profile post layout */
 .feed-post,.comment-item{display:grid;grid-template-columns:46px 1fr;gap:12px}.feed-avatar,.comment-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;background:rgba(8,8,8,.08);display:grid;place-items:center;font-weight:900}.feed-body{min-width:0}.feed-author{display:flex;align-items:center;gap:7px;font-weight:800}.feed-tabs{display:flex;border-bottom:1px solid var(--line);margin-top:16px}.feed-tab{padding:15px 18px;border:0;background:transparent;font-weight:800;color:var(--muted);cursor:pointer}.feed-tab.active{color:var(--ink);box-shadow:inset 0 -3px var(--accent)}
 .contact-photo-wrap{transform:none!important}
+#contact .contact-shell{
+  grid-template-columns:minmax(0,1fr) 360px!important;
+  align-items:end!important;
+}
+
+#contact .contact-photo-wrap{
+  width:360px!important;
+  max-width:360px!important;
+  justify-self:end!important;
+  align-self:end!important;
+  transform:none!important;
+}
+
+#contact .contact-photo{
+  width:300px!important;
+  max-width:300px!important;
+  height:auto!important;
+  margin:0 auto!important;
+  display:block!important;
+}
+
+@media(max-width:900px){
+  #contact .contact-shell{
+    grid-template-columns:1fr!important;
+  }
+
+  #contact .contact-photo-wrap{
+    width:min(100%,360px)!important;
+    justify-self:center!important;
+  }
+}
 </style>
 <script id="v15-social-owner-carousel-xui-js">
 (function(){
