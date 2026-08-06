@@ -25,7 +25,7 @@
 <meta content="assets/favicon.png?v=11" name="twitter:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="telephone=no" name="format-detection"/>
-<meta content="premium-redesign-v36-sync-source-truth" name="prince-cali-version"/>
+<meta content="premium-redesign-v37-sync-route-contact-photo" name="prince-cali-version"/>
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Prince Cali" name="author"/>
@@ -3350,6 +3350,145 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',guard,{once:true});else guard();
   window.addEventListener('hashchange',guard);
+})();
+</script>
+
+
+
+<style id="pc-v37-sync-route-contact-photo-fixes">
+/* v37 — keep Sync fully separate from the normal catalog/home flow. */
+html body:not(.sync-view) #sync{
+  display:none!important;
+}
+html body.sync-view #sync{
+  display:block!important;
+}
+
+/* Higher-contrast cue actions on the dark Sync library. */
+#sync .sync-mini{
+  background:rgba(255,255,255,.10)!important;
+  color:#f7f1e7!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.12)!important;
+}
+#sync .sync-mini:hover,
+#sync .sync-mini:focus-visible{
+  background:#d0b06d!important;
+  color:#111!important;
+  border-color:#d0b06d!important;
+  outline:none!important;
+}
+#sync .sync-mini.saved{
+  background:#d0b06d!important;
+  color:#111!important;
+  border-color:#d0b06d!important;
+}
+#sync .sync-placeholder{
+  background:#d0b06d!important;
+  color:#111!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  font-weight:900!important;
+}
+
+/* Stabilize the contact portrait. This intentionally overrides the older -650px desktop translate. */
+@media (min-width:901px){
+  #contact .contact-shell{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 360px!important;
+    gap:48px!important;
+    align-items:end!important;
+    max-width:1180px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  #contact .contact-photo-wrap{
+    position:static!important;
+    inset:auto!important;
+    right:auto!important;
+    left:auto!important;
+    top:auto!important;
+    bottom:auto!important;
+    width:360px!important;
+    min-width:360px!important;
+    max-width:360px!important;
+    min-height:420px!important;
+    margin:0!important;
+    justify-self:end!important;
+    align-self:end!important;
+    transform:none!important;
+    translate:none!important;
+    transition:none!important;
+    will-change:auto!important;
+  }
+  #contact .contact-photo{
+    width:300px!important;
+    min-width:300px!important;
+    max-width:300px!important;
+    height:auto!important;
+    margin:0 auto!important;
+    transform:none!important;
+    translate:none!important;
+    transition:none!important;
+  }
+}
+@media (max-width:900px){
+  #contact .contact-shell{
+    grid-template-columns:1fr!important;
+    max-width:none!important;
+  }
+  #contact .contact-photo-wrap{
+    position:static!important;
+    transform:none!important;
+    translate:none!important;
+    margin:0 auto!important;
+    justify-self:center!important;
+    width:min(360px,100%)!important;
+    min-width:0!important;
+    max-width:360px!important;
+  }
+}
+</style>
+
+<script id="pc-v37-sync-contact-routing-fix">
+(function(){
+  'use strict';
+  const contact=document.getElementById('contact');
+  const sync=document.getElementById('sync');
+
+  function leaveSyncAndOpenContact(e){
+    if(e)e.preventDefault();
+    document.body.classList.remove('sync-view','profile-view','feed-view','feed-locked','profile-locked');
+    if(location.hash!=='#contact') history.pushState(null,'','#contact');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      contact?.scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+  }
+
+  /* Both Sync inquiry buttons and the modal inquiry button go to the real email/contact section. */
+  document.addEventListener('click',function(e){
+    const link=e.target.closest('#sync a[href="#contact"], #syncDetailModal a[href="#contact"]');
+    if(link) leaveSyncAndOpenContact(e);
+  },true);
+
+  /* If #contact is entered directly while Sync is open, restore the normal page before scrolling. */
+  window.addEventListener('hashchange',function(){
+    if(location.hash==='#contact'){
+      document.body.classList.remove('sync-view','profile-view','feed-view','feed-locked','profile-locked');
+      setTimeout(()=>contact?.scrollIntoView({behavior:'auto',block:'start'}),0);
+    }
+  });
+
+  /* Guarantee Sync is never visible as the tail end of Catalog/Home. */
+  function enforceRoute(){
+    const isSync=location.hash==='#sync';
+    document.body.classList.toggle('sync-view',isSync);
+    if(isSync){
+      document.body.classList.remove('profile-view','feed-view','feed-locked','profile-locked');
+      requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));
+    }
+  }
+  enforceRoute();
+  window.addEventListener('hashchange',enforceRoute);
 })();
 </script>
 
