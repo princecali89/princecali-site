@@ -25,7 +25,7 @@
 <meta content="assets/favicon.png?v=11" name="twitter:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="telephone=no" name="format-detection"/>
-<meta content="premium-redesign-v34-sync-library-commercial" name="prince-cali-version"/>
+<meta content="premium-redesign-v36-sync-source-truth" name="prince-cali-version"/>
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Prince Cali" name="author"/>
@@ -3138,18 +3138,24 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     Add new cues ONLY inside the array below. The page, search, filters, shortlist,
     counts, structured data, and pagination update automatically.
 
-    Recommended audio folder: /assets/cues/
-    Example file: assets/cues/pressure-line.mp3
+    AUDIO PATHS ARE NOW FORGIVING:
+    You can put cue MP3s directly in /assets/ OR /assets/cues/.
+    For the audio field you may use just the filename, for example: audio:'assets/The Anomaly.mp3'.
+    The player will automatically try the exact path, /assets/cues/, and /assets/.
+
+    IMPORTANT: THIS ARRAY IS THE SINGLE SOURCE OF TRUTH FOR EVERYTHING DISPLAYED ON THE SYNC PAGE.
+    The website must display exactly what you type here. It will NOT replace duration, BPM, key, mood,
+    style, uses, tags, or description with stock/default/inferred values.
 
     Required fields: title, audio, duration, bpm, mood, style, uses, tags.
     Optional fields: key, description, date, featured, placeholder.
   */
   const SYNC_CUES = [
     {
-      title:'The Anomaly', audio:'assets/cues/The Anomaly.mp3', duration:'2:35', bpm:130, key:'A min',
+      title:'The Anomaly', audio:'assets/The Anomaly.mp3', duration:'2:35', bpm:130, key:'A min',
       mood:['tension','dark'], style:'Cinematic Horror/Suspense', uses:['film-tv','trailer','movies'],
       tags:['tension','unsettling','haunting','slow build','dark'], featured:1, date:'2026-08-06', placeholder:false,
-      description:'Dark suspense cue slot for tense edits, haunting energy, horror builds, and high-tense picture.'
+      description:'Dark suspense cue for tense edits, haunting energy, horror builds, and high-tension picture.'
     },
     {
       title:'Cold Open', audio:'assets/cues/cold-open.mp3', duration:'1:12', bpm:118, key:'F min',
@@ -3198,6 +3204,36 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function durationSeconds(v){const p=String(v||'0:00').split(':').map(Number);return p.length===2?p[0]*60+p[1]:0;}
   function formatTime(s){if(!Number.isFinite(s))return '0:00';const m=Math.floor(s/60),x=Math.floor(s%60);return `${m}:${String(x).padStart(2,'0')}`;}
   function waveHTML(title){let seed=0;for(const ch of title)seed=(seed*31+ch.charCodeAt(0))>>>0;let out='';for(let i=0;i<34;i++){seed=(1664525*seed+1013904223)>>>0;const h=18+(seed%72);out+=`<i style="--h:${h}%;--i:${i}"></i>`;}return out;}
+  function audioCandidates(c){
+    const raw=String(c?.audio||'').trim();
+    if(!raw)return [];
+    const clean=raw.replace(/^\.\//,'').replace(/^\/+/, '');
+    const file=clean.split('/').pop();
+    const list=[clean];
+    if(file){list.push(`assets/${file}`,`assets/cues/${file}`);}
+    return [...new Set(list.filter(Boolean))];
+  }
+  function loadAudioSource(audio,c,index=0){
+    const candidates=audioCandidates(c);
+    if(!candidates.length)return Promise.reject(new Error('No cue audio filename set'));
+    return new Promise((resolve,reject)=>{
+      let i=index;
+      const tryNext=()=>{
+        if(i>=candidates.length){reject(new Error(`Cue audio not found. Tried: ${candidates.join(', ')}`));return;}
+        const src=candidates[i++];
+        const onReady=()=>{cleanup();c._resolvedAudio=src;resolve(src);};
+        const onError=()=>{cleanup();tryNext();};
+        const cleanup=()=>{audio.removeEventListener('loadedmetadata',onReady);audio.removeEventListener('canplay',onReady);audio.removeEventListener('error',onError);};
+        audio.addEventListener('loadedmetadata',onReady,{once:true});
+        audio.addEventListener('canplay',onReady,{once:true});
+        audio.addEventListener('error',onError,{once:true});
+        audio.src=encodeURI(src);
+        audio.load();
+      };
+      tryNext();
+    });
+  }
+  function updateCueDurationFromAudio(c,audio){ /* Source metadata is authoritative; do not overwrite editable cue info. */ }
   function cueText(c){return normalize([c.title,c.duration,c.bpm,c.key,c.style,(c.mood||[]).join(' '),(c.uses||[]).join(' '),(c.tags||[]).join(' '),c.description].join(' '));}
   function filtered(){
     const q=normalize($('#syncSearch')?.value||'');
@@ -3246,18 +3282,28 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function renderPagination(pages){const el=$('#syncPagination');if(!el)return;if(pages<=1){el.innerHTML='';return;}let html=`<button class="sync-page-btn" data-page="${Math.max(1,currentPage-1)}" ${currentPage===1?'disabled':''}>←</button>`;for(let p=1;p<=pages;p++){if(pages>9&&Math.abs(p-currentPage)>2&&p!==1&&p!==pages){if((p===2&&currentPage>4)||(p===pages-1&&currentPage<pages-3))html+='<span class="sync-page-btn" aria-hidden="true">…</span>';continue;}html+=`<button class="sync-page-btn ${p===currentPage?'active':''}" data-page="${p}">${p}</button>`;}html+=`<button class="sync-page-btn" data-page="${Math.min(pages,currentPage+1)}" ${currentPage===pages?'disabled':''}>→</button>`;el.innerHTML=html;$$('[data-page]',el).forEach(b=>b.onclick=()=>{currentPage=+b.dataset.page;render();$('#sync').scrollIntoView({behavior:'smooth',block:'start'});});}
   function stopAudio(){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;}activeAudio=null;activeCue=null;$$('.sync-cue.is-playing').forEach(r=>r.classList.remove('is-playing'));$$('.sync-play.is-playing').forEach(b=>{b.classList.remove('is-playing');b.textContent='▶';});}
-  function playCue(c,row){
+  async function playCue(c,row){
     if(activeCue===c.title&&activeAudio&&!activeAudio.paused){activeAudio.pause();row.classList.remove('is-playing');$('.sync-play',row).classList.remove('is-playing');$('.sync-play',row).textContent='▶';return;}
     stopAudio();
-    const audio=new Audio(c.audio);activeAudio=audio;activeCue=c.title;
+    const audio=new Audio();activeAudio=audio;activeCue=c.title;
     const btn=$('.sync-play',row),progress=$('.sync-progress',row);
     audio.preload='metadata';
     audio.addEventListener('play',()=>{row.classList.add('is-playing');btn.classList.add('is-playing');btn.textContent='Ⅱ';});
     audio.addEventListener('pause',()=>{if(audio.currentTime<audio.duration||!audio.ended){row.classList.remove('is-playing');btn.classList.remove('is-playing');btn.textContent='▶';}});
+    audio.addEventListener('loadedmetadata',()=>updateCueDurationFromAudio(c,audio));
     audio.addEventListener('timeupdate',()=>{if(audio.duration)progress.value=Math.round((audio.currentTime/audio.duration)*1000);});
     audio.addEventListener('ended',()=>{progress.value=0;stopAudio();});
-    audio.addEventListener('error',()=>{stopAudio();toastMsg(`Add the cue audio file at ${c.audio}`);});
-    audio.play().catch(()=>toastMsg(`Add the cue audio file at ${c.audio}`));
+    try{
+      if(c._resolvedAudio){audio.src=encodeURI(c._resolvedAudio);audio.load();}
+      else await loadAudioSource(audio,c);
+      updateCueDurationFromAudio(c,audio);
+      await audio.play();
+    }catch(err){
+      stopAudio();
+      console.error('[Prince Cali Sync] Audio load failed:',err);
+      const tried=audioCandidates(c).join(' • ');
+      toastMsg(`Cue audio not found. Tried: ${tried}`);
+    }
   }
   function toggleShortlist(c,row){const list=getShortlist(),has=list.includes(c.title),next=has?list.filter(x=>x!==c.title):[...list,c.title];setShortlist(next);const b=$('.sync-save',row);if(b){b.classList.toggle('saved',!has);b.textContent=!has?'Shortlisted':'Shortlist';}if(shortlistOnly)render();}
   function detailModal(){let m=$('#syncDetailModal');if(m)return m;m=document.createElement('div');m.id='syncDetailModal';m.className='sync-detail-modal';m.innerHTML='<div class="sync-detail-card"><button class="sync-detail-close" type="button" aria-label="Close">×</button><div id="syncDetailBody"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.sync-detail-close'))m.classList.remove('show');});return m;}
@@ -3280,8 +3326,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     window.addEventListener('hashchange',routeSync);
     document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#syncDetailModal')?.classList.remove('show');});
   }
+  function hydrateCueDurations(){
+    SYNC_CUES.forEach(c=>{
+      const a=new Audio();a.preload='metadata';
+      loadAudioSource(a,c).then(()=>{updateCueDurationFromAudio(c,a);}).catch(()=>{});
+    });
+  }
   function injectStructuredData(){const old=$('#pcSyncStructuredData');if(old)old.remove();const s=document.createElement('script');s.id='pcSyncStructuredData';s.type='application/ld+json';s.textContent=JSON.stringify({'@context':'https://schema.org','@type':'ItemList','name':'Prince Cali Sync Licensing Cue Library','itemListElement':SYNC_CUES.map((c,i)=>({'@type':'ListItem','position':i+1,'item':{'@type':'MusicRecording','name':c.title,'duration':`PT${durationSeconds(c.duration)}S`,'genre':c.style,'byArtist':{'@type':'Person','name':'Prince Cali'}}}))});document.head.appendChild(s);}
-  function init(){if(!$('#sync'))return;bind();render();injectStructuredData();routeSync();}
+  function init(){if(!$('#sync'))return;bind();render();hydrateCueDurations();injectStructuredData();routeSync();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
