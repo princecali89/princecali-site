@@ -3281,7 +3281,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     bindRows();
   }
   function renderPagination(pages){const el=$('#syncPagination');if(!el)return;if(pages<=1){el.innerHTML='';return;}let html=`<button class="sync-page-btn" data-page="${Math.max(1,currentPage-1)}" ${currentPage===1?'disabled':''}>←</button>`;for(let p=1;p<=pages;p++){if(pages>9&&Math.abs(p-currentPage)>2&&p!==1&&p!==pages){if((p===2&&currentPage>4)||(p===pages-1&&currentPage<pages-3))html+='<span class="sync-page-btn" aria-hidden="true">…</span>';continue;}html+=`<button class="sync-page-btn ${p===currentPage?'active':''}" data-page="${p}">${p}</button>`;}html+=`<button class="sync-page-btn" data-page="${Math.min(pages,currentPage+1)}" ${currentPage===pages?'disabled':''}>→</button>`;el.innerHTML=html;$$('[data-page]',el).forEach(b=>b.onclick=()=>{currentPage=+b.dataset.page;render();$('#sync').scrollIntoView({behavior:'smooth',block:'start'});});}
-  function stopAudio(){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;}activeAudio=null;activeCue=null;$$('.sync-cue.is-playing').forEach(r=>r.classList.remove('is-playing'));$$('.sync-play.is-playing').forEach(b=>{b.classList.remove('is-playing');b.textContent='▶';});}
+  function stopAudio(){if(activeAudio){try{activeAudio.pause();activeAudio.currentTime=0;activeAudio.removeAttribute('src');activeAudio.load();}catch(e){}}activeAudio=null;activeCue=null;$$('.sync-cue.is-playing').forEach(r=>r.classList.remove('is-playing'));$$('.sync-play.is-playing').forEach(b=>{b.classList.remove('is-playing');b.textContent='▶';});$$('.sync-progress').forEach(p=>p.value=0);}
+  /* Public route hook: any page navigation can stop Sync playback immediately. */
+  window.__pcStopSyncAudio=stopAudio;
   async function playCue(c,row){
     if(activeCue===c.title&&activeAudio&&!activeAudio.paused){activeAudio.pause();row.classList.remove('is-playing');$('.sync-play',row).classList.remove('is-playing');$('.sync-play',row).textContent='▶';return;}
     stopAudio();
@@ -3314,7 +3316,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
 
-  function routeSync(){const sync=location.hash==='#sync';document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));}}
+  function routeSync(){const sync=location.hash==='#sync';document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));}else{stopAudio();$('#syncDetailModal')?.classList.remove('show');}}
   function bind(){
     $('#syncSearch')?.addEventListener('input',()=>{currentPage=1;render();});
     $('#syncUseFilter')?.addEventListener('change',()=>{currentPage=1;render();});
@@ -3355,7 +3357,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 
 
-<style id="pc-v37-sync-route-contact-photo-fixes">
+<style id="pc-v38-sync-route-contact-photo-fixes">
 /* v37 — keep Sync fully separate from the normal catalog/home flow. */
 html body:not(.sync-view) #sync{
   display:none!important;
@@ -3449,7 +3451,7 @@ html body.sync-view #sync{
 }
 </style>
 
-<script id="pc-v37-sync-contact-routing-fix">
+<script id="pc-v38-sync-contact-routing-fix">
 (function(){
   'use strict';
   const contact=document.getElementById('contact');
@@ -3457,6 +3459,7 @@ html body.sync-view #sync{
 
   function leaveSyncAndOpenContact(e){
     if(e)e.preventDefault();
+    window.__pcStopSyncAudio?.();
     document.body.classList.remove('sync-view','profile-view','feed-view','feed-locked','profile-locked');
     if(location.hash!=='#contact') history.pushState(null,'','#contact');
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
@@ -3485,6 +3488,8 @@ html body.sync-view #sync{
     if(isSync){
       document.body.classList.remove('profile-view','feed-view','feed-locked','profile-locked');
       requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));
+    }else{
+      window.__pcStopSyncAudio?.();
     }
   }
   enforceRoute();
