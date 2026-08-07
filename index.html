@@ -3248,7 +3248,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     Optional fields: key, description, date, featured, placeholder.
   */
   const SYNC_CUES = [
-     {
+    {
       title:'The Anomaly', audio:'assets/The Anomaly.mp3', duration:'0:30', bpm:130, key:'A min',
       mood:['tension','dark'], style:'Cinematic Horror/Suspense', uses:['film-tv','trailer','movies'],
       tags:['tension','unsettling','haunting','slow build','dark'], featured:1, date:'2026-08-06', placeholder:false,
@@ -3333,7 +3333,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));
         if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
         const ctx=canvas.getContext('2d');if(!ctx)return;analyser.getByteTimeDomainData(data);ctx.clearRect(0,0,w,h);
-        const styles=getComputedStyle(document.body),ink=styles.getPropertyValue('--paper').trim()||'#f4efe6',gold=styles.getPropertyValue('--gold').trim()||'#b58a40';
+        const styles=getComputedStyle(document.body),darkMode=document.body.classList.contains('dark-mode'),ink=darkMode?'#f7f1e7':'#171310',gold=styles.getPropertyValue('--gold').trim()||'#b58a40';
         const bars=58,gap=2*dpr,bw=Math.max(1,(w-gap*(bars-1))/bars);
         const peaks=new Array(bars).fill(0);let frameMax=.001;
         for(let i=0;i<bars;i++){
@@ -3758,6 +3758,130 @@ body.dark-mode .pathway-beats{background:radial-gradient(circle at 88% 12%,rgba(
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',route,{once:true});else route();
   window.addEventListener('hashchange',route);
   window.addEventListener('popstate',route);
+})();
+</script>
+
+
+
+<!-- v43: persistent theme + Sync Intelligence / Brief Match. Added as an isolated enhancement layer. -->
+<style id="pc-v43-sync-intelligence-styles">
+/* Day-mode contrast corrections for Sync controls and playback visuals. */
+body:not(.dark-mode) #sync .sync-mini{
+  background:rgba(255,255,255,.74)!important;
+  color:#171310!important;
+  border-color:rgba(8,8,8,.30)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.07)!important;
+}
+body:not(.dark-mode) #sync .sync-mini:hover,
+body:not(.dark-mode) #sync .sync-mini:focus-visible,
+body:not(.dark-mode) #sync .sync-mini.saved{
+  background:#d0b06d!important;color:#111!important;border-color:#b58a40!important;
+}
+body:not(.dark-mode) #sync .sync-time-row,
+body:not(.dark-mode) #sync .sync-time-row .sync-elapsed,
+body:not(.dark-mode) #sync .sync-time-row .sync-total{
+  color:#171310!important;text-shadow:none!important;opacity:1!important;
+}
+body:not(.dark-mode) #sync .sync-shortlist-toggle{
+  background:#171310!important;color:#f7f1e7!important;border-color:#171310!important;
+}
+body.dark-mode #sync .sync-shortlist-toggle{
+  background:#f4efe6!important;color:#15110f!important;border-color:#f4efe6!important;
+}
+body.dark-mode #sync .sync-shortlist-toggle[aria-pressed="true"],
+body:not(.dark-mode) #sync .sync-shortlist-toggle[aria-pressed="true"]{
+  background:#d0b06d!important;color:#111!important;border-color:#d0b06d!important;
+}
+
+/* Sync-side intelligence balances the artist catalog's Beat DNA without copying its visual design. */
+.pc-sync-intel{margin:18px 0 24px;padding:20px;border:1px solid rgba(8,8,8,.11);border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.44),rgba(181,138,64,.08));box-shadow:0 18px 60px rgba(0,0,0,.06)}
+body.dark-mode .pc-sync-intel{background:linear-gradient(135deg,rgba(255,255,255,.065),rgba(181,138,64,.09));border-color:rgba(255,255,255,.12)}
+.pc-sync-intel-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:13px}.pc-sync-intel-head h3{margin:4px 0 0;font-size:clamp(24px,3vw,38px);letter-spacing:-.045em}.pc-sync-intel-head p{margin:0;max-width:640px;color:var(--muted);font-size:13px;line-height:1.55}
+.pc-sync-brief-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}.pc-sync-brief-row input{height:50px;border-radius:15px;border:1px solid rgba(8,8,8,.14);background:rgba(255,255,255,.72);color:var(--ink);padding:0 16px;outline:none}.pc-sync-brief-row input:focus{border-color:rgba(181,138,64,.75);box-shadow:0 0 0 3px rgba(181,138,64,.11)}body.dark-mode .pc-sync-brief-row input{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#f7f1e7}
+.pc-sync-match-btn{height:50px;padding:0 18px;border-radius:15px;border:1px solid #d0b06d;background:#d0b06d;color:#111;font-weight:900;font-size:10px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}
+.pc-sync-brief-examples{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.pc-sync-brief-chip{border:1px solid rgba(8,8,8,.12);background:transparent;color:var(--ink);border-radius:999px;padding:8px 11px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;cursor:pointer}body.dark-mode .pc-sync-brief-chip{color:#f7f1e7;border-color:rgba(255,255,255,.16)}
+.pc-sync-matches{display:none;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.pc-sync-matches.show{display:grid}.pc-sync-match-card{display:grid;gap:8px;text-align:left;border:1px solid rgba(8,8,8,.10);border-radius:20px;padding:14px;background:rgba(255,255,255,.46);color:var(--ink);cursor:pointer;transition:.2s ease}.pc-sync-match-card:hover{transform:translateY(-2px);border-color:rgba(181,138,64,.55)}body.dark-mode .pc-sync-match-card{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.11);color:#f7f1e7}.pc-sync-match-card strong{font-size:16px}.pc-sync-match-card span{color:var(--muted);font-size:11px;line-height:1.4}.pc-sync-match-score{width:max-content!important;color:#111!important;background:#d0b06d;border-radius:999px;padding:5px 8px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+
+.pc-sync-dna-extension{margin-top:22px;padding-top:20px;border-top:1px solid rgba(8,8,8,.10)}body.dark-mode .pc-sync-dna-extension{border-color:rgba(255,255,255,.12)}.pc-sync-dna-top{display:flex;justify-content:space-between;gap:14px;align-items:center}.pc-sync-dna-top h4{margin:0;font-size:20px;letter-spacing:-.03em}.pc-sync-dna-state{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}.pc-sync-dna-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.pc-sync-dna-cell{display:grid;gap:5px}.pc-sync-dna-cell span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.pc-sync-dna-meter{height:7px;border-radius:999px;background:rgba(8,8,8,.10);overflow:hidden}body.dark-mode .pc-sync-dna-meter{background:rgba(255,255,255,.10)}.pc-sync-dna-meter i{display:block;width:var(--w);height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b1018,#d0b06d)}.pc-sync-dna-summary{margin:13px 0 0!important;font-size:13px!important;line-height:1.5!important;color:var(--muted)!important}.pc-sync-similar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.pc-sync-similar button{border:1px solid rgba(8,8,8,.11);background:rgba(255,255,255,.38);color:var(--ink);border-radius:15px;padding:10px;text-align:left;cursor:pointer}.pc-sync-similar button strong{display:block;font-size:12px}.pc-sync-similar button span{display:block;color:var(--muted);font-size:10px;margin-top:3px}body.dark-mode .pc-sync-similar button{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.11);color:#f7f1e7}
+@media(max-width:760px){.pc-sync-intel-head{display:grid}.pc-sync-brief-row{grid-template-columns:1fr}.pc-sync-match-btn{width:100%}.pc-sync-matches{grid-template-columns:1fr}.pc-sync-dna-grid{grid-template-columns:1fr 1fr}.pc-sync-similar{grid-template-columns:1fr}}
+</style>
+<script id="pc-v43-theme-persistence-and-sync-intelligence">
+(function(){
+'use strict';
+const THEME_KEY='princeCaliTheme';
+function applySavedTheme(){
+  let mode='';try{mode=localStorage.getItem(THEME_KEY)||''}catch(_){ }
+  if(mode==='dark'||mode==='light')document.body.classList.toggle('dark-mode',mode==='dark');
+}
+function rememberTheme(){try{localStorage.setItem(THEME_KEY,document.body.classList.contains('dark-mode')?'dark':'light')}catch(_){}}
+function initThemePersistence(){
+  applySavedTheme();
+  // Existing theme controls remain authoritative; this only persists their final state.
+  document.addEventListener('click',e=>{if(e.target.closest('#navThemeToggle,#themeToggle'))setTimeout(rememberTheme,40)},true);
+  new MutationObserver(m=>{if(m.some(x=>x.attributeName==='class'))rememberTheme()}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('pageshow',applySavedTheme);
+}
+
+const cues=()=>window.PRINCE_CALI_SYNC_CUES||[];
+const cache=new Map();
+const VERSION='1.0';
+const keyFor=c=>`pcSyncDNA:${VERSION}:${c.title}:${c.audio||''}`;
+const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
+const norm=v=>String(v||'').toLowerCase().trim();
+function readCache(c){if(cache.has(c.title))return cache.get(c.title);try{const x=JSON.parse(localStorage.getItem(keyFor(c))||'null');if(x&&x.version===VERSION){cache.set(c.title,x);return x}}catch(_){ }return null}
+function saveCache(c,x){cache.set(c.title,x);try{localStorage.setItem(keyFor(c),JSON.stringify(x))}catch(_){}}
+function candidates(c){const raw=String(c.audio||'').replace(/^\.\//,'').replace(/^\/+/, '');if(!raw)return[];const file=raw.split('/').pop();return [...new Set([raw,file?`assets/${file}`:'',file?`assets/cues/${file}`:''].filter(Boolean))]}
+async function fetchCueBytes(c){let last;for(const url of candidates(c)){try{const r=await fetch(url,{cache:'force-cache'});if(r.ok)return await r.arrayBuffer();last=new Error(`HTTP ${r.status}`)}catch(e){last=e}}throw last||new Error('Audio unavailable')}
+function percentile(a,p){if(!a.length)return 0;const x=[...a].sort((m,n)=>m-n);return x[Math.min(x.length-1,Math.floor((x.length-1)*p))]}
+function signalFeatures(buf){
+  const sr=buf.sampleRate,ch=buf.numberOfChannels,len=buf.length,step=Math.max(1,Math.floor(len/260000)),frameSamples=Math.max(1,Math.floor(sr*.045/step));let s2=0,peak=0,z=0,n=0,prev=0,fs=0,fc=0;const frames=[];
+  for(let i=0;i<len;i+=step){let x=0;for(let c=0;c<ch;c++)x+=buf.getChannelData(c)[i]||0;x/=ch;const ax=Math.abs(x);s2+=x*x;peak=Math.max(peak,ax);if(n&&((x>=0)!=(prev>=0)))z++;prev=x;n++;fs+=x*x;fc++;if(fc>=frameSamples){frames.push(Math.sqrt(fs/fc));fs=0;fc=0}}
+  const rms=Math.sqrt(s2/Math.max(1,n)),p20=percentile(frames,.2),p80=percentile(frames,.8),crest=peak/Math.max(.00001,rms);let onset=0;for(let i=1;i<frames.length;i++)if(frames[i]>frames[i-1]*1.3&&frames[i]-frames[i-1]>.007)onset++;
+  // Approximate brightness/low-end from zero crossing and energy envelope; deliberately conservative for browser speed.
+  const zcr=z/Math.max(1,n),onsetRate=onset/Math.max(1,buf.duration),dynamic=Math.max(0,p80-p20);
+  return {duration:buf.duration,rms,crest,zcr,onsetRate,dynamic};
+}
+function metricsFrom(f,c){
+  const meta=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' ');
+  const sem=w=>meta.includes(w);
+  const loud=clamp((20*Math.log10(Math.max(f.rms,1e-6))+36)/30,0,1);
+  const energy=clamp(32+loud*52+Math.min(18,f.onsetRate*7));
+  const punch=clamp(30+Math.min(42,(f.crest-1)*7)+Math.min(25,f.onsetRate*8));
+  const motion=clamp(34+Math.min(52,f.onsetRate*13)+Math.min(15,f.zcr*130));
+  const dynamics=clamp(32+Math.min(60,f.dynamic*720));
+  const density=clamp(34+Math.min(38,f.onsetRate*11)+Math.min(22,f.rms*220));
+  const brightness=clamp(35+Math.min(50,f.zcr*390)+(sem('uplifting')||sem('bright')?8:0)-(sem('dark')?8:0));
+  const space=clamp(100-density*.62-punch*.10+dynamics*.17+(sem('ambient')||sem('atmos')?8:0));
+  const darkness=clamp(82-brightness*.60+(sem('dark')||sem('tension')?12:0)-(sem('uplifting')?8:0));
+  return {energy:Math.round(energy),darkness:Math.round(darkness),motion:Math.round(motion),space:Math.round(space),punch:Math.round(punch),brightness:Math.round(brightness),dynamics:Math.round(dynamics),density:Math.round(density)};
+}
+function fallback(c){const s=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' '),has=w=>s.includes(w);return {energy:has('uplifting')||has('sports')?78:has('tension')?72:60,darkness:has('dark')||has('tension')?84:has('uplifting')?30:55,motion:has('sports')||has('swagger')||has('advertising')?78:62,space:has('ambient')||has('emotional')?76:58,punch:has('sports')||has('trailer')?78:60,brightness:has('uplifting')?78:has('dark')?34:56,dynamics:64,density:has('minimal')?42:62}}
+async function analyze(c){const hit=readCache(c);if(hit)return hit;try{const bytes=await fetchCueBytes(c),AC=window.AudioContext||window.webkitAudioContext,ac=new AC(),buf=await ac.decodeAudioData(bytes.slice(0));const metrics=metricsFrom(signalFeatures(buf),c);await ac.close().catch(()=>{});const x={version:VERSION,source:'audio',confidence:86,metrics};saveCache(c,x);return x}catch(e){const x={version:VERSION,source:'metadata',confidence:42,metrics:fallback(c)};saveCache(c,x);return x}}
+function distance(a,b){const A=(readCache(a)||{metrics:fallback(a)}).metrics,B=(readCache(b)||{metrics:fallback(b)}).metrics,ks=['energy','darkness','motion','space','punch','brightness','dynamics','density'];return ks.reduce((s,k)=>s+Math.abs(A[k]-B[k]),0)/ks.length}
+function similarity(a,b){return Math.round(clamp(100-distance(a,b)))}
+function summary(m){const tone=m.darkness>70?'dark and tense':m.brightness>70?'bright and open':'balanced';const drive=m.motion>74?'high-motion':m.energy>72?'high-energy':'controlled';const impact=m.punch>74?'punchy':'smooth';return `${tone[0].toUpperCase()+tone.slice(1)} profile with ${drive} movement and ${impact} impact. ${m.space>68?'More open space for picture and dialogue.':'Denser production suited to active edits.'}`}
+function esc(v){return String(v||'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]))}
+function injectDNA(c,data){const body=document.querySelector('#syncDetailBody');if(!body)return;body.querySelector('.pc-sync-dna-extension')?.remove();const labels={energy:'Energy',darkness:'Darkness',motion:'Motion',space:'Space',punch:'Punch',brightness:'Brightness',dynamics:'Dynamics',density:'Density'};const others=cues().filter(x=>x.title!==c.title).sort((a,b)=>similarity(c,b)-similarity(c,a)).slice(0,3);const box=document.createElement('section');box.className='pc-sync-dna-extension';box.innerHTML=`<div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">${data.source==='audio'?'Analyzed from cue audio':'Metadata profile'} · ${data.confidence}%</span></div><div class="pc-sync-dna-grid">${Object.entries(data.metrics).map(([k,v])=>`<div class="pc-sync-dna-cell"><span>${labels[k]}</span><div class="pc-sync-dna-meter"><i style="--w:${v}%"></i></div></div>`).join('')}</div><p class="pc-sync-dna-summary">${esc(summary(data.metrics))}</p>${others.length?`<div class="pc-sync-similar">${others.map(x=>`<button type="button" data-sync-similar="${esc(x.title)}"><strong>${esc(x.title)}</strong><span>${similarity(c,x)}% sonic match</span></button>`).join('')}</div>`:''}`;body.appendChild(box);box.querySelectorAll('[data-sync-similar]').forEach(b=>b.onclick=()=>focusCue(b.dataset.syncSimilar));}
+async function showDNAFor(c){const body=document.querySelector('#syncDetailBody');if(body&&!body.querySelector('.pc-sync-dna-extension')){const wait=document.createElement('section');wait.className='pc-sync-dna-extension';wait.innerHTML='<div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">Analyzing cue…</span></div>';body.appendChild(wait)}injectDNA(c,await analyze(c));}
+function focusCue(title,play=false){const q=document.getElementById('syncSearch');if(q){q.value=title;q.dispatchEvent(new Event('input',{bubbles:true}))}setTimeout(()=>{const row=[...document.querySelectorAll('.sync-cue')].find(r=>r.dataset.cue===title);row?.scrollIntoView({behavior:'smooth',block:'center'});if(play)row?.querySelector('.sync-play')?.click()},80)}
+function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60};const uses=[];const moods=[];const bump=(k,v)=>target[k]=v;
+  if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}
+  if(/trailer|teaser/.test(t)){uses.push('trailer','film-tv');moods.push('tension','dramatic','dark');bump('darkness',84);bump('punch',84);bump('dynamics',82)}
+  if(/sport|highlight|athletic/.test(t)){uses.push('sports');moods.push('uplifting','swagger');bump('energy',88);bump('motion',90);bump('punch',84)}
+  if(/documentary|docu|investigative/.test(t)){uses.push('documentary');moods.push('dramatic','emotional');bump('space',78);bump('density',48)}
+  if(/film|tv|scene|dialogue/.test(t)){uses.push('film-tv');bump('space',80);bump('density',48)}
+  if(/luxury|premium|fashion/.test(t)){moods.push('swagger');bump('space',74);bump('brightness',64);bump('energy',62)}
+  if(/emotional|heart|reflective/.test(t)){moods.push('emotional');bump('space',82);bump('energy',48);bump('punch',48)}
+  if(/dark|horror|tense|suspense/.test(t)){moods.push('dark','tension');bump('darkness',90);bump('brightness',30)}
+  if(/upbeat|happy|bright|positive/.test(t)){moods.push('uplifting');bump('brightness',86);bump('energy',82);bump('darkness',24);bump('motion',82)}
+  return {target,uses,moods,t};}
+function scoreBrief(c,brief){const d=(readCache(c)||{metrics:fallback(c)}).metrics;let score=100-(['energy','darkness','motion','space','punch','brightness','dynamics','density'].reduce((s,k)=>s+Math.abs(d[k]-brief.target[k]),0)/8);const cm=(c.mood||[]).map(norm),cu=(c.uses||[]).map(norm),ct=[c.title,c.style,...(c.tags||[])].map(norm).join(' ');brief.moods.forEach(x=>{if(cm.includes(x))score+=10});brief.uses.forEach(x=>{if(cu.includes(x))score+=12});brief.t.split(/\s+/).filter(x=>x.length>3).forEach(x=>{if(ct.includes(x))score+=2});return clamp(Math.round(score),1,99)}
+function renderBriefMatches(text){const host=document.getElementById('pcSyncMatches');if(!host)return;const brief=briefTargets(text);const ranked=cues().map(c=>({c,score:scoreBrief(c,brief)})).sort((a,b)=>b.score-a.score).slice(0,3);host.innerHTML=ranked.map(({c,score})=>`<button type="button" class="pc-sync-match-card" data-brief-cue="${esc(c.title)}"><span class="pc-sync-match-score">${score}% brief match</span><strong>${esc(c.title)}</strong><span>${esc(c.style)} · ${esc((c.mood||[]).join(' / '))}</span></button>`).join('');host.classList.add('show');host.querySelectorAll('[data-brief-cue]').forEach(b=>b.onclick=()=>focusCue(b.dataset.briefCue,true));}
+function installBriefMatcher(){const mood=document.querySelector('#sync .sync-mood-row');if(!mood||document.getElementById('pcSyncIntel'))return;const panel=document.createElement('section');panel.id='pcSyncIntel';panel.className='pc-sync-intel';panel.innerHTML=`<div class="pc-sync-intel-head"><div><div class="sync-eyebrow">SMART CUE DISCOVERY</div><h3>Match the brief.</h3></div><p>Describe the scene, campaign, emotion, or edit. The library combines cue metadata with Sync DNA to surface the closest fits.</p></div><div class="pc-sync-brief-row"><input id="pcSyncBrief" type="search" placeholder="Example: upbeat premium car commercial with forward motion"><button id="pcSyncBriefGo" class="pc-sync-match-btn" type="button">Find matches</button></div><div class="pc-sync-brief-examples"><button class="pc-sync-brief-chip" type="button">Upbeat car commercial</button><button class="pc-sync-brief-chip" type="button">Dark suspense trailer</button><button class="pc-sync-brief-chip" type="button">Emotional documentary</button><button class="pc-sync-brief-chip" type="button">Sports highlight</button></div><div id="pcSyncMatches" class="pc-sync-matches"></div>`;mood.insertAdjacentElement('afterend',panel);const input=panel.querySelector('#pcSyncBrief');panel.querySelector('#pcSyncBriefGo').onclick=()=>{if(input.value.trim())renderBriefMatches(input.value.trim())};input.addEventListener('keydown',e=>{if(e.key==='Enter'&&input.value.trim())renderBriefMatches(input.value.trim())});panel.querySelectorAll('.pc-sync-brief-chip').forEach(b=>b.onclick=()=>{input.value=b.textContent;renderBriefMatches(b.textContent)});}
+function hookDetails(){document.addEventListener('click',e=>{const btn=e.target.closest('#sync .sync-details');if(!btn)return;const row=btn.closest('.sync-cue'),c=cues().find(x=>x.title===row?.dataset.cue);if(c)setTimeout(()=>showDNAFor(c),30)},true)}
+function warm(){let i=0,arr=cues().filter(c=>!readCache(c));const run=()=>{if(i>=arr.length)return;analyze(arr[i++]).finally(()=>('requestIdleCallback'in window?requestIdleCallback(run,{timeout:2600}):setTimeout(run,1200)))};if('requestIdleCallback'in window)requestIdleCallback(run,{timeout:3200});else setTimeout(run,1800)}
+function init(){initThemePersistence();installBriefMatcher();hookDetails();warm();window.addEventListener('hashchange',()=>{if(location.hash==='#sync')setTimeout(installBriefMatcher,50)});}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
 
