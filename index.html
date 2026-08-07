@@ -880,6 +880,7 @@ body.dark-mode .sync-page-btn{color:var(--paper);border-color:rgba(255,255,255,.
 @media(prefers-reduced-motion:reduce){.sync-cue.is-playing .sync-wave i{animation:none!important;}}
 </style>
 
+<meta name="prince-cali-build" content="v44-sync-dna-theme-routes-fixed">
 </head>
 <body>
 <a class="skip-link" href="#featured">Skip to featured work</a>
@@ -1541,8 +1542,8 @@ let mediaEditMode="avatar",mediaEditData="";
 function isPrinceCaliProfile(person={}){const n=cleanText(person.name||"");const e=cleanText(person.email||"");return isOwnerMode()||n==="prince cali"||e==="princecali6989@gmail.com";}
 function verifiedHTML(person={}){return isPrinceCaliProfile(person)?'<span class="verified-badge">Verified</span>':"";}
 const oldNormalizeState=normalizeState;
-normalizeState=function(st){st=oldNormalizeState(st);st.profile.bio=st.profile.bio||"";st.profile.coverScale=st.profile.coverScale||100;st.profile.coverPosY=st.profile.coverPosY||50;st.profile.theme=st.profile.theme||safeStoreGet("princeCaliTheme")||"light";return st;};
-function applyTheme(){const st=normalizeState(state());const mode=st.profile.theme||safeStoreGet("princeCaliTheme")||"light";document.body.classList.toggle("dark-mode",mode==="dark");const t=document.getElementById("themeToggle");if(t)t.textContent=mode==="dark"?"Light Mode":"Dark Mode";}
+normalizeState=function(st){st=oldNormalizeState(st);st.profile.bio=st.profile.bio||"";st.profile.coverScale=st.profile.coverScale||100;st.profile.coverPosY=st.profile.coverPosY||50;st.profile.theme=safeStoreGet("princeCaliTheme")||st.profile.theme||"light";return st;};
+function applyTheme(){const st=normalizeState(state());const mode=safeStoreGet("princeCaliTheme")||st.profile.theme||"light";document.body.classList.toggle("dark-mode",mode==="dark");const t=document.getElementById("themeToggle");if(t)t.textContent=mode==="dark"?"Light Mode":"Dark Mode";}
 function setTheme(mode){const st=normalizeState(state());st.profile.theme=mode;safeStoreSet("princeCaliTheme",mode);saveState(st);applyTheme();}
 function openListModal(title,names){const modal=document.getElementById("listModal"),body=document.getElementById("listModalBody"),head=document.getElementById("listModalTitle");if(!modal||!body||!head)return;head.textContent=title;body.innerHTML=(names&&names.length)?names.map(n=>`<div class="profile-row"><span class="mini-avatar">${safeText(n).slice(0,1).toUpperCase()}</span><div><strong>${safeText(n)}</strong><span>${title}</span></div><button class="icon-btn" type="button">View</button></div>`).join(""):`<p class="smart-note">Nothing here yet.</p>`;modal.classList.add("show");modal.setAttribute("aria-hidden","false");}
 function closeListModal(){const m=document.getElementById("listModal");if(m){m.classList.remove("show");m.setAttribute("aria-hidden","true");}}
@@ -3248,7 +3249,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     Optional fields: key, description, date, featured, placeholder.
   */
   const SYNC_CUES = [
-     {
+    {
       title:'The Anomaly', audio:'assets/The Anomaly.mp3', duration:'0:30', bpm:130, key:'A min',
       mood:['tension','dark'], style:'Cinematic Horror/Suspense', uses:['film-tv','trailer','movies'],
       tags:['tension','unsettling','haunting','slow build','dark'], featured:1, date:'2026-08-06', placeholder:false,
@@ -3464,6 +3465,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     $('#syncModalPlay',body).onclick=()=>{m.classList.remove('show');const row=$(`.sync-cue[data-cue="${CSS.escape(c.title)}"]`);if(row)playCue(c,row);else toastMsg('Cue is on another page. Search the title to preview it.');};
     $('#syncCopyBrief',body).onclick=async()=>{const value=`${c.title} | ${c.duration} | ${c.bpm} BPM${c.key?' | '+c.key:''} | ${c.style} | Mood: ${(c.mood||[]).join(', ')} | Use: ${(c.uses||[]).join(', ')}`;try{await navigator.clipboard.writeText(value);toastMsg('Cue info copied');}catch(e){toastMsg(value);}};
     m.classList.add('show');
+    setTimeout(()=>window.PrinceCaliSyncIntel?.showDNAFor?.(c),0);
   }
   function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
 
@@ -3805,7 +3807,7 @@ body.dark-mode .pc-sync-intel{background:linear-gradient(135deg,rgba(255,255,255
 .pc-sync-dna-extension{margin-top:22px;padding-top:20px;border-top:1px solid rgba(8,8,8,.10)}body.dark-mode .pc-sync-dna-extension{border-color:rgba(255,255,255,.12)}.pc-sync-dna-top{display:flex;justify-content:space-between;gap:14px;align-items:center}.pc-sync-dna-top h4{margin:0;font-size:20px;letter-spacing:-.03em}.pc-sync-dna-state{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}.pc-sync-dna-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.pc-sync-dna-cell{display:grid;gap:5px}.pc-sync-dna-cell span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.pc-sync-dna-meter{height:7px;border-radius:999px;background:rgba(8,8,8,.10);overflow:hidden}body.dark-mode .pc-sync-dna-meter{background:rgba(255,255,255,.10)}.pc-sync-dna-meter i{display:block;width:var(--w);height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b1018,#d0b06d)}.pc-sync-dna-summary{margin:13px 0 0!important;font-size:13px!important;line-height:1.5!important;color:var(--muted)!important}.pc-sync-similar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.pc-sync-similar button{border:1px solid rgba(8,8,8,.11);background:rgba(255,255,255,.38);color:var(--ink);border-radius:15px;padding:10px;text-align:left;cursor:pointer}.pc-sync-similar button strong{display:block;font-size:12px}.pc-sync-similar button span{display:block;color:var(--muted);font-size:10px;margin-top:3px}body.dark-mode .pc-sync-similar button{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.11);color:#f7f1e7}
 @media(max-width:760px){.pc-sync-intel-head{display:grid}.pc-sync-brief-row{grid-template-columns:1fr}.pc-sync-match-btn{width:100%}.pc-sync-matches{grid-template-columns:1fr}.pc-sync-dna-grid{grid-template-columns:1fr 1fr}.pc-sync-similar{grid-template-columns:1fr}}
 </style>
-<script id="pc-v43-theme-persistence-and-sync-intelligence">
+<script id="pc-v44-theme-persistence-and-sync-intelligence">
 (function(){
 'use strict';
 const THEME_KEY='princeCaliTheme';
@@ -3816,9 +3818,8 @@ function applySavedTheme(){
 function rememberTheme(){try{localStorage.setItem(THEME_KEY,document.body.classList.contains('dark-mode')?'dark':'light')}catch(_){}}
 function initThemePersistence(){
   applySavedTheme();
-  // Existing theme controls remain authoritative; this only persists their final state.
-  document.addEventListener('click',e=>{if(e.target.closest('#navThemeToggle,#themeToggle'))setTimeout(rememberTheme,40)},true);
-  new MutationObserver(m=>{if(m.some(x=>x.attributeName==='class'))rememberTheme()}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  // Persist only deliberate theme-button changes, never unrelated body class mutations.
+  document.addEventListener('click',e=>{if(e.target.closest('#navThemeToggle,#themeToggle'))setTimeout(()=>{rememberTheme();applySavedTheme();},90)},true);
   window.addEventListener('pageshow',applySavedTheme);
 }
 
@@ -3863,6 +3864,7 @@ function summary(m){const tone=m.darkness>70?'dark and tense':m.brightness>70?'b
 function esc(v){return String(v||'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]))}
 function injectDNA(c,data){const body=document.querySelector('#syncDetailBody');if(!body)return;body.querySelector('.pc-sync-dna-extension')?.remove();const labels={energy:'Energy',darkness:'Darkness',motion:'Motion',space:'Space',punch:'Punch',brightness:'Brightness',dynamics:'Dynamics',density:'Density'};const others=cues().filter(x=>x.title!==c.title).sort((a,b)=>similarity(c,b)-similarity(c,a)).slice(0,3);const box=document.createElement('section');box.className='pc-sync-dna-extension';box.innerHTML=`<div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">${data.source==='audio'?'Analyzed from cue audio':'Metadata profile'} · ${data.confidence}%</span></div><div class="pc-sync-dna-grid">${Object.entries(data.metrics).map(([k,v])=>`<div class="pc-sync-dna-cell"><span>${labels[k]}</span><div class="pc-sync-dna-meter"><i style="--w:${v}%"></i></div></div>`).join('')}</div><p class="pc-sync-dna-summary">${esc(summary(data.metrics))}</p>${others.length?`<div class="pc-sync-similar">${others.map(x=>`<button type="button" data-sync-similar="${esc(x.title)}"><strong>${esc(x.title)}</strong><span>${similarity(c,x)}% sonic match</span></button>`).join('')}</div>`:''}`;body.appendChild(box);box.querySelectorAll('[data-sync-similar]').forEach(b=>b.onclick=()=>focusCue(b.dataset.syncSimilar));}
 async function showDNAFor(c){const body=document.querySelector('#syncDetailBody');if(body&&!body.querySelector('.pc-sync-dna-extension')){const wait=document.createElement('section');wait.className='pc-sync-dna-extension';wait.innerHTML='<div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">Analyzing cue…</span></div>';body.appendChild(wait)}injectDNA(c,await analyze(c));}
+window.PrinceCaliSyncIntel={showDNAFor,analyze};
 function focusCue(title,play=false){const q=document.getElementById('syncSearch');if(q){q.value=title;q.dispatchEvent(new Event('input',{bubbles:true}))}setTimeout(()=>{const row=[...document.querySelectorAll('.sync-cue')].find(r=>r.dataset.cue===title);row?.scrollIntoView({behavior:'smooth',block:'center'});if(play)row?.querySelector('.sync-play')?.click()},80)}
 function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60};const uses=[];const moods=[];const bump=(k,v)=>target[k]=v;
   if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}
@@ -3881,6 +3883,34 @@ function installBriefMatcher(){const mood=document.querySelector('#sync .sync-mo
 function hookDetails(){document.addEventListener('click',e=>{const btn=e.target.closest('#sync .sync-details');if(!btn)return;const row=btn.closest('.sync-cue'),c=cues().find(x=>x.title===row?.dataset.cue);if(c)setTimeout(()=>showDNAFor(c),30)},true)}
 function warm(){let i=0,arr=cues().filter(c=>!readCache(c));const run=()=>{if(i>=arr.length)return;analyze(arr[i++]).finally(()=>('requestIdleCallback'in window?requestIdleCallback(run,{timeout:2600}):setTimeout(run,1200)))};if('requestIdleCallback'in window)requestIdleCallback(run,{timeout:3200});else setTimeout(run,1800)}
 function init(){initThemePersistence();installBriefMatcher();hookDetails();warm();window.addEventListener('hashchange',()=>{if(location.hash==='#sync')setTimeout(installBriefMatcher,50)});}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+
+<style id="pc-v44-route-intelligence-fixes">
+#pcGuideButton,#pcGuidePanel{display:none!important}
+body.catalog-view #pcGuideButton{display:block!important}
+body.catalog-view #pcGuidePanel.show{display:block!important}
+#pcSyncGuideButton{display:none;position:fixed;right:20px;bottom:22px;z-index:2600;border:1px solid rgba(181,138,64,.52);background:linear-gradient(135deg,#171310,#3a2c27);color:#f7f1e7;border-radius:999px;padding:13px 18px;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;box-shadow:0 18px 52px rgba(0,0,0,.22)}
+body.sync-view #pcSyncGuideButton{display:inline-flex;align-items:center;gap:8px}
+#pcSyncGuideButton:hover{transform:translateY(-2px)}
+#syncDetailBody .pc-sync-dna-extension{display:block!important;visibility:visible!important;opacity:1!important}
+@media(max-width:700px){#pcSyncGuideButton{right:14px;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 15px}}
+</style>
+<script id="pc-v44-sync-launcher-and-theme-guard">
+(function(){
+'use strict';
+function enforceSavedTheme(){let mode='';try{mode=localStorage.getItem('princeCaliTheme')||''}catch(_){ }if(mode==='dark'||mode==='light')document.body.classList.toggle('dark-mode',mode==='dark')}
+function routeSmartLaunchers(){
+ const catalog=document.body.classList.contains('catalog-view');
+ const beat=document.getElementById('pcGuideButton'),panel=document.getElementById('pcGuidePanel');
+ if(beat)beat.style.setProperty('display',catalog?'block':'none','important');
+ if(!catalog&&panel)panel.classList.remove('show');
+ let sync=document.getElementById('pcSyncGuideButton');
+ if(!sync){sync=document.createElement('button');sync.id='pcSyncGuideButton';sync.type='button';sync.textContent='Find a Cue';document.body.appendChild(sync);sync.addEventListener('click',()=>{const p=document.getElementById('pcSyncIntel'),i=document.getElementById('pcSyncBrief');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>i?.focus(),350)})}
+}
+function init(){enforceSavedTheme();routeSmartLaunchers();window.addEventListener('hashchange',()=>setTimeout(routeSmartLaunchers,0));window.addEventListener('pageshow',()=>{enforceSavedTheme();routeSmartLaunchers()});new MutationObserver(routeSmartLaunchers).observe(document.body,{attributes:true,attributeFilter:['class']})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
