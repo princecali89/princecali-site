@@ -3888,7 +3888,7 @@ body.sync-view #pcSyncGuideButton{display:inline-flex;align-items:center;gap:8px
 <script id="pc-v47-real-sync-ai-dna-engine">
 (function(){
 'use strict';
-const VERSION='2.0';
+const VERSION='3.0';
 const CACHE_PREFIX='pcSyncDNA:';
 const $=s=>document.querySelector(s);
 const cues=()=>Array.isArray(window.PRINCE_CALI_SYNC_CUES)?window.PRINCE_CALI_SYNC_CUES:[];
@@ -3912,24 +3912,75 @@ function signalFeatures(buf){
   const zcr=z/Math.max(1,n),onsetRate=onset/Math.max(1,buf.duration),dynamic=Math.max(0,p80-p20),rmsDb=20*Math.log10(Math.max(rms,1e-7));
   return {duration:buf.duration,sampleRate:sr,channels:ch,rms,rmsDb,peak,crest,zcr,onsetRate,dynamic};
 }
+function semanticProfile(c){
+  const words=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[]),c.description||''].map(norm).join(' ');
+  const has=(...xs)=>xs.some(x=>words.includes(x));
+  const key=norm(c.key||'');
+  return {
+    dark:has('dark','horror','suspense','tense','tension','haunting','thriller','psychosis','unsettling'),
+    bright:has('uplifting','upbeat','bright','positive','aspirational','warm','commercial'),
+    slow:has('slow build','slow','restrained','minimal','quiet','reflection'),
+    fast:has('fast pace','fast','action','sports','high stakes','countdown','commercial'),
+    emotional:has('emotional','loss','reflection','dramatic'),
+    major:/\bmaj(?:or)?\b/.test(key), minor:/\bmin(?:or)?\b/.test(key),
+    words
+  };
+}
 function metricsFrom(f,c){
-  const meta=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' '),sem=w=>meta.includes(w);
+  const sem=semanticProfile(c);
   const loud=clamp((f.rmsDb+36)/30,0,1);
-  const energy=clamp(32+loud*52+Math.min(18,f.onsetRate*7));
-  const punch=clamp(30+Math.min(42,(f.crest-1)*7)+Math.min(25,f.onsetRate*8));
-  const motion=clamp(34+Math.min(52,f.onsetRate*13)+Math.min(15,f.zcr*130));
-  const dynamics=clamp(32+Math.min(60,f.dynamic*720));
-  const density=clamp(34+Math.min(38,f.onsetRate*11)+Math.min(22,f.rms*220));
-  const brightness=clamp(35+Math.min(50,f.zcr*390)+(sem('uplifting')||sem('bright')?8:0)-(sem('dark')?8:0));
-  const space=clamp(100-density*.62-punch*.10+dynamics*.17+(sem('ambient')||sem('atmos')?8:0));
-  const darkness=clamp(82-brightness*.60+(sem('dark')||sem('tension')?12:0)-(sem('uplifting')?8:0));
+  let energy=clamp(30+loud*48+Math.min(16,f.onsetRate*5.5));
+  let punch=clamp(28+Math.min(40,(f.crest-1)*6.5)+Math.min(22,f.onsetRate*6));
+  /* Motion is not transient count alone: BPM + authored pace prevent noisy/haunting textures from reading as fast action. */
+  const bpm=Number(c.bpm)||110,bpmMotion=clamp((bpm-65)/95*100);
+  let motion=clamp(24+bpmMotion*.38+Math.min(34,f.onsetRate*7)+Math.min(8,f.zcr*80));
+  let dynamics=clamp(30+Math.min(62,f.dynamic*720));
+  let density=clamp(30+Math.min(34,f.onsetRate*8)+Math.min(22,f.rms*210));
+  let brightness=clamp(30+Math.min(48,f.zcr*350));
+  /* Tonal/mood priors are deliberate: ZCR measures high-frequency activity, not emotional brightness. */
+  if(sem.dark){brightness=Math.min(brightness,48);}
+  if(sem.bright){brightness=Math.max(brightness,66);}
+  if(sem.major){brightness=Math.max(brightness,58);}
+  if(sem.minor&&sem.dark){brightness=Math.min(brightness,44);}
+  let darkness=clamp(88-brightness*.68);
+  if(sem.dark)darkness=Math.max(darkness,76);
+  if(sem.bright&&!sem.dark)darkness=Math.min(darkness,42);
+  if(sem.major&&!sem.dark)darkness=Math.min(darkness,46);
+  if(sem.slow){motion=Math.min(motion,64);energy=Math.min(energy,72);density=Math.min(density,78);}
+  if(sem.fast){motion=Math.max(motion,74);energy=Math.max(energy,68);}
+  let space=clamp(100-density*.58-punch*.09+dynamics*.18);
+  if(sem.slow||sem.emotional)space=Math.max(space,62);
   return {energy:Math.round(energy),darkness:Math.round(darkness),motion:Math.round(motion),space:Math.round(space),punch:Math.round(punch),brightness:Math.round(brightness),dynamics:Math.round(dynamics),density:Math.round(density)};
 }
 function fallback(c){const s=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' '),has=w=>s.includes(w);return {energy:has('uplifting')||has('sports')?78:has('tension')?72:60,darkness:has('dark')||has('tension')?84:has('uplifting')?30:55,motion:has('sports')||has('swagger')||has('advertising')?78:62,space:has('ambient')||has('emotional')?76:58,punch:has('sports')||has('trailer')?78:60,brightness:has('uplifting')?78:has('dark')?34:56,dynamics:64,density:has('minimal')?42:62}}
 async function analyze(c,force=false){if(!force){const hit=readCache(c);if(hit)return hit}try{const loaded=await fetchCueBytes(c),AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw new Error('Web Audio API unavailable in this browser');const ac=new AC(),buf=await ac.decodeAudioData(loaded.bytes.slice(0)),features=signalFeatures(buf),metrics=metricsFrom(features,c);await ac.close().catch(()=>{});const x={version:VERSION,source:'audio',confidence:90,sourceUrl:loaded.url,metrics,features};saveCache(c,x);return x}catch(error){const x={version:VERSION,source:'metadata',confidence:40,metrics:fallback(c),features:null,error:String(error?.message||error)};saveCache(c,x);return x}}
 function summary(m){const tone=m.darkness>70?'dark / tense':m.brightness>70?'bright / open':'balanced';const drive=m.motion>74?'fast-moving':m.energy>72?'high-energy':'controlled';const impact=m.punch>74?'hard-impact':'smooth-impact';return `${tone} sonic profile with ${drive} movement and ${impact} transients. ${m.space>68?'The arrangement reads comparatively open for dialogue/picture.':'The arrangement reads denser and better suited to active edits.'}`}
-function distanceData(a,b){return metricKeys.reduce((sum,k)=>sum+Math.abs(a.metrics[k]-b.metrics[k]),0)/metricKeys.length}
-function similarityData(a,b){return Math.round(clamp(100-distanceData(a,b)))}
+function semanticLane(c){
+  const p=semanticProfile(c),w=p.words;
+  return {
+    dark:p.dark, bright:p.bright, slow:p.slow, fast:p.fast, major:p.major, minor:p.minor,
+    horror:/horror|haunting|unsettling|thriller|psychosis/.test(w),
+    action:/action|high stakes|countdown|sports|commercial|upbeat/.test(w),
+    emotional:p.emotional
+  };
+}
+function audioDistanceData(a,b){
+  const weights={energy:1.15,darkness:1.45,motion:1.35,space:.75,punch:.80,brightness:1.25,dynamics:.55,density:.70};
+  let sum=0,total=0;for(const k of metricKeys){sum+=Math.abs(a.metrics[k]-b.metrics[k])*weights[k];total+=weights[k]}return sum/total;
+}
+function semanticPenalty(ca,cb){
+  const a=semanticLane(ca),b=semanticLane(cb);let p=0;
+  if((a.dark&&b.bright&&!b.dark)||(b.dark&&a.bright&&!a.dark))p+=30;
+  if((a.horror&&b.action&&!b.horror)||(b.horror&&a.action&&!a.horror))p+=24;
+  if((a.slow&&b.fast)||(b.slow&&a.fast))p+=18;
+  if((a.major&&b.minor)||(a.minor&&b.major))p+=7;
+  const bpmA=Number(ca.bpm)||0,bpmB=Number(cb.bpm)||0;if(bpmA&&bpmB)p+=Math.min(10,Math.abs(bpmA-bpmB)/5);
+  return p;
+}
+function similarityBetween(ca,da,cb,db){
+  const raw=100-audioDistanceData(da,db)-semanticPenalty(ca,cb);
+  return Math.round(clamp(raw,1,99));
+}
 function rawFeatureHTML(data){if(data.source!=='audio'||!data.features)return `<div class="pc-sync-raw"><div><span>Analysis source</span><strong>Metadata fallback</strong></div><div><span>Reason</span><strong>${esc(data.error||'MP3 could not be decoded')}</strong></div><div><span>Confidence</span><strong>${data.confidence}%</strong></div></div>`;const f=data.features;return `<div class="pc-sync-raw"><div><span>Duration read</span><strong>${f.duration.toFixed(2)} sec</strong></div><div><span>RMS level</span><strong>${f.rmsDb.toFixed(1)} dBFS</strong></div><div><span>Crest factor</span><strong>${f.crest.toFixed(2)}×</strong></div><div><span>Transient rate</span><strong>${f.onsetRate.toFixed(2)}/sec</strong></div><div><span>Zero-crossing rate</span><strong>${(f.zcr*100).toFixed(2)}%</strong></div><div><span>Audio format</span><strong>${f.sampleRate} Hz · ${f.channels} ch</strong></div></div>`}
 function modal(){return $('#pcSyncDNAModal')}
 function closeDNA(){const m=modal();if(m){m.classList.remove('show');m.setAttribute('aria-hidden','true')}}
@@ -3939,14 +3990,14 @@ async function openDNA(c){
   m.classList.add('show');m.setAttribute('aria-hidden','false');
   const data=await analyze(c,true);
   const analyzed=await Promise.all(cues().filter(x=>x.title!==c.title).map(async x=>({cue:x,data:await analyze(x)})));
-  analyzed.sort((a,b)=>similarityData(data,b.data)-similarityData(data,a.data));
+  analyzed.sort((a,b)=>similarityBetween(c,data,b.cue,b.data)-similarityBetween(c,data,a.cue,a.data));
   const similar=analyzed.slice(0,3);
-  body.innerHTML=`<div class="pc-sync-dna-sheet-head"><div><div class="sync-eyebrow">SYNC DNA • AUDIO INTELLIGENCE</div><h3>${esc(c.title)}</h3><p>${esc(summary(data.metrics))}</p><div class="pc-sync-dna-source"><b>${data.source==='audio'?'MP3 analyzed':'Metadata fallback'}</b><span>${data.confidence}% confidence</span>${data.sourceUrl?`<span>${esc(data.sourceUrl)}</span>`:''}</div></div></div><div class="pc-sync-dna-sheet-grid">${metricKeys.map(k=>`<div class="pc-sync-dna-stat"><div class="pc-sync-dna-stat-top"><span>${labels[k]}</span><strong>${data.metrics[k]}</strong></div><div class="pc-sync-dna-meter"><i style="--w:${data.metrics[k]}%"></i></div></div>`).join('')}</div>${rawFeatureHTML(data)}<div class="pc-sync-dna-explain"><strong>How to use it:</strong> Energy and Motion help judge edit pace; Punch tracks transient impact; Space and Density help judge room for dialogue; Brightness/Darkness describe tonal direction; Dynamics estimates contrast between quieter and louder sections.</div>${similar.length?`<div class="pc-sync-similar-title">Closest sonic matches</div><div class="pc-sync-similar">${similar.map(x=>`<button type="button" data-sync-similar="${esc(x.cue.title)}"><strong>${esc(x.cue.title)}</strong><span>${similarityData(data,x.data)}% DNA match</span></button>`).join('')}</div>`:''}`;
+  body.innerHTML=`<div class="pc-sync-dna-sheet-head"><div><div class="sync-eyebrow">SYNC DNA • AUDIO INTELLIGENCE</div><h3>${esc(c.title)}</h3><p>${esc(summary(data.metrics))}</p><div class="pc-sync-dna-source"><b>${data.source==='audio'?'MP3 + cue context analyzed':'Metadata fallback'}</b><span>${data.confidence}% confidence</span>${data.sourceUrl?`<span>${esc(data.sourceUrl)}</span>`:''}</div></div></div><div class="pc-sync-dna-sheet-grid">${metricKeys.map(k=>`<div class="pc-sync-dna-stat"><div class="pc-sync-dna-stat-top"><span>${labels[k]}</span><strong>${data.metrics[k]}</strong></div><div class="pc-sync-dna-meter"><i style="--w:${data.metrics[k]}%"></i></div></div>`).join('')}</div>${rawFeatureHTML(data)}<div class="pc-sync-dna-explain"><strong>How to use it:</strong> Energy and Motion help judge edit pace; Punch tracks transient impact; Space and Density help judge room for dialogue; Brightness/Darkness combine measured spectral activity with your authored cue mood/style so a noisy horror texture is not mistaken for an upbeat track; Dynamics estimates contrast between quieter and louder sections. Similar matches also reject opposite creative lanes such as slow horror vs upbeat action.</div>${similar.length?`<div class="pc-sync-similar-title">Closest compatible matches</div><div class="pc-sync-similar">${similar.map(x=>`<button type="button" data-sync-similar="${esc(x.cue.title)}"><strong>${esc(x.cue.title)}</strong><span>${similarityBetween(c,data,x.cue,x.data)}% DNA match</span></button>`).join('')}</div>`:''}`;
   body.querySelectorAll('[data-sync-similar]').forEach(b=>b.onclick=()=>{closeDNA();focusCue(b.dataset.syncSimilar,false)});
 }
 function focusCue(title,play=false){const q=$('#syncSearch');if(q){q.value=title;q.dispatchEvent(new Event('input',{bubbles:true}))}setTimeout(()=>{const row=[...document.querySelectorAll('.sync-cue')].find(r=>r.dataset.cue===title);row?.scrollIntoView({behavior:'smooth',block:'center'});if(play)row?.querySelector('.sync-play')?.click()},120)}
 function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60},uses=[],moods=[],bump=(k,v)=>target[k]=v;if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}if(/trailer|teaser/.test(t)){uses.push('trailer','film-tv');moods.push('tension','dramatic','dark');bump('darkness',84);bump('punch',84);bump('dynamics',82)}if(/sport|highlight|athletic/.test(t)){uses.push('sports');moods.push('uplifting','swagger');bump('energy',88);bump('motion',90);bump('punch',84)}if(/documentary|docu|investigative/.test(t)){uses.push('documentary');moods.push('dramatic','emotional');bump('space',78);bump('density',48)}if(/film|tv|scene|dialogue/.test(t)){uses.push('film-tv');bump('space',80);bump('density',48)}if(/luxury|premium|fashion/.test(t)){moods.push('swagger');bump('space',74);bump('brightness',64);bump('energy',62)}if(/emotional|heart|reflective/.test(t)){moods.push('emotional');bump('space',82);bump('energy',48);bump('punch',48)}if(/dark|horror|tense|suspense/.test(t)){moods.push('dark','tension');bump('darkness',90);bump('brightness',30)}if(/upbeat|happy|bright|positive/.test(t)){moods.push('uplifting');bump('brightness',86);bump('energy',82);bump('darkness',24);bump('motion',82)}return {target,uses,moods,t}}
-function scoreBrief(c,data,brief){let score=100-(metricKeys.reduce((s,k)=>s+Math.abs(data.metrics[k]-brief.target[k]),0)/metricKeys.length),why=[];const cm=(c.mood||[]).map(norm),cu=(c.uses||[]).map(norm),ct=[c.title,c.style,...(c.tags||[])].map(norm).join(' ');brief.moods.forEach(x=>{if(cm.includes(x)){score+=9;why.push(x)}});brief.uses.forEach(x=>{if(cu.includes(x)){score+=11;why.push(x.replace('-',' / '))}});brief.t.split(/\s+/).filter(x=>x.length>3).forEach(x=>{if(ct.includes(x)){score+=2;if(!why.includes(x))why.push(x)}});return {score:clamp(Math.round(score),1,99),why:[...new Set(why)].slice(0,3)}}
+function scoreBrief(c,data,brief){let score=100-(metricKeys.reduce((s,k)=>s+Math.abs(data.metrics[k]-brief.target[k]),0)/metricKeys.length),why=[];const lane=semanticLane(c);if(brief.moods.includes('dark')&&lane.bright&&!lane.dark)score-=24;if(brief.moods.includes('uplifting')&&lane.dark&&!lane.bright)score-=24;if(brief.target.motion>=80&&lane.slow)score-=16;if(brief.target.darkness>=80&&lane.action&&!lane.dark)score-=14;const cm=(c.mood||[]).map(norm),cu=(c.uses||[]).map(norm),ct=[c.title,c.style,...(c.tags||[])].map(norm).join(' ');brief.moods.forEach(x=>{if(cm.includes(x)){score+=9;why.push(x)}});brief.uses.forEach(x=>{if(cu.includes(x)){score+=11;why.push(x.replace('-',' / '))}});brief.t.split(/\s+/).filter(x=>x.length>3).forEach(x=>{if(ct.includes(x)){score+=2;if(!why.includes(x))why.push(x)}});return {score:clamp(Math.round(score),1,99),why:[...new Set(why)].slice(0,3)}}
 async function runBrief(text){const host=$('#pcSyncMatches'),status=$('#pcSyncAIStatus');if(!host)return;const clean=text.trim();if(!clean){status.textContent='Enter a brief first.';return}status.textContent='Sync AI is reading the cue library and comparing audio DNA…';host.classList.remove('show');host.innerHTML='';const brief=briefTargets(clean);const rows=await Promise.all(cues().map(async c=>{const data=await analyze(c);return {c,data,...scoreBrief(c,data,brief)}}));rows.sort((a,b)=>b.score-a.score);const top=rows.slice(0,3);host.innerHTML=top.map(x=>`<button type="button" class="pc-sync-match-card" data-brief-cue="${esc(x.c.title)}"><span class="pc-sync-match-score">${x.score}% brief match</span><strong>${esc(x.c.title)}</strong><span>${esc(x.c.style)} · ${esc((x.c.mood||[]).join(' / '))}</span><span>${esc(x.why.length?'Why: '+x.why.join(' • '):(x.data.source==='audio'?'Audio-DNA similarity':'Metadata similarity'))}</span></button>`).join('');host.classList.add('show');host.querySelectorAll('[data-brief-cue]').forEach(b=>b.onclick=()=>focusCue(b.dataset.briefCue,true));const real=rows.filter(x=>x.data.source==='audio').length;status.textContent=`Done. Compared ${rows.length} cues; ${real} used decoded MP3 DNA${real!==rows.length?', the rest used explicit metadata fallback':''}.`;}
 function openFinder(){if(location.hash!=='#sync'){location.hash='#sync';setTimeout(openFinder,180);return}const p=$('#pcSyncIntel');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>$('#pcSyncBrief')?.focus(),250)}
 function bind(){
