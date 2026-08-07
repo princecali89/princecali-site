@@ -3234,15 +3234,28 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       audioCtx=audioCtx||new AC();if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});
       analyser=audioCtx.createAnalyser();analyser.fftSize=128;analyser.smoothingTimeConstant=.78;
       sourceNode=audioCtx.createMediaElementSource(audio);sourceNode.connect(analyser);analyser.connect(audioCtx.destination);
-      const data=new Uint8Array(analyser.frequencyBinCount);
+      const data=new Uint8Array(analyser.fftSize);
       const paint=()=>{
         if(!visualCanvas||!analyser)return;
         const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));
         if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
-        const ctx=canvas.getContext('2d');if(!ctx)return;analyser.getByteFrequencyData(data);ctx.clearRect(0,0,w,h);
-        const styles=getComputedStyle(document.body),ink=styles.getPropertyValue('--ink').trim()||'#f4efe6',gold=styles.getPropertyValue('--gold').trim()||'#b58a40';
-        const bars=Math.min(46,data.length),gap=2*dpr,bw=Math.max(1,(w-gap*(bars-1))/bars);
-        for(let i=0;i<bars;i++){const idx=Math.floor(i*data.length/bars),v=data[idx]/255;const shaped=Math.pow(v,.72);const bh=Math.max(2*dpr,shaped*h*.94);const x=i*(bw+gap),y=(h-bh)/2;ctx.globalAlpha=.56+shaped*.44;ctx.fillStyle=(i>bars*.18&&i<bars*.56)?gold:ink;ctx.beginPath();const r=Math.min(bw/2,2*dpr);if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,r);else ctx.rect(x,y,bw,bh);ctx.fill();}
+        const ctx=canvas.getContext('2d');if(!ctx)return;analyser.getByteTimeDomainData(data);ctx.clearRect(0,0,w,h);
+        const styles=getComputedStyle(document.body),ink=styles.getPropertyValue('--paper').trim()||'#f4efe6',gold=styles.getPropertyValue('--gold').trim()||'#b58a40';
+        const bars=58,gap=2*dpr,bw=Math.max(1,(w-gap*(bars-1))/bars);
+        const peaks=new Array(bars).fill(0);let frameMax=.001;
+        for(let i=0;i<bars;i++){
+          const start=Math.floor(i*data.length/bars),end=Math.max(start+1,Math.floor((i+1)*data.length/bars));let peak=0;
+          for(let j=start;j<end;j++){const amp=Math.abs((data[j]-128)/128);if(amp>peak)peak=amp;}
+          peaks[i]=peak;if(peak>frameMax)frameMax=peak;
+        }
+        const progress=(audio.duration&&Number.isFinite(audio.duration))?Math.max(0,Math.min(1,audio.currentTime/audio.duration)):0;
+        for(let i=0;i<bars;i++){
+          const normalized=Math.min(1,peaks[i]/Math.max(frameMax,.08));
+          const shaped=.20+Math.pow(normalized,.72)*.80;
+          const bh=Math.max(3*dpr,shaped*h*.96),x=i*(bw+gap),y=(h-bh)/2;
+          ctx.globalAlpha=.72+normalized*.28;ctx.fillStyle=(i/(bars-1))<=progress?gold:ink;ctx.beginPath();
+          const r=Math.min(bw/2,2*dpr);if(ctx.roundRect)ctx.roundRect(x,y,bw,bh,r);else ctx.rect(x,y,bw,bh);ctx.fill();
+        }
         ctx.globalAlpha=1;visualRAF=requestAnimationFrame(paint);
       };paint();
     }catch(e){console.warn('[Prince Cali Sync] Visualizer unavailable:',e);drawIdleVisualizer(canvas,canvas.closest('.sync-cue')?.dataset?.cue||'');}
@@ -3542,6 +3555,24 @@ html body.sync-view #sync{
   window.addEventListener('hashchange',enforceRoute);
 })();
 </script>
+
+
+<style id="pc-v40-sync-time-contrast-fullwidth-visualizer">
+/* v40 — keep playback timing readable against the dark Sync library. */
+#sync .sync-time-row,
+#sync .sync-time-row .sync-elapsed,
+#sync .sync-time-row .sync-total{
+  color:#f7f1e7!important;
+  opacity:1!important;
+  font-weight:800!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+#sync .sync-visualizer{
+  width:100%!important;
+  display:block!important;
+  opacity:1!important;
+}
+</style>
 
 </body>
 </html>
