@@ -25,7 +25,7 @@
 <meta content="assets/favicon.png?v=11" name="twitter:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="telephone=no" name="format-detection"/>
-<meta content="premium-redesign-v41-home-client-gateway" name="prince-cali-version"/>
+<meta content="premium-redesign-v47-real-sync-ai-dna" name="prince-cali-version"/>
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Prince Cali" name="author"/>
@@ -880,7 +880,7 @@ body.dark-mode .sync-page-btn{color:var(--paper);border-color:rgba(255,255,255,.
 @media(prefers-reduced-motion:reduce){.sync-cue.is-playing .sync-wave i{animation:none!important;}}
 </style>
 
-<meta name="prince-cali-build" content="v46-real-sync-ai-separate-dna">
+<meta name="prince-cali-build" content="v45-sync-ai-visible-waveform-fixed">
 
 <style id="pc-v45-sync-visible-intelligence-fixes">
 #sync .sync-visualizer{display:block!important;width:100%!important;height:36px!important;min-width:0;background:transparent!important}
@@ -1060,10 +1060,19 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
     <section id="pcSyncIntel" class="pc-sync-intel" aria-labelledby="pcSyncIntelTitle">
       <div class="pc-sync-intel-head">
         <div><div class="sync-eyebrow">SYNC AI • SMART CUE DISCOVERY</div><h3 id="pcSyncIntelTitle">Match the brief.</h3></div>
-        <p>Describe the scene, campaign, emotion, or edit. Sync AI compares the brief against cue metadata and the audio-derived Sync DNA profile for each MP3.</p>
+        <p>Describe the scene, campaign, emotion, or edit. Sync AI compares the brief with cue metadata and the audio DNA extracted from your MP3 library.</p>
       </div>
-      <div class="pc-sync-brief-row"><input id="pcSyncBrief" type="search" placeholder="Example: upbeat premium car commercial with forward motion" autocomplete="off"><button id="pcSyncBriefGo" class="pc-sync-match-btn" type="button">Find matches</button></div>
-      <div class="pc-sync-brief-examples"><button class="pc-sync-brief-chip" type="button">Upbeat car commercial</button><button class="pc-sync-brief-chip" type="button">Dark suspense trailer</button><button class="pc-sync-brief-chip" type="button">Emotional documentary</button><button class="pc-sync-brief-chip" type="button">Sports highlight</button></div>
+      <div class="pc-sync-brief-row">
+        <input id="pcSyncBrief" type="search" placeholder="Example: upbeat premium car commercial with forward motion" autocomplete="off">
+        <button id="pcSyncBriefGo" class="pc-sync-match-btn" type="button">Find matches</button>
+      </div>
+      <div class="pc-sync-brief-examples">
+        <button class="pc-sync-brief-chip" type="button">Upbeat car commercial</button>
+        <button class="pc-sync-brief-chip" type="button">Dark suspense trailer</button>
+        <button class="pc-sync-brief-chip" type="button">Emotional documentary</button>
+        <button class="pc-sync-brief-chip" type="button">Sports highlight</button>
+      </div>
+      <div id="pcSyncAIStatus" class="pc-sync-ai-status" aria-live="polite">Ready. Enter a brief or choose an example.</div>
       <div id="pcSyncMatches" class="pc-sync-matches" aria-live="polite"></div>
     </section>
 
@@ -3489,12 +3498,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function toggleShortlist(c,row){const list=getShortlist(),has=list.includes(c.title),next=has?list.filter(x=>x!==c.title):[...list,c.title];setShortlist(next);const b=$('.sync-save',row);if(b){b.classList.toggle('saved',!has);b.textContent=!has?'Shortlisted':'Shortlist';}if(shortlistOnly)render();}
   function detailModal(){let m=$('#syncDetailModal');if(m)return m;m=document.createElement('div');m.id='syncDetailModal';m.className='sync-detail-modal';m.innerHTML='<div class="sync-detail-card"><button class="sync-detail-close" type="button" aria-label="Close">×</button><div id="syncDetailBody"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.sync-detail-close'))m.classList.remove('show');});return m;}
-  function openDetails(c){const m=detailModal(),body=$('#syncDetailBody',m);body.innerHTML=`<div class="sync-eyebrow">SYNC CUE DETAILS</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">${esc(c.description||'Original cue available for sync consideration.')}</p><div class="sync-detail-grid"><div><span>Duration</span><strong>${esc(c.duration)}</strong></div><div><span>BPM</span><strong>${esc(c.bpm)}</strong></div><div><span>Key</span><strong>${esc(c.key||'—')}</strong></div><div><span>Style</span><strong>${esc(c.style)}</strong></div><div><span>Mood</span><strong>${esc((c.mood||[]).join(', '))}</strong></div><div><span>Use</span><strong>${esc((c.uses||[]).map(x=>x.replace('-', ' / ')).join(', '))}</strong></div></div><div class="sync-detail-actions"><button class="sync-primary" id="syncModalPlay" type="button">Preview cue</button><button class="sync-secondary" id="syncCopyBrief" type="button" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Copy cue info</button><a class="sync-secondary" href="#contact" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Sync inquiry</a></div>`;
+  function openDetails(c){const m=detailModal(),body=$('#syncDetailBody',m);body.innerHTML=`<div class="sync-eyebrow">SYNC CUE</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">${esc(c.description||'Original cue available for sync consideration.')}</p><div class="sync-detail-grid"><div><span>Duration</span><strong>${esc(c.duration)}</strong></div><div><span>BPM</span><strong>${esc(c.bpm)}</strong></div><div><span>Key</span><strong>${esc(c.key||'—')}</strong></div><div><span>Style</span><strong>${esc(c.style)}</strong></div><div><span>Mood</span><strong>${esc((c.mood||[]).join(', '))}</strong></div><div><span>Use</span><strong>${esc((c.uses||[]).map(x=>x.replace('-', ' / ')).join(', '))}</strong></div></div><div class="sync-detail-actions"><button class="sync-primary" id="syncModalPlay" type="button">Preview cue</button><button class="sync-secondary" id="syncCopyBrief" type="button" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Copy cue info</button><a class="sync-secondary" href="#contact" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Sync inquiry</a></div>`;
     $('#syncModalPlay',body).onclick=()=>{m.classList.remove('show');const row=$(`.sync-cue[data-cue="${CSS.escape(c.title)}"]`);if(row)playCue(c,row);else toastMsg('Cue is on another page. Search the title to preview it.');};
     $('#syncCopyBrief',body).onclick=async()=>{const value=`${c.title} | ${c.duration} | ${c.bpm} BPM${c.key?' | '+c.key:''} | ${c.style} | Mood: ${(c.mood||[]).join(', ')} | Use: ${(c.uses||[]).join(', ')}`;try{await navigator.clipboard.writeText(value);toastMsg('Cue info copied');}catch(e){toastMsg(value);}};
     m.classList.add('show');
   }
-  function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const dnaBtn=$('.sync-dna-open',row);if(dnaBtn)dnaBtn.onclick=()=>window.PrinceCaliSyncIntel?.openDNA?.(c);const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
+  function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const dnaBtn=$('.sync-dna-open',row);if(dnaBtn)dnaBtn.onclick=()=>{if(window.PrinceCaliSyncAI?.openDNA)window.PrinceCaliSyncAI.openDNA(c);else toastMsg('Sync DNA is still initializing — try again in a moment.');};const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
 
   function routeSync(){const sync=location.hash==='#sync';document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>{window.scrollTo({top:0,behavior:'auto'});requestAnimationFrame(()=>paintIdleVisualizers());});setTimeout(paintIdleVisualizers,140);}else{stopAudio();$('#syncDetailModal')?.classList.remove('show');}}
   function bind(){
@@ -3834,45 +3843,78 @@ body.dark-mode .pc-sync-intel{background:linear-gradient(135deg,rgba(255,255,255
 .pc-sync-dna-extension{margin-top:22px;padding-top:20px;border-top:1px solid rgba(8,8,8,.10)}body.dark-mode .pc-sync-dna-extension{border-color:rgba(255,255,255,.12)}.pc-sync-dna-top{display:flex;justify-content:space-between;gap:14px;align-items:center}.pc-sync-dna-top h4{margin:0;font-size:20px;letter-spacing:-.03em}.pc-sync-dna-state{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}.pc-sync-dna-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.pc-sync-dna-cell{display:grid;gap:5px}.pc-sync-dna-cell span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.pc-sync-dna-meter{height:7px;border-radius:999px;background:rgba(8,8,8,.10);overflow:hidden}body.dark-mode .pc-sync-dna-meter{background:rgba(255,255,255,.10)}.pc-sync-dna-meter i{display:block;width:var(--w);height:100%;border-radius:inherit;background:linear-gradient(90deg,#8b1018,#d0b06d)}.pc-sync-dna-summary{margin:13px 0 0!important;font-size:13px!important;line-height:1.5!important;color:var(--muted)!important}.pc-sync-similar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.pc-sync-similar button{border:1px solid rgba(8,8,8,.11);background:rgba(255,255,255,.38);color:var(--ink);border-radius:15px;padding:10px;text-align:left;cursor:pointer}.pc-sync-similar button strong{display:block;font-size:12px}.pc-sync-similar button span{display:block;color:var(--muted);font-size:10px;margin-top:3px}body.dark-mode .pc-sync-similar button{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.11);color:#f7f1e7}
 @media(max-width:760px){.pc-sync-intel-head{display:grid}.pc-sync-brief-row{grid-template-columns:1fr}.pc-sync-match-btn{width:100%}.pc-sync-matches{grid-template-columns:1fr}.pc-sync-dna-grid{grid-template-columns:1fr 1fr}.pc-sync-similar{grid-template-columns:1fr}}
 </style>
-<script id="pc-v44-theme-persistence-and-sync-intelligence">
+<style id="pc-v44-route-intelligence-fixes">
+#pcGuideButton,#pcGuidePanel{display:none!important}
+body.catalog-view #pcGuideButton{display:block!important}
+body.catalog-view #pcGuidePanel.show{display:block!important}
+#pcSyncGuideButton{display:none;position:fixed;right:20px;bottom:22px;z-index:2600;border:1px solid rgba(181,138,64,.52);background:linear-gradient(135deg,#171310,#3a2c27);color:#f7f1e7;border-radius:999px;padding:13px 18px;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;box-shadow:0 18px 52px rgba(0,0,0,.22)}
+body.sync-view #pcSyncGuideButton{display:inline-flex;align-items:center;gap:8px}
+#pcSyncGuideButton:hover{transform:translateY(-2px)}
+#syncDetailBody .pc-sync-dna-extension{display:block!important;visibility:visible!important;opacity:1!important}
+@media(max-width:700px){#pcSyncGuideButton{right:14px;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 15px}}
+</style>
+
+<style id="pc-v47-real-sync-ai-dna">
+.pc-sync-ai-status{margin-top:11px;color:var(--muted);font-size:12px;line-height:1.45;font-weight:700}
+#pcSyncDNAModal{z-index:5100}
+#pcSyncDNAModal .sync-detail-card{width:min(980px,94vw);max-height:90vh;overflow:auto}
+.pc-sync-dna-sheet-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:18px}
+.pc-sync-dna-sheet-head h3{margin:5px 0 8px;font-size:clamp(38px,6vw,72px);letter-spacing:-.055em;line-height:.92}
+.pc-sync-dna-sheet-head p{margin:0;color:var(--muted);line-height:1.5;max-width:720px}
+.pc-sync-dna-source{display:inline-flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:12px}
+.pc-sync-dna-source b,.pc-sync-dna-source span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:7px 9px;border:1px solid rgba(8,8,8,.12)}
+.pc-sync-dna-source b{background:#d0b06d;color:#111;border-color:#d0b06d}
+body.dark-mode .pc-sync-dna-source span{border-color:rgba(255,255,255,.16)}
+.pc-sync-dna-sheet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pc-sync-dna-stat{border:1px solid rgba(8,8,8,.10);background:rgba(255,255,255,.38);border-radius:18px;padding:13px}
+body.dark-mode .pc-sync-dna-stat{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.11)}
+.pc-sync-dna-stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.pc-sync-dna-stat-top span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.pc-sync-dna-stat-top strong{font-size:18px}.pc-sync-dna-stat .pc-sync-dna-meter{margin-top:8px}
+.pc-sync-raw{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.pc-sync-raw div{padding:11px 12px;border-radius:14px;background:rgba(8,8,8,.045);border:1px solid rgba(8,8,8,.08)}body.dark-mode .pc-sync-raw div{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}.pc-sync-raw span{display:block;color:var(--muted);font-size:9px;letter-spacing:.09em;text-transform:uppercase}.pc-sync-raw strong{display:block;margin-top:4px;font-size:13px}
+.pc-sync-dna-explain{margin-top:16px;padding:14px 16px;border-radius:18px;background:rgba(181,138,64,.09);border:1px solid rgba(181,138,64,.20);color:var(--muted);font-size:13px;line-height:1.55}.pc-sync-dna-explain strong{color:var(--ink)}
+.pc-sync-similar-title{margin:18px 0 9px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+#pcSyncGuideButton{display:none;position:fixed;right:20px;bottom:22px;z-index:2600;border:1px solid rgba(181,138,64,.52);background:linear-gradient(135deg,#171310,#3a2c27);color:#f7f1e7;border-radius:999px;padding:13px 18px;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;box-shadow:0 18px 52px rgba(0,0,0,.22)}
+body.sync-view #pcSyncGuideButton{display:inline-flex;align-items:center;gap:8px}
+@media(max-width:760px){.pc-sync-dna-sheet-grid{grid-template-columns:1fr 1fr}.pc-sync-raw{grid-template-columns:1fr}.pc-sync-dna-sheet-head{display:block}#pcSyncGuideButton{right:14px;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 15px}}
+</style>
+
+<div id="pcSyncDNAModal" class="sync-detail-modal" aria-hidden="true">
+  <div class="sync-detail-card">
+    <button class="sync-detail-close" id="pcSyncDNAClose" type="button" aria-label="Close Sync DNA">×</button>
+    <div id="pcSyncDNABody"></div>
+  </div>
+</div>
+<button id="pcSyncGuideButton" type="button" aria-label="Open Sync AI">Sync AI</button>
+
+<script id="pc-v47-real-sync-ai-dna-engine">
 (function(){
 'use strict';
-const THEME_KEY='princeCaliTheme';
-function applySavedTheme(){
-  let mode='';try{mode=localStorage.getItem(THEME_KEY)||''}catch(_){ }
-  if(mode==='dark'||mode==='light')document.body.classList.toggle('dark-mode',mode==='dark');
-}
-function rememberTheme(){try{localStorage.setItem(THEME_KEY,document.body.classList.contains('dark-mode')?'dark':'light')}catch(_){}}
-function initThemePersistence(){
-  applySavedTheme();
-  // Persist only deliberate theme-button changes, never unrelated body class mutations.
-  document.addEventListener('click',e=>{if(e.target.closest('#navThemeToggle,#themeToggle'))setTimeout(()=>{rememberTheme();applySavedTheme();},90)},true);
-  window.addEventListener('pageshow',applySavedTheme);
-}
-
-const cues=()=>window.PRINCE_CALI_SYNC_CUES||[];
-const cache=new Map();
-const VERSION='1.0';
-const keyFor=c=>`pcSyncDNA:${VERSION}:${c.title}:${c.audio||''}`;
+const VERSION='2.0';
+const CACHE_PREFIX='pcSyncDNA:';
+const $=s=>document.querySelector(s);
+const cues=()=>Array.isArray(window.PRINCE_CALI_SYNC_CUES)?window.PRINCE_CALI_SYNC_CUES:[];
 const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
 const norm=v=>String(v||'').toLowerCase().trim();
+const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const cache=new Map();
+const metricKeys=['energy','darkness','motion','space','punch','brightness','dynamics','density'];
+const labels={energy:'Energy',darkness:'Darkness',motion:'Motion',space:'Space',punch:'Punch',brightness:'Brightness',dynamics:'Dynamics',density:'Density'};
+function keyFor(c){return `${CACHE_PREFIX}${VERSION}:${c.title}:${c.audio||''}`}
 function readCache(c){if(cache.has(c.title))return cache.get(c.title);try{const x=JSON.parse(localStorage.getItem(keyFor(c))||'null');if(x&&x.version===VERSION){cache.set(c.title,x);return x}}catch(_){ }return null}
 function saveCache(c,x){cache.set(c.title,x);try{localStorage.setItem(keyFor(c),JSON.stringify(x))}catch(_){}}
-function candidates(c){const raw=String(c.audio||'').replace(/^\.\//,'').replace(/^\/+/, '');if(!raw)return[];const file=raw.split('/').pop();return [...new Set([raw,file?`assets/${file}`:'',file?`assets/cues/${file}`:''].filter(Boolean))]}
-async function fetchCueBytes(c){let last;for(const url of candidates(c)){try{const r=await fetch(url,{cache:'force-cache'});if(r.ok)return await r.arrayBuffer();last=new Error(`HTTP ${r.status}`)}catch(e){last=e}}throw last||new Error('Audio unavailable')}
+function candidates(c){const raw=String(c?.audio||'').replace(/^\.\//,'').replace(/^\/+/, '');if(!raw)return[];const file=raw.split('/').pop();return [...new Set([raw,file?`assets/${file}`:'',file?`assets/cues/${file}`:''].filter(Boolean))]}
+async function fetchCueBytes(c){let last=null;for(const url of candidates(c)){try{const r=await fetch(url,{cache:'force-cache'});if(r.ok)return {bytes:await r.arrayBuffer(),url};last=new Error(`${url} returned HTTP ${r.status}`)}catch(e){last=e}}throw last||new Error('No MP3 path is configured for this cue.')}
 function percentile(a,p){if(!a.length)return 0;const x=[...a].sort((m,n)=>m-n);return x[Math.min(x.length-1,Math.floor((x.length-1)*p))]}
 function signalFeatures(buf){
-  const sr=buf.sampleRate,ch=buf.numberOfChannels,len=buf.length,step=Math.max(1,Math.floor(len/260000)),frameSamples=Math.max(1,Math.floor(sr*.045/step));let s2=0,peak=0,z=0,n=0,prev=0,fs=0,fc=0;const frames=[];
+  const sr=buf.sampleRate,ch=buf.numberOfChannels,len=buf.length,step=Math.max(1,Math.floor(len/320000)),frameSamples=Math.max(1,Math.floor(sr*.045/step));
+  let s2=0,peak=0,z=0,n=0,prev=0,fs=0,fc=0;const frames=[];
   for(let i=0;i<len;i+=step){let x=0;for(let c=0;c<ch;c++)x+=buf.getChannelData(c)[i]||0;x/=ch;const ax=Math.abs(x);s2+=x*x;peak=Math.max(peak,ax);if(n&&((x>=0)!=(prev>=0)))z++;prev=x;n++;fs+=x*x;fc++;if(fc>=frameSamples){frames.push(Math.sqrt(fs/fc));fs=0;fc=0}}
   const rms=Math.sqrt(s2/Math.max(1,n)),p20=percentile(frames,.2),p80=percentile(frames,.8),crest=peak/Math.max(.00001,rms);let onset=0;for(let i=1;i<frames.length;i++)if(frames[i]>frames[i-1]*1.3&&frames[i]-frames[i-1]>.007)onset++;
-  // Approximate brightness/low-end from zero crossing and energy envelope; deliberately conservative for browser speed.
-  const zcr=z/Math.max(1,n),onsetRate=onset/Math.max(1,buf.duration),dynamic=Math.max(0,p80-p20);
-  return {duration:buf.duration,rms,crest,zcr,onsetRate,dynamic};
+  const zcr=z/Math.max(1,n),onsetRate=onset/Math.max(1,buf.duration),dynamic=Math.max(0,p80-p20),rmsDb=20*Math.log10(Math.max(rms,1e-7));
+  return {duration:buf.duration,sampleRate:sr,channels:ch,rms,rmsDb,peak,crest,zcr,onsetRate,dynamic};
 }
 function metricsFrom(f,c){
-  const meta=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' ');
-  const sem=w=>meta.includes(w);
-  const loud=clamp((20*Math.log10(Math.max(f.rms,1e-6))+36)/30,0,1);
+  const meta=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' '),sem=w=>meta.includes(w);
+  const loud=clamp((f.rmsDb+36)/30,0,1);
   const energy=clamp(32+loud*52+Math.min(18,f.onsetRate*7));
   const punch=clamp(30+Math.min(42,(f.crest-1)*7)+Math.min(25,f.onsetRate*8));
   const motion=clamp(34+Math.min(52,f.onsetRate*13)+Math.min(15,f.zcr*130));
@@ -3884,76 +3926,36 @@ function metricsFrom(f,c){
   return {energy:Math.round(energy),darkness:Math.round(darkness),motion:Math.round(motion),space:Math.round(space),punch:Math.round(punch),brightness:Math.round(brightness),dynamics:Math.round(dynamics),density:Math.round(density)};
 }
 function fallback(c){const s=[...(c.mood||[]),...(c.tags||[]),c.style||'',...(c.uses||[])].map(norm).join(' '),has=w=>s.includes(w);return {energy:has('uplifting')||has('sports')?78:has('tension')?72:60,darkness:has('dark')||has('tension')?84:has('uplifting')?30:55,motion:has('sports')||has('swagger')||has('advertising')?78:62,space:has('ambient')||has('emotional')?76:58,punch:has('sports')||has('trailer')?78:60,brightness:has('uplifting')?78:has('dark')?34:56,dynamics:64,density:has('minimal')?42:62}}
-async function analyze(c){const hit=readCache(c);if(hit)return hit;try{const bytes=await fetchCueBytes(c),AC=window.AudioContext||window.webkitAudioContext,ac=new AC(),buf=await ac.decodeAudioData(bytes.slice(0));const metrics=metricsFrom(signalFeatures(buf),c);await ac.close().catch(()=>{});const x={version:VERSION,source:'audio',confidence:86,metrics};saveCache(c,x);return x}catch(e){const x={version:VERSION,source:'metadata',confidence:42,metrics:fallback(c)};saveCache(c,x);return x}}
-function distance(a,b){const A=(readCache(a)||{metrics:fallback(a)}).metrics,B=(readCache(b)||{metrics:fallback(b)}).metrics,ks=['energy','darkness','motion','space','punch','brightness','dynamics','density'];return ks.reduce((s,k)=>s+Math.abs(A[k]-B[k]),0)/ks.length}
-function similarity(a,b){return Math.round(clamp(100-distance(a,b)))}
-function summary(m){const tone=m.darkness>70?'dark and tense':m.brightness>70?'bright and open':'balanced';const drive=m.motion>74?'high-motion':m.energy>72?'high-energy':'controlled';const impact=m.punch>74?'punchy':'smooth';return `${tone[0].toUpperCase()+tone.slice(1)} profile with ${drive} movement and ${impact} impact. ${m.space>68?'More open space for picture and dialogue.':'Denser production suited to active edits.'}`}
-function esc(v){return String(v||'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]))}
-function dnaModal(){let m=document.getElementById('pcSyncDNAModal');if(m)return m;m=document.createElement('div');m.id='pcSyncDNAModal';m.className='sync-detail-modal pc-sync-dna-modal';m.innerHTML='<div class="sync-detail-card"><button class="sync-detail-close" type="button" aria-label="Close Sync DNA">×</button><div id="pcSyncDNABody"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.sync-detail-close'))m.classList.remove('show')});return m}
-function injectDNA(c,data){const body=document.getElementById('pcSyncDNABody');if(!body)return;const labels={energy:'Energy',darkness:'Darkness',motion:'Motion',space:'Space',punch:'Punch',brightness:'Brightness',dynamics:'Dynamics',density:'Density'};const others=cues().filter(x=>x.title!==c.title).sort((a,b)=>similarity(c,b)-similarity(c,a)).slice(0,3);body.innerHTML=`<div class="sync-eyebrow">SYNC DNA • AUDIO INTELLIGENCE</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">A separate audio profile generated from this cue's MP3. This is not the cue Details view.</p><section class="pc-sync-dna-extension"><div class="pc-sync-dna-top"><h4>Audio DNA data sheet</h4><span class="pc-sync-dna-state">${data.source==='audio'?'MP3 analyzed':'Metadata fallback'} · ${data.confidence}% confidence</span></div><div class="pc-sync-dna-grid">${Object.entries(data.metrics).map(([k,v])=>`<div class="pc-sync-dna-cell"><span>${labels[k]}</span><div class="pc-sync-dna-meter"><i style="--w:${v}%"></i></div><strong>${v}</strong></div>`).join('')}</div><p class="pc-sync-dna-summary">${esc(summary(data.metrics))}</p>${others.length?`<div class="pc-sync-similar">${others.map(x=>`<button type="button" data-sync-similar="${esc(x.title)}"><strong>${esc(x.title)}</strong><span>${similarity(c,x)}% sonic match</span></button>`).join('')}</div>`:''}</section>`;body.querySelectorAll('[data-sync-similar]').forEach(b=>b.onclick=()=>{m=dnaModal();m.classList.remove('show');focusCue(b.dataset.syncSimilar)})}
-async function showDNAFor(c){const m=dnaModal(),body=document.getElementById('pcSyncDNABody');body.innerHTML=`<div class="sync-eyebrow">SYNC DNA • AUDIO INTELLIGENCE</div><h3>${esc(c.title)}</h3><section class="pc-sync-dna-extension"><div class="pc-sync-dna-top"><h4>Audio DNA data sheet</h4><span class="pc-sync-dna-state">Analyzing MP3…</span></div><p class="pc-sync-dna-summary">Reading the cue audio and calculating energy, darkness, motion, space, punch, brightness, dynamics, and density.</p></section>`;m.classList.add('show');injectDNA(c,await analyze(c))}
-window.PrinceCaliSyncIntel={showDNAFor,openDNA:showDNAFor,analyze,installFinder:installBriefMatcher,openFinder:()=>{installBriefMatcher();const p=document.getElementById('pcSyncIntel');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>document.getElementById('pcSyncBrief')?.focus(),300)}};
-function focusCue(title,play=false){const q=document.getElementById('syncSearch');if(q){q.value=title;q.dispatchEvent(new Event('input',{bubbles:true}))}setTimeout(()=>{const row=[...document.querySelectorAll('.sync-cue')].find(r=>r.dataset.cue===title);row?.scrollIntoView({behavior:'smooth',block:'center'});if(play)row?.querySelector('.sync-play')?.click()},80)}
-function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60};const uses=[];const moods=[];const bump=(k,v)=>target[k]=v;
-  if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}
-  if(/trailer|teaser/.test(t)){uses.push('trailer','film-tv');moods.push('tension','dramatic','dark');bump('darkness',84);bump('punch',84);bump('dynamics',82)}
-  if(/sport|highlight|athletic/.test(t)){uses.push('sports');moods.push('uplifting','swagger');bump('energy',88);bump('motion',90);bump('punch',84)}
-  if(/documentary|docu|investigative/.test(t)){uses.push('documentary');moods.push('dramatic','emotional');bump('space',78);bump('density',48)}
-  if(/film|tv|scene|dialogue/.test(t)){uses.push('film-tv');bump('space',80);bump('density',48)}
-  if(/luxury|premium|fashion/.test(t)){moods.push('swagger');bump('space',74);bump('brightness',64);bump('energy',62)}
-  if(/emotional|heart|reflective/.test(t)){moods.push('emotional');bump('space',82);bump('energy',48);bump('punch',48)}
-  if(/dark|horror|tense|suspense/.test(t)){moods.push('dark','tension');bump('darkness',90);bump('brightness',30)}
-  if(/upbeat|happy|bright|positive/.test(t)){moods.push('uplifting');bump('brightness',86);bump('energy',82);bump('darkness',24);bump('motion',82)}
-  return {target,uses,moods,t};}
-function scoreBrief(c,brief){const d=(readCache(c)||{metrics:fallback(c)}).metrics;let score=100-(['energy','darkness','motion','space','punch','brightness','dynamics','density'].reduce((s,k)=>s+Math.abs(d[k]-brief.target[k]),0)/8);const cm=(c.mood||[]).map(norm),cu=(c.uses||[]).map(norm),ct=[c.title,c.style,...(c.tags||[])].map(norm).join(' ');brief.moods.forEach(x=>{if(cm.includes(x))score+=10});brief.uses.forEach(x=>{if(cu.includes(x))score+=12});brief.t.split(/\s+/).filter(x=>x.length>3).forEach(x=>{if(ct.includes(x))score+=2});return clamp(Math.round(score),1,99)}
-function renderBriefMatches(text){const host=document.getElementById('pcSyncMatches');if(!host)return;const brief=briefTargets(text);const ranked=cues().map(c=>({c,score:scoreBrief(c,brief)})).sort((a,b)=>b.score-a.score).slice(0,3);host.innerHTML=ranked.map(({c,score})=>`<button type="button" class="pc-sync-match-card" data-brief-cue="${esc(c.title)}"><span class="pc-sync-match-score">${score}% brief match</span><strong>${esc(c.title)}</strong><span>${esc(c.style)} · ${esc((c.mood||[]).join(' / '))}</span></button>`).join('');host.classList.add('show');host.querySelectorAll('[data-brief-cue]').forEach(b=>b.onclick=()=>focusCue(b.dataset.briefCue,true));}
-function installBriefMatcher(){let panel=document.getElementById('pcSyncIntel');const mood=document.querySelector('#sync .sync-mood-row');if(!panel&&mood){panel=document.createElement('section');panel.id='pcSyncIntel';panel.className='pc-sync-intel';panel.innerHTML=`<div class="pc-sync-intel-head"><div><div class="sync-eyebrow">SYNC AI • SMART CUE DISCOVERY</div><h3>Match the brief.</h3></div><p>Describe the scene, campaign, emotion, or edit. Sync AI compares the brief against cue metadata and audio-derived Sync DNA.</p></div><div class="pc-sync-brief-row"><input id="pcSyncBrief" type="search" placeholder="Example: upbeat premium car commercial with forward motion"><button id="pcSyncBriefGo" class="pc-sync-match-btn" type="button">Find matches</button></div><div class="pc-sync-brief-examples"><button class="pc-sync-brief-chip" type="button">Upbeat car commercial</button><button class="pc-sync-brief-chip" type="button">Dark suspense trailer</button><button class="pc-sync-brief-chip" type="button">Emotional documentary</button><button class="pc-sync-brief-chip" type="button">Sports highlight</button></div><div id="pcSyncMatches" class="pc-sync-matches"></div>`;mood.insertAdjacentElement('afterend',panel)}if(!panel||panel.dataset.bound==='1')return;panel.dataset.bound='1';const input=panel.querySelector('#pcSyncBrief'),go=panel.querySelector('#pcSyncBriefGo');if(go)go.onclick=()=>{if(input?.value.trim())renderBriefMatches(input.value.trim())};input?.addEventListener('keydown',e=>{if(e.key==='Enter'&&input.value.trim())renderBriefMatches(input.value.trim())});panel.querySelectorAll('.pc-sync-brief-chip').forEach(b=>b.onclick=()=>{input.value=b.textContent;renderBriefMatches(b.textContent)})}
-function hookDetails(){/* Details intentionally stays separate from Sync DNA. */}
-function warm(){let i=0,arr=cues().filter(c=>!readCache(c));const run=()=>{if(i>=arr.length)return;analyze(arr[i++]).finally(()=>('requestIdleCallback'in window?requestIdleCallback(run,{timeout:2600}):setTimeout(run,1200)))};if('requestIdleCallback'in window)requestIdleCallback(run,{timeout:3200});else setTimeout(run,1800)}
-function init(){initThemePersistence();installBriefMatcher();warm();window.addEventListener('hashchange',()=>{if(location.hash==='#sync')setTimeout(installBriefMatcher,50)});}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-})();
-</script>
-
-
-<style id="pc-v44-route-intelligence-fixes">
-#pcGuideButton,#pcGuidePanel{display:none!important}
-body.catalog-view #pcGuideButton{display:block!important}
-body.catalog-view #pcGuidePanel.show{display:block!important}
-#pcSyncGuideButton{display:none;position:fixed;right:20px;bottom:22px;z-index:2600;border:1px solid rgba(181,138,64,.52);background:linear-gradient(135deg,#171310,#3a2c27);color:#f7f1e7;border-radius:999px;padding:13px 18px;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;box-shadow:0 18px 52px rgba(0,0,0,.22)}
-body.sync-view #pcSyncGuideButton{display:inline-flex;align-items:center;gap:8px}
-#pcSyncGuideButton:hover{transform:translateY(-2px)}
-#syncDetailBody .pc-sync-dna-extension{display:block!important;visibility:visible!important;opacity:1!important}
-@media(max-width:700px){#pcSyncGuideButton{right:14px;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 15px}}
-</style>
-<script id="pc-v45-sync-launcher-and-theme-guard">
-(function(){
-'use strict';
-function enforceSavedTheme(){let mode='';try{mode=localStorage.getItem('princeCaliTheme')||''}catch(_){ }if(mode==='dark'||mode==='light')document.body.classList.toggle('dark-mode',mode==='dark')}
-function ensureFinderPanel(){
-  if(document.getElementById('pcSyncIntel')) return document.getElementById('pcSyncIntel');
-  // Ask the intelligence module to install its panel if available.
-  window.PrinceCaliSyncIntel?.installFinder?.();
-  return document.getElementById('pcSyncIntel');
+async function analyze(c,force=false){if(!force){const hit=readCache(c);if(hit)return hit}try{const loaded=await fetchCueBytes(c),AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw new Error('Web Audio API unavailable in this browser');const ac=new AC(),buf=await ac.decodeAudioData(loaded.bytes.slice(0)),features=signalFeatures(buf),metrics=metricsFrom(features,c);await ac.close().catch(()=>{});const x={version:VERSION,source:'audio',confidence:90,sourceUrl:loaded.url,metrics,features};saveCache(c,x);return x}catch(error){const x={version:VERSION,source:'metadata',confidence:40,metrics:fallback(c),features:null,error:String(error?.message||error)};saveCache(c,x);return x}}
+function summary(m){const tone=m.darkness>70?'dark / tense':m.brightness>70?'bright / open':'balanced';const drive=m.motion>74?'fast-moving':m.energy>72?'high-energy':'controlled';const impact=m.punch>74?'hard-impact':'smooth-impact';return `${tone} sonic profile with ${drive} movement and ${impact} transients. ${m.space>68?'The arrangement reads comparatively open for dialogue/picture.':'The arrangement reads denser and better suited to active edits.'}`}
+function distanceData(a,b){return metricKeys.reduce((sum,k)=>sum+Math.abs(a.metrics[k]-b.metrics[k]),0)/metricKeys.length}
+function similarityData(a,b){return Math.round(clamp(100-distanceData(a,b)))}
+function rawFeatureHTML(data){if(data.source!=='audio'||!data.features)return `<div class="pc-sync-raw"><div><span>Analysis source</span><strong>Metadata fallback</strong></div><div><span>Reason</span><strong>${esc(data.error||'MP3 could not be decoded')}</strong></div><div><span>Confidence</span><strong>${data.confidence}%</strong></div></div>`;const f=data.features;return `<div class="pc-sync-raw"><div><span>Duration read</span><strong>${f.duration.toFixed(2)} sec</strong></div><div><span>RMS level</span><strong>${f.rmsDb.toFixed(1)} dBFS</strong></div><div><span>Crest factor</span><strong>${f.crest.toFixed(2)}×</strong></div><div><span>Transient rate</span><strong>${f.onsetRate.toFixed(2)}/sec</strong></div><div><span>Zero-crossing rate</span><strong>${(f.zcr*100).toFixed(2)}%</strong></div><div><span>Audio format</span><strong>${f.sampleRate} Hz · ${f.channels} ch</strong></div></div>`}
+function modal(){return $('#pcSyncDNAModal')}
+function closeDNA(){const m=modal();if(m){m.classList.remove('show');m.setAttribute('aria-hidden','true')}}
+async function openDNA(c){
+  const m=modal(),body=$('#pcSyncDNABody');if(!m||!body)return;
+  body.innerHTML=`<div class="pc-sync-dna-sheet-head"><div><div class="sync-eyebrow">SYNC DNA • MP3 AUDIO INTELLIGENCE</div><h3>${esc(c.title)}</h3><p>Reading the cue's MP3 and building a usable audio profile for supervisors, editors, and similarity matching.</p><div class="pc-sync-dna-source"><b>Analyzing MP3…</b><span>${esc(c.audio||'No audio path')}</span></div></div></div><div class="pc-sync-dna-sheet-grid">${metricKeys.map(k=>`<div class="pc-sync-dna-stat"><div class="pc-sync-dna-stat-top"><span>${labels[k]}</span><strong>—</strong></div><div class="pc-sync-dna-meter"><i style="--w:0%"></i></div></div>`).join('')}</div><div class="pc-sync-dna-explain"><strong>What this means:</strong> the values below are populated after the MP3 is decoded. If the browser cannot read the file, the sheet will explicitly say metadata fallback instead of pretending it analyzed audio.</div>`;
+  m.classList.add('show');m.setAttribute('aria-hidden','false');
+  const data=await analyze(c,true);
+  const analyzed=await Promise.all(cues().filter(x=>x.title!==c.title).map(async x=>({cue:x,data:await analyze(x)})));
+  analyzed.sort((a,b)=>similarityData(data,b.data)-similarityData(data,a.data));
+  const similar=analyzed.slice(0,3);
+  body.innerHTML=`<div class="pc-sync-dna-sheet-head"><div><div class="sync-eyebrow">SYNC DNA • AUDIO INTELLIGENCE</div><h3>${esc(c.title)}</h3><p>${esc(summary(data.metrics))}</p><div class="pc-sync-dna-source"><b>${data.source==='audio'?'MP3 analyzed':'Metadata fallback'}</b><span>${data.confidence}% confidence</span>${data.sourceUrl?`<span>${esc(data.sourceUrl)}</span>`:''}</div></div></div><div class="pc-sync-dna-sheet-grid">${metricKeys.map(k=>`<div class="pc-sync-dna-stat"><div class="pc-sync-dna-stat-top"><span>${labels[k]}</span><strong>${data.metrics[k]}</strong></div><div class="pc-sync-dna-meter"><i style="--w:${data.metrics[k]}%"></i></div></div>`).join('')}</div>${rawFeatureHTML(data)}<div class="pc-sync-dna-explain"><strong>How to use it:</strong> Energy and Motion help judge edit pace; Punch tracks transient impact; Space and Density help judge room for dialogue; Brightness/Darkness describe tonal direction; Dynamics estimates contrast between quieter and louder sections.</div>${similar.length?`<div class="pc-sync-similar-title">Closest sonic matches</div><div class="pc-sync-similar">${similar.map(x=>`<button type="button" data-sync-similar="${esc(x.cue.title)}"><strong>${esc(x.cue.title)}</strong><span>${similarityData(data,x.data)}% DNA match</span></button>`).join('')}</div>`:''}`;
+  body.querySelectorAll('[data-sync-similar]').forEach(b=>b.onclick=()=>{closeDNA();focusCue(b.dataset.syncSimilar,false)});
 }
-function openSyncFinder(){
-  if(location.hash!=='#sync'){location.hash='#sync';setTimeout(openSyncFinder,180);return;}
-  const panel=ensureFinderPanel();
-  const target=panel||document.querySelector('#sync .sync-discovery');
-  if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>{(document.getElementById('pcSyncBrief')||document.getElementById('syncSearch'))?.focus();},320);
+function focusCue(title,play=false){const q=$('#syncSearch');if(q){q.value=title;q.dispatchEvent(new Event('input',{bubbles:true}))}setTimeout(()=>{const row=[...document.querySelectorAll('.sync-cue')].find(r=>r.dataset.cue===title);row?.scrollIntoView({behavior:'smooth',block:'center'});if(play)row?.querySelector('.sync-play')?.click()},120)}
+function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60},uses=[],moods=[],bump=(k,v)=>target[k]=v;if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}if(/trailer|teaser/.test(t)){uses.push('trailer','film-tv');moods.push('tension','dramatic','dark');bump('darkness',84);bump('punch',84);bump('dynamics',82)}if(/sport|highlight|athletic/.test(t)){uses.push('sports');moods.push('uplifting','swagger');bump('energy',88);bump('motion',90);bump('punch',84)}if(/documentary|docu|investigative/.test(t)){uses.push('documentary');moods.push('dramatic','emotional');bump('space',78);bump('density',48)}if(/film|tv|scene|dialogue/.test(t)){uses.push('film-tv');bump('space',80);bump('density',48)}if(/luxury|premium|fashion/.test(t)){moods.push('swagger');bump('space',74);bump('brightness',64);bump('energy',62)}if(/emotional|heart|reflective/.test(t)){moods.push('emotional');bump('space',82);bump('energy',48);bump('punch',48)}if(/dark|horror|tense|suspense/.test(t)){moods.push('dark','tension');bump('darkness',90);bump('brightness',30)}if(/upbeat|happy|bright|positive/.test(t)){moods.push('uplifting');bump('brightness',86);bump('energy',82);bump('darkness',24);bump('motion',82)}return {target,uses,moods,t}}
+function scoreBrief(c,data,brief){let score=100-(metricKeys.reduce((s,k)=>s+Math.abs(data.metrics[k]-brief.target[k]),0)/metricKeys.length),why=[];const cm=(c.mood||[]).map(norm),cu=(c.uses||[]).map(norm),ct=[c.title,c.style,...(c.tags||[])].map(norm).join(' ');brief.moods.forEach(x=>{if(cm.includes(x)){score+=9;why.push(x)}});brief.uses.forEach(x=>{if(cu.includes(x)){score+=11;why.push(x.replace('-',' / '))}});brief.t.split(/\s+/).filter(x=>x.length>3).forEach(x=>{if(ct.includes(x)){score+=2;if(!why.includes(x))why.push(x)}});return {score:clamp(Math.round(score),1,99),why:[...new Set(why)].slice(0,3)}}
+async function runBrief(text){const host=$('#pcSyncMatches'),status=$('#pcSyncAIStatus');if(!host)return;const clean=text.trim();if(!clean){status.textContent='Enter a brief first.';return}status.textContent='Sync AI is reading the cue library and comparing audio DNA…';host.classList.remove('show');host.innerHTML='';const brief=briefTargets(clean);const rows=await Promise.all(cues().map(async c=>{const data=await analyze(c);return {c,data,...scoreBrief(c,data,brief)}}));rows.sort((a,b)=>b.score-a.score);const top=rows.slice(0,3);host.innerHTML=top.map(x=>`<button type="button" class="pc-sync-match-card" data-brief-cue="${esc(x.c.title)}"><span class="pc-sync-match-score">${x.score}% brief match</span><strong>${esc(x.c.title)}</strong><span>${esc(x.c.style)} · ${esc((x.c.mood||[]).join(' / '))}</span><span>${esc(x.why.length?'Why: '+x.why.join(' • '):(x.data.source==='audio'?'Audio-DNA similarity':'Metadata similarity'))}</span></button>`).join('');host.classList.add('show');host.querySelectorAll('[data-brief-cue]').forEach(b=>b.onclick=()=>focusCue(b.dataset.briefCue,true));const real=rows.filter(x=>x.data.source==='audio').length;status.textContent=`Done. Compared ${rows.length} cues; ${real} used decoded MP3 DNA${real!==rows.length?', the rest used explicit metadata fallback':''}.`;}
+function openFinder(){if(location.hash!=='#sync'){location.hash='#sync';setTimeout(openFinder,180);return}const p=$('#pcSyncIntel');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>$('#pcSyncBrief')?.focus(),250)}
+function bind(){
+  $('#pcSyncDNAClose')?.addEventListener('click',closeDNA);modal()?.addEventListener('click',e=>{if(e.target===modal())closeDNA()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDNA()});
+  $('#pcSyncBriefGo')?.addEventListener('click',()=>runBrief($('#pcSyncBrief')?.value||''));$('#pcSyncBrief')?.addEventListener('keydown',e=>{if(e.key==='Enter')runBrief(e.currentTarget.value)});document.querySelectorAll('.pc-sync-brief-chip').forEach(b=>b.addEventListener('click',()=>{const i=$('#pcSyncBrief');if(i)i.value=b.textContent;runBrief(b.textContent)}));
+  $('#pcSyncGuideButton')?.addEventListener('click',openFinder);
 }
-function routeSmartLaunchers(){
- const catalog=document.body.classList.contains('catalog-view');
- const beat=document.getElementById('pcGuideButton'),panel=document.getElementById('pcGuidePanel');
- if(beat)beat.style.setProperty('display',catalog?'block':'none','important');
- if(!catalog&&panel)panel.classList.remove('show');
- let sync=document.getElementById('pcSyncGuideButton');
- if(!sync){sync=document.createElement('button');sync.id='pcSyncGuideButton';sync.type='button';sync.textContent='Sync AI';document.body.appendChild(sync);sync.addEventListener('click',openSyncFinder);}
- const onSync=location.hash==='#sync'||document.body.classList.contains('sync-view');
- sync.style.setProperty('display',onSync?'inline-flex':'none','important');
-}
-function init(){enforceSavedTheme();routeSmartLaunchers();window.addEventListener('hashchange',()=>setTimeout(()=>{routeSmartLaunchers();if(location.hash==='#sync')setTimeout(()=>window.dispatchEvent(new Event('resize')),100)},0));window.addEventListener('pageshow',()=>{enforceSavedTheme();routeSmartLaunchers()});new MutationObserver(routeSmartLaunchers).observe(document.body,{attributes:true,attributeFilter:['class']})}
+function warm(){let i=0,arr=cues().filter(c=>!readCache(c));const next=()=>{if(i>=arr.length)return;analyze(arr[i++]).finally(()=>('requestIdleCallback'in window?requestIdleCallback(next,{timeout:3000}):setTimeout(next,1400)))};if('requestIdleCallback'in window)requestIdleCallback(next,{timeout:3500});else setTimeout(next,1600)}
+function init(){bind();warm();window.PrinceCaliSyncAI={openDNA,analyze,runBrief,openFinder};if(location.hash==='#sync')setTimeout(()=>window.dispatchEvent(new Event('resize')),120)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
