@@ -880,7 +880,17 @@ body.dark-mode .sync-page-btn{color:var(--paper);border-color:rgba(255,255,255,.
 @media(prefers-reduced-motion:reduce){.sync-cue.is-playing .sync-wave i{animation:none!important;}}
 </style>
 
-<meta name="prince-cali-build" content="v44-sync-dna-theme-routes-fixed">
+<meta name="prince-cali-build" content="v45-sync-ai-visible-waveform-fixed">
+
+<style id="pc-v45-sync-visible-intelligence-fixes">
+#sync .sync-visualizer{display:block!important;width:100%!important;height:36px!important;min-width:0;background:transparent!important}
+#sync .sync-dna-open{border-color:rgba(181,138,64,.62)!important;background:rgba(181,138,64,.12)!important;color:#332510!important}
+body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,138,64,.16)!important}
+#syncDetailBody .pc-sync-dna-placeholder{display:block!important;margin-top:22px!important;padding:18px!important;border:1px solid rgba(181,138,64,.32)!important;border-radius:20px!important;background:rgba(181,138,64,.07)!important}
+#syncDetailBody .pc-sync-dna-extension{display:block!important}
+.pc-sync-dna-state{padding:6px 8px;border-radius:999px;background:rgba(181,138,64,.12);border:1px solid rgba(181,138,64,.2)}
+@media(max-width:700px){#sync .sync-actions{gap:7px!important}#sync .sync-mini{flex:1 1 calc(33.333% - 7px)!important;min-width:92px!important}}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#featured">Skip to featured work</a>
@@ -3249,7 +3259,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     Optional fields: key, description, date, featured, placeholder.
   */
   const SYNC_CUES = [
-    {
+     {
       title:'The Anomaly', audio:'assets/The Anomaly.mp3', duration:'0:30', bpm:130, key:'A min',
       mood:['tension','dark'], style:'Cinematic Horror/Suspense', uses:['film-tv','trailer','movies'],
       tags:['tension','unsettling','haunting','slow build','dark'], featured:1, date:'2026-08-06', placeholder:false,
@@ -3305,6 +3315,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function drawIdleVisualizer(canvas,title){
     if(!canvas)return;
     const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
+    // A routed/hidden Sync section can briefly report a 0-1px canvas. Painting at that
+    // size and then stretching it creates the solid-block waveform bug. Wait until laid out.
+    if(rect.width<40||rect.height<8){
+      canvas.width=1; canvas.height=1;
+      clearTimeout(canvas._pcIdleRetry);
+      canvas._pcIdleRetry=setTimeout(()=>drawIdleVisualizer(canvas,title),90);
+      return;
+    }
     const w=Math.max(1,Math.round(rect.width*dpr)),h=Math.max(1,Math.round(rect.height*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
     const ctx=canvas.getContext('2d');if(!ctx)return;ctx.clearRect(0,0,w,h);
@@ -3413,7 +3431,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <div class="sync-cue-title"><h3>${esc(c.title)}</h3><p>${esc(c.style)} • ${esc(c.duration)}</p></div>
       <div class="sync-wave-wrap"><canvas class="sync-visualizer" aria-label="Live audio visualizer for ${esc(c.title)}"></canvas><input class="sync-progress" type="range" min="0" max="1000" value="0" aria-label="${esc(c.title)} playback position"><div class="sync-time-row"><span class="sync-elapsed">0:00</span><span class="sync-total">${esc(c.duration)}</span></div></div>
       <div class="sync-meta"><span>${esc(c.bpm)} BPM</span>${c.key?`<span>${esc(c.key)}</span>`:''}${moods}${uses}</div>
-      <div class="sync-actions"><button class="sync-mini sync-details" type="button">Details</button><button class="sync-mini sync-save ${saved?'saved':''}" type="button">${saved?'Shortlisted':'Shortlist'}</button></div>
+      <div class="sync-actions"><button class="sync-mini sync-details" type="button">Details</button><button class="sync-mini sync-dna-open" type="button">Sync DNA</button><button class="sync-mini sync-save ${saved?'saved':''}" type="button">${saved?'Shortlisted':'Shortlist'}</button></div>
       ${c.placeholder?'<span class="sync-placeholder">Placeholder</span>':''}
     </article>`;
   }
@@ -3461,15 +3479,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function toggleShortlist(c,row){const list=getShortlist(),has=list.includes(c.title),next=has?list.filter(x=>x!==c.title):[...list,c.title];setShortlist(next);const b=$('.sync-save',row);if(b){b.classList.toggle('saved',!has);b.textContent=!has?'Shortlisted':'Shortlist';}if(shortlistOnly)render();}
   function detailModal(){let m=$('#syncDetailModal');if(m)return m;m=document.createElement('div');m.id='syncDetailModal';m.className='sync-detail-modal';m.innerHTML='<div class="sync-detail-card"><button class="sync-detail-close" type="button" aria-label="Close">×</button><div id="syncDetailBody"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.sync-detail-close'))m.classList.remove('show');});return m;}
-  function openDetails(c){const m=detailModal(),body=$('#syncDetailBody',m);body.innerHTML=`<div class="sync-eyebrow">SYNC CUE</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">${esc(c.description||'Original cue available for sync consideration.')}</p><div class="sync-detail-grid"><div><span>Duration</span><strong>${esc(c.duration)}</strong></div><div><span>BPM</span><strong>${esc(c.bpm)}</strong></div><div><span>Key</span><strong>${esc(c.key||'—')}</strong></div><div><span>Style</span><strong>${esc(c.style)}</strong></div><div><span>Mood</span><strong>${esc((c.mood||[]).join(', '))}</strong></div><div><span>Use</span><strong>${esc((c.uses||[]).map(x=>x.replace('-', ' / ')).join(', '))}</strong></div></div><div class="sync-detail-actions"><button class="sync-primary" id="syncModalPlay" type="button">Preview cue</button><button class="sync-secondary" id="syncCopyBrief" type="button" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Copy cue info</button><a class="sync-secondary" href="#contact" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Sync inquiry</a></div>`;
+  function openDetails(c){const m=detailModal(),body=$('#syncDetailBody',m);body.innerHTML=`<div class="sync-eyebrow">SYNC CUE</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">${esc(c.description||'Original cue available for sync consideration.')}</p><div class="sync-detail-grid"><div><span>Duration</span><strong>${esc(c.duration)}</strong></div><div><span>BPM</span><strong>${esc(c.bpm)}</strong></div><div><span>Key</span><strong>${esc(c.key||'—')}</strong></div><div><span>Style</span><strong>${esc(c.style)}</strong></div><div><span>Mood</span><strong>${esc((c.mood||[]).join(', '))}</strong></div><div><span>Use</span><strong>${esc((c.uses||[]).map(x=>x.replace('-', ' / ')).join(', '))}</strong></div></div><div class="sync-detail-actions"><button class="sync-primary" id="syncModalPlay" type="button">Preview cue</button><button class="sync-secondary" id="syncCopyBrief" type="button" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Copy cue info</button><a class="sync-secondary" href="#contact" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Sync inquiry</a></div><section class="pc-sync-dna-extension pc-sync-dna-placeholder" id="pcSyncDNAVisible"><div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">Analyzing MP3…</span></div><p class="pc-sync-dna-summary">Audio intelligence is reading this cue. The data sheet will populate with energy, darkness, motion, space, punch, brightness, dynamics, density, confidence, and similar-cue matches.</p></section>`;
     $('#syncModalPlay',body).onclick=()=>{m.classList.remove('show');const row=$(`.sync-cue[data-cue="${CSS.escape(c.title)}"]`);if(row)playCue(c,row);else toastMsg('Cue is on another page. Search the title to preview it.');};
     $('#syncCopyBrief',body).onclick=async()=>{const value=`${c.title} | ${c.duration} | ${c.bpm} BPM${c.key?' | '+c.key:''} | ${c.style} | Mood: ${(c.mood||[]).join(', ')} | Use: ${(c.uses||[]).join(', ')}`;try{await navigator.clipboard.writeText(value);toastMsg('Cue info copied');}catch(e){toastMsg(value);}};
     m.classList.add('show');
     setTimeout(()=>window.PrinceCaliSyncIntel?.showDNAFor?.(c),0);
   }
-  function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
+  function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const dnaBtn=$('.sync-dna-open',row);if(dnaBtn)dnaBtn.onclick=()=>{openDetails(c);setTimeout(()=>document.querySelector('#pcSyncDNAVisible,.pc-sync-dna-extension')?.scrollIntoView({behavior:'smooth',block:'center'}),120);};const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
 
-  function routeSync(){const sync=location.hash==='#sync';document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));}else{stopAudio();$('#syncDetailModal')?.classList.remove('show');}}
+  function routeSync(){const sync=location.hash==='#sync';document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>{window.scrollTo({top:0,behavior:'auto'});requestAnimationFrame(()=>paintIdleVisualizers());});setTimeout(paintIdleVisualizers,140);}else{stopAudio();$('#syncDetailModal')?.classList.remove('show');}}
   function bind(){
     $('#syncSearch')?.addEventListener('input',()=>{currentPage=1;render();});
     $('#syncUseFilter')?.addEventListener('change',()=>{currentPage=1;render();});
@@ -3864,7 +3882,7 @@ function summary(m){const tone=m.darkness>70?'dark and tense':m.brightness>70?'b
 function esc(v){return String(v||'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]))}
 function injectDNA(c,data){const body=document.querySelector('#syncDetailBody');if(!body)return;body.querySelector('.pc-sync-dna-extension')?.remove();const labels={energy:'Energy',darkness:'Darkness',motion:'Motion',space:'Space',punch:'Punch',brightness:'Brightness',dynamics:'Dynamics',density:'Density'};const others=cues().filter(x=>x.title!==c.title).sort((a,b)=>similarity(c,b)-similarity(c,a)).slice(0,3);const box=document.createElement('section');box.className='pc-sync-dna-extension';box.innerHTML=`<div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">${data.source==='audio'?'Analyzed from cue audio':'Metadata profile'} · ${data.confidence}%</span></div><div class="pc-sync-dna-grid">${Object.entries(data.metrics).map(([k,v])=>`<div class="pc-sync-dna-cell"><span>${labels[k]}</span><div class="pc-sync-dna-meter"><i style="--w:${v}%"></i></div></div>`).join('')}</div><p class="pc-sync-dna-summary">${esc(summary(data.metrics))}</p>${others.length?`<div class="pc-sync-similar">${others.map(x=>`<button type="button" data-sync-similar="${esc(x.title)}"><strong>${esc(x.title)}</strong><span>${similarity(c,x)}% sonic match</span></button>`).join('')}</div>`:''}`;body.appendChild(box);box.querySelectorAll('[data-sync-similar]').forEach(b=>b.onclick=()=>focusCue(b.dataset.syncSimilar));}
 async function showDNAFor(c){const body=document.querySelector('#syncDetailBody');if(body&&!body.querySelector('.pc-sync-dna-extension')){const wait=document.createElement('section');wait.className='pc-sync-dna-extension';wait.innerHTML='<div class="pc-sync-dna-top"><h4>Sync DNA</h4><span class="pc-sync-dna-state">Analyzing cue…</span></div>';body.appendChild(wait)}injectDNA(c,await analyze(c));}
-window.PrinceCaliSyncIntel={showDNAFor,analyze};
+window.PrinceCaliSyncIntel={showDNAFor,analyze,installFinder:installBriefMatcher,openFinder:()=>{installBriefMatcher();const p=document.getElementById('pcSyncIntel');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>document.getElementById('pcSyncBrief')?.focus(),300)}};
 function focusCue(title,play=false){const q=document.getElementById('syncSearch');if(q){q.value=title;q.dispatchEvent(new Event('input',{bubbles:true}))}setTimeout(()=>{const row=[...document.querySelectorAll('.sync-cue')].find(r=>r.dataset.cue===title);row?.scrollIntoView({behavior:'smooth',block:'center'});if(play)row?.querySelector('.sync-play')?.click()},80)}
 function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60};const uses=[];const moods=[];const bump=(k,v)=>target[k]=v;
   if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}
@@ -3898,19 +3916,34 @@ body.sync-view #pcSyncGuideButton{display:inline-flex;align-items:center;gap:8px
 #syncDetailBody .pc-sync-dna-extension{display:block!important;visibility:visible!important;opacity:1!important}
 @media(max-width:700px){#pcSyncGuideButton{right:14px;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px 15px}}
 </style>
-<script id="pc-v44-sync-launcher-and-theme-guard">
+<script id="pc-v45-sync-launcher-and-theme-guard">
 (function(){
 'use strict';
 function enforceSavedTheme(){let mode='';try{mode=localStorage.getItem('princeCaliTheme')||''}catch(_){ }if(mode==='dark'||mode==='light')document.body.classList.toggle('dark-mode',mode==='dark')}
+function ensureFinderPanel(){
+  if(document.getElementById('pcSyncIntel')) return document.getElementById('pcSyncIntel');
+  // Ask the intelligence module to install its panel if available.
+  window.PrinceCaliSyncIntel?.installFinder?.();
+  return document.getElementById('pcSyncIntel');
+}
+function openSyncFinder(){
+  if(location.hash!=='#sync'){location.hash='#sync';setTimeout(openSyncFinder,180);return;}
+  const panel=ensureFinderPanel();
+  const target=panel||document.querySelector('#sync .sync-discovery');
+  if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>{(document.getElementById('pcSyncBrief')||document.getElementById('syncSearch'))?.focus();},320);
+}
 function routeSmartLaunchers(){
  const catalog=document.body.classList.contains('catalog-view');
  const beat=document.getElementById('pcGuideButton'),panel=document.getElementById('pcGuidePanel');
  if(beat)beat.style.setProperty('display',catalog?'block':'none','important');
  if(!catalog&&panel)panel.classList.remove('show');
  let sync=document.getElementById('pcSyncGuideButton');
- if(!sync){sync=document.createElement('button');sync.id='pcSyncGuideButton';sync.type='button';sync.textContent='Find a Cue';document.body.appendChild(sync);sync.addEventListener('click',()=>{const p=document.getElementById('pcSyncIntel'),i=document.getElementById('pcSyncBrief');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>i?.focus(),350)})}
+ if(!sync){sync=document.createElement('button');sync.id='pcSyncGuideButton';sync.type='button';sync.textContent='Sync AI';document.body.appendChild(sync);sync.addEventListener('click',openSyncFinder);}
+ const onSync=location.hash==='#sync'||document.body.classList.contains('sync-view');
+ sync.style.setProperty('display',onSync?'inline-flex':'none','important');
 }
-function init(){enforceSavedTheme();routeSmartLaunchers();window.addEventListener('hashchange',()=>setTimeout(routeSmartLaunchers,0));window.addEventListener('pageshow',()=>{enforceSavedTheme();routeSmartLaunchers()});new MutationObserver(routeSmartLaunchers).observe(document.body,{attributes:true,attributeFilter:['class']})}
+function init(){enforceSavedTheme();routeSmartLaunchers();window.addEventListener('hashchange',()=>setTimeout(()=>{routeSmartLaunchers();if(location.hash==='#sync')setTimeout(()=>window.dispatchEvent(new Event('resize')),100)},0));window.addEventListener('pageshow',()=>{enforceSavedTheme();routeSmartLaunchers()});new MutationObserver(routeSmartLaunchers).observe(document.body,{attributes:true,attributeFilter:['class']})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
