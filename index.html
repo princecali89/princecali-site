@@ -4,7 +4,8 @@
 <head>    
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-<title>Prince Cali | Official Website</title>
+<base href="/">
+<title>Prince Cali | Producer, Beat Licensing & Sync Music</title>
 <!-- premium-redesign-v11-favicon-cache-polish -->
 <meta content="premium-redesign-v11-favicon-cache-polish" name="site-version"/>
 <link href="assets/favicon.png?v=11" rel="icon" sizes="32x32" type="image/png"/>
@@ -16,21 +17,36 @@
 <link href="assets/favicon.png?v=11" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="Prince Cali" name="apple-mobile-web-app-title"/>
 <meta content="Prince Cali" name="application-name"/>
-<meta content="Official website of Prince Cali, Los Angeles born producer and audio engineer based in Portland. Artist production, beat licensing, and original sync music for film, television, advertising, and media." name="description"/>
+<meta content="Official website of Prince Cali, Los Angeles born producer and audio engineer based in Portland. Browse original beats, beat licensing, and sync music for film, television, advertising, and media." name="description"/>
 <meta content="#f3efe6" name="theme-color"/>
-<meta content="Prince Cali | Official Website" property="og:title"/>
-<meta content="Artist production, beat licensing, and original sync music for film, television, advertising, and media by Prince Cali." property="og:description"/>
+<meta content="Prince Cali | Producer, Beat Licensing & Sync Music" property="og:title"/>
+<meta content="Official website of Prince Cali, Los Angeles born producer and audio engineer based in Portland. Browse original beats, beat licensing, and sync music for film, television, advertising, and media." property="og:description"/>
 <meta content="website" property="og:type"/>
+<meta content="https://princecali.com/" property="og:url"/>
 <meta content="assets/favicon.png?v=11" property="og:image"/>
 <meta content="assets/favicon.png?v=11" name="twitter:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="telephone=no" name="format-detection"/>
-<meta content="premium-redesign-v47-real-sync-ai-dna" name="prince-cali-version"/>
+<meta content="premium-redesign-v49-seo-real-routes" name="prince-cali-version"/>
 <!-- Favicon note: upload the final transparent rounded-button file to /assets/favicon.png. Version query v=11 forces browsers to refresh the icon. -->
 <meta content="index,follow,max-image-preview:large" name="robots"/>
+<script id="pc-seo-path-bootstrap">
+(function(){
+  try{
+    const p=location.pathname.replace(/\/+$/,'')||'/';
+    if(p==='/' && (location.hash==='#catalog' || /^#catalog-page-\d+$/.test(location.hash))){
+      const h=location.hash.startsWith('#catalog-page-')?location.hash:'';
+      history.replaceState(history.state,'','/catalog/'+h);
+    }else if(p==='/' && location.hash==='#sync'){
+      history.replaceState(history.state,'','/sync/');
+    }
+  }catch(_){ }
+})();
+</script>
 <meta content="Prince Cali" name="author"/>
 <meta content="Prince Cali beats, cinematic beats, beat licensing, sync licensing, production music, film cues, TV cues, Portland producer, Los Angeles producer, rap beats, trap beats, dark beats, luxury beats" name="keywords"/>
 <link href="https://princecali.com/" rel="canonical"/>
+<link href="https://princecali.com/sitemap.xml" rel="sitemap" type="application/xml"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"MusicGroup","name":"Prince Cali","url":"https://princecali.com/","description":"Cinematic beat production, licensing, and creative projects by Prince Cali.","sameAs":["https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra","https://www.youtube.com/@princecali89/videos","https://www.tiktok.com/@therealprincecali"]}</script>
 <style>
 :root{
@@ -893,25 +909,25 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 </style>
 </head>
 <body>
-<a class="skip-link" href="#featured">Skip to featured work</a>
+<a class="skip-link" href="/#featured">Skip to featured work</a>
 <div class="cursor-glow" id="cursorGlow"></div>
 <nav>
-<a aria-label="Prince Cali Home" href="#top"><img alt="Prince Cali" class="nav-logo" src="assets/watermark.v2.png?v=25"/></a>
+<a aria-label="Prince Cali Home" href="/"><img alt="Prince Cali" class="nav-logo" src="assets/watermark.v2.png?v=25"/></a>
 <div class="nav-links">
-<a href="#featured">Featured</a><a href="#catalog">Catalog</a><a href="#sync">Sync</a><a href="#experience">Story</a><a href="#licenses">Licenses</a><a href="#contact">Contact</a>
+<a href="/#featured">Featured</a><a href="/catalog/">Catalog</a><a href="/sync/">Sync</a><a href="/#experience">Story</a><a href="/#licenses">Licenses</a><a href="/#contact">Contact</a>
 </div>
 <button aria-label="Switch to dark mode" class="nav-theme-toggle" id="navThemeToggle" title="Switch to dark mode" type="button">
 <svg aria-hidden="true" viewBox="0 0 32 32"><defs><clipPath id="pcHalfMoonClip"><rect height="32" width="16" x="0" y="0"/></clipPath></defs><circle class="theme-orbit" cx="16" cy="16" r="10"/><circle class="theme-light-half" clip-path="url(#pcHalfMoonClip)" cx="16" cy="16" r="8"/><g class="theme-rays"><path d="M16 1v4M16 27v4M1 16h4M27 16h4M5.4 5.4l2.8 2.8M23.8 23.8l2.8 2.8M26.6 5.4l-2.8 2.8M8.2 23.8l-2.8 2.8"/></g></svg>
 </button>
 </nav>
-<div aria-label="Quick navigation" class="mobile-quick"><a href="#featured">Featured</a><a href="#catalog">Catalog</a><a href="#sync">Sync</a><a href="#contact">Contact</a></div>
+<div aria-label="Quick navigation" class="mobile-quick"><a href="/#featured">Featured</a><a href="/catalog/">Catalog</a><a href="/sync/">Sync</a><a href="/#contact">Contact</a></div>
 <section class="hero" id="top">
 <div class="hero-text reveal">
 <img alt="" class="hero-mark" src="assets/watermark.v2.png?v=25"/>
 <div class="kicker">Los Angeles born • PDX based • producing since 2012</div>
 <h1>Prince Cali</h1>
 <p class="lead">Cinematic production, polished drums, and atmospheric sound built for records, campaigns, and picture.</p>
-<div class="hero-actions"><a class="btn dark" href="#catalog">Artists &amp; Labels</a><a class="btn" href="#sync">Film / TV / Media</a></div>
+<div class="hero-actions"><a class="btn dark" href="/catalog/">Artists &amp; Labels</a><a class="btn" href="/sync/">Film / TV / Media</a></div>
 <div class="hero-stats"><div class="hero-stat"><strong>60+</strong><span>Beats</span></div><div class="hero-stat"><strong>2012</strong><span>Producing</span></div><div class="hero-stat"><strong>PDX</strong><span>Studio</span></div></div>
 </div>
 <div aria-hidden="true" class="hero-art reveal">
@@ -932,7 +948,7 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
     <p>Choose the side built for what you are here to do. Each library has its own tools, search experience, and presentation.</p>
   </div>
   <div class="pathway-grid">
-    <a class="pathway-card pathway-beats" href="#catalog" aria-label="Open the beat catalog for artists, labels, and producers">
+    <a class="pathway-card pathway-beats" href="/catalog/" aria-label="Open the beat catalog for artists, labels, and producers">
       <span class="pathway-index">01</span>
       <div class="pathway-card-copy">
         <span class="pathway-audience">Artists • Labels • Producers</span>
@@ -942,7 +958,7 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
       </div>
       <span class="pathway-orbit" aria-hidden="true"></span>
     </a>
-    <a class="pathway-card pathway-sync" href="#sync" aria-label="Open the sync library for film, television, advertising, and media">
+    <a class="pathway-card pathway-sync" href="/sync/" aria-label="Open the sync library for film, television, advertising, and media">
       <span class="pathway-index">02</span>
       <div class="pathway-card-copy">
         <span class="pathway-audience">Film • TV • Advertising • Media</span>
@@ -1006,7 +1022,7 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
         <p>Curated original cues for film, television, trailers, advertising, sports, digital campaigns, and branded content. Search the library, preview quickly, and build a shortlist without digging through the beat catalog.</p>
         <div class="sync-hero-actions">
           <button class="sync-primary" id="syncRandom" type="button">Play a random cue</button>
-          <a class="sync-secondary" href="#contact">Sync inquiry</a>
+          <a class="sync-secondary" href="/#contact">Sync inquiry</a>
         </div>
       </div>
       <div class="sync-hero-stat" aria-label="Sync library status">
@@ -1088,7 +1104,7 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 
     <div class="sync-footer-note">
       <div><span class="sync-eyebrow">DELIVERY READY</span><h3>Need stems, alt mixes, cutdowns, or a custom cue?</h3><p>Use the contact page with the cue title and project type. This library is intentionally separate from the artist beat catalog so music supervisors and editors can move fast.</p></div>
-      <a class="sync-primary" href="#contact">Contact for sync</a>
+      <a class="sync-primary" href="/#contact">Contact for sync</a>
     </div>
   </div>
 </section>
@@ -1122,7 +1138,7 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 <div aria-label="Beat preview" aria-modal="true" class="preview-modal-card" role="dialog">
 <button aria-label="Close preview" class="preview-close" id="previewClose">×</button><button aria-label="Previous beat" class="preview-nav prev" id="previewPrev" type="button">‹</button><button aria-label="Next beat" class="preview-nav next" id="previewNext" type="button">›</button>
 <div class="preview-media"><video class="preview-video" controls="" controlslist="nodownload noplaybackrate" disablepictureinpicture="" id="previewVideo" loop="" playsinline="" preload="metadata"></video><iframe allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="" class="preview-frame" id="previewFrame" loading="eager" referrerpolicy="strict-origin-when-cross-origin" title="Beat preview"></iframe></div>
-<div class="preview-copy"><div class="kicker">Now Previewing</div><h3 id="previewTitle">Beat Preview</h3><p id="previewVibe"></p><div class="preview-action-stack"><a class="btn dark primary-cta" href="#licenses" id="previewLease">License This Beat</a><div class="preview-tools"><button class="btn" id="previewSave" type="button">Save</button><button class="btn" id="previewRecord" type="button">Record Take</button><button class="btn" disabled="" id="previewStopRecord" type="button">Stop</button><button class="btn" disabled="" id="previewDownloadRecord" type="button">Download Take</button></div></div><div class="voice-status" id="voiceStatus">Local previews can record beat + vocal as a downloadable idea take.</div><div class="no-share-note">Previews stay protected on this site. Use licensing or contact for commercial use.</div><div class="dna-panel"><h4>Beat DNA</h4><div class="dna-status" id="dnaStatus" data-state="idle"><i class="dna-status-dot"></i><span id="dnaStatusText">Audio intelligence ready</span><span class="dna-confidence" id="dnaConfidence"></span></div><div class="dna-grid" id="dnaGrid"></div><div class="dna-facts" id="dnaFacts"></div><p class="dna-summary" id="dnaSummary"></p><div class="dna-tags" id="dnaTags"></div></div><p class="preview-fineprint">Preview only. Prince Cali retains ownership of all production.</p><div class="recommend-panel"><h4>Smart recommendations</h4><div class="recommend-grid" id="recommendGrid"></div></div><div class="comment-box"><h4>Listener comments</h4><textarea id="commentText" placeholder="Leave a clean comment about this beat..."></textarea><div class="comment-actions"><button class="btn" id="postComment" type="button">Post Comment</button><span class="smart-note">Filtered for hate/harassment. Public sync requires a backend later.</span></div><div class="comment-list" id="commentList"></div></div></div>
+<div class="preview-copy"><div class="kicker">Now Previewing</div><h3 id="previewTitle">Beat Preview</h3><p id="previewVibe"></p><div class="preview-action-stack"><a class="btn dark primary-cta" href="/#licenses" id="previewLease">License This Beat</a><div class="preview-tools"><button class="btn" id="previewSave" type="button">Save</button><button class="btn" id="previewRecord" type="button">Record Take</button><button class="btn" disabled="" id="previewStopRecord" type="button">Stop</button><button class="btn" disabled="" id="previewDownloadRecord" type="button">Download Take</button></div></div><div class="voice-status" id="voiceStatus">Local previews can record beat + vocal as a downloadable idea take.</div><div class="no-share-note">Previews stay protected on this site. Use licensing or contact for commercial use.</div><div class="dna-panel"><h4>Beat DNA</h4><div class="dna-status" id="dnaStatus" data-state="idle"><i class="dna-status-dot"></i><span id="dnaStatusText">Audio intelligence ready</span><span class="dna-confidence" id="dnaConfidence"></span></div><div class="dna-grid" id="dnaGrid"></div><div class="dna-facts" id="dnaFacts"></div><p class="dna-summary" id="dnaSummary"></p><div class="dna-tags" id="dnaTags"></div></div><p class="preview-fineprint">Preview only. Prince Cali retains ownership of all production.</p><div class="recommend-panel"><h4>Smart recommendations</h4><div class="recommend-grid" id="recommendGrid"></div></div><div class="comment-box"><h4>Listener comments</h4><textarea id="commentText" placeholder="Leave a clean comment about this beat..."></textarea><div class="comment-actions"><button class="btn" id="postComment" type="button">Post Comment</button><span class="smart-note">Filtered for hate/harassment. Public sync requires a backend later.</span></div><div class="comment-list" id="commentList"></div></div></div>
 </div>
 </div>
 <div aria-hidden="true" class="edit-modal" id="mediaEditModal">
@@ -1444,7 +1460,7 @@ function routeProfileView(){const isProfile=location.hash==='#profile';const isF
 function updateAgentInsights(){if(!profileAssistant)return;const st=normalizeState(state());const topTag=Object.entries(st.behavior.tagWeights||{}).sort((a,b)=>b[1]-a[1])[0];const saved=st.saved.length,recent=st.recent.length;let msg='Create your profile to unlock saves, comments, downloads, voice takes, follows, and better recommendations.';if(isProfileCreated()){msg=`Profile active. ${saved} saved beat${saved===1?'':'s'}, ${recent} recent preview${recent===1?'':'s'}`+(topTag?`, strongest current vibe: ${topTag[0]}.`:'.');}profileAssistant.innerHTML=`<strong>Your workspace</strong><p>${msg}</p>`;}
 function injectCatalogStructuredData(){try{let old=document.getElementById('beatCatalogSchema');if(old)old.remove();const data={"@context":"https://schema.org","@type":"ItemList","name":"Prince Cali Beat Catalog","itemListElement":beats.map((b,i)=>({"@type":"ListItem","position":i+1,"item":{"@type":"MusicComposition","name":b.title,"description":b.vibe,"url":"https://princecali.com/#catalog","keywords":(b.tags||[]).join(', ')}}))};const el=document.createElement('script');el.id='beatCatalogSchema';el.type='application/ld+json';el.textContent=JSON.stringify(data);document.head.appendChild(el);}catch(e){}}
 function renderRecommendations(beat){if(!recommendGrid)return;recommendGrid.innerHTML="";getRecommendations(beat).forEach(rec=>{const card=document.createElement("button");card.type="button";card.className="recommend-card";const img=document.createElement("img");img.alt=rec.title;img.src=(rec.img||youtubeThumb(rec.youtube)||"assets/watermark.v2.png")+((rec.img||"").startsWith("assets/")?"?v=25":"");img.onerror=()=>{const t=youtubeThumb(rec.youtube);if(t)img.src=t;};card.appendChild(img);card.insertAdjacentHTML("beforeend",`<strong>${rec.title}</strong><span>${rec.tags.join(" • ")}</span>${readDNACache(beat)&&readDNACache(rec)?`<span class="recommend-match">${dnaSimilarity(beat,rec)}% DNA match</span>`:""}`);card.addEventListener("click",()=>openPreview(rec.title));recommendGrid.appendChild(card);});}
-window.openPreview=function openPreview(title){const beat=beats.find(b=>b.title===title)||beats[0];currentIndex=currentList.findIndex(b=>b.title===beat.title);if(currentIndex<0)currentIndex=beats.findIndex(b=>b.title===beat.title);updateRecent(beat.title);selectedBeatTitle=beat.title;beatSelect.value=beat.title;previewTitle.textContent=beat.title;previewVibe.textContent=beat.vibe||"";previewLease.href="#licenses";updatePreviewSaveButton();renderRecommendations(beat);renderBeatDNA(beat);voiceStatus.textContent=beat.video?"Ready: local MP4 preview loaded. Record creates a beat + vocal idea take when browser allows it.":"Voice memo only until this beat has a local MP4 preview.";voiceStatus.classList.remove("live");previewVideo.pause();previewVideo.removeAttribute("src");previewVideo.loop=true;previewVideo.classList.remove("show");previewFrame.classList.remove("show");previewFrame.src="about:blank";if(beat.video){previewVideo.src=beat.video+"?v=local5";previewVideo.classList.add("show");previewVideo.loop=true;previewVideo.load();previewVideo.onerror=()=>{if(beat.youtube){previewVideo.classList.remove("show");previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");voiceStatus.textContent="YouTube fallback loaded. Recording is mic-only unless the local MP4 exists.";}};setTimeout(()=>previewVideo.play().catch(()=>{}),80);}else if(beat.youtube){previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");}renderComments(beat.title);updateDynamicSeo(beat);previewModal.classList.add("show");previewModal.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+window.openPreview=function openPreview(title){const beat=beats.find(b=>b.title===title)||beats[0];currentIndex=currentList.findIndex(b=>b.title===beat.title);if(currentIndex<0)currentIndex=beats.findIndex(b=>b.title===beat.title);updateRecent(beat.title);selectedBeatTitle=beat.title;beatSelect.value=beat.title;previewTitle.textContent=beat.title;previewVibe.textContent=beat.vibe||"";previewLease.href="/#licenses";updatePreviewSaveButton();renderRecommendations(beat);renderBeatDNA(beat);voiceStatus.textContent=beat.video?"Ready: local MP4 preview loaded. Record creates a beat + vocal idea take when browser allows it.":"Voice memo only until this beat has a local MP4 preview.";voiceStatus.classList.remove("live");previewVideo.pause();previewVideo.removeAttribute("src");previewVideo.loop=true;previewVideo.classList.remove("show");previewFrame.classList.remove("show");previewFrame.src="about:blank";if(beat.video){previewVideo.src=beat.video+"?v=local5";previewVideo.classList.add("show");previewVideo.loop=true;previewVideo.load();previewVideo.onerror=()=>{if(beat.youtube){previewVideo.classList.remove("show");previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");voiceStatus.textContent="YouTube fallback loaded. Recording is mic-only unless the local MP4 exists.";}};setTimeout(()=>previewVideo.play().catch(()=>{}),80);}else if(beat.youtube){previewFrame.src=youtubeEmbed(beat.youtube);previewFrame.classList.add("show");}renderComments(beat.title);updateDynamicSeo(beat);previewModal.classList.add("show");previewModal.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
 function closePreview(){if(mediaRecorder&&mediaRecorder.state!=="inactive")stopVoiceRecording();previewModal.classList.remove("show");previewModal.setAttribute("aria-hidden","true");document.body.style.overflow="";previewVideo.pause();previewVideo.removeAttribute("src");previewFrame.src="about:blank";}
 function movePreview(dir){const list=currentList.length?currentList:beats;currentIndex=(currentIndex+dir+list.length)%list.length;openPreview(list[currentIndex].title);}
 function renderSelect(){beatSelect.innerHTML=`<option value="">Choose a beat...</option>`+beats.map(b=>`<option value="${b.title}">${b.title}</option>`).join("");}
@@ -3498,14 +3514,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function toggleShortlist(c,row){const list=getShortlist(),has=list.includes(c.title),next=has?list.filter(x=>x!==c.title):[...list,c.title];setShortlist(next);const b=$('.sync-save',row);if(b){b.classList.toggle('saved',!has);b.textContent=!has?'Shortlisted':'Shortlist';}if(shortlistOnly)render();}
   function detailModal(){let m=$('#syncDetailModal');if(m)return m;m=document.createElement('div');m.id='syncDetailModal';m.className='sync-detail-modal';m.innerHTML='<div class="sync-detail-card"><button class="sync-detail-close" type="button" aria-label="Close">×</button><div id="syncDetailBody"></div></div>';document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('.sync-detail-close'))m.classList.remove('show');});return m;}
-  function openDetails(c){const m=detailModal(),body=$('#syncDetailBody',m);body.innerHTML=`<div class="sync-eyebrow">SYNC CUE</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">${esc(c.description||'Original cue available for sync consideration.')}</p><div class="sync-detail-grid"><div><span>Duration</span><strong>${esc(c.duration)}</strong></div><div><span>BPM</span><strong>${esc(c.bpm)}</strong></div><div><span>Key</span><strong>${esc(c.key||'—')}</strong></div><div><span>Style</span><strong>${esc(c.style)}</strong></div><div><span>Mood</span><strong>${esc((c.mood||[]).join(', '))}</strong></div><div><span>Use</span><strong>${esc((c.uses||[]).map(x=>x.replace('-', ' / ')).join(', '))}</strong></div></div><div class="sync-detail-actions"><button class="sync-primary" id="syncModalPlay" type="button">Preview cue</button><button class="sync-secondary" id="syncCopyBrief" type="button" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Copy cue info</button><a class="sync-secondary" href="#contact" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Sync inquiry</a></div>`;
+  function openDetails(c){const m=detailModal(),body=$('#syncDetailBody',m);body.innerHTML=`<div class="sync-eyebrow">SYNC CUE</div><h3>${esc(c.title)}</h3><p class="sync-detail-description">${esc(c.description||'Original cue available for sync consideration.')}</p><div class="sync-detail-grid"><div><span>Duration</span><strong>${esc(c.duration)}</strong></div><div><span>BPM</span><strong>${esc(c.bpm)}</strong></div><div><span>Key</span><strong>${esc(c.key||'—')}</strong></div><div><span>Style</span><strong>${esc(c.style)}</strong></div><div><span>Mood</span><strong>${esc((c.mood||[]).join(', '))}</strong></div><div><span>Use</span><strong>${esc((c.uses||[]).map(x=>x.replace('-', ' / ')).join(', '))}</strong></div></div><div class="sync-detail-actions"><button class="sync-primary" id="syncModalPlay" type="button">Preview cue</button><button class="sync-secondary" id="syncCopyBrief" type="button" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Copy cue info</button><a class="sync-secondary" href="/#contact" style="color:var(--ink);border-color:rgba(8,8,8,.16)">Sync inquiry</a></div>`;
     $('#syncModalPlay',body).onclick=()=>{m.classList.remove('show');const row=$(`.sync-cue[data-cue="${CSS.escape(c.title)}"]`);if(row)playCue(c,row);else toastMsg('Cue is on another page. Search the title to preview it.');};
     $('#syncCopyBrief',body).onclick=async()=>{const value=`${c.title} | ${c.duration} | ${c.bpm} BPM${c.key?' | '+c.key:''} | ${c.style} | Mood: ${(c.mood||[]).join(', ')} | Use: ${(c.uses||[]).join(', ')}`;try{await navigator.clipboard.writeText(value);toastMsg('Cue info copied');}catch(e){toastMsg(value);}};
     m.classList.add('show');
   }
   function bindRows(){$$('.sync-cue').forEach(row=>{const c=SYNC_CUES.find(x=>x.title===row.dataset.cue);if(!c)return;$('.sync-play',row).onclick=()=>playCue(c,row);$('.sync-save',row).onclick=()=>toggleShortlist(c,row);$('.sync-details',row).onclick=()=>openDetails(c);const dnaBtn=$('.sync-dna-open',row);if(dnaBtn)dnaBtn.onclick=()=>{if(window.PrinceCaliSyncAI?.openDNA)window.PrinceCaliSyncAI.openDNA(c);else toastMsg('Sync DNA is still initializing — try again in a moment.');};const progress=$('.sync-progress',row);progress.oninput=()=>{if(activeCue===c.title&&activeAudio&&activeAudio.duration)activeAudio.currentTime=(+progress.value/1000)*activeAudio.duration;};});}
 
-  function routeSync(){const sync=location.hash==='#sync';document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>{window.scrollTo({top:0,behavior:'auto'});requestAnimationFrame(()=>paintIdleVisualizers());});setTimeout(paintIdleVisualizers,140);}else{stopAudio();$('#syncDetailModal')?.classList.remove('show');}}
+  function routeSync(){const sync=(location.pathname.replace(/\/+$/,'')==='/sync'||location.hash==='#sync');document.body.classList.toggle('sync-view',sync);if(sync){document.body.classList.remove('profile-view','feed-view','feed-locked');requestAnimationFrame(()=>{window.scrollTo({top:0,behavior:'auto'});requestAnimationFrame(()=>paintIdleVisualizers());});setTimeout(paintIdleVisualizers,140);}else{stopAudio();$('#syncDetailModal')?.classList.remove('show');}}
   function bind(){
     $('#syncSearch')?.addEventListener('input',()=>{currentPage=1;render();});
     $('#syncUseFilter')?.addEventListener('change',()=>{currentPage=1;render();});
@@ -3535,7 +3551,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (function(){
   function guard(){
     if(location.hash==='#profile'||location.hash==='#feed'||location.hash==='#news'){
-      history.replaceState(null,'','#catalog');
+      history.replaceState(null,'','/catalog/');
       document.body.classList.remove('profile-view','feed-view','feed-locked','profile-locked');
       setTimeout(()=>document.getElementById('catalog')?.scrollIntoView({behavior:'auto',block:'start'}),0);
     }
@@ -3659,7 +3675,7 @@ html body.sync-view #sync{
 
   /* Both Sync inquiry buttons and the modal inquiry button go to the real email/contact section. */
   document.addEventListener('click',function(e){
-    const link=e.target.closest('#sync a[href="#contact"], #syncDetailModal a[href="#contact"]');
+    const link=e.target.closest('#sync a[href="/#contact"], #syncDetailModal a[href="/#contact"]');
     if(link) leaveSyncAndOpenContact(e);
   },true);
 
@@ -3673,7 +3689,7 @@ html body.sync-view #sync{
 
   /* Guarantee Sync is never visible as the tail end of Catalog/Home. */
   function enforceRoute(){
-    const isSync=location.hash==='#sync';
+    const isSync=(location.pathname.replace(/\/+$/,'')==='/sync'||location.hash==='#sync');
     document.body.classList.toggle('sync-view',isSync);
     if(isSync){
       document.body.classList.remove('profile-view','feed-view','feed-locked','profile-locked');
@@ -3770,7 +3786,7 @@ body.dark-mode .pathway-beats{background:radial-gradient(circle at 88% 12%,rgba(
 (function(){
   'use strict';
   const HOME_HASHES=new Set(['','#top','#featured','#pathways','#activity','#timeline','#experience','#licenses','#contact','#admin']);
-  function isCatalogHash(){return location.hash==='#catalog'||/^#catalog-page-\d+$/.test(location.hash);}
+  function isCatalogHash(){return location.pathname.replace(/\/+$/,'')==='/catalog'||location.hash==='#catalog'||/^#catalog-page-\d+$/.test(location.hash);}
   function route(){
     const catalog=isCatalogHash();
     const sync=location.hash==='#sync';
@@ -3999,14 +4015,14 @@ function focusCue(title,play=false){const q=$('#syncSearch');if(q){q.value=title
 function briefTargets(text){const t=norm(text),target={energy:60,darkness:52,motion:62,space:62,punch:62,brightness:56,dynamics:64,density:60},uses=[],moods=[],bump=(k,v)=>target[k]=v;if(/car|auto|automotive|drive|vehicle/.test(t)){uses.push('advertising','digital');moods.push('uplifting','swagger');bump('energy',82);bump('motion',88);bump('brightness',72);bump('punch',76)}if(/trailer|teaser/.test(t)){uses.push('trailer','film-tv');moods.push('tension','dramatic','dark');bump('darkness',84);bump('punch',84);bump('dynamics',82)}if(/sport|highlight|athletic/.test(t)){uses.push('sports');moods.push('uplifting','swagger');bump('energy',88);bump('motion',90);bump('punch',84)}if(/documentary|docu|investigative/.test(t)){uses.push('documentary');moods.push('dramatic','emotional');bump('space',78);bump('density',48)}if(/film|tv|scene|dialogue/.test(t)){uses.push('film-tv');bump('space',80);bump('density',48)}if(/luxury|premium|fashion/.test(t)){moods.push('swagger');bump('space',74);bump('brightness',64);bump('energy',62)}if(/emotional|heart|reflective/.test(t)){moods.push('emotional');bump('space',82);bump('energy',48);bump('punch',48)}if(/dark|horror|tense|suspense/.test(t)){moods.push('dark','tension');bump('darkness',90);bump('brightness',30)}if(/upbeat|happy|bright|positive/.test(t)){moods.push('uplifting');bump('brightness',86);bump('energy',82);bump('darkness',24);bump('motion',82)}return {target,uses,moods,t}}
 function scoreBrief(c,data,brief){let score=100-(metricKeys.reduce((s,k)=>s+Math.abs(data.metrics[k]-brief.target[k]),0)/metricKeys.length),why=[];const lane=semanticLane(c);if(brief.moods.includes('dark')&&lane.bright&&!lane.dark)score-=24;if(brief.moods.includes('uplifting')&&lane.dark&&!lane.bright)score-=24;if(brief.target.motion>=80&&lane.slow)score-=16;if(brief.target.darkness>=80&&lane.action&&!lane.dark)score-=14;const cm=(c.mood||[]).map(norm),cu=(c.uses||[]).map(norm),ct=[c.title,c.style,...(c.tags||[])].map(norm).join(' ');brief.moods.forEach(x=>{if(cm.includes(x)){score+=9;why.push(x)}});brief.uses.forEach(x=>{if(cu.includes(x)){score+=11;why.push(x.replace('-',' / '))}});brief.t.split(/\s+/).filter(x=>x.length>3).forEach(x=>{if(ct.includes(x)){score+=2;if(!why.includes(x))why.push(x)}});return {score:clamp(Math.round(score),1,99),why:[...new Set(why)].slice(0,3)}}
 async function runBrief(text){const host=$('#pcSyncMatches'),status=$('#pcSyncAIStatus');if(!host)return;const clean=text.trim();if(!clean){status.textContent='Enter a brief first.';return}status.textContent='Sync AI is reading the cue library and comparing audio DNA…';host.classList.remove('show');host.innerHTML='';const brief=briefTargets(clean);const rows=await Promise.all(cues().map(async c=>{const data=await analyze(c);return {c,data,...scoreBrief(c,data,brief)}}));rows.sort((a,b)=>b.score-a.score);const top=rows.slice(0,3);host.innerHTML=top.map(x=>`<button type="button" class="pc-sync-match-card" data-brief-cue="${esc(x.c.title)}"><span class="pc-sync-match-score">${x.score}% brief match</span><strong>${esc(x.c.title)}</strong><span>${esc(x.c.style)} · ${esc((x.c.mood||[]).join(' / '))}</span><span>${esc(x.why.length?'Why: '+x.why.join(' • '):(x.data.source==='audio'?'Audio-DNA similarity':'Metadata similarity'))}</span></button>`).join('');host.classList.add('show');host.querySelectorAll('[data-brief-cue]').forEach(b=>b.onclick=()=>focusCue(b.dataset.briefCue,true));const real=rows.filter(x=>x.data.source==='audio').length;status.textContent=`Done. Compared ${rows.length} cues; ${real} used decoded MP3 DNA${real!==rows.length?', the rest used explicit metadata fallback':''}.`;}
-function openFinder(){if(location.hash!=='#sync'){location.hash='#sync';setTimeout(openFinder,180);return}const p=$('#pcSyncIntel');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>$('#pcSyncBrief')?.focus(),250)}
+function openFinder(){if(location.pathname.replace(/\/+$/,'')!=='/sync'){location.href='/sync/';return}const p=$('#pcSyncIntel');p?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>$('#pcSyncBrief')?.focus(),250)}
 function bind(){
   $('#pcSyncDNAClose')?.addEventListener('click',closeDNA);modal()?.addEventListener('click',e=>{if(e.target===modal())closeDNA()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDNA()});
   $('#pcSyncBriefGo')?.addEventListener('click',()=>runBrief($('#pcSyncBrief')?.value||''));$('#pcSyncBrief')?.addEventListener('keydown',e=>{if(e.key==='Enter')runBrief(e.currentTarget.value)});document.querySelectorAll('.pc-sync-brief-chip').forEach(b=>b.addEventListener('click',()=>{const i=$('#pcSyncBrief');if(i)i.value=b.textContent;runBrief(b.textContent)}));
   $('#pcSyncGuideButton')?.addEventListener('click',openFinder);
 }
 function warm(){let i=0,arr=cues().filter(c=>!readCache(c));const next=()=>{if(i>=arr.length)return;analyze(arr[i++]).finally(()=>('requestIdleCallback'in window?requestIdleCallback(next,{timeout:3000}):setTimeout(next,1400)))};if('requestIdleCallback'in window)requestIdleCallback(next,{timeout:3500});else setTimeout(next,1600)}
-function init(){bind();warm();window.PrinceCaliSyncAI={openDNA,analyze,runBrief,openFinder};if(location.hash==='#sync')setTimeout(()=>window.dispatchEvent(new Event('resize')),120)}
+function init(){bind();warm();window.PrinceCaliSyncAI={openDNA,analyze,runBrief,openFinder};if(location.pathname.replace(/\/+$/,'')==='/sync'||location.hash==='#sync')setTimeout(()=>window.dispatchEvent(new Event('resize')),120)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
