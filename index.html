@@ -32,7 +32,7 @@
 <meta content="Prince Cali beats, cinematic beats, beat licensing, sync licensing, production music, film cues, TV cues, Portland producer, Los Angeles producer, rap beats, trap beats, dark beats, luxury beats" name="keywords"/>
 <link href="https://princecali.com/" rel="canonical"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"MusicGroup","name":"Prince Cali","url":"https://princecali.com/","description":"Cinematic beat production, licensing, and creative projects by Prince Cali.","sameAs":["https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra","https://www.youtube.com/@princecali89/videos","https://www.tiktok.com/@therealprincecali"]}</script>
-<script id="princeCaliCreditsSchema" type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Prince Cali Music Credits","url":"https://princecali.com/#credits","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"MusicRecording","name":"Power To The People","byArtist":{"@type":"Person","name":"Sensei Clean","sameAs":"https://www.instagram.com/senseiclean/"},"contributor":{"@type":"Person","name":"Prince Cali","url":"https://princecali.com/"},"sameAs":["https://open.spotify.com/track/0H7meXiJoF9p3eN7aKIQjM","https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4"]}}]}</script>
+<script id="princeCaliCreditsSchema" type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Prince Cali Music Credits","url":"https://princecali.com/#credits","numberOfItems":0,"itemListElement":[]}</script>
 <style>
 :root{
   --ink:#080808;
@@ -1150,12 +1150,7 @@ body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
 <section class="reveal" id="credits" aria-labelledby="creditsTitle">
 <div class="credits-rule"></div>
 <div class="credits-intro"><div><div class="kicker">Official Work • Collaborations • Releases</div><h2 class="title" id="creditsTitle">Credit trophy case.</h2></div><p class="copy">A growing record of the artists and releases Prince Cali has worked with.</p><div class="credits-count" id="creditsCount">1 Credit</div></div>
-<div class="credits-grid" id="creditsGrid">
-<article class="credit-card" id="power-to-the-people-sensei-clean">
-<div class="credit-visual"><span class="credit-badge">Official Credit</span><div aria-hidden="true" class="credit-fallback"><span class="credit-initials">SC</span></div></div>
-<div class="credit-body"><div class="credit-artist">Sensei Clean • @senseiclean</div><h3>Power To The People</h3><p class="credit-description">Prince Cali worked with Sensei Clean on Power To The People.</p><div class="credit-links"><a class="credit-link primary" href="https://open.spotify.com/track/0H7meXiJoF9p3eN7aKIQjM" rel="noopener noreferrer" target="_blank">Spotify</a><a class="credit-link" href="https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4" rel="noopener noreferrer" target="_blank">Apple Music</a><a class="credit-link" href="https://www.instagram.com/senseiclean/" rel="noopener noreferrer" target="_blank">Instagram</a></div></div>
-</article>
-</div>
+<div class="credits-grid" id="creditsGrid"></div>
 </section>
 <section class="reveal" id="contact">
 <div class="contact-shell"><div><div class="kicker">Connect</div><h2 class="title">Work with Prince Cali.</h2><p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p><a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a></div><div class="contact-photo-wrap"><img alt="Prince Cali" class="contact-photo" onerror="this.parentElement.style.display='none'" src="assets/producer.Prince.Cali.png?v=25"/></div></div>
@@ -1194,6 +1189,8 @@ body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
 /* ================================================================
    PRINCE CALI CREDIT TROPHY CASE
 
+   THIS IS THE ONLY CREDIT SECTION YOU EVER EDIT.
+
    ADD A CREDIT LATER:
    1. Copy one complete { ... } block below.
    2. Paste it after the previous block with a comma between them.
@@ -1203,6 +1200,7 @@ body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
    Upload the image to your GitHub assets folder, then use:
    image:"assets/credits/artist-release.jpg"
    Leave image:"" to keep the premium initials trophy tile.
+   DO NOT ADD OR COPY CREDIT CARDS ANYWHERE IN THE HTML.
    ================================================================ */
 window.princeCaliCredits=[
   {
@@ -1215,7 +1213,7 @@ window.princeCaliCredits=[
     appleMusic:"https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4",
     creditLabel:"Official Credit",
     description:"Prince Cali worked with Sensei Clean on Power To The People.",
-    image:"",
+    image:"assets/Sensei pic.jpg",
     imageAlt:"Power To The People by Sensei Clean"
   }
 ];
