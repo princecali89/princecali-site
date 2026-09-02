@@ -31,7 +31,8 @@
 <meta content="Prince Cali" name="author"/>
 <meta content="Prince Cali beats, cinematic beats, beat licensing, sync licensing, production music, film cues, TV cues, Portland producer, Los Angeles producer, rap beats, trap beats, dark beats, luxury beats" name="keywords"/>
 <link href="https://princecali.com/" rel="canonical"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://princecali.com/#prince-cali","name":"Prince Cali","alternateName":"Cali","url":"https://princecali.com/","jobTitle":["Music Producer","Audio Engineer"],"description":"Los Angeles born music producer and audio engineer based in Portland.","sameAs":["YOUR-SPOTIFY-ARTIST-URL","YOUR-APPLE-MUSIC-ARTIST-URL","YOUR-YOUTUBE-URL","YOUR-INSTAGRAM-URL","YOUR-X-URL","YOUR-TIKTOK-URL","YOUR-BEATSTARS-URL"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MusicGroup","name":"Prince Cali","url":"https://princecali.com/","description":"Cinematic beat production, licensing, and creative projects by Prince Cali.","sameAs":["https://open.spotify.com/artist/1ae9GlSAXYarNpYm4eLnra","https://www.youtube.com/@princecali89/videos","https://www.tiktok.com/@therealprincecali"]}</script>
+<script id="princeCaliCreditsSchema" type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Prince Cali Music Credits","url":"https://princecali.com/#credits","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"MusicRecording","name":"Power To The People","byArtist":{"@type":"Person","name":"Sensei Clean","sameAs":"https://www.instagram.com/senseiclean/"},"contributor":{"@type":"Person","name":"Prince Cali","url":"https://princecali.com/"},"sameAs":["https://open.spotify.com/track/0H7meXiJoF9p3eN7aKIQjM","https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4"]}}]}</script>
 <style>
 :root{
   --ink:#080808;
@@ -891,6 +892,37 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 .pc-sync-dna-state{padding:6px 8px;border-radius:999px;background:rgba(181,138,64,.12);border:1px solid rgba(181,138,64,.2)}
 @media(max-width:700px){#sync .sync-actions{gap:7px!important}#sync .sync-mini{flex:1 1 calc(33.333% - 7px)!important;min-width:92px!important}}
 </style>
+<style id="pc-credits-trophy-case">
+#credits{overflow:hidden}
+.credits-intro{display:flex;align-items:end;justify-content:space-between;gap:36px;margin-bottom:36px}
+.credits-intro .copy{margin:0}
+.credits-count{padding:10px 14px;border:1px solid rgba(8,8,8,.12);border-radius:999px;background:rgba(255,255,255,.34);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.credits-rule{height:1px;background:linear-gradient(90deg,var(--gold),rgba(181,138,64,0));margin-bottom:28px}
+.credits-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.credit-card{position:relative;overflow:hidden;border:1px solid rgba(8,8,8,.12);border-radius:34px;background:rgba(255,255,255,.38);box-shadow:var(--shadow);transition:transform .3s ease,box-shadow .3s ease}
+.credit-card:hover{transform:translateY(-7px);box-shadow:0 38px 100px rgba(0,0,0,.15)}
+.credit-visual{aspect-ratio:1/1;position:relative;overflow:hidden;background:linear-gradient(145deg,#171310,#3a132d 52%,#7e151b)}
+.credit-visual>img{width:100%;height:100%;object-fit:cover}
+.credit-fallback{position:absolute;inset:0;display:grid;place-items:center;color:rgba(244,239,230,.94)}
+.credit-fallback:before{content:"";position:absolute;inset:9%;border:1px solid rgba(244,239,230,.24);border-radius:50%}
+.credit-fallback:after{content:"";position:absolute;width:36%;height:1px;background:var(--gold);transform:rotate(-36deg);opacity:.7}
+.credit-initials{position:relative;z-index:1;font-size:clamp(58px,8vw,112px);font-weight:900;letter-spacing:-.09em}
+.credit-badge{position:absolute;top:18px;left:18px;z-index:2;padding:9px 12px;border-radius:999px;background:linear-gradient(135deg,#f4e6bf,#c99a42);color:#1a1208;font-size:9px;letter-spacing:.13em;text-transform:uppercase;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.credit-body{padding:26px}
+.credit-artist{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.credit-body h3{font-size:clamp(28px,3vw,44px);line-height:.96;letter-spacing:-.05em;margin:9px 0 12px}
+.credit-description{font-size:16px;line-height:1.6;color:#4f4942;margin:0}
+.credit-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.credit-link{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 15px;border-radius:999px;border:1px solid var(--ink);font-size:10px;letter-spacing:.12em;text-transform:uppercase;transition:.22s ease}
+.credit-link.primary{background:var(--ink);color:var(--paper)}
+.credit-link:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.12)}
+body.dark-mode .credit-card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}
+body.dark-mode .credit-description,body.dark-mode .credit-artist,body.dark-mode .credits-count{color:rgba(247,240,231,.72)}
+body.dark-mode .credit-link{border-color:rgba(255,255,255,.7);color:#f7f0e7}
+body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
+@media(max-width:980px){.credits-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.credits-intro{align-items:start;flex-direction:column}.credits-grid{grid-template-columns:1fr}.credit-body{padding:22px}}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#featured">Skip to featured work</a>
@@ -898,13 +930,13 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 <nav>
 <a aria-label="Prince Cali Home" href="#top"><img alt="Prince Cali" class="nav-logo" src="assets/watermark.v2.png?v=25"/></a>
 <div class="nav-links">
-<a href="#featured">Featured</a><a href="#catalog">Catalog</a><a href="#sync">Sync</a><a href="#experience">Story</a><a href="#licenses">Licenses</a><a href="#contact">Contact</a>
+<a href="#featured">Featured</a><a href="#catalog">Catalog</a><a href="#sync">Sync</a><a href="#experience">Story</a><a href="#licenses">Licenses</a><a href="#credits">Credits</a><a href="#contact">Contact</a>
 </div>
 <button aria-label="Switch to dark mode" class="nav-theme-toggle" id="navThemeToggle" title="Switch to dark mode" type="button">
 <svg aria-hidden="true" viewBox="0 0 32 32"><defs><clipPath id="pcHalfMoonClip"><rect height="32" width="16" x="0" y="0"/></clipPath></defs><circle class="theme-orbit" cx="16" cy="16" r="10"/><circle class="theme-light-half" clip-path="url(#pcHalfMoonClip)" cx="16" cy="16" r="8"/><g class="theme-rays"><path d="M16 1v4M16 27v4M1 16h4M27 16h4M5.4 5.4l2.8 2.8M23.8 23.8l2.8 2.8M26.6 5.4l-2.8 2.8M8.2 23.8l-2.8 2.8"/></g></svg>
 </button>
 </nav>
-<div aria-label="Quick navigation" class="mobile-quick"><a href="#featured">Featured</a><a href="#catalog">Catalog</a><a href="#sync">Sync</a><a href="#contact">Contact</a></div>
+<div aria-label="Quick navigation" class="mobile-quick"><a href="#featured">Featured</a><a href="#catalog">Catalog</a><a href="#sync">Sync</a><a href="#credits">Credits</a><a href="#contact">Contact</a></div>
 <section class="hero" id="top">
 <div class="hero-text reveal">
 <img alt="" class="hero-mark" src="assets/watermark.v2.png?v=25"/>
@@ -1115,6 +1147,16 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 <div class="admin-card"><div class="kicker">Data</div><h3>Export / reset.</h3><button class="btn dark" id="adminExport" type="button">Copy local export</button> <button class="btn danger" id="adminReset" type="button">Reset local community</button><textarea class="save-code-box" id="adminExportBox" placeholder="Owner export appears here." readonly=""></textarea></div>
 </div>
 </section>
+<section class="reveal" id="credits" aria-labelledby="creditsTitle">
+<div class="credits-rule"></div>
+<div class="credits-intro"><div><div class="kicker">Official Work • Collaborations • Releases</div><h2 class="title" id="creditsTitle">Credit trophy case.</h2></div><p class="copy">A growing record of the artists and releases Prince Cali has worked with.</p><div class="credits-count" id="creditsCount">1 Credit</div></div>
+<div class="credits-grid" id="creditsGrid">
+<article class="credit-card" id="power-to-the-people-sensei-clean">
+<div class="credit-visual"><span class="credit-badge">Official Credit</span><div aria-hidden="true" class="credit-fallback"><span class="credit-initials">SC</span></div></div>
+<div class="credit-body"><div class="credit-artist">Sensei Clean • @senseiclean</div><h3>Power To The People</h3><p class="credit-description">Prince Cali worked with Sensei Clean on Power To The People.</p><div class="credit-links"><a class="credit-link primary" href="https://open.spotify.com/track/0H7meXiJoF9p3eN7aKIQjM" rel="noopener noreferrer" target="_blank">Spotify</a><a class="credit-link" href="https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4" rel="noopener noreferrer" target="_blank">Apple Music</a><a class="credit-link" href="https://www.instagram.com/senseiclean/" rel="noopener noreferrer" target="_blank">Instagram</a></div></div>
+</article>
+</div>
+</section>
 <section class="reveal" id="contact">
 <div class="contact-shell"><div><div class="kicker">Connect</div><h2 class="title">Work with Prince Cali.</h2><p class="copy">For beat leases, exclusive licensing, custom production, mixing, mastering, or collaborations, reach out directly.</p><a class="contact-card" href="mailto:princecali6989@gmail.com"><h3>Email</h3><p>Business, licensing, and collaboration inquiries.</p></a></div><div class="contact-photo-wrap"><img alt="Prince Cali" class="contact-photo" onerror="this.parentElement.style.display='none'" src="assets/producer.Prince.Cali.png?v=25"/></div></div>
 </section>
@@ -1148,6 +1190,89 @@ body.dark-mode #sync .sync-dna-open{color:#f7f1e7!important;background:rgba(181,
 </div>
 <div class="site-toast" id="siteToast"></div>
 <footer><div>© 2026 Prince Cali</div><div>Official Prince Cali Website</div></footer>
+<script>
+/* ================================================================
+   PRINCE CALI CREDIT TROPHY CASE
+
+   ADD A CREDIT LATER:
+   1. Copy one complete { ... } block below.
+   2. Paste it after the previous block with a comma between them.
+   3. Change the artist, title and links.
+
+   OPTIONAL IMAGE:
+   Upload the image to your GitHub assets folder, then use:
+   image:"assets/credits/artist-release.jpg"
+   Leave image:"" to keep the premium initials trophy tile.
+   ================================================================ */
+window.princeCaliCredits=[
+  {
+    id:"power-to-the-people-sensei-clean",
+    title:"Power To The People",
+    artist:"Sensei Clean",
+    instagramHandle:"@senseiclean",
+    instagram:"https://www.instagram.com/senseiclean/",
+    spotify:"https://open.spotify.com/track/0H7meXiJoF9p3eN7aKIQjM",
+    appleMusic:"https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4",
+    creditLabel:"Official Credit",
+    description:"Prince Cali worked with Sensei Clean on Power To The People.",
+    image:"",
+    imageAlt:"Power To The People by Sensei Clean"
+  }
+];
+
+(()=>{
+  const credits=Array.isArray(window.princeCaliCredits)?window.princeCaliCredits:[];
+  const grid=document.getElementById('creditsGrid');
+  const count=document.getElementById('creditsCount');
+  const safeUrl=value=>/^https?:\/\//i.test(String(value||''))?String(value):'';
+  const initials=name=>String(name||'PC').trim().split(/\s+/).slice(0,2).map(part=>part[0]||'').join('').toUpperCase();
+
+  function makeLink(label,url,primary){
+    const href=safeUrl(url);if(!href)return null;
+    const link=document.createElement('a');
+    link.className='credit-link'+(primary?' primary':'');
+    link.href=href;link.target='_blank';link.rel='noopener noreferrer';link.textContent=label;
+    return link;
+  }
+
+  function addFallback(visual,artist){
+    const fallback=document.createElement('div');fallback.className='credit-fallback';fallback.setAttribute('aria-hidden','true');
+    const letters=document.createElement('span');letters.className='credit-initials';letters.textContent=initials(artist);
+    fallback.appendChild(letters);visual.appendChild(fallback);
+  }
+
+  function makeCard(credit){
+    const card=document.createElement('article');card.className='credit-card';card.id=String(credit.id||'credit').replace(/[^a-z0-9_-]/gi,'-').toLowerCase();
+    const visual=document.createElement('div');visual.className='credit-visual';
+    const badge=document.createElement('span');badge.className='credit-badge';badge.textContent=credit.creditLabel||'Official Credit';visual.appendChild(badge);
+    if(credit.image){
+      const image=document.createElement('img');image.src=String(credit.image);image.alt=credit.imageAlt||((credit.title||'Release')+' by '+(credit.artist||'artist'));image.loading='lazy';image.decoding='async';
+      image.addEventListener('error',()=>{image.remove();addFallback(visual,credit.artist)},{once:true});visual.appendChild(image);
+    }else addFallback(visual,credit.artist);
+    const body=document.createElement('div');body.className='credit-body';
+    const artist=document.createElement('div');artist.className='credit-artist';artist.textContent=[credit.artist,credit.instagramHandle].filter(Boolean).join(' • ');
+    const title=document.createElement('h3');title.textContent=credit.title||'Untitled Credit';
+    const description=document.createElement('p');description.className='credit-description';description.textContent=credit.description||('Prince Cali worked with '+(credit.artist||'this artist')+' on this release.');
+    const links=document.createElement('div');links.className='credit-links';
+    [makeLink('Spotify',credit.spotify,true),makeLink('Apple Music',credit.appleMusic,false),makeLink('Instagram',credit.instagram,false)].filter(Boolean).forEach(link=>links.appendChild(link));
+    body.append(artist,title,description,links);card.append(visual,body);return card;
+  }
+
+  if(grid&&credits.length)grid.replaceChildren(...credits.map(makeCard));
+  if(count)count.textContent=credits.length+' '+(credits.length===1?'Credit':'Credits');
+
+  const schema={
+    '@context':'https://schema.org','@type':'ItemList',name:'Prince Cali Music Credits',url:'https://princecali.com/#credits',numberOfItems:credits.length,
+    itemListElement:credits.map((credit,index)=>{
+      const item={'@type':'MusicRecording',name:credit.title,byArtist:{'@type':'Person',name:credit.artist},contributor:{'@type':'Person',name:'Prince Cali',url:'https://princecali.com/'},sameAs:[safeUrl(credit.spotify),safeUrl(credit.appleMusic)].filter(Boolean)};
+      if(safeUrl(credit.instagram))item.byArtist.sameAs=safeUrl(credit.instagram);
+      if(credit.image)item.image=new URL(String(credit.image),document.baseURI).href;
+      return {'@type':'ListItem',position:index+1,item};
+    })
+  };
+  const schemaNode=document.getElementById('princeCaliCreditsSchema');if(schemaNode)schemaNode.textContent=JSON.stringify(schema);
+})();
+</script>
 <script>
 const beats=window.beats=[
 {title:"Ski Mask",img:"assets/Ski Mask.png",video:"assets/Ski Mask.mp4",tags:["Rap","Hip-Hop"],vibe:"Rap, Dark street energy.",audio:"",featured:true},
