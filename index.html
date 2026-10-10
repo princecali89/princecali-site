@@ -1205,7 +1205,8 @@ body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
    Leave image:"" to keep the premium initials showcase tile.
    DO NOT ADD OR COPY CREDIT CARDS ANYWHERE IN THE HTML.
    ================================================================ */
-{
+window.princeCaliCredits=[
+  {
     id:"power-to-the-people-sensei-clean",
     title:"Power To The People",
     artist:"Sensei Clean",
@@ -1215,7 +1216,7 @@ body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
     appleMusic:"https://music.apple.com/us/album/power-to-the-people-single/6806956340?uo=4",
     creditLabel:"Official Credit",
     description:"Prince Cali worked with Sensei Clean on Power To The People.",
-    image:"images/Sensei Clean pic.webp",
+    image:"assets/Sensei pic.webp",
     imageAlt:"Power To The People by Sensei Clean"
   },
   {
@@ -1227,12 +1228,12 @@ body.dark-mode .credit-link.primary{background:#f7f0e7;color:#0b0908}
     spotify:"https://open.spotify.com/album/1QpNAlDYbrJMXLtAjki3PA?si=VR9VTyRKTXKP2otB2wQ2qw",
     creditLabel:"Official Credit",
     description:"Prince Cali worked with QDOG on TEAR$.",
-    image:"images/QDOG pic.jpg",
+    image:"assets/QDOG pic.jpg",
     imageAlt:"TEAR$ by QDOG"
   }
-
 ];
 
+  
 (()=>{
   const credits=Array.isArray(window.princeCaliCredits)?window.princeCaliCredits:[];
   const grid=document.getElementById('creditsGrid');
